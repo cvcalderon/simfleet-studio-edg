@@ -1,0 +1,35 @@
+# Python environment and caches
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+# Local IDE/system settings
+.idea/
+.vscode/
+.DS_Store
+# Secrets
+.env
+.env.*
+!.env.example
+# Research data: leave directory markers only
+/data/raw/*
+!/data/raw/.gitkeep
+/data/external/*
+!/data/external/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+# Generated outputs: leave directory markers only
+/artifacts/runs/*
+!/artifacts/runs/.gitkeep
+/artifacts/reports/*
+!/artifacts/reports/.gitkeep
+# Scratch files
+/tmp/

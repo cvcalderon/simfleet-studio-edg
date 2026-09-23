@@ -1,0 +1,43 @@
+# Historical reference points only. These are NOT a new execution contract.
+# Verify source provenance and algorithms against canonical documents before R1–R7.
+source: historical_f0_f2_pre_f3
+status: REFERENCE_ONLY_NOT_EXECUTABLE
+seeds:
+  split: 20260912
+  p_trs_generation: 20260922
+  p_trs_geography: 20260923
+  d_match_diagnostic: 20260924
+anchors:
+  r2:
+    berlin_households: 1770
+    private_households: 1763
+    strict_donor_households: 1742
+    train: 1219
+    calibration: 263
+    test: 260
+  r3:
+    scale: S
+    persons: 10000
+    households: 5663
+    expected_checks: 23
+  r4:
+    scale: M
+    persons: 100000
+    households: 56365
+    expected_checks: 23
+  r5:
+    person_days: 100000
+    complete_exact_replay: 65963
+    trip_intents: 194457
+  r6:
+    person_days: 100000
+    self_diary_matches: 0
+    global_fallbacks: 0
+    trip_intents: 291508
+    tier_counts: {T1: 94322, T2: 3929, T3: 1535, T4: 214}
+  r7:
+    strict_trip_day_share_approx: 0.879248
+    full_diary_pool_trip_day_share_approx: 0.838808
+    matched_trip_day_share_approx: 0.844260
+    strict_trips_per_day_approx: 3.1902
+    matched_trips_per_day_approx: 2.9151
