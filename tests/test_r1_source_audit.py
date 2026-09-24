@@ -12,3 +12,12 @@ def test_sha256_file(tmp_path: Path) -> None:
 def test_r1_config_present() -> None:
     root = Path(__file__).resolve().parents[1]
     assert (root / "configs" / "reproduction" / "r1_source_audit.yaml").is_file()
+
+
+def test_r1_config_uses_frozen_g0_glossary_hash() -> None:
+    import yaml
+
+    root = Path(__file__).resolve().parents[1]
+    config = yaml.safe_load((root / "configs" / "reproduction" / "r1_source_audit.yaml").read_text())
+    glossary = next(source for source in config["sources"] if source["source_id"] == "Z22_BERLIN_GLOSSARY")
+    assert glossary["sha256"] == "ebd66160413268167b9962876aca4ff9bd46b7ea76eefb6e77955149b1662e4f"

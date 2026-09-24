@@ -1,149 +1,149 @@
-schema_version: simfleet-studio-edg-r1-source-audit-v1
+schema_version: simfleet-studio-edg-r1-source-audit-v2
 phase_id: R1
 run_id: R1_source_audit_v1
 status: FROZEN_FOR_REPRODUCTION
 project_name: simfleet-studio-edg
 raw_root: data/raw
 strict_git_state: true
-
 sources:
-  - source_id: MID_B1_DOC_ZIP
-    family: MID2017_B1
-    path: data/raw/mid/MiD2017_B1_Codebook_Nutzerhandbuch.zip
-    kind: zip
-    required: true
-    sha256: f61d763a86d22591dfa24f76e79a69fadb01e9371d525b3eeca8f14c14ee72fa
-
-  - source_id: MID_B1_DATA_ZIP
-    family: MID2017_B1
-    path: data/raw/mid/MiD2017_B1_Datensatzpaket.zip
-    kind: zip
-    required: true
-    sha256: d41a0f1631d173975217293509bfee80285e2ff0de5ab06867bae44674fa5d93
-
-  - source_id: MID_B1_HH
-    family: MID2017_B1
-    path: data/raw/mid/MiD2017_Haushalte.csv
-    kind: csv
-    required: true
-    sha256: 0d7a20b5f29839a29ce0b41ffaecaca15da844ff85e15d1acc6fe786c9bde4f5
-    expected_rows: 156420
-    expected_columns: 86
-    required_columns: [H_ID, H_ART, H_GR, H_GEW]
-
-  - source_id: MID_B1_PERSON
-    family: MID2017_B1
-    path: data/raw/mid/MiD2017_Personen.csv
-    kind: csv
-    required: true
-    sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
-    expected_rows: 316361
-    expected_columns: 193
-    required_columns: [H_ID, P_ID, HP_SEX, HP_ALTER, HP_TAET, P_GEW]
-
-  - source_id: MID_B1_TRIPS
-    family: MID2017_B1
-    path: data/raw/mid/MiD2017_Wege.csv
-    kind: csv
-    required: true
-    sha256: ff59f15cbf5596828857bed17a566d501e57b5c2c53dd4c6beae3385d0ed94dd
-    expected_rows: 960619
-    expected_columns: 172
-    required_columns: [H_ID, P_ID, wegkm, W_GEW]
-
-  - source_id: MID_B1_CARS
-    family: MID2017_B1
-    path: data/raw/mid/MiD2017_Autos.csv
-    kind: csv
-    required: true
-    sha256: 87704639258f28cb40b1a661f01539540a60e5e9d148bb49d7474fdb8ab44347
-    expected_rows: 216844
-    expected_columns: 70
-
-  - source_id: MID_B1_JOURNEYS
-    family: MID2017_B1
-    path: data/raw/mid/MiD2017_Reisen.csv
-    kind: csv
-    required: true
-    sha256: bf32a0d5c42e8bd9b354a8cbd9ba2aa58d065b64fe6ed8582b9093c1fda04c56
-    expected_rows: 38905
-    expected_columns: 72
-
-  - source_id: MID_B1_STAGES
-    family: MID2017_B1
-    path: data/raw/mid/MiD2017_Etappen.csv
-    kind: csv
-    required: true
-    sha256: 4d1eb4daf5821fa36c408c3453a9c02b5d7cd2f2fd42f1f83e13b9988c1cac97
-    expected_rows: 11000
-    expected_columns: 92
-
-  - source_id: Z22_BERLIN_BGR
-    family: ZENSUS2022_BERLIN
-    path: data/raw/zensus/Zensus_2022_BE_SKA_110000000000_Bezirksregionen.xlsx
-    kind: xlsx
-    required: true
-    sha256: 2d8f2d16c150377f33dbe7a88b5fa9b860f42cfa1d186442305ec4b37fd056b3
-    expected_sheets: 39
-
-  - source_id: Z22_BERLIN_PLR
-    family: ZENSUS2022_BERLIN
-    path: data/raw/zensus/SKA_110000000000_Planungsraum.xlsx
-    kind: xlsx
-    required: true
-    sha256: 0d5523ba7035305c5e3df39b9423251dff71f5797c20b16ade2650af240c3088
-    expected_sheets: 39
-
-  - source_id: Z22_BERLIN_BLOCK
-    family: ZENSUS2022_BERLIN
-    path: data/raw/zensus/SKA_110000000000_Statistische_Bloecke.xlsx
-    kind: xlsx
-    required: false
-    sha256: 85983f9904bbb14d7e2a8a76f03acbd0fd9f4dd140c98a38a03965550298be27
-    expected_sheets: 38
-
-  - source_id: Z22_BERLIN_CATALOG
-    family: ZENSUS2022_BERLIN
-    path: data/raw/zensus/Merkmalskatalog-kleinraeumige-Auswertung.xlsx
-    kind: xlsx
-    required: true
-    sha256: af9679d9647f087ade12b27e513c402982c57581e89546f00dc09cf52e9a0e99
-    expected_sheets: 10
-
-  - source_id: Z22_BERLIN_GLOSSARY
-    family: ZENSUS2022_BERLIN
-    path: data/raw/zensus/Glossar-SKA-berlin-brandenburg-zensus2022.pdf
-    kind: pdf
-    required: true
-    sha256: a4f3e5884a3ba4966a29c63eede4f20844b6cc673da1dc06f975717926ee2bdf
-
-  - source_id: LOR2021_ZIP
-    family: LOR2021_BERLIN
-    path: data/raw/lor/LOR2021-native_projection.zip
-    kind: zip
-    required: true
-    sha256: 275bcc93c5c2cfd6cc5980ad6df46730e1be703aaf76d21102a44763a93c8de0
-
-  - source_id: LOR2021_PLR
-    family: LOR2021_BERLIN
-    path: data/raw/lor/lor_2021_a_lor_plr_2021_WGS84.geojson
-    kind: geojson
-    required: true
-    sha256: a19e3d75adb663225150abd833ffb2ca69cea156ff1356d342c92612e2cb3ff5
-    expected_features: 542
-
-  - source_id: LOR2021_BZR
-    family: LOR2021_BERLIN
-    path: data/raw/lor/lor_2021_b_lor_bzr_2021_WGS84.geojson
-    kind: geojson
-    required: true
-    sha256: 6048918bfb1d74d546a0a145e996645ea6c0906e8a77718f04fcedb436c030d0
-    expected_features: 143
-
-  - source_id: LOR2021_PGR
-    family: LOR2021_BERLIN
-    path: data/raw/lor/lor_2021_c_lor_pgr_2021_WGS84.geojson
-    kind: geojson
-    required: true
-    sha256: 8e6fcf3be62fe85fc72c71aa5c884c94b72d91d0674a868cf898c33025eaac52
-    expected_features: 58
+- source_id: MID_B1_DOC_ZIP
+  family: MID2017_B1
+  path: data/raw/mid/MiD2017_B1_Codebook_Nutzerhandbuch.zip
+  kind: zip
+  required: true
+  sha256: f61d763a86d22591dfa24f76e79a69fadb01e9371d525b3eeca8f14c14ee72fa
+- source_id: MID_B1_DATA_ZIP
+  family: MID2017_B1
+  path: data/raw/mid/MiD2017_B1_Datensatzpaket.zip
+  kind: zip
+  required: true
+  sha256: d41a0f1631d173975217293509bfee80285e2ff0de5ab06867bae44674fa5d93
+- source_id: MID_B1_HH
+  family: MID2017_B1
+  path: data/raw/mid/MiD2017_Haushalte.csv
+  kind: csv
+  required: true
+  sha256: 0d7a20b5f29839a29ce0b41ffaecaca15da844ff85e15d1acc6fe786c9bde4f5
+  expected_rows: 156420
+  expected_columns: 86
+  required_columns:
+  - H_ID
+  - H_ART
+  - H_GR
+  - H_GEW
+- source_id: MID_B1_PERSON
+  family: MID2017_B1
+  path: data/raw/mid/MiD2017_Personen.csv
+  kind: csv
+  required: true
+  sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+  expected_rows: 316361
+  expected_columns: 193
+  required_columns:
+  - H_ID
+  - P_ID
+  - HP_SEX
+  - HP_ALTER
+  - HP_TAET
+  - P_GEW
+- source_id: MID_B1_TRIPS
+  family: MID2017_B1
+  path: data/raw/mid/MiD2017_Wege.csv
+  kind: csv
+  required: true
+  sha256: ff59f15cbf5596828857bed17a566d501e57b5c2c53dd4c6beae3385d0ed94dd
+  expected_rows: 960619
+  expected_columns: 172
+  required_columns:
+  - H_ID
+  - P_ID
+  - wegkm
+  - W_GEW
+- source_id: MID_B1_CARS
+  family: MID2017_B1
+  path: data/raw/mid/MiD2017_Autos.csv
+  kind: csv
+  required: true
+  sha256: 87704639258f28cb40b1a661f01539540a60e5e9d148bb49d7474fdb8ab44347
+  expected_rows: 216844
+  expected_columns: 70
+- source_id: MID_B1_JOURNEYS
+  family: MID2017_B1
+  path: data/raw/mid/MiD2017_Reisen.csv
+  kind: csv
+  required: true
+  sha256: bf32a0d5c42e8bd9b354a8cbd9ba2aa58d065b64fe6ed8582b9093c1fda04c56
+  expected_rows: 38905
+  expected_columns: 72
+- source_id: MID_B1_STAGES
+  family: MID2017_B1
+  path: data/raw/mid/MiD2017_Etappen.csv
+  kind: csv
+  required: true
+  sha256: 4d1eb4daf5821fa36c408c3453a9c02b5d7cd2f2fd42f1f83e13b9988c1cac97
+  expected_rows: 11000
+  expected_columns: 92
+- source_id: Z22_BERLIN_BGR
+  family: ZENSUS2022_BERLIN
+  path: data/raw/zensus/Zensus_2022_BE_SKA_110000000000_Bezirksregionen.xlsx
+  kind: xlsx
+  required: true
+  sha256: 2d8f2d16c150377f33dbe7a88b5fa9b860f42cfa1d186442305ec4b37fd056b3
+  expected_sheets: 39
+- source_id: Z22_BERLIN_PLR
+  family: ZENSUS2022_BERLIN
+  path: data/raw/zensus/SKA_110000000000_Planungsraum.xlsx
+  kind: xlsx
+  required: true
+  sha256: 0d5523ba7035305c5e3df39b9423251dff71f5797c20b16ade2650af240c3088
+  expected_sheets: 39
+- source_id: Z22_BERLIN_BLOCK
+  family: ZENSUS2022_BERLIN
+  path: data/raw/zensus/SKA_110000000000_Statistische_Bloecke.xlsx
+  kind: xlsx
+  required: false
+  sha256: 85983f9904bbb14d7e2a8a76f03acbd0fd9f4dd140c98a38a03965550298be27
+  expected_sheets: 38
+- source_id: Z22_BERLIN_CATALOG
+  family: ZENSUS2022_BERLIN
+  path: data/raw/zensus/Merkmalskatalog-kleinraeumige-Auswertung.xlsx
+  kind: xlsx
+  required: true
+  sha256: af9679d9647f087ade12b27e513c402982c57581e89546f00dc09cf52e9a0e99
+  expected_sheets: 10
+- source_id: Z22_BERLIN_GLOSSARY
+  family: ZENSUS2022_BERLIN
+  path: data/raw/zensus/Glossar-SKA-berlin-brandenburg-zensus2022.pdf
+  kind: pdf
+  required: true
+  sha256: ebd66160413268167b9962876aca4ff9bd46b7ea76eefb6e77955149b1662e4f
+  baseline_note: F0.4 rebaseline of validated 13-page glossary; supersedes historical
+    F0.1 byte hash for R1 reproduction.
+- source_id: LOR2021_ZIP
+  family: LOR2021_BERLIN
+  path: data/raw/lor/LOR2021-native_projection.zip
+  kind: zip
+  required: true
+  sha256: 275bcc93c5c2cfd6cc5980ad6df46730e1be703aaf76d21102a44763a93c8de0
+- source_id: LOR2021_PLR
+  family: LOR2021_BERLIN
+  path: data/raw/lor/lor_2021_a_lor_plr_2021_WGS84.geojson
+  kind: geojson
+  required: true
+  sha256: a19e3d75adb663225150abd833ffb2ca69cea156ff1356d342c92612e2cb3ff5
+  expected_features: 542
+- source_id: LOR2021_BZR
+  family: LOR2021_BERLIN
+  path: data/raw/lor/lor_2021_b_lor_bzr_2021_WGS84.geojson
+  kind: geojson
+  required: true
+  sha256: 6048918bfb1d74d546a0a145e996645ea6c0906e8a77718f04fcedb436c030d0
+  expected_features: 143
+- source_id: LOR2021_PGR
+  family: LOR2021_BERLIN
+  path: data/raw/lor/lor_2021_c_lor_pgr_2021_WGS84.geojson
+  kind: geojson
+  required: true
+  sha256: 8e6fcf3be62fe85fc72c71aa5c884c94b72d91d0674a868cf898c33025eaac52
+  expected_features: 58
+baseline_reference: F0.4/G0 frozen source baseline
