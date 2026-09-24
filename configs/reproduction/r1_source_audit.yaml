@@ -1,4 +1,4 @@
-schema_version: simfleet-studio-edg-r1-source-audit-v2
+schema_version: simfleet-studio-edg-r1-source-audit-v3
 phase_id: R1
 run_id: R1_source_audit_v1
 status: FROZEN_FOR_REPRODUCTION
@@ -116,9 +116,9 @@ sources:
   path: data/raw/zensus/Glossar-SKA-berlin-brandenburg-zensus2022.pdf
   kind: pdf
   required: true
-  sha256: ebd66160413268167b9962876aca4ff9bd46b7ea76eefb6e77955149b1662e4f
-  baseline_note: F0.4 rebaseline of validated 13-page glossary; supersedes historical
-    F0.1 byte hash for R1 reproduction.
+  sha256: a4f3e5884a3ba4966a29c63eede4f20844b6cc673da1dc06f975717926ee2bdf
+  baseline_note: Reproducible official-source identity restored by G0 provenance amendment; matches F0.1 local freeze and a fresh official download verified during R1 diagnosis.
+  superseded_local_copy_sha256: ebd66160413268167b9962876aca4ff9bd46b7ea76eefb6e77955149b1662e4f
 - source_id: LOR2021_ZIP
   family: LOR2021_BERLIN
   path: data/raw/lor/LOR2021-native_projection.zip
@@ -146,4 +146,4 @@ sources:
   required: true
   sha256: 8e6fcf3be62fe85fc72c71aa5c884c94b72d91d0674a868cf898c33025eaac52
   expected_features: 58
-baseline_reference: F0.4/G0 frozen source baseline
+baseline_reference: G0 source-provenance amendment v2; source semantics/contracts unchanged
