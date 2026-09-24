@@ -1,4 +1,4 @@
-"""Minimal shell entry point; future CLI is not implemented yet."""
+"""Minimal package entry point for SimFleet Studio EDG."""
 
 from argparse import ArgumentParser
 
@@ -6,8 +6,12 @@ from simfleet_edg import __version__
 
 
 def main() -> None:
-    parser = ArgumentParser(description="SimFleet-EDG scaffold (not a generator yet)")
-    parser.add_argument("--version", action="version", version=f"simfleet-edg {__version__}")
+    parser = ArgumentParser(description="SimFleet Studio EDG scientific reproducibility core")
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"simfleet-studio-edg {__version__}",
+    )
     parser.parse_args()
     parser.print_help()
 

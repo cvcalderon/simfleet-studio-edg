@@ -1,0 +1,45 @@
+schema_version: simfleet-studio-edg-r0-config-v1
+phase_id: R0
+work_package: PRE_F3_REPRODUCTION
+status: FROZEN_FOR_R0_EXECUTION
+
+project:
+  distribution_name: simfleet-studio-edg
+  import_package: simfleet_edg
+  expected_version: 0.0.1
+
+runtime:
+  python_major_minor: "3.12"
+  required_packages:
+    - numpy
+    - pandas
+    - pyarrow
+    - PyYAML
+    - pydantic
+    - jupyterlab
+    - ipykernel
+    - matplotlib
+    - pytest
+    - pytest-cov
+    - ruff
+    - mypy
+
+git:
+  expected_branch: main
+  require_clean_worktree: true
+  require_upstream: true
+  require_upstream_sync: true
+
+capture:
+  include_hostname: false
+  include_remote_urls: false
+  include_all_python_distributions: true
+  include_pip_freeze: true
+  environment_variables_allowlist:
+    - LANG
+    - LC_ALL
+    - TZ
+    - PYTHONHASHSEED
+    - OMP_NUM_THREADS
+    - MKL_NUM_THREADS
+    - OPENBLAS_NUM_THREADS
