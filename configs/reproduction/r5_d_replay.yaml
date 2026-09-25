@@ -1,0 +1,101 @@
+schema_version: simfleet-studio-edg-r5-d-replay-v1
+phase_id: R5
+run_id: R5_d_replay_v1
+status: FROZEN_FOR_REPRODUCTION
+project_name: simfleet-studio-edg
+strict_git_state: true
+result_label: PRE-G1 EXPERIMENTAL DIAGNOSTIC
+formal_gate_eligible: false
+
+sources:
+  r4_persons:
+    path: artifacts/runs/R4_ptrs_m_v1/simfleet_edg_P_TRS_EXP_V1_M_persons_v1.csv
+    sha256: e75c5c2ba417ddbd87bc074796f6052675cc325c1cec1f671fb8faf288edf70c
+  raw_persons:
+    path: data/raw/mid/MiD2017_Personen.csv
+    sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+  r2_split_manifest:
+    path: artifacts/runs/R2_eligibility_split_v1/split_manifest_reproduced.csv
+    sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  activity_recoding:
+    path: configs/reproduction/reference/f0_2d_activity_recoding_v1.csv
+    sha256: 85e17e7c718133b616cd8c872f905dbd95d2369ff1ba423037087a894623e86a
+  f0_3b_personday_coverage:
+    path: configs/reproduction/reference/simfleet_edg_F0_3b_berlin_personday_coverage_v1.csv
+    sha256: 686b5d50d4ca42b494b556f9680e754a97bd69b753a61bdb2de1bcdc911ca053
+  f0_3c_trip_transition:
+    path: configs/reproduction/reference/simfleet_edg_F0_3c_berlin_trip_transition_audit_v1.csv
+    sha256: 5110c3d308c1be30d2e5084cb244466c2257914219751bcace6213939d3a5b1c
+  f0_3c_person_sequence:
+    path: configs/reproduction/reference/simfleet_edg_F0_3c_berlin_person_sequence_eligibility_v1.csv
+    sha256: 29caedf88ff0b2e894681ef977a2d2f688dc2d6e0762c8ac571bb9d359eea191
+  f0_3d_trip_time:
+    path: configs/reproduction/reference/simfleet_edg_F0_3d_berlin_trip_time_audit_v1.csv
+    sha256: 4b23543f941004c7af7fcc350a67ec47dea4b2eec36478522384d224ad0148f2
+  f0_3d_temporal_sequence:
+    path: configs/reproduction/reference/simfleet_edg_F0_3d_berlin_temporal_sequence_eligibility_v1.csv
+    sha256: 4ea23cbbd3393b66e42fd30ae741201df0e75aa962c6ee887a82d0001586e100
+  f0_3e_trip_spatial:
+    path: configs/reproduction/reference/simfleet_edg_F0_3e_berlin_trip_spatial_coverage_v1.csv
+    sha256: f9292252ac5e7deb871ef6230c47f4f4edb8eb3e033b8bff891c33708ddf41a1
+
+replay:
+  variant_id: D_REPLAY_EXACT_V1
+  generated_person_days: 100000
+  definition: exact source person-day only; never substitutes another donor
+  source_diary_pool:
+    split: TRAIN
+    household_eligibility: STRICT_RMIN_DONOR
+    expected_person_days_total: 2200
+    expected_full_day_donors: 1658
+    expected_full_day_zero_trip: 261
+    expected_full_day_mobile: 1397
+  expected_assignment_status:
+    COMPLETE_MOBILE_DAY: 55890
+    PARTIAL_COUNT_OR_CHAIN_ONLY: 17867
+    UNAVAILABLE_NO_PERSONDAY: 10541
+    COMPLETE_ZERO_TRIP: 10073
+    PARTIAL_PARTICIPATION_ONLY: 3761
+    OUT_OF_SCOPE_FAR_ABROAD: 1230
+    UNKNOWN_MOBILITY: 408
+    SENSITIVITY_NONMOBILE_REPORTING_RISK: 230
+  expected_complete_person_days: 65963
+  expected_complete_share: 0.65963
+  expected_trip_intents: 194457
+  expected_distance_status:
+    DIRECT_SOURCE_DISTANCE_VALID: 186120
+    DIRECT_SOURCE_DISTANCE_MISSING_IMPUTED: 6231
+    DIRECT_SOURCE_DISTANCE_IMPLAUSIBLE_IMPUTED: 1282
+    DIRECT_NO_DETAIL_DISTANCE_IMPUTED: 824
+  expected_destination_resolution:
+    DIRECT_FROM_W_ZWECK: 192516
+    CONTEXT_RESOLVED_RETURN_TO_PREVIOUS_ORIGIN: 1941
+
+historical_witness:
+  exact_artifacts:
+    simfleet_edg_F2_1_D_REPLAY_EXACT_V1_persondays.csv: bfaf6fef961d1402392948efafad387bc6527c7938a31725e331672cfd895a5e
+    simfleet_edg_F2_1_D_REPLAY_EXACT_V1_trips.csv: 5c4fedaa6db1d86aed9e51eea78ea87a991b57dd601e602cf16c5b9d33663698
+    simfleet_edg_F2_1_full_day_diary_donor_pool_v1.csv: 1e2b031866ec2bd86f3e65a91fbc5c76cc5da9243b281f4d8f5b9c06b25d34ab
+
+policies:
+  diagnostic_exception_to_nofuture: true
+  exact_source_person_day_only: true
+  substitute_other_diary_forbidden: true
+  train_source_diaries_only: true
+  calibration_test_source_diaries_forbidden: true
+  incomplete_states_preserved_not_repaired: true
+  exact_destination_excluded: true
+  observed_mode_excluded: true
+  chosen_mode_excluded: true
+  execution_outcome_excluded: true
+  distance_routing_not_used: true
+  source_bytes_modified: false
+  test_partition_sealed: true
+
+scope_note:
+  issue_id: R5-SCOPE-001
+  severity: INFORMATIONAL
+  description: >-
+    Historical F2.1 compact bridge artifacts combine D_REPLAY and D_MATCH. R5 reproduces
+    D_REPLAY only, as frozen by the PRE-F3 reproduction ladder. Full F2.1 bridge hash,
+    D_MATCH outputs and combined validation remain deferred to R6.
