@@ -10,6 +10,7 @@ from simfleet_edg.common.population_materializer import (
     deterministic_zone_assignment,
     historical_population_manifest,
     largest_remainder_zone_quotas,
+    load_person_lookup,
     materialize_population,
     snapshot_sha256,
     weighted_exact_person_draws,
@@ -119,7 +120,8 @@ def test_r3_materializer_preserves_optional_source_ids_as_integer_or_blank() -> 
     person_lookup = {
         ("100", 1): {
             "H_ID": "100",
-            "P_ID": "101",
+            "P_ID": "1",
+            "HP_ID": "101",
             "P_GEW": "3.25",
             "P_HOCH": "17.5",
             "P_FS_PKW": "1",
@@ -152,3 +154,16 @@ def test_r3_materializer_preserves_optional_source_ids_as_integer_or_blank() -> 
     assert "ROSTER_ONLY_NO_PERSONEN" in person_csv
     assert ",101,REL_S_" in resource_csv
     assert ",101.0,REL_S_" not in resource_csv
+
+
+def test_r3_person_lookup_uses_pid_as_slot_and_hpid_as_global_source_id(tmp_path: Path) -> None:
+    path = tmp_path / "persons.csv"
+    path.write_text(
+        "H_ID;P_ID;HP_ID;BLAND;P_GEW;P_HOCH;P_FS_PKW;P_VAUTO;P_VRAD;P_VPED;P_CS\n"
+        "100;1;1001;11;1.0;2.0;1;1;1;2;3\n",
+        encoding="utf-8",
+    )
+    lookup = load_person_lookup(path, berlin_code=11)
+    assert ("100", 1) in lookup
+    assert lookup[("100", 1)]["P_ID"] == "1"
+    assert lookup[("100", 1)]["HP_ID"] == "1001"

@@ -216,6 +216,7 @@ def load_person_lookup(
         required = {
             "H_ID",
             "P_ID",
+            "HP_ID",
             "BLAND",
             "P_GEW",
             "P_HOCH",
@@ -629,7 +630,7 @@ def materialize_population(
                 source_person_weight: float | None = None
                 source_person_expansion: float | None = None
             else:
-                source_person_id = int(normalize_source_id(person_raw["P_ID"]))
+                source_person_id = int(normalize_source_id(person_raw["HP_ID"]))
                 enrichment_status = "LINKED_PERSONEN"
                 car_driver_license, license_observation = _recode_license(
                     person_raw["P_FS_PKW"]
