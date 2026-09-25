@@ -10,3 +10,6 @@
 *.parquet binary
 *.zip binary
 *.pdf binary
+
+# Frozen reproducibility reference artifacts
+configs/reproduction/reference/*.csv -text
