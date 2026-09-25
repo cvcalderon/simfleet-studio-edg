@@ -304,6 +304,160 @@ def build_match_persondays(
     return pd.DataFrame(rows, columns=MATCH_PERSONDAY_COLUMNS)
 
 
+
+def build_match_persondays_from_assignment_witness(
+    *,
+    population_persons: pd.DataFrame,
+    population_households: pd.DataFrame,
+    donor_pool: pd.DataFrame,
+    raw_persons: pd.DataFrame,
+    evidence: dict[str, pd.DataFrame],
+    assignment_witness: pd.DataFrame,
+) -> pd.DataFrame:
+    """Reconstruct the frozen historical D_MATCH realization from a compact assignment witness.
+
+    The original F2.1 documentation preserved the matching semantics and seed but not the
+    exact RNG API/candidate-order mechanics.  The recovered historical person-day artifact
+    therefore supplies the minimal generated_person_id -> diary_source_hp_id assignment
+    witness.  All tier, self-match, split, donor-completeness and M2 fields are recomputed
+    from frozen R4/R5/F0 inputs and validated here; only the stochastic donor identity is
+    replayed from the witness.
+    """
+    required = {"generated_person_id", "diary_source_hp_id"}
+    if set(assignment_witness.columns) != required:
+        raise ValueError(f"Assignment witness columns must be exactly {sorted(required)}")
+    if assignment_witness["generated_person_id"].duplicated().any():
+        raise ValueError("Assignment witness contains duplicate generated_person_id")
+
+    donors = donor_pool.reset_index(drop=True).copy()
+    complete = donors["replay_complete_zero"].map(_bool_value) | donors["replay_complete_mobile"].map(_bool_value)
+    if not complete.all():
+        raise ValueError("D_MATCH donor pool contains an incomplete diary")
+
+    generated = _generated_population(population_persons, population_households)
+    if len(assignment_witness) != len(generated):
+        raise ValueError("Assignment witness cardinality does not match generated population")
+    expected_ids = generated["person_id"].astype(str).tolist()
+    witness_ids = assignment_witness["generated_person_id"].astype(str).tolist()
+    if witness_ids != expected_ids:
+        raise ValueError("Assignment witness person order/identity differs from generated population")
+
+    donor_by_hp = donors.set_index("HP_ID", drop=False)
+    witness_hp = assignment_witness["diary_source_hp_id"].astype("int64")
+    missing_hp = sorted(set(witness_hp) - set(donor_by_hp.index.astype(int)))
+    if missing_hp:
+        raise ValueError(f"Assignment witness references donors outside frozen pool: {missing_hp[:5]}")
+
+    raw, coverage, functional, temporal = _source_indexes(raw_persons, evidence)
+    pools = _tier_pools(donors)
+    rows: list[dict[str, Any]] = []
+
+    for person, witness_row in zip(generated.itertuples(index=False), assignment_witness.itertuples(index=False), strict=True):
+        values = person._asdict()
+        source_hp = values.get("source_person_id")
+        chosen_tier: str | None = None
+        chosen_features: str | None = None
+        relaxed_due_to_self_only = False
+        allowed_candidate_indices: np.ndarray | None = None
+
+        for tier_name, columns, pool in pools:
+            key = tuple(str(values[column]) for column in columns)
+            candidates = pool.get(key)
+            if not candidates:
+                continue
+            candidate_index = np.asarray(candidates, dtype=np.int64)
+            if pd.notna(source_hp):
+                not_self = donors.loc[candidate_index, "HP_ID"].astype(int).to_numpy() != int(source_hp)
+            else:
+                not_self = np.ones(len(candidate_index), dtype=bool)
+            if int(not_self.sum()) == 0:
+                relaxed_due_to_self_only = True
+                continue
+            allowed_candidate_indices = candidate_index[not_self]
+            chosen_tier = tier_name
+            chosen_features = ";".join(columns)
+            break
+
+        if chosen_tier is None:
+            allowed_candidate_indices = np.arange(len(donors), dtype=np.int64)
+            if pd.notna(source_hp):
+                allowed_candidate_indices = allowed_candidate_indices[
+                    donors.loc[allowed_candidate_indices, "HP_ID"].astype(int).to_numpy() != int(source_hp)
+                ]
+            chosen_tier = "T6_GLOBAL_FALLBACK"
+            chosen_features = "NONE"
+
+        hp_id = int(witness_row.diary_source_hp_id)
+        allowed_hp = set(donors.loc[allowed_candidate_indices, "HP_ID"].astype(int))
+        if hp_id not in allowed_hp:
+            raise ValueError(
+                f"Witness donor HP_ID={hp_id} is not valid for {person.person_id} at tier {chosen_tier}"
+            )
+        donor = donor_by_hp.loc[hp_id]
+        source = raw.loc[hp_id]
+        cov = coverage.loc[hp_id]
+        functional_ok = (
+            _bool_value(functional.loc[hp_id, "full_functional_day_sequence_eligible"])
+            if hp_id in functional.index else False
+        )
+        temporal_ok = (
+            _bool_value(temporal.loc[hp_id, "temporal_sequence_fit_eligible"])
+            if hp_id in temporal.index else False
+        )
+        replay_zero = _bool_value(donor["replay_complete_zero"])
+        replay_mobile = _bool_value(donor["replay_complete_mobile"])
+        if replay_zero == replay_mobile:
+            raise ValueError(f"Invalid complete-day donor flags for HP_ID={hp_id}")
+        plan_status = "COMPLETE_ZERO_TRIP" if replay_zero else "COMPLETE_MOBILE_DAY"
+        day_status = "NO_TRIP_CONFIRMED" if replay_zero else "TRIP_DAY_DETAILED"
+        participation_class = "NO_TRIP" if replay_zero else "TRIP_DAY"
+        trip_count = 0 if replay_zero else int(donor["analytic_total_trip_count"])
+        source_hp_value = None if pd.isna(source_hp) else int(source_hp)
+
+        rows.append({
+            "diagnostic_variant": MATCH_VARIANT_ID,
+            "person_day_id": f"PD_{MATCH_VARIANT_ID}_{person.person_id}",
+            "generated_person_id": person.person_id,
+            "generated_household_id": person.household_id,
+            "generated_home_zone_id": person.home_zone_id,
+            "generated_age_infr_class": person.age_infr_class,
+            "generated_sex": person.sex,
+            "generated_primary_activity_status": person.primary_activity_status,
+            "generated_employment_participation": person.employment_participation,
+            "generated_household_size_class": person.household_size_class,
+            "generated_source_hp_id": source_hp_value,
+            "diary_source_hp_id": hp_id,
+            "diary_source_household_id": int(donor["H_ID_num"]),
+            "diary_source_split": "TRAIN",
+            "assignment_status": "MATCHED_COMPLETE_DIARY",
+            "plan_status": plan_status,
+            "day_mobility_status": day_status,
+            "participation_class": participation_class,
+            "analytic_total_trip_count": trip_count,
+            "chain_coverage_status": cov["chain_coverage_status"],
+            "full_functional_day_sequence_eligible": functional_ok,
+            "temporal_sequence_fit_eligible": temporal_ok,
+            "survey_year": int(source["ST_JAHR"]),
+            "survey_month": int(source["ST_MONAT"]),
+            "survey_calendar_week": int(source["ST_WOCHE"]),
+            "survey_weekday": int(source["ST_WOTAG"]),
+            "source_holiday": int(source["feiertag"]),
+            "source_season": int(source["saison"]),
+            "diary_person_weight": float(donor["P_GEW"]),
+            "donor_age_infr_class": donor["age_infr_class"],
+            "donor_sex": donor["sex"],
+            "donor_primary_activity_status": donor["primary_activity_status"],
+            "donor_employment_participation": donor["employment_participation"],
+            "donor_household_size_class": donor["household_size_class"],
+            "match_tier": chosen_tier,
+            "matching_features": chosen_features,
+            "relaxed_due_to_self_only": relaxed_due_to_self_only,
+            "self_diary_match": False,
+            "provenance": "STATIC_ATTRIBUTE_WEIGHTED_DIARY_MATCH",
+        })
+
+    return pd.DataFrame(rows, columns=MATCH_PERSONDAY_COLUMNS)
+
 def build_match_trips(
     match_persondays: pd.DataFrame,
     evidence: dict[str, pd.DataFrame],

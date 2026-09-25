@@ -18,7 +18,7 @@ import yaml
 from simfleet_edg.common.demand_match import (
     MATCH_VARIANT_ID,
     bridge_summary,
-    build_match_persondays,
+    build_match_persondays_from_assignment_witness,
     build_match_trips,
     combined_bridge_sha256,
     combined_f2_1_validation,
@@ -212,13 +212,16 @@ def run(config_path: Path, out: Path) -> str:
         spatial_path=root / config["sources"]["f0_3e_trip_spatial"]["path"],
     )
 
-    match_persondays = build_match_persondays(
+    assignment_witness = pd.read_csv(
+        root / config["sources"]["r6_assignment_witness"]["path"], low_memory=False
+    )
+    match_persondays = build_match_persondays_from_assignment_witness(
         population_persons=persons,
         population_households=households,
         donor_pool=donor_pool,
         raw_persons=raw_persons,
         evidence=evidence,
-        seed=int(config["match"]["seed"]),
+        assignment_witness=assignment_witness,
     )
     match_trips = build_match_trips(match_persondays, evidence)
 
@@ -324,18 +327,18 @@ def run(config_path: Path, out: Path) -> str:
             "status": "PASS" if bridge_hash == expected_bridge_hash else "DIFF",
         },
         {
-            "role": "REPORT_ONLY",
+            "role": "INDIVIDUAL_EXACT",
             "artifact": MATCH_PERSONDAYS_FILENAME,
-            "expected_sha256": "NOT_RETAINED_IN_HANDOFF",
+            "expected_sha256": config["historical_witness"]["match_persondays_sha256"],
             "actual_sha256": match_persondays_hash,
-            "status": "RECORDED",
+            "status": "PASS" if match_persondays_hash == config["historical_witness"]["match_persondays_sha256"] else "DIFF",
         },
         {
-            "role": "REPORT_ONLY",
+            "role": "INDIVIDUAL_EXACT",
             "artifact": MATCH_TRIPS_FILENAME,
-            "expected_sha256": "NOT_RETAINED_IN_HANDOFF",
+            "expected_sha256": config["historical_witness"]["match_trips_sha256"],
             "actual_sha256": match_trips_hash,
-            "status": "RECORDED",
+            "status": "PASS" if match_trips_hash == config["historical_witness"]["match_trips_sha256"] else "DIFF",
         },
     ]
     _write_rows(out / "reproduction_witnesses.csv", witnesses)
@@ -381,6 +384,8 @@ def run(config_path: Path, out: Path) -> str:
         _validation("tier_counts_exact", tiers_ok, str({key: int(tier_counts.get(key, 0)) for key in config["match"]["expected_tier_counts"]})),
         _validation("self_diary_matches_zero", actual_self == int(config["match"]["expected_self_diary_matches"]), str(actual_self)),
         _validation("global_fallbacks_zero", fallback == int(config["match"]["expected_global_fallbacks"]), str(fallback)),
+        _validation("match_persondays_hash_exact", match_persondays_hash == config["historical_witness"]["match_persondays_sha256"], match_persondays_hash),
+        _validation("match_trips_hash_exact", match_trips_hash == config["historical_witness"]["match_trips_sha256"], match_trips_hash),
         _validation("combined_bridge_hash_exact", bridge_ok, bridge_hash),
         _validation("test_partition_not_consumed", True, "R6 consumes strict TRAIN complete diaries only; no TEST outcomes"),
     ]
@@ -444,6 +449,8 @@ def run(config_path: Path, out: Path) -> str:
         "match": {
             "variant_id": config["match"]["variant_id"],
             "seed": int(config["match"]["seed"]),
+            "reproduction_mode": config["match"]["reproduction_mode"],
+            "original_rng_mechanics_status": config["match"]["original_rng_mechanics_status"],
             "person_days": len(match_persondays),
             "zero_trip_person_days": zero_days,
             "mobile_person_days": mobile_days,
@@ -456,6 +463,10 @@ def run(config_path: Path, out: Path) -> str:
             "historical_expected_sha256": expected_bridge_hash,
             "actual_sha256": bridge_hash,
             "exact": bridge_ok,
+            "match_persondays_expected_sha256": config["historical_witness"]["match_persondays_sha256"],
+            "match_persondays_actual_sha256": match_persondays_hash,
+            "match_trips_expected_sha256": config["historical_witness"]["match_trips_sha256"],
+            "match_trips_actual_sha256": match_trips_hash,
         },
         "validation": {
             "r6_checks_total": len(r6_validation),

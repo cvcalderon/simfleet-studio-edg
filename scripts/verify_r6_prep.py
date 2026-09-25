@@ -47,7 +47,10 @@ checks = {
     "self_match_forbidden": config["policies"]["self_diary_match_forbidden"] is True,
     "test_partition_sealed": config["policies"]["test_partition_sealed"] is True,
     "km_routing_forbidden": config["policies"]["distance_routing_not_used"] is True,
-    "individual_hash_gap_documented": config["scope_note"]["issue_id"] == "R6-WITNESS-001",
+    "assignment_witness_mode": config["match"]["reproduction_mode"] == "HISTORICAL_ASSIGNMENT_WITNESS_V1",
+    "rng_limitation_documented": config["scope_note"]["issue_id"] == "R6-RNG-PROVENANCE-001",
+    "historical_persondays_hash_recovered": config["historical_witness"]["match_persondays_sha256"] == "d908ce562f2d14de017d369aab61f3d96e998b4f19f1d8753c1820c2c799a65e",
+    "historical_trips_hash_recovered": config["historical_witness"]["match_trips_sha256"] == "7d3617811aef04ca6e83c15e2bc64643e2fe6a7a922bd51103fc9ca7073606b6",
 }
 status = "PASS" if all(checks.values()) else "FAIL"
 print(json.dumps({"status": status, "checks": checks}, indent=2))

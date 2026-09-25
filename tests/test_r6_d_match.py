@@ -6,6 +6,7 @@ from simfleet_edg.common.demand_match import (
     MATCH_PERSONDAY_COLUMNS,
     MATCH_TIERS,
     build_match_persondays,
+    build_match_persondays_from_assignment_witness,
     build_match_trips,
     combined_bridge_sha256,
     match_tier_summary,
@@ -224,3 +225,46 @@ def test_bridge_hash_algorithm_is_order_sensitive() -> None:
     one = combined_bridge_sha256("a", "b", "c", "d")
     two = combined_bridge_sha256("a", "c", "b", "d")
     assert one != two
+
+
+def test_assignment_witness_reconstructs_declared_donors() -> None:
+    witness = pd.DataFrame(
+        [
+            {"generated_person_id": "P_1", "diary_source_hp_id": 102},
+            {"generated_person_id": "P_2", "diary_source_hp_id": 103},
+        ]
+    )
+    result = build_match_persondays_from_assignment_witness(
+        population_persons=_persons(),
+        population_households=_households(),
+        donor_pool=_donors(),
+        raw_persons=_raw(),
+        evidence=_evidence(),
+        assignment_witness=witness,
+    )
+    assert result["diary_source_hp_id"].astype(int).tolist() == [102, 103]
+    assert result["match_tier"].tolist() == ["T2_RELAX_HHSIZE", "T1_EXACT_AGE_SEX_ACTIVITY_HHSIZE"]
+    assert result["plan_status"].tolist() == ["COMPLETE_MOBILE_DAY", "COMPLETE_ZERO_TRIP"]
+    assert result["source_season"].tolist() == [2, 2]
+
+
+def test_assignment_witness_rejects_self_match() -> None:
+    witness = pd.DataFrame(
+        [
+            {"generated_person_id": "P_1", "diary_source_hp_id": 101},
+            {"generated_person_id": "P_2", "diary_source_hp_id": 103},
+        ]
+    )
+    try:
+        build_match_persondays_from_assignment_witness(
+            population_persons=_persons(),
+            population_households=_households(),
+            donor_pool=_donors(),
+            raw_persons=_raw(),
+            evidence=_evidence(),
+            assignment_witness=witness,
+        )
+    except ValueError as exc:
+        assert "not valid" in str(exc)
+    else:
+        raise AssertionError("self-match witness must be rejected")
