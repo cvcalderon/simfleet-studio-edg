@@ -516,6 +516,8 @@ def materialize_population(
     resource_rows: list[dict[str, Any]] = []
     replica_counter: Counter[str] = Counter()
     relation_counter = 0
+    entity_id_width = 7 if scale_id == "M" else 6
+    relation_id_width = 8 if scale_id == "M" else 7
 
     for draw_index, (raw, home_zone_id) in enumerate(
         zip(selected_donors, zone_assignment, strict=True), start=1
@@ -525,7 +527,7 @@ def materialize_population(
         h_gr = parse_int(raw["H_GR"])
         replica_counter[source_household_id] += 1
         generated_household_id = (
-            f"HH_{population_variant_id}_{scale_id}_{draw_index:06d}"
+            f"HH_{population_variant_id}_{scale_id}_{draw_index:0{entity_id_width}d}"
         )
         household_kind = {1: "PRIVATE_SINGLE", 2: "PRIVATE_MULTI"}.get(h_art)
         if household_kind is None:
@@ -573,7 +575,7 @@ def materialize_population(
                     "source_variable": source_variable,
                     "source_household_id": int(source_household_id),
                     "source_person_id": None,
-                    "relation_id": f"REL_{scale_id}_{relation_counter:07d}",
+                    "relation_id": f"REL_{scale_id}_{relation_counter:0{relation_id_width}d}",
                 }
             )
 
@@ -595,13 +597,13 @@ def materialize_population(
                 "source_variable": "H_CS",
                 "source_household_id": int(source_household_id),
                 "source_person_id": None,
-                "relation_id": f"REL_{scale_id}_{relation_counter:07d}",
+                "relation_id": f"REL_{scale_id}_{relation_counter:0{relation_id_width}d}",
             }
         )
 
         for slot in range(1, h_gr + 1):
             generated_person_id = (
-                f"P_{population_variant_id}_{scale_id}_{draw_index:06d}_{slot:02d}"
+                f"P_{population_variant_id}_{scale_id}_{draw_index:0{entity_id_width}d}_{slot:02d}"
             )
             sex_code = parse_int(raw[f"HP_SEX_{slot}"])
             sex = {1: "MALE", 2: "FEMALE"}.get(sex_code)
@@ -688,7 +690,7 @@ def materialize_population(
                             "source_variable": source_variable,
                             "source_household_id": int(source_household_id),
                             "source_person_id": source_person_id,
-                            "relation_id": f"REL_{scale_id}_{relation_counter:07d}",
+                            "relation_id": f"REL_{scale_id}_{relation_counter:0{relation_id_width}d}",
                         }
                     )
 
@@ -710,7 +712,7 @@ def materialize_population(
                         "source_variable": "P_CS",
                         "source_household_id": int(source_household_id),
                         "source_person_id": source_person_id,
-                        "relation_id": f"REL_{scale_id}_{relation_counter:07d}",
+                        "relation_id": f"REL_{scale_id}_{relation_counter:0{relation_id_width}d}",
                     }
                 )
 
@@ -934,8 +936,11 @@ def validate_structural_snapshot(
     expected_snapshot_hash: str,
     generation_algorithm: str,
     zone_algorithm: str,
+    *,
+    scale_id: str = "S",
+    target_persons: int = 10000,
 ) -> list[dict[str, str]]:
-    """Run the frozen 23 F1.3a structural checks with exact snapshot witness."""
+    """Run the frozen 23 F1.3a/F1.3b structural checks."""
     generated_households = set(households["household_id"])
     generated_persons = set(persons["person_id"])
     person_resource = resources[resources["scope"] == "PERSON"]
@@ -971,28 +976,41 @@ def validate_structural_snapshot(
             "details": details,
         }
 
+    prefix = f"PTRS-{scale_id}"
+    if scale_id == "M":
+        nfi_description = "Population snapshot contains no downstream mobility outcome fields"
+        reproducibility_description = (
+            "Same seeds reproduce identical donor selection and zone assignment"
+        )
+    else:
+        nfi_description = (
+            "Population snapshot contains no downstream trip/choice/execution outcome fields"
+        )
+        reproducibility_description = "Same config/seeds reproduce identical tables"
+    target_label = f"{target_persons:,}"
+
     return [
-        row("PTRS-S-001", "TARGET", "Exactly 10,000 persons materialized", len(persons) == 10000, f"persons={len(persons)}"),
-        row("PTRS-S-002", "PK", "Household IDs unique", households["household_id"].is_unique, f"households={len(households)}"),
-        row("PTRS-S-003", "PK", "Person IDs unique", persons["person_id"].is_unique),
-        row("PTRS-S-004", "PK", "Resource relation IDs unique", resources["relation_id"].is_unique),
-        row("PTRS-S-005", "FK", "Every person references an existing generated household", set(persons["household_id"]).issubset(generated_households)),
-        row("PTRS-S-006", "FK", "Every resource references an existing generated household", set(resources["household_id"]).issubset(generated_households)),
-        row("PTRS-S-007", "FK", "Every person-scoped resource references an existing generated person", set(person_resource["person_id"].dropna()).issubset(generated_persons)),
-        row("PTRS-S-008", "ATOMICITY", "Materialized member count equals generated person rows", roster_counts.reindex(expected_counts.index).fillna(0).astype(int).equals(expected_counts.astype(int))),
-        row("PTRS-S-009", "DONOR", "All household donors come from strict TRAIN", bool((households["donor_split"] == "TRAIN").all() and (households["donor_eligibility"] == "STRICT_RMIN_DONOR").all())),
-        row("PTRS-S-010", "DONOR", "Experimental donor households are size 1–5 only", bool(households["household_size_class"].between(1, 5).all())),
-        row("PTRS-S-011", "DONOR", "No generated household is top-coded", not bool(households["household_size_topcoded"].any())),
-        row("PTRS-S-012", "GEOGRAPHY", "Every home_zone_id is a valid statistically observed PLR", set(households["home_zone_id"].astype(str)).issubset(valid_zones)),
-        row("PTRS-S-013", "GEOGRAPHY", "Every person inherits household home_zone_id", bool((persons["home_zone_id"].astype(str).to_numpy() == person_zone_expected.astype(str).to_numpy()).all())),
-        row("PTRS-S-014", "RESOURCE", "Household stock relations never claim person scope", bool((hh_resource.loc[hh_resource["relation_type"] == "HOUSEHOLD_STOCK", "person_id"].isna()).all())),
-        row("PTRS-S-015", "RESOURCE", "Person access relations never claim household ownership", bool((person_resource.loc[person_resource["relation_type"] == "PERSON_ACCESS", "quantity"].isna()).all())),
-        row("PTRS-S-016", "RESOURCE", "Top-coded stock lower bounds are preserved only at source caps", topcode_ok),
-        row("PTRS-S-017", "IDENTITY", "Source donor reuse does not duplicate generated identity", households["household_id"].is_unique and persons["person_id"].is_unique),
-        row("PTRS-S-018", "NFI", "Population snapshot contains no downstream trip/choice/execution outcome fields", nfi_ok),
-        row("PTRS-S-019", "REPRODUCIBILITY", "Same config/seeds reproduce identical tables", primary_hashes == second_hashes and snapshot_hash == expected_snapshot_hash, f"snapshot_hash={snapshot_hash}"),
-        row("PTRS-S-020", "SPLIT", "CALIBRATION/TEST households are not used as donors", bool((households["donor_split"] == "TRAIN").all())),
-        row("PTRS-S-021", "GEOGRAPHY", "Zone assignment uses household-total quotas only", zone_algorithm == "PLR_PRIVATE_HH_TOTAL_LARGEST_REMAINDER_RANDOM_ASSIGN_V1", zone_algorithm),
-        row("PTRS-S-022", "ENRICHMENT", "Roster-only persons remain explicit rather than fabricated enrichment", bool((roster_only["source_person_id"].isna()).all() and (roster_only["source_person_weight"].isna()).all() and (roster_only["source_person_expansion_factor"].isna()).all())),
-        row("PTRS-S-023", "LICENSE", "Persons without Personen enrichment do not receive fabricated licence answers", bool((roster_only["car_driver_license"] == "UNKNOWN").all() and (roster_only["license_observation_status"] == "NO_PERSONEN_ENRICHMENT").all())),
+        row(f"{prefix}-001", "TARGET", f"Exactly {target_label} persons materialized", len(persons) == target_persons, f"persons={len(persons)}"),
+        row(f"{prefix}-002", "PK", "Household IDs unique", households["household_id"].is_unique, f"households={len(households)}" if scale_id == "S" else ""),
+        row(f"{prefix}-003", "PK", "Person IDs unique", persons["person_id"].is_unique),
+        row(f"{prefix}-004", "PK", "Resource relation IDs unique", resources["relation_id"].is_unique),
+        row(f"{prefix}-005", "FK", "Every person references an existing generated household", set(persons["household_id"]).issubset(generated_households)),
+        row(f"{prefix}-006", "FK", "Every resource references an existing generated household", set(resources["household_id"]).issubset(generated_households)),
+        row(f"{prefix}-007", "FK", "Every person-scoped resource references an existing generated person", set(person_resource["person_id"].dropna()).issubset(generated_persons)),
+        row(f"{prefix}-008", "ATOMICITY", "Materialized member count equals generated person rows", roster_counts.reindex(expected_counts.index).fillna(0).astype(int).equals(expected_counts.astype(int))),
+        row(f"{prefix}-009", "DONOR", "All household donors come from strict TRAIN", bool((households["donor_split"] == "TRAIN").all() and (households["donor_eligibility"] == "STRICT_RMIN_DONOR").all())),
+        row(f"{prefix}-010", "DONOR", "Experimental donor households are size 1–5 only", bool(households["household_size_class"].between(1, 5).all())),
+        row(f"{prefix}-011", "DONOR", "No generated household is top-coded", not bool(households["household_size_topcoded"].any())),
+        row(f"{prefix}-012", "GEOGRAPHY", "Every home_zone_id is a valid statistically observed PLR", set(households["home_zone_id"].astype(str)).issubset(valid_zones)),
+        row(f"{prefix}-013", "GEOGRAPHY", "Every person inherits household home_zone_id", bool((persons["home_zone_id"].astype(str).to_numpy() == person_zone_expected.astype(str).to_numpy()).all())),
+        row(f"{prefix}-014", "RESOURCE", "Household stock relations never claim person scope", bool((hh_resource.loc[hh_resource["relation_type"] == "HOUSEHOLD_STOCK", "person_id"].isna()).all())),
+        row(f"{prefix}-015", "RESOURCE", "Person access relations never claim household ownership", bool((person_resource.loc[person_resource["relation_type"] == "PERSON_ACCESS", "quantity"].isna()).all())),
+        row(f"{prefix}-016", "RESOURCE", "Top-coded stock lower bounds are preserved only at source caps", topcode_ok),
+        row(f"{prefix}-017", "IDENTITY", "Source donor reuse does not duplicate generated identity", households["household_id"].is_unique and persons["person_id"].is_unique),
+        row(f"{prefix}-018", "NFI", nfi_description, nfi_ok),
+        row(f"{prefix}-019", "REPRODUCIBILITY", reproducibility_description, primary_hashes == second_hashes and snapshot_hash == expected_snapshot_hash, f"snapshot_hash={snapshot_hash}" if scale_id == "S" else ""),
+        row(f"{prefix}-020", "SPLIT", "CALIBRATION/TEST households are not used as donors", bool((households["donor_split"] == "TRAIN").all())),
+        row(f"{prefix}-021", "GEOGRAPHY", "Zone assignment uses household-total quotas only", zone_algorithm == "PLR_PRIVATE_HH_TOTAL_LARGEST_REMAINDER_RANDOM_ASSIGN_V1", zone_algorithm),
+        row(f"{prefix}-022", "ENRICHMENT", "Roster-only persons remain explicit rather than fabricated enrichment", bool((roster_only["source_person_id"].isna()).all() and (roster_only["source_person_weight"].isna()).all() and (roster_only["source_person_expansion_factor"].isna()).all())),
+        row(f"{prefix}-023", "LICENSE", "Persons without Personen enrichment do not receive fabricated licence answers", bool((roster_only["car_driver_license"] == "UNKNOWN").all() and (roster_only["license_observation_status"] == "NO_PERSONEN_ENRICHMENT").all())),
     ]

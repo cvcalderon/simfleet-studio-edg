@@ -1,0 +1,146 @@
+schema_version: simfleet-studio-edg-r4-ptrs-m-v1
+phase_id: R4
+run_id: R4_ptrs_m_v1
+status: FROZEN_FOR_REPRODUCTION
+project_name: simfleet-studio-edg
+strict_git_state: true
+result_label: PRE-G1 EXPERIMENTAL RESULTS
+formal_gate_eligible: false
+
+sources:
+  households:
+    path: data/raw/mid/MiD2017_Haushalte.csv
+    sha256: 0d7a20b5f29839a29ce0b41ffaecaca15da844ff85e15d1acc6fe786c9bde4f5
+  persons:
+    path: data/raw/mid/MiD2017_Personen.csv
+    sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+  zensus_plr:
+    path: data/raw/zensus/SKA_110000000000_Planungsraum.xlsx
+    sha256: 0d5523ba7035305c5e3df39b9423251dff71f5797c20b16ade2650af240c3088
+  r2_split_manifest:
+    path: artifacts/runs/R2_eligibility_split_v1/split_manifest_reproduced.csv
+    sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  plr_target_audit:
+    path: configs/reproduction/reference/f1_2a_plr_universe_residual_audit_v1.csv
+    sha256: 541ace953590ed90c044273cf4380648ec8c659e1bcc581525b4323465ff5c70
+  activity_recoding:
+    path: configs/reproduction/reference/f0_2d_activity_recoding_v1.csv
+    sha256: 85e17e7c718133b616cd8c872f905dbd95d2369ff1ba423037087a894623e86a
+
+berlin:
+  BLAND: 11
+
+population:
+  population_variant_id: P_TRS_EXP_V1
+  scale_id: M
+  target_persons: 100000
+  expected_households: 56365
+  expected_resource_relations: 639661
+  expected_linked_persons: 89459
+  expected_roster_only_persons: 10541
+  donor_pool:
+    split: TRAIN
+    eligibility: STRICT_RMIN_DONOR
+    expected_households: 1219
+    household_size_min: 1
+    household_size_max: 5
+    sampling_probability: H_GEW
+  generation:
+    algorithm: WEIGHTED_WHOLE_HOUSEHOLD_EXACT_PERSON_TARGET_V1
+    seed: 20260922
+  geography:
+    level: PLR
+    algorithm: PLR_PRIVATE_HH_TOTAL_LARGEST_REMAINDER_RANDOM_ASSIGN_V1
+    seed: 20260923
+    expected_target_rows_with_value: 541
+    expected_positive_target_rows: 540
+    expected_total_private_households: 1960317.0
+    expected_max_absolute_share_error: 8.93608289906085e-06
+    baseline_manifest_excluded_no_stat_target_plr:
+      - "03400831"
+      - "06200418"
+    operational_no_stat_target_plr:
+      - "03400831"
+    zero_target_plr:
+      - "06200418"
+
+historical_witness:
+  snapshot_sha256: a3a9be46286d150e1032d1872ca0e47775407ee14835980f0d5a71be92c57f7d
+  primary_artifacts:
+    simfleet_edg_P_TRS_EXP_V1_M_households_v1.csv: a7aed5fdfa1e55ec94781733b3144d5ffab8d9051b2663e5eb6672939948ee42
+    simfleet_edg_P_TRS_EXP_V1_M_persons_v1.csv: e75c5c2ba417ddbd87bc074796f6052675cc325c1cec1f671fb8faf288edf70c
+    simfleet_edg_P_TRS_EXP_V1_M_resources_v1.csv: c4f6ecdf7556a66e0faa5eba7704d7cc54c99fbf9387082c2a4c599f7f390842
+  compact_exact_artifacts:
+    simfleet_edg_P_TRS_EXP_V1_M_manifest_v1.json: 5cbaf6248d70a6cd29df59556516cd1fa8a7630630f6e24ad1f9a1d523c66d7f
+    simfleet_edg_F1_3b_P_TRS_EXP_V1_M_validation_v1.csv: a9d131589580b69e82d8ff55dd5326bd7baf172ddf122c08644b23ca73f66a49
+    simfleet_edg_F1_3b_P_TRS_EXP_V1_M_donor_reuse_v1.csv: adc57c28f59847bea02e8c294ab41325b0313e106cf58cd06a8064871e01cd43
+    simfleet_edg_F1_3b_P_TRS_EXP_V1_M_zone_allocation_v1.csv: c970671e96c0d93460371817175153f510a84ae6a528d9ce93ddb51e13754627
+  report_only_artifact_hashes:
+    simfleet_edg_F1_3b_P_TRS_EXP_V1_M_preservation_audit_v1.csv: fda58f05d89b0021f67157d1d13ce3a41d5d06bd4f02a1bf05d9b00cd41fe2a2
+    simfleet_edg_F1_3b_P_TRS_EXP_V1_M_performance_v1.csv: a16f0c2f6f656ded6a393563a11b3b6425b4d93d6315a2529ca8c6ddf1020f5c
+    simfleet_edg_F1_3b_S_vs_M_stability_v1.csv: 6e6d01c2ed429d88cdc888dcd1b8f63fddcc69d3f0dd9ece70c37688db049be1
+
+expected_donor_reuse:
+  unique_used: 1213
+  max_replicas: 203
+  median_replicas_used: 39.0
+
+numeric_tolerance: 1.0e-12
+
+historical_preservation_tvd:
+  household_size: 0.0025500703113384
+  age_infr_class: 0.0047791635771124
+  sex: 0.0005057395399739
+  primary_activity_status: 0.0034154240366053
+
+historical_s_tvd:
+  household_size: 0.0068597932755095
+  age_infr_class: 0.0086677744462868
+  sex: 0.0006557395399739
+  primary_activity_status: 0.0119469951469402
+
+historical_stability:
+  household_size:
+    M_minus_S: -0.004309722964171
+    M_to_S_ratio: 0.3717415684292617
+  age_infr_class:
+    M_minus_S: -0.0038886108691743
+    M_to_S_ratio: 0.5513714745034447
+  sex:
+    M_minus_S: -0.0001499999999999
+    M_to_S_ratio: 0.7712506401461118
+  primary_activity_status:
+    M_minus_S: -0.0085315711103348
+    M_to_S_ratio: 0.2858814283087779
+
+historical_performance_reference:
+  generation_wall_s: 12.39089097599981
+  serialization_wall_s: 3.260474282999894
+  total_wall_s: 25.33964882500004
+  total_cpu_s: 25.472660133
+  peak_rss_mb: 2245.53515625
+  output_size_mb: 123.94951915740967
+  persons_per_generation_wall_s: 8070.444667271483
+
+policies:
+  household_atomicity: true
+  train_only_donors: true
+  calibration_test_donors_forbidden: true
+  no_mobility_outcome_fields: true
+  no_roster_only_person_enrichment_fabrication: true
+  ownership_access_availability_distinct: true
+  test_partition_sealed: true
+  source_bytes_modified: false
+
+known_baseline_issue:
+  issue_id: R4-BASELINE-GEO-001
+  inherited_from: R3-BASELINE-GEO-001
+  severity: NON_BLOCKING_REPRODUCTION_NOTE
+  description: >-
+    The historical F1.3b narrative/manifest inherits the F1.3a statement that both
+    03400831 Pankower Tor and 06200418 Landweg are excluded no-stat-target PLR.
+    The frozen F1.2a PLR audit used operationally by the zone allocator contains
+    03400831 as statistically unavailable, but 06200418 as an available zero
+    private-household target. R4 reproduces the frozen operational artifact; it
+    does not reinterpret the historical narrative or use zero-imputation for an
+    unavailable target.
