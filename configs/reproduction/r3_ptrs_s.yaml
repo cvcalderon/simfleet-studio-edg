@@ -1,0 +1,108 @@
+schema_version: simfleet-studio-edg-r3-ptrs-s-v1
+phase_id: R3
+run_id: R3_ptrs_s_v1
+status: FROZEN_FOR_REPRODUCTION
+project_name: simfleet-studio-edg
+strict_git_state: true
+result_label: PRE-G1 EXPERIMENTAL RESULTS
+formal_gate_eligible: false
+
+sources:
+  households:
+    path: data/raw/mid/MiD2017_Haushalte.csv
+    sha256: 0d7a20b5f29839a29ce0b41ffaecaca15da844ff85e15d1acc6fe786c9bde4f5
+  persons:
+    path: data/raw/mid/MiD2017_Personen.csv
+    sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+  zensus_plr:
+    path: data/raw/zensus/SKA_110000000000_Planungsraum.xlsx
+    sha256: 0d5523ba7035305c5e3df39b9423251dff71f5797c20b16ade2650af240c3088
+  r2_split_manifest:
+    path: artifacts/runs/R2_eligibility_split_v1/split_manifest_reproduced.csv
+    sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  plr_target_audit:
+    path: configs/reproduction/reference/f1_2a_plr_universe_residual_audit_v1.csv
+    sha256: 541ace953590ed90c044273cf4380648ec8c659e1bcc581525b4323465ff5c70
+  activity_recoding:
+    path: configs/reproduction/reference/f0_2d_activity_recoding_v1.csv
+    sha256: 85e17e7c718133b616cd8c872f905dbd95d2369ff1ba423037087a894623e86a
+
+berlin:
+  BLAND: 11
+
+population:
+  population_variant_id: P_TRS_EXP_V1
+  scale_id: S
+  target_persons: 10000
+  expected_households: 5663
+  expected_resource_relations: 64263
+  expected_linked_persons: 8987
+  expected_roster_only_persons: 1013
+  donor_pool:
+    split: TRAIN
+    eligibility: STRICT_RMIN_DONOR
+    expected_households: 1219
+    household_size_min: 1
+    household_size_max: 5
+    sampling_probability: H_GEW
+  generation:
+    algorithm: WEIGHTED_WHOLE_HOUSEHOLD_EXACT_PERSON_TARGET_V1
+    seed: 20260922
+  geography:
+    level: PLR
+    algorithm: PLR_PRIVATE_HH_TOTAL_LARGEST_REMAINDER_RANDOM_ASSIGN_V1
+    seed: 20260923
+    expected_target_rows_with_value: 541
+    expected_positive_target_rows: 540
+    expected_total_private_households: 1960317.0
+    baseline_manifest_excluded_no_stat_target_plr:
+      - "03400831"
+      - "06200418"
+    operational_no_stat_target_plr:
+      - "03400831"
+    zero_target_plr:
+      - "06200418"
+
+historical_witness:
+  snapshot_sha256: f37ffeda502929bdda4c16f0c30d297fd6c2743b4c1e50e987471c6e714f9d01
+  primary_artifacts:
+    simfleet_edg_P_TRS_EXP_V1_S_households_v1.csv: 2eb514ed76136263d64fa8a7e237a2fcbbd1deb360dc8d2cb9cfe2f1cc38c601
+    simfleet_edg_P_TRS_EXP_V1_S_persons_v1.csv: da3c22b2dd30f8e1a190d8c82a6df32254a91d33241cca6ff170a8d0d7f464c5
+    simfleet_edg_P_TRS_EXP_V1_S_resources_v1.csv: 981a0c697bb61d8903480f6ef573037daa661e4e82f1c467989a3c91e04aedb4
+  compact_artifacts:
+    simfleet_edg_P_TRS_EXP_V1_S_manifest_v1.json: e1d2617095277bd2364116874ff7acf569c62083bef1f7a98eaedda3e1c08007
+    simfleet_edg_F1_3a_P_TRS_EXP_V1_S_donor_reuse_v1.csv: 21a1912840a9434aa563ff5d21ff4203e8ae7ad81c6444e0b7e9bdfadb72801d
+    simfleet_edg_F1_3a_P_TRS_EXP_V1_S_zone_allocation_v1.csv: 457e87b0943895e22dfe31eb17da340de3a2b3a191aacc41998d7abe8e52879a
+    simfleet_edg_F1_3a_P_TRS_EXP_V1_S_preservation_audit_v1.csv: 90280fa45eda56ebfd6d9483f1970e19e85c816d5b71a690e22643d11292daef
+
+expected_donor_reuse:
+  unique_used: 1125
+  max_replicas: 25
+  median_replicas_used: 4.0
+
+report_only_preservation_tvd:
+  household_size: 0.006859793275509552
+  age_infr_class: 0.008667774446286816
+  sex: 0.0006557395399739707
+  primary_activity_status: 0.011946995146940273
+
+policies:
+  household_atomicity: true
+  train_only_donors: true
+  calibration_test_donors_forbidden: true
+  no_mobility_outcome_fields: true
+  no_roster_only_person_enrichment_fabrication: true
+  ownership_access_availability_distinct: true
+  test_partition_sealed: true
+  source_bytes_modified: false
+
+known_baseline_issue:
+  issue_id: R3-BASELINE-GEO-001
+  severity: NON_BLOCKING_REPRODUCTION_NOTE
+  description: >-
+    The historical F1.3a narrative/manifest lists both 03400831 Pankower Tor and
+    06200418 Landweg as excluded no-stat-target PLR. The frozen F1.2a PLR audit
+    used operationally by the historical zone allocation contains 03400831 as
+    statistically unavailable, but 06200418 as an available zero private-household
+    target. R3 reproduces the frozen operational artifact without silently changing
+    F1.3a semantics; resolution belongs to later MAIN review, not PRE-F3 reproduction.

@@ -1,0 +1,17 @@
+source_code,source_label,primary_activity_status,employment_participation,employment_intensity
+1,Vollzeit berufstätig,EMPLOYED_FULL_TIME,EMPLOYED,FULL_TIME
+2,"Teilzeit berufstätig, 18 bis unter 35 h/Woche",EMPLOYED_PART_TIME,EMPLOYED,PART_TIME
+3,"geringfügig berufstätig, 11 bis unter 18 h/Woche",EMPLOYED_MARGINAL,EMPLOYED,MARGINAL
+4,Nebentätigkeit oder Praktikum,EMPLOYED_SECONDARY_OR_INTERNSHIP,EMPLOYED,SECONDARY_OR_INTERNSHIP
+5,berufstätig ohne Angabe zum Umfang,EMPLOYED_UNSPECIFIED,EMPLOYED,EMPLOYED_UNSPECIFIED
+6,Kind wird zu Hause betreut,CHILD_HOMECARE,NOT_EMPLOYED,NOT_EMPLOYED
+7,Kindergarten/Krippe/Tagesmutter etc.,CHILDCARE_INSTITUTION,NOT_EMPLOYED,NOT_EMPLOYED
+8,Schüler(in) einschließlich Vorschule,SCHOOL,NOT_EMPLOYED,NOT_EMPLOYED
+9,Auszubildende(r),APPRENTICE,EMPLOYED,APPRENTICE
+10,Student(in),STUDENT,NOT_EMPLOYED,NOT_EMPLOYED
+11,Hausfrau/-mann,HOMEMAKER,NOT_EMPLOYED,NOT_EMPLOYED
+12,Rentner(in)/Pensionär(in),RETIRED,NOT_EMPLOYED,NOT_EMPLOYED
+13,zurzeit arbeitslos,UNEMPLOYED,NOT_EMPLOYED,NOT_EMPLOYED
+14,andere Tätigkeit,OTHER_ACTIVITY,NOT_EMPLOYED,NOT_EMPLOYED
+15,nicht berufstätig ohne Details,NOT_EMPLOYED_UNSPECIFIED,NOT_EMPLOYED,NOT_EMPLOYED
+99,keine Angabe,UNKNOWN,UNKNOWN,UNKNOWN
