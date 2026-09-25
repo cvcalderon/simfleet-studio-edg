@@ -1,0 +1,108 @@
+schema_version: simfleet-studio-edg-r2-eligibility-split-v1
+phase_id: R2
+run_id: R2_eligibility_split_v1
+status: FROZEN_FOR_REPRODUCTION
+project_name: simfleet-studio-edg
+strict_git_state: true
+
+sources:
+  households:
+    path: data/raw/mid/MiD2017_Haushalte.csv
+    sha256: 0d7a20b5f29839a29ce0b41ffaecaca15da844ff85e15d1acc6fe786c9bde4f5
+  persons:
+    path: data/raw/mid/MiD2017_Personen.csv
+    sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+  trips:
+    path: data/raw/mid/MiD2017_Wege.csv
+    sha256: ff59f15cbf5596828857bed17a566d501e57b5c2c53dd4c6beae3385d0ed94dd
+
+berlin:
+  BLAND: 11
+
+eligibility:
+  context: RMIN_FIT
+  private_h_art: [1, 2]
+  non_private_h_art: 3
+  strict_h_gr: [1, 2, 3, 4, 5]
+  six_plus_h_gr: 6
+  valid_sex: [1, 2]
+  valid_age_min: 0
+  valid_age_max: 85
+  expected:
+    berlin_households: 1770
+    private_households: 1763
+    strict_rmin_households: 1742
+    class_counts:
+      HH_PRIVATE_1_5_COMPLETE: 1742
+      HH_PRIVATE_6_PLUS: 12
+      HH_PRIVATE_1_5_RMIN_MISSING: 9
+      HH_NON_PRIVATE: 7
+    strict_household_size_counts:
+      "1": 584
+      "2": 749
+      "3": 206
+      "4": 169
+      "5": 34
+    reference_eligibility_sha256: afd7d068b6a24f7779eb91da8e8a92a559b9f741d382fc53eb2df45244b07355
+
+split:
+  manifest_version: berlin_mid2017_household_split_v1
+  seed: 20260912
+  fractions:
+    TRAIN: 0.70
+    CALIBRATION: 0.15
+    TEST: 0.15
+  largest_remainder_tie_break: [TRAIN, CALIBRATION, TEST]
+  hash_expression: SHA256("{seed}|{source_household_id}")
+  expected_manifest_sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  expected_all_counts:
+    TRAIN: 1238
+    CALIBRATION: 268
+    TEST: 264
+  expected_strict_counts:
+    TRAIN: 1219
+    CALIBRATION: 263
+    TEST: 260
+  expected_partial_counts:
+    PARTIAL_6_PLUS:
+      TRAIN: 8
+      CALIBRATION: 2
+      TEST: 2
+    PARTIAL_RMIN_MISSING:
+      TRAIN: 6
+      CALIBRATION: 2
+      TEST: 1
+    NON_PRIVATE:
+      TRAIN: 5
+      CALIBRATION: 1
+      TEST: 1
+
+support:
+  age_infr_classes: 11
+  sex_classes: 2
+  expected_cells_per_split: 22
+  expected_min_strict_roster_support:
+    TRAIN: 23
+    CALIBRATION: 5
+    TEST: 6
+
+descendants:
+  policy: INHERIT_HOUSEHOLD_SPLIT
+  unlinked_h_id_zero: UNLINKED_EXCLUDED
+  expected:
+    Personen:
+      TRAIN: 2254
+      CALIBRATION: 476
+      TEST: 473
+      UNLINKED_EXCLUDED: 3
+    Wege:
+      TRAIN: 6692
+      CALIBRATION: 1323
+      TEST: 1349
+      UNLINKED_EXCLUDED: 6
+
+policies:
+  household_atomicity: true
+  mobility_outcomes_used_for_stratification: false
+  test_partition_sealed: true
+  source_bytes_modified: false
