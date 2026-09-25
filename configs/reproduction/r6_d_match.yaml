@@ -1,0 +1,137 @@
+schema_version: simfleet-studio-edg-r6-d-match-v1
+phase_id: R6
+run_id: R6_d_match_v1
+status: FROZEN_FOR_REPRODUCTION
+project_name: simfleet-studio-edg
+strict_git_state: true
+result_label: PRE-G1 EXPERIMENTAL DIAGNOSTIC
+formal_gate_eligible: false
+
+sources:
+  r4_persons:
+    path: artifacts/runs/R4_ptrs_m_v1/simfleet_edg_P_TRS_EXP_V1_M_persons_v1.csv
+    sha256: e75c5c2ba417ddbd87bc074796f6052675cc325c1cec1f671fb8faf288edf70c
+  r4_households:
+    path: artifacts/runs/R4_ptrs_m_v1/simfleet_edg_P_TRS_EXP_V1_M_households_v1.csv
+    sha256: a7aed5fdfa1e55ec94781733b3144d5ffab8d9051b2663e5eb6672939948ee42
+  r5_replay_persondays:
+    path: artifacts/runs/R5_d_replay_v1/simfleet_edg_F2_1_D_REPLAY_EXACT_V1_persondays.csv
+    sha256: bfaf6fef961d1402392948efafad387bc6527c7938a31725e331672cfd895a5e
+  r5_replay_trips:
+    path: artifacts/runs/R5_d_replay_v1/simfleet_edg_F2_1_D_REPLAY_EXACT_V1_trips.csv
+    sha256: 5c4fedaa6db1d86aed9e51eea78ea87a991b57dd601e602cf16c5b9d33663698
+  r5_full_day_donor_pool:
+    path: artifacts/runs/R5_d_replay_v1/simfleet_edg_F2_1_full_day_diary_donor_pool_v1.csv
+    sha256: 1e2b031866ec2bd86f3e65a91fbc5c76cc5da9243b281f4d8f5b9c06b25d34ab
+  r2_split_manifest:
+    path: artifacts/runs/R2_eligibility_split_v1/split_manifest_reproduced.csv
+    sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  raw_persons:
+    path: data/raw/mid/MiD2017_Personen.csv
+    sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+  f0_3b_personday_coverage:
+    path: configs/reproduction/reference/simfleet_edg_F0_3b_berlin_personday_coverage_v1.csv
+    sha256: 686b5d50d4ca42b494b556f9680e754a97bd69b753a61bdb2de1bcdc911ca053
+  f0_3c_trip_transition:
+    path: configs/reproduction/reference/simfleet_edg_F0_3c_berlin_trip_transition_audit_v1.csv
+    sha256: 5110c3d308c1be30d2e5084cb244466c2257914219751bcace6213939d3a5b1c
+  f0_3c_person_sequence:
+    path: configs/reproduction/reference/simfleet_edg_F0_3c_berlin_person_sequence_eligibility_v1.csv
+    sha256: 29caedf88ff0b2e894681ef977a2d2f688dc2d6e0762c8ac571bb9d359eea191
+  f0_3d_trip_time:
+    path: configs/reproduction/reference/simfleet_edg_F0_3d_berlin_trip_time_audit_v1.csv
+    sha256: 4b23543f941004c7af7fcc350a67ec47dea4b2eec36478522384d224ad0148f2
+  f0_3d_temporal_sequence:
+    path: configs/reproduction/reference/simfleet_edg_F0_3d_berlin_temporal_sequence_eligibility_v1.csv
+    sha256: 4ea23cbbd3393b66e42fd30ae741201df0e75aa962c6ee887a82d0001586e100
+  f0_3e_trip_spatial:
+    path: configs/reproduction/reference/simfleet_edg_F0_3e_berlin_trip_spatial_coverage_v1.csv
+    sha256: f9292252ac5e7deb871ef6230c47f4f4edb8eb3e033b8bff891c33708ddf41a1
+
+match:
+  variant_id: D_MATCH_FULLDAY_V1
+  generated_person_days: 100000
+  seed: 20260924
+  source_diary_pool:
+    split: TRAIN
+    household_eligibility: STRICT_RMIN_DONOR
+    expected_full_day_donors: 1658
+    expected_full_day_zero_trip: 261
+    expected_full_day_mobile: 1397
+  hierarchy:
+    - tier: T1_EXACT_AGE_SEX_ACTIVITY_HHSIZE
+      features: [age_infr_class, sex, primary_activity_status, household_size_class]
+    - tier: T2_RELAX_HHSIZE
+      features: [age_infr_class, sex, primary_activity_status]
+    - tier: T3_RELAX_ACTIVITY_TO_EMPLOYMENT
+      features: [age_infr_class, sex, employment_participation]
+    - tier: T4_AGE_SEX
+      features: [age_infr_class, sex]
+    - tier: T5_AGE_ONLY
+      features: [age_infr_class]
+    - tier: T6_GLOBAL_FALLBACK
+      features: []
+  expected_tier_counts:
+    T1_EXACT_AGE_SEX_ACTIVITY_HHSIZE: 94322
+    T2_RELAX_HHSIZE: 3929
+    T3_RELAX_ACTIVITY_TO_EMPLOYMENT: 1535
+    T4_AGE_SEX: 214
+    T5_AGE_ONLY: 0
+    T6_GLOBAL_FALLBACK: 0
+  expected_zero_trip_person_days: 15574
+  expected_mobile_person_days: 84426
+  expected_trip_intents: 291508
+  expected_self_diary_matches: 0
+  expected_global_fallbacks: 0
+
+historical_witness:
+  bridge_sha256: 2711e5542302f4c1b3b28ee8dab8b19bc044f0c61a143645e165aa32f5d437b5
+  bridge_hash_algorithm: >-
+    sha256((sha256(replay_persondays) + sha256(match_persondays) +
+    sha256(replay_trips) + sha256(match_trips)).encode('utf-8'))
+  individual_match_artifact_hashes_available_in_handoff: false
+  note: >-
+    The original individual SHA-256 values for the two D_MATCH CSVs were not retained
+    in the recovered compact handoff. Exact R5 hashes plus the frozen combined F2.1
+    bridge hash provide the recovered cryptographic witness for the D_MATCH pair.
+
+policies:
+  diagnostic_exception_to_nofuture: true
+  train_complete_diaries_only: true
+  calibration_test_source_diaries_forbidden: true
+  sampling_weight: P_GEW
+  self_diary_match_forbidden: true
+  self_only_tier_must_relax: true
+  allowed_matching_features:
+    - age_infr_class
+    - sex
+    - primary_activity_status
+    - employment_participation
+    - household_size_class
+  forbidden_matching_features:
+    - participation_outcome
+    - trip_count
+    - purpose
+    - departure_time
+    - arrival_time
+    - distance
+    - observed_mode
+    - chosen_mode
+    - execution_outcome
+  exact_destination_excluded: true
+  observed_mode_excluded: true
+  chosen_mode_excluded: true
+  execution_outcome_excluded: true
+  distance_routing_not_used: true
+  spatial_realization_downstream: true
+  mode_choice_downstream: true
+  source_bytes_modified: false
+  test_partition_sealed: true
+
+scope_note:
+  issue_id: R6-WITNESS-001
+  severity: INFORMATIONAL
+  description: >-
+    Individual historical SHA-256 values for D_MATCH person-days/trips are absent from
+    the recovered handoff. R6 therefore requires the frozen combined F2.1 bridge hash
+    to match exactly, in addition to scalar/tier/semantic validation.
