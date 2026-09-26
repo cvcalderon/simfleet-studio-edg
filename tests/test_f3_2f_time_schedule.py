@@ -20,6 +20,7 @@ from simfleet_edg.demand.time_schedule import (
     weighted_pinball,
     weighted_reference_temporal_support,
 )
+from simfleet_edg.repro.f3_2f_fit_time_schedule import _fit_check_passed
 
 
 def _frame() -> pd.DataFrame:
@@ -189,3 +190,9 @@ def test_config_has_no_cal_or_test_input_path() -> None:
     text = (root / "configs/f3/f3_2f_time_schedule_fit_v1.yaml").read_text().lower()
     assert "calibration/time_trips" not in text
     assert "test/time_trips" not in text
+
+def test_fit_check_expected_false_semantics() -> None:
+    assert _fit_check_passed("test_partition_consumed", False)
+    assert not _fit_check_passed("test_partition_consumed", True)
+    assert _fit_check_passed("train_rows_exact", True)
+    assert not _fit_check_passed("train_rows_exact", False)

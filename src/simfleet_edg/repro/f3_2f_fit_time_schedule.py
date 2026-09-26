@@ -139,6 +139,13 @@ def _checksums(out: Path) -> list[str]:
     return lines
 
 
+
+def _fit_check_passed(check: str, value: bool) -> bool:
+    """Return whether an observed fit-check value satisfies the frozen expectation."""
+    expected = False if check == "test_partition_consumed" else True
+    return bool(value) == expected
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, required=True)
@@ -363,10 +370,20 @@ def main() -> None:
         "time_b_train_vocab_only": True,
         "planned_time_not_execution_truth": True,
     }
-    if not all(fit_checks.values()):
-        raise RuntimeError(f"F3.2f fit validation failed: {fit_checks}")
+    failed_fit_checks = {
+        key: value for key, value in fit_checks.items() if not _fit_check_passed(key, value)
+    }
+    if failed_fit_checks:
+        raise RuntimeError(f"F3.2f fit validation failed: {failed_fit_checks}")
     pd.DataFrame(
-        [{"check": key, "status": "PASS" if value else "FAIL", "detail": ""} for key, value in fit_checks.items()]
+        [
+            {
+                "check": key,
+                "status": "PASS" if _fit_check_passed(key, value) else "FAIL",
+                "detail": "false" if key == "test_partition_consumed" else "",
+            }
+            for key, value in fit_checks.items()
+        ]
     ).to_csv(out / "fit_validation.csv", index=False)
 
     manifest = {
