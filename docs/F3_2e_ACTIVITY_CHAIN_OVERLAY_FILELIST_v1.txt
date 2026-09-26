@@ -1,0 +1,11 @@
+configs/f3/f3_2e_activity_chain_fit_v1.yaml
+docs/F3_2e_ACTIVITY_CHAIN_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_2e_ACTIVITY_CHAIN_IMPLEMENTATION_NOTE_v1.md
+docs/F3_2e_ACTIVITY_CHAIN_OBJECTIVE_FREEZE_v1.md
+docs/MAIN_UPDATE_F3_2e_ACTIVITY_CHAIN_PREP_v1.md
+notebooks/11_f3_2e_activity_chain_fit.ipynb
+scripts/verify_f3_2e_activity_chain_prep.py
+src/simfleet_edg/demand/activity_chain.py
+src/simfleet_edg/repro/f3_2e_fit_activity_chain.py
+tests/test_f3_2e_activity_chain.py
+docs/F3_2e_ACTIVITY_CHAIN_OVERLAY_CHECKSUMS_v1.sha256

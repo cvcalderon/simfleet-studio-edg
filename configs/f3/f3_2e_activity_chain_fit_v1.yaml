@@ -1,0 +1,200 @@
+phase: F3.2e
+component: DG_ACTIVITY_CHAIN
+status: IMPLEMENTATION_PREP_BEFORE_TRAIN_FIT
+expected_parent_commit: a69389d904c526c1b8c320f4354b42ab9bfa7a18
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+test_partition: SEALED
+calibration_policy: DO_NOT_READ_DO_NOT_SCORE_DO_NOT_FIT
+selection_policy: NONE_IN_F3_2E
+
+master_seed: 20260926
+fit_seed_rule: 'uint32_be(first4bytes(SHA256("F3_1C"|master_seed|candidate_id|grid_id|"FIT")))'
+
+inputs:
+  materialized_root: artifacts/model_data/F3_2a_training_data_v1
+  train_context: TRAIN/person_day_context.csv
+  train_chain_days: TRAIN/chain_days.csv
+  train_chain_transitions: TRAIN/chain_transitions.csv
+  vocabulary_manifest: vocabulary_manifest.json
+  materialization_manifest: materialization_manifest.json
+  expected_sha256:
+    train_context: 157779ddf03903f68c8e39b772b7f29a5cd5936f49a3c8c7a380636de1dbc2ba
+    train_chain_days: 7a04f536bb28084934ce025a72d75d0092796479b58a7bc05a7fdcd7ade56e41
+    train_chain_transitions: 8f7271e3cc2ae0db7ba9de11d4240401e38f6e305df2406021ee5a04091a3c85
+    vocabulary_manifest: 665c5e0e05ebfd71bfbb5210b2aa1e206af3b4b0fb3dc0bfcd3b046288466594
+    materialization_manifest: 34dbc4cc5492b6d79c7d593f197e3b6256148e41c540952ccee5df20ce572739
+
+design_witnesses:
+  training_data_materialization_contract:
+    path: docs/F3_2a_MATERIALIZATION_CONTRACT_v1.md
+    sha256: c728b19c4fb5912d64005945004590c612d7e6458ed13e677845acb392b07ba1
+  training_data_expected_row_counts:
+    path: docs/F3_2a_EXPECTED_ROW_COUNTS_v1.csv
+    sha256: 660f57dd40cd561162ab6b56721ffe8cc7a0f7070c177545b5cde65e579ce77f
+  dgen_decomposition:
+    path: docs/F3_1a_DGEN_DECOMPOSITION_FREEZE_v1.md
+    sha256: 5de55270aa445612ffc3db4c0b8d4ccdaadbeec9905e65acfe7e43bfba328821
+  model_family_freeze:
+    path: docs/F3_1b_MODEL_FAMILY_FREEZE_v1.md
+    sha256: 1ef23221866b5ce55c87e95ea53a7322595701f89d17df6856a8e5181f7eff64
+  candidate_matrix:
+    path: docs/F3_1b_CANDIDATE_MATRIX_v1.csv
+    sha256: ce996a0dfee3fa960e084a01550c68a011f7100aaf529b84907d9a33fae37ca9
+  hyperparameter_grid:
+    path: docs/F3_1c_HYPERPARAMETER_GRID_v1.csv
+    sha256: 436463ecfb431455af955850466d7e19bb946a664c653243b41853f5cbd8f9e0
+  feature_subsets:
+    path: docs/F3_1c_FEATURE_SUBSETS_v1.csv
+    sha256: 4c8a4080018e715084997daf7b78561655f27d898f625843d578b442298fd035
+  objective_metric_registry:
+    path: docs/F3_1c_OBJECTIVE_METRIC_REGISTRY_v1.csv
+    sha256: 57723b53d82d14dfd97b806b17bafc59e001413c97b9fad60c1bbd3d88ddd9d2
+  backoff_hierarchies:
+    path: docs/F3_1c_BACKOFF_HIERARCHIES_v1.md
+    sha256: b45f8d3f23acfbe9fa559ff4726fd7e4081f15ed25e97df28c8b3b862d87f5be
+  fitting_calibration_freeze:
+    path: docs/F3_1c_FITTING_CALIBRATION_FREEZE_v1.md
+    sha256: 9337bebf6d1247a2d384954e39c15dfbe21f778f605ba52d6cf8fe7a021dc812
+  seed_reproducibility:
+    path: docs/F3_1c_SEED_REPRODUCIBILITY_v1.md
+    sha256: 8f360f4adc5dbfd60303647dfa536f1e4db32387331c46ad551364e3ab7bb276
+
+environment_witness:
+  root: artifacts/environment/F3_2c_modeling_environment_v1
+  environment_manifest_sha256: bc645a3903289f26d5f54996ee6108f6ef16bcf14397e37b64a439eee359993d
+  pip_freeze_sha256: f77d8137f17c08e7d17feca5892f209bf03ddc3f5c51b6326055ad44b66d4773
+  checksums_sha256: ac9146536dad0a20dc80edc2b139b3f139ca5070882067815375cfd9da2e5ba2
+  required_versions:
+    numpy: 2.5.3
+    pandas: 2.3.3
+    scipy: 1.18.1
+    scikit-learn: 1.9.1
+    statsmodels: 0.15.0
+    lightgbm: 4.7.0
+
+feature_set_id: CHAIN_FEATURES_V1
+categorical_feature_columns:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - source_weekday
+  - prefix_second_last_activity
+  - prefix_last_activity
+numeric_feature_columns:
+  - source_trip_count_analogue
+  - remaining_trips
+semantic_feature_mapping:
+  age: age_infr_class
+  sex: sex
+  primary_activity: primary_activity_status
+  hh_size: household_size_class
+  weekday: source_weekday
+  generated_trip_count: source_trip_count_analogue
+  generated_chain_prefix: [prefix_second_last_activity, prefix_last_activity]
+  derived_remaining_trips: remaining_trips
+
+target_column: target_destination_activity
+transition_weight_column: fit_weight_W_GEW
+day_weight_column: day_weight_P_GEW
+expected_context_rows: 2200
+expected_train_day_rows: 1422
+expected_train_transition_rows: 4872
+expected_join_missing_context: 0
+split_manifest_sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+start_token: __START__
+return_home_forced: false
+sequence_constraint: EXACTLY_K_TRANSITIONS_AND_K_PLUS_1_ACTIVITY_STATES
+
+forbidden_feature_tokens:
+  - row_id
+  - context_row_id
+  - source_household_id
+  - source_person_id
+  - source_person_slot
+  - source_trip_id
+  - canonical_trip_purpose
+  - target_destination_activity
+  - target_return_home
+  - fit_weight_W_GEW
+  - day_weight_P_GEW
+  - source_season
+  - mobil_diff
+  - mode
+  - hvm
+  - km_routing
+  - route
+  - execution
+
+initial_activity:
+  source: TRAIN_chain_days_first_origin_activity
+  probability_weight: P_GEW
+  forced_value: null
+
+part_ref:
+  candidate_id: CHAIN_REF
+  fit_objective: weighted_first_order_transition_probability
+  conditioning: [prefix_last_activity]
+  fallback: GLOBAL_WEIGHTED_TARGET_PMF
+  grid_id: null
+
+part_a:
+  candidate_id: CHAIN_A
+  family: TERMINAL_AWARE_VARIABLE_ORDER_MARKOV_NGRAM_WITH_BACKOFF
+  fit_objective: weighted_variable_order_categorical_loglikelihood
+  hierarchy_id: CHAIN_BACKOFF_V1
+  support_count_basis: RAW_STRICT_TRAIN_ROWS_BEFORE_WEIGHTING
+  direct_support_min_n: 30
+  low_n_rule: source_n < 30
+  probability_weight: W_GEW
+  target_support: TRAIN_OBSERVED_DESTINATION_ACTIVITY_SUPPORT
+  start_token: __START__
+  return_home_forced: false
+  hierarchy:
+    - [prefix_second_last_activity, prefix_last_activity, remaining_trips, primary_activity_status, source_weekday]
+    - [prefix_last_activity, remaining_trips, primary_activity_status, source_weekday]
+    - [prefix_last_activity, remaining_trips, primary_activity_status]
+    - [prefix_last_activity, remaining_trips]
+    - [prefix_last_activity]
+    - [remaining_trips]
+    - [GLOBAL]
+  grids:
+    CHA1: {dirichlet_alpha: 0.1}
+    CHA2: {dirichlet_alpha: 1.0}
+
+part_b:
+  candidate_id: CHAIN_B
+  family: REGULARIZED_MULTINOMIAL_LOGISTIC_NEXT_ACTIVITY
+  fit_objective: weighted_mean_multinomial_cross_entropy_plus_l2
+  encoder:
+    type: deterministic_reference_one_hot_plus_zscore
+    source: TRAIN_ONLY
+    categorical_order: CANONICAL_LEXICAL
+    target_class_order: CANONICAL_LEXICAL
+    reference_policy: FIRST_OBSERVED_CANONICAL_CATEGORY_PER_FIELD
+    target_reference_policy: FIRST_CANONICAL_TARGET_CLASS
+    unknown_token: __UNSEEN__
+    missing_token: __MISSING_CONTEXT__
+    rare_pooling: NONE
+    numeric_scaling: TRAIN_ZSCORE
+  intercept_penalized: false
+  coefficients_penalized: true
+  optimizer: scipy_L-BFGS-B
+  optimizer_maxiter: 3000
+  optimizer_ftol: 1.0e-12
+  optimizer_gtol: 1.0e-8
+  coefficient_bounds: [-20.0, 20.0]
+  reject_if_optimizer_boundary_hit: true
+  grids:
+    CHB1: {lambda_l2: 0.1}
+    CHB2: {lambda_l2: 1.0}
+    CHB3: {lambda_l2: 10.0}
+
+output_policy:
+  official_output: artifacts/runs/F3_2e_activity_chain_fit_v1
+  overwrite: false
+  cal_metrics_emitted: false
+  selection_decision_emitted: false
+  test_artifacts_emitted: false
+  expected_models: 6
