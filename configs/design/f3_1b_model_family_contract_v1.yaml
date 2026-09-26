@@ -1,0 +1,150 @@
+contract_id: F3_1B_DGEN_MODEL_FAMILY_CONTRACT_V1
+phase: F3.1b
+status: FROZEN_CANDIDATE_SLATE_FOR_CALIBRATION_PROTOCOL
+required_parent_commit: f12ffa66deccc0888bc4f97d2bab5a89b2881fd0
+upstream_contract: F3_1A_DGEN_INFORMATION_CONTRACT_V1
+reference_identity: BERLIN_HYBRID_REFERENCE_V1
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+test_partition: SEALED
+selection_principles:
+- probabilistic_or_stochastic_generation_required
+- survey_weights_used_for_fit_or_empirical_sampling_not_as_features
+- candidate_A_is_default_implementation_order_not_predeclared_winner
+- CALIBRATION_selects_between_frozen_candidates_after_F3_1c_protocol
+- complexity_requires_measurable_CAL_gain_without_hidden_contract_changes
+- D_MATCH_is_diagnostic_not_fit_target
+- LLM_full_day_schedule_generation_is_out_of_core_experimental_for_DGEN_v1
+support_policy:
+  low_n_definition: strict-TRAIN raw source rows < 30
+  min_source_rows_for_direct_conditional_cell: 30
+  action: FLAG_AND_DETERMINISTIC_BACKOFF
+  silent_pooling: false
+  note: Keeps continuity with the F2.2 LOW_N definition; source_n is audited even
+    when weights are used for probabilities.
+components:
+  DG_PARTICIPATION:
+    source_n: 2154
+    weight: P_GEW
+    target: TRIP_DAY_VS_NO_TRIP
+    candidate_A:
+      id: PART_A
+      family: WEIGHTED_REGULARIZED_LOGISTIC_BERNOULLI
+      runtime_sampling: Bernoulli(p_hat)
+      role: CORE_CANDIDATE_A
+    candidate_B:
+      id: PART_B
+      family: LIGHTGBM_BINARY_PROBABILISTIC
+      runtime_sampling: Bernoulli(p_hat)
+      role: CORE_CHALLENGER_B
+    reference_baseline: WEIGHTED_EMPIRICAL_BERNOULLI
+    selection_metrics:
+    - M2-PART-01
+    - M2-COND-01
+  DG_TRIP_COUNT:
+    source_n: 1791
+    weight: P_GEW
+    target: POSITIVE_TRIP_COUNT_GIVEN_TRIP_DAY
+    candidate_A:
+      id: COUNT_A
+      family: NEGATIVE_BINOMIAL_GLM_ON_EXCESS_COUNT_K_MINUS_1
+      runtime_sampling: K=1+NB(mu,dispersion)
+      role: CORE_CANDIDATE_A
+    candidate_B:
+      id: COUNT_B
+      family: WEIGHTED_CONDITIONAL_EMPIRICAL_PMF_WITH_BACKOFF
+      runtime_sampling: Categorical over positive integer counts
+      role: CORE_CHALLENGER_B
+    reference_baseline: WEIGHTED_UNCONDITIONAL_POSITIVE_COUNT_PMF
+    selection_metrics:
+    - M2-COUNT-01
+    - M2-COUNT-02
+    - M2-CHAIN-01
+    - M2-COND-02
+  DG_ACTIVITY_CHAIN:
+    source_n_person_days: 1422
+    source_n_transitions: 5812
+    weight: W_GEW; P_GEW for day-level checks
+    target: FUNCTIONAL_ACTIVITY_TRANSITION_SEQUENCE
+    candidate_A:
+      id: CHAIN_A
+      family: TERMINAL_AWARE_VARIABLE_ORDER_MARKOV_NGRAM_WITH_BACKOFF
+      runtime_sampling: Categorical next-activity draws conditioned on generated prefix
+        and remaining trips
+      role: CORE_CANDIDATE_A
+    candidate_B:
+      id: CHAIN_B
+      family: REGULARIZED_MULTINOMIAL_LOGISTIC_NEXT_ACTIVITY
+      runtime_sampling: Categorical from predicted next-activity probabilities
+      role: CORE_CHALLENGER_B
+    reference_baseline: WEIGHTED_FIRST_ORDER_TRANSITION_MATRIX
+    selection_metrics:
+    - M2-PURP-01
+    - M2-TRANS-01
+    - M2-RET-01
+  DG_TIME_SCHEDULE:
+    source_n_trips: 6103
+    weight: W_GEW
+    target: TEMPORAL_REALISATION_OF_GENERATED_CHAIN
+    candidate_A:
+      id: TIME_A
+      family: WEIGHTED_CONDITIONAL_EMPIRICAL_TEMPORAL_KERNEL_WITH_BACKOFF
+      runtime_sampling: Stochastic joint/conditional draw of planned departure-arrival
+        clock states
+      role: CORE_CANDIDATE_A
+    candidate_B:
+      id: TIME_B
+      family: QUANTILE_GRADIENT_BOOSTING_TEMPORAL
+      runtime_sampling: Sample from monotone reconstructed conditional quantile function
+      role: CORE_CHALLENGER_B
+    reference_baseline: WEIGHTED_DEPARTURE_HOUR_EMPIRICAL_DISTRIBUTION
+    selection_metrics:
+    - M2-TIME-01
+    semantic_guardrail: Generated arrival/duration are planned schedule quantities,
+      not executed route travel time; M3/M5/execution may change realised travel duration.
+  DG_DISTANCE_PRIOR:
+    source_n_trips: 5617
+    sensitivity_n_trips: 6145
+    weight: W_GEW
+    target: M2_DIAGNOSTIC_PATH_LENGTH_PRIOR
+    candidate_A:
+      id: DIST_A
+      family: WEIGHTED_CONDITIONAL_INVERSE_ECDF_RAW_WEGKM_WITH_BACKOFF
+      runtime_sampling: u~Uniform(0,1), weighted inverse-ECDF interpolation
+      role: CORE_CANDIDATE_A
+    candidate_B:
+      id: DIST_B
+      family: QUANTILE_GRADIENT_BOOSTING_RAW_WEGKM
+      runtime_sampling: Sample from monotone reconstructed conditional quantile function
+      role: CORE_CHALLENGER_B
+    reference_baseline: WEIGHTED_UNCONDITIONAL_RAW_WEGKM_ECDF
+    selection_metrics:
+    - M2-DIST-01
+    - M2-DIST-02
+    semantic_guardrail: Distance prior is not exact Euclidean OD and never consumes
+      km_routing.
+calibration_role:
+  TRAIN: fit all frozen candidate artifacts and any TRAIN-internal preprocessing only
+  CALIBRATION: candidate selection, hyperparameter choice, backoff sensitivity and
+    probability/distribution calibration under F3.1c rules
+  TEST: sealed; zero model-family or threshold decisions
+rng_contract:
+  master_seed: DEFER_VALUE_TO_IMPLEMENTATION_CONFIG
+  namespaces:
+  - DG_PARTICIPATION
+  - DG_TRIP_COUNT
+  - DG_ACTIVITY_CHAIN
+  - DG_TIME_SCHEDULE
+  - DG_DISTANCE_PRIOR
+  derivation: SHA256(master_seed | scenario_id | generated_person_id | component_namespace
+    | draw_index) -> uint64
+  candidate_order: canonical lexical key before weighted cumulative sampling
+  record_required: true
+deferred_to_f3_1c:
+- numeric CAL promotion thresholds
+- hyperparameter grids and regularization ranges
+- exact probability calibration method for boosted classifiers if used
+- exact conditional feature subset per candidate
+- exact backoff hierarchy per empirical/Markov candidate
+- tail/cap handling for generated trip counts
+- quantile grid and monotonic reconstruction for boosting challengers

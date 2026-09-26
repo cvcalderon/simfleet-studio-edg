@@ -1,0 +1,17 @@
+decision_id,state,topic,decision
+F3B-SLATE-001,FROZEN,Selection object,"Freeze candidate slate, not a winner; CAL selection occurs only after F3.1c metrics/threshold protocol is frozen."
+F3B-PART-001,FROZEN,Participation,PART_A weighted regularized logistic; PART_B LightGBM binary challenger; weighted empirical Bernoulli reference.
+F3B-COUNT-001,FROZEN,Trip count,COUNT_A Negative-Binomial GLM on K-1; COUNT_B weighted conditional empirical PMF; zero process remains DG_PARTICIPATION.
+F3B-CHAIN-001,FROZEN,Activity chain,CHAIN_A terminal-aware variable-order Markov/n-gram with explicit backoff; CHAIN_B regularized multinomial next-activity challenger.
+F3B-TIME-001,FROZEN,Timing,TIME_A weighted conditional empirical temporal kernel; TIME_B quantile boosting challenger.
+F3B-TIME-002,FROZEN,Timing semantics,"M2 arrival/duration fields represent planned temporal schedule quantities, not executed route travel-time truth; physical execution remains downstream."
+F3B-DIST-001,FROZEN,Distance prior,DIST_A weighted conditional inverse-ECDF on raw wegkm; DIST_B quantile boosting challenger; expanded wegkm_imp stays sensitivity only.
+F3B-LLM-001,FROZEN,LLM scope,LLM full-day schedule generation is excluded from core D_GEN v1 and reserved for a separately labelled experimental ablation.
+F3B-LOW-001,FROZEN,Low support,"Use F2.2 continuity rule: source_n < 30 => LOW_N; empirical/Markov cells must flag and deterministically back off, never silently pool."
+F3B-WGT-001,FROZEN,Weights,P_GEW for person-day components; W_GEW for trip/transition components; weights never become features.
+F3B-CAL-001,FROZEN,Partition role,TRAIN fits candidates; CAL selects/tunes only under predeclared F3.1c protocol; TEST remains sealed.
+F3B-CPLX-001,FROZEN,Complexity,More flexible challenger is promoted only by CAL evidence; complexity is not an acceptance criterion by itself.
+F3B-RNG-001,FROZEN,RNG,Per-component deterministic seed namespaces plus canonical candidate ordering are mandatory.
+F3B-MODE-001,FROZEN,Boundary,"No candidate may consume observed/chosen mode, route, feasible alternatives, execution outcomes or km_routing."
+F3B-DEP-001,DEFERRED_TO_F3_1C,Dependencies,"Concrete Python library/version choice is implementation metadata, not a scientific model-family decision."
+F3B-THR-001,DEFERRED_TO_F3_1C,Promotion thresholds,Numeric candidate-promotion thresholds are not tuned or frozen in F3.1b.

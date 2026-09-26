@@ -1,0 +1,17 @@
+component,candidate_id,family,role,weighting,runtime_generation,auditability,complexity,decision_rationale
+DG_PARTICIPATION,PART_REF,WEIGHTED_EMPIRICAL_BERNOULLI,REFERENCE_BASELINE,P_GEW,Bernoulli(global/declared simple marginal),Very high,Low,Reference only; no conditional learning
+DG_PARTICIPATION,PART_A,WEIGHTED_REGULARIZED_LOGISTIC_BERNOULLI,CORE_CANDIDATE_A,P_GEW,Bernoulli(p_hat),High,Low,Interpretable probability model; appropriate for n=2154
+DG_PARTICIPATION,PART_B,LIGHTGBM_BINARY_PROBABILISTIC,CORE_CHALLENGER_B,P_GEW,Bernoulli(p_hat),Medium,Medium,Flexible interactions; must justify complexity on CAL and preserve calibrated probabilities
+DG_TRIP_COUNT,COUNT_REF,WEIGHTED_UNCONDITIONAL_POSITIVE_COUNT_PMF,REFERENCE_BASELINE,P_GEW,Categorical positive count,Very high,Low,Distribution-only baseline
+DG_TRIP_COUNT,COUNT_A,NEGATIVE_BINOMIAL_GLM_ON_EXCESS_COUNT_K_MINUS_1,CORE_CANDIDATE_A,P_GEW,K=1+NB draw,High,Low,Participation already handles zero; excess-count parameterization avoids redundant hurdle zero process
+DG_TRIP_COUNT,COUNT_B,WEIGHTED_CONDITIONAL_EMPIRICAL_PMF_WITH_BACKOFF,CORE_CHALLENGER_B,P_GEW,Conditional categorical draw,High,Low-Medium,Preserves multimodality/tails with explicit support backoff
+DG_ACTIVITY_CHAIN,CHAIN_REF,WEIGHTED_FIRST_ORDER_TRANSITION_MATRIX,REFERENCE_BASELINE,W_GEW,Categorical next activity,Very high,Low,Simple transition baseline
+DG_ACTIVITY_CHAIN,CHAIN_A,TERMINAL_AWARE_VARIABLE_ORDER_MARKOV_NGRAM_WITH_BACKOFF,CORE_CANDIDATE_A,W_GEW + P_GEW checks,Sequential categorical draws,High,Medium,"Uses generated prefix/remaining trips; exact K; terminal behavior learned, not forced"
+DG_ACTIVITY_CHAIN,CHAIN_B,REGULARIZED_MULTINOMIAL_LOGISTIC_NEXT_ACTIVITY,CORE_CHALLENGER_B,W_GEW,Categorical next activity from probabilities,High,Medium,Allows static/generated context beyond discrete n-gram cells
+DG_ACTIVITY_CHAIN,CHAIN_LLM,LLM_FULL_DAY_SCHEDULE_GENERATOR,OUT_OF_CORE_EXPERIMENTAL,N/A,Structured LLM generation,Low,High,Deferred ablation only; would confound empirical D_GEN reference with later LLM contribution
+DG_TIME_SCHEDULE,TIME_REF,WEIGHTED_DEPARTURE_HOUR_EMPIRICAL_DISTRIBUTION,REFERENCE_BASELINE,W_GEW,Empirical time draw,Very high,Low,Timing marginal baseline
+DG_TIME_SCHEDULE,TIME_A,WEIGHTED_CONDITIONAL_EMPIRICAL_TEMPORAL_KERNEL_WITH_BACKOFF,CORE_CANDIDATE_A,W_GEW,Conditional joint/ordered time draw,High,Medium,Preserves multimodal peaks and temporal validity without assuming Gaussian time
+DG_TIME_SCHEDULE,TIME_B,QUANTILE_GRADIENT_BOOSTING_TEMPORAL,CORE_CHALLENGER_B,W_GEW,Sample reconstructed conditional quantiles,Medium,Medium-High,Flexible conditional timing; requires monotonic quantile reconstruction
+DG_DISTANCE_PRIOR,DIST_REF,WEIGHTED_UNCONDITIONAL_RAW_WEGKM_ECDF,REFERENCE_BASELINE,W_GEW,Inverse ECDF draw,Very high,Low,Direct raw-distance benchmark
+DG_DISTANCE_PRIOR,DIST_A,WEIGHTED_CONDITIONAL_INVERSE_ECDF_RAW_WEGKM_WITH_BACKOFF,CORE_CANDIDATE_A,W_GEW,Weighted inverse-ECDF interpolation,High,Medium,Strong empirical distribution preservation; avoids parametric tail assumption
+DG_DISTANCE_PRIOR,DIST_B,QUANTILE_GRADIENT_BOOSTING_RAW_WEGKM,CORE_CHALLENGER_B,W_GEW,Sample reconstructed conditional quantiles,Medium,Medium-High,Can learn nonlinear heterogeneity; CAL must justify added complexity

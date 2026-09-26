@@ -1,0 +1,11 @@
+configs/design/f3_1b_model_family_contract_v1.yaml
+docs/F3_1b_BACKOFF_POLICY_v1.md
+docs/F3_1b_CAL_ROLE_v1.md
+docs/F3_1b_CANDIDATE_MATRIX_v1.csv
+docs/F3_1b_DECISION_REGISTER_v1.csv
+docs/F3_1b_IMPLEMENTATION_FEASIBILITY_NOTE_v1.md
+docs/F3_1b_LOCAL_VALIDATION_v1.md
+docs/F3_1b_MODEL_FAMILY_FREEZE_v1.md
+docs/MAIN_UPDATE_F3_1b_PREP_v1.md
+scripts/verify_f3_1b_contract.py
+tests/test_f3_1b_contract.py
