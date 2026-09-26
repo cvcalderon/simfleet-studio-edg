@@ -1,0 +1,16 @@
+configs/design/f3_1c_fit_cal_protocol_v1.yaml
+docs/F3_1c_ACCEPTANCE_THRESHOLDS_v1.csv
+docs/F3_1c_BACKOFF_HIERARCHIES_v1.md
+docs/F3_1c_CAL_PROMOTION_PROTOCOL_v1.md
+docs/F3_1c_DECISION_REGISTER_v1.csv
+docs/F3_1c_FEATURE_SUBSETS_v1.csv
+docs/F3_1c_FITTING_CALIBRATION_FREEZE_v1.md
+docs/F3_1c_HYPERPARAMETER_GRID_v1.csv
+docs/F3_1c_LOCAL_VALIDATION_v1.md
+docs/F3_1c_OBJECTIVE_METRIC_REGISTRY_v1.csv
+docs/F3_1c_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_1c_OVERLAY_FILELIST_v1.txt
+docs/F3_1c_SEED_REPRODUCIBILITY_v1.md
+docs/MAIN_UPDATE_F3_1c_PREP_v1.md
+scripts/verify_f3_1c_contract.py
+tests/test_f3_1c_contract.py

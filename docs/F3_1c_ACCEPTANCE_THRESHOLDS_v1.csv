@@ -1,0 +1,14 @@
+metric,rule,value,direction,notes
+PART_LOGLOSS,promotion_min_improvement,0.005,lower_is_better,Candidate promotion practical margin
+COUNT_CRPS,promotion_min_improvement,0.05,lower_is_better,Candidate promotion practical margin
+CHAIN_LOGLOSS,promotion_min_improvement,0.01,lower_is_better,Candidate promotion practical margin
+TIME_TVD,promotion_min_improvement,0.005,lower_is_better,Candidate promotion practical margin
+DIST_W1_KM,promotion_min_improvement,0.25,lower_is_better,Candidate promotion practical margin
+SHARE_ABS_ERROR,max_worsening,0.01,lower_is_better,Aggregate guardrail
+TVD,max_worsening,0.005,lower_is_better,Distribution guardrail
+MEAN_TRIPS_ABS_ERROR,max_worsening,0.10,lower_is_better,Count guardrail
+SUPPORTED_SUBGROUP_SHARE_ERROR,max_worsening,0.02,lower_is_better,Only strict source_n>=30 groups
+DIST_QUANTILE_ABS_ERROR_KM,max_worsening,0.50,lower_is_better,p50/p90/p95 guardrail
+TEMPORAL_INVARIANT_VIOLATIONS,required,0,zero_tolerance,HARD
+STRUCTURAL_INVARIANT_VIOLATIONS,required,0,zero_tolerance,HARD
+NOFUTURE_VIOLATIONS,required,0,zero_tolerance,HARD

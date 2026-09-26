@@ -1,0 +1,18 @@
+decision_id,state,topic,decision
+F31C-001,FROZEN,Selection,No composite score; lexicographic selection with complexity preference.
+F31C-002,FROZEN,Features,A/B share the same semantic feature subset within each component.
+F31C-003,FROZEN,Categories,TRAIN-only vocabulary; unseen runtime level -> __UNSEEN__; no silent rare pooling.
+F31C-004,FROZEN,Features,employment/home geography/holiday/generic scenario context excluded from core v1 candidate matrices.
+F31C-005,FROZEN,Count,K positive only; COUNT_A uses Y=K-1 NB2 truncated/renormalized to TRAIN support.
+F31C-006,FROZEN,Chain,"Teacher forcing permitted only for isolated CAL evaluation, never runtime."
+F31C-007,FROZEN,Timing,"Generated duration is planned transition prior, not executed route time."
+F31C-008,FROZEN,Distance,raw wegkm primary; wegkm_imp sensitivity; km_routing forbidden.
+F31C-009,FROZEN,Support,source_n<30 => LOW_N + deterministic backoff/report-only.
+F31C-010,FROZEN,CAL,32 paired stochastic replicates per CAL person.
+F31C-011,FROZEN,CAL,1000 paired household bootstrap replicates; 95% CI.
+F31C-012,FROZEN,Promotion,Practical gain margin + CI>0 + no guardrail failure.
+F31C-013,FROZEN,Calibration,PART_B may use only NONE or 5-fold household-crossfit weighted sigmoid.
+F31C-014,FROZEN,Seed,Master seed 20260926; common random numbers across candidates.
+F31C-015,FROZEN,TEST,TEST remains sealed until joint CAL gate and artifact freeze.
+F31C-016,FROZEN,Gate,Passing joint CAL gate authorizes held-out evaluation; it does not close formal G2.
+F31C-017,FROZEN,Audit,Failed attempts preserved; accepted artifacts do not overwrite failures.

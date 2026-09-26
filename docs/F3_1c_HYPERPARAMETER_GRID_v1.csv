@@ -1,0 +1,27 @@
+candidate_id,grid_id,parameters
+PART_A,PA1,lambda_l2=0.1
+PART_A,PA2,lambda_l2=1.0
+PART_A,PA3,lambda_l2=10.0
+PART_B,PB1,lr=.05;n_estimators=200;depth=2;leaves=4;min_leaf=30;l2=1
+PART_B,PB2,lr=.05;n_estimators=200;depth=3;leaves=8;min_leaf=30;l2=1
+PART_B,PB3,lr=.05;n_estimators=200;depth=3;leaves=8;min_leaf=60;l2=1
+PART_B,PB4,lr=.05;n_estimators=200;depth=3;leaves=8;min_leaf=30;l2=10
+COUNT_A,CA1,NB2;lambda_l2=0;dispersion=TRAIN_MLE
+COUNT_A,CA2,NB2;lambda_l2=.1;dispersion=TRAIN_MLE
+COUNT_A,CA3,NB2;lambda_l2=1;dispersion=TRAIN_MLE
+COUNT_B,CB1,COUNT_BACKOFF_V1;no free smoothing parameter
+CHAIN_A,CHA1,order<=2;dirichlet_alpha=.1;CHAIN_BACKOFF_V1
+CHAIN_A,CHA2,order<=2;dirichlet_alpha=1;CHAIN_BACKOFF_V1
+CHAIN_B,CHB1,lambda_l2=.1
+CHAIN_B,CHB2,lambda_l2=1
+CHAIN_B,CHB3,lambda_l2=10
+TIME_A,TA1,bandwidth_min=0;TIME_BACKOFF_V1;max_reject=100
+TIME_A,TA2,bandwidth_min=15;TIME_BACKOFF_V1;max_reject=100
+TIME_A,TA3,bandwidth_min=30;TIME_BACKOFF_V1;max_reject=100
+TIME_B,TB1,"q=.05,.10,.25,.50,.75,.90,.95;depth=2;leaves=4;min_leaf=30;l2=1"
+TIME_B,TB2,"q=.05,.10,.25,.50,.75,.90,.95;depth=3;leaves=8;min_leaf=30;l2=1"
+TIME_B,TB3,"q=.05,.10,.25,.50,.75,.90,.95;depth=3;leaves=8;min_leaf=60;l2=1"
+DIST_A,DA1,DIST_BACKOFF_V1;weighted linear inverse-ECDF
+DIST_B,DB1,"q=.05,.10,.25,.50,.75,.90,.95;depth=2;leaves=4;min_leaf=30;l2=1"
+DIST_B,DB2,"q=.05,.10,.25,.50,.75,.90,.95;depth=3;leaves=8;min_leaf=30;l2=1"
+DIST_B,DB3,"q=.05,.10,.25,.50,.75,.90,.95;depth=3;leaves=8;min_leaf=60;l2=1"

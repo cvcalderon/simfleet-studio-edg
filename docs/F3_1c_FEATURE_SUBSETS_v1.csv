@@ -1,0 +1,16 @@
+component,candidate_id,feature_set_id,semantic_features,notes
+DG_PARTICIPATION,PART_REF,NONE,M1/static+calendar not used by reference,Reference baseline is global weighted Bernoulli.
+DG_PARTICIPATION,PART_A,PART_FEATURES_V1,age;sex;primary_activity;hh_size;ownership;access;weekday;season,Same semantic subset as PART_B.
+DG_PARTICIPATION,PART_B,PART_FEATURES_V1,age;sex;primary_activity;hh_size;ownership;access;weekday;season,Same semantic subset as PART_A.
+DG_TRIP_COUNT,COUNT_REF,NONE,No predictors,Weighted unconditional positive-count PMF.
+DG_TRIP_COUNT,COUNT_A,COUNT_FEATURES_V1,age;sex;primary_activity;hh_size;weekday;season,Conditioned on TripDay; K=1+Y.
+DG_TRIP_COUNT,COUNT_B,COUNT_FEATURES_V1,same semantic set; empirical backoff uses declared subsets,Backoff never uses CAL/TEST to create support.
+DG_ACTIVITY_CHAIN,CHAIN_REF,generated prefix only,first-order previous activity,Reference transition baseline.
+DG_ACTIVITY_CHAIN,CHAIN_A,CHAIN_FEATURES_V1,static core;weekday;generated K;generated prefix,Teacher forcing only for isolated CAL evaluation.
+DG_ACTIVITY_CHAIN,CHAIN_B,CHAIN_FEATURES_V1,same semantic subset as CHAIN_A,Multinomial next-activity model.
+DG_TIME_SCHEDULE,TIME_REF,trip position only,global weighted departure-hour empirical distribution,Reference timing baseline.
+DG_TIME_SCHEDULE,TIME_A,TIME_FEATURES_V1,static core;weekday;season;generated K;chain;time prefix,Empirical joint schedule kernel.
+DG_TIME_SCHEDULE,TIME_B,TIME_FEATURES_V1,same semantic subset as TIME_A,Quantile challenger.
+DG_DISTANCE_PRIOR,DIST_REF,NONE,No predictors,Raw wegkm weighted ECDF.
+DG_DISTANCE_PRIOR,DIST_A,DIST_FEATURES_V1,static core;weekday;season;generated K;chain;generated times,Raw-distance inverse ECDF.
+DG_DISTANCE_PRIOR,DIST_B,DIST_FEATURES_V1,same semantic subset as DIST_A,Quantile challenger; km_routing forbidden.

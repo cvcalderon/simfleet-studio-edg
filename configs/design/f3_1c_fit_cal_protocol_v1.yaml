@@ -1,0 +1,505 @@
+contract_id: F3_1C_DGEN_FIT_CAL_PROTOCOL_V1
+phase: F3.1c
+status: FROZEN_PROTOCOL_BEFORE_IMPLEMENTATION_AND_TRAINING
+required_parent_commit: ce99ff2f175fcc2df34cca3607754b4de9c4605d
+upstream_contracts:
+- F3_1A_DGEN_INFORMATION_CONTRACT_V1
+- F3_1B_DGEN_MODEL_FAMILY_CONTRACT_V1
+reference_identity: BERLIN_HYBRID_REFERENCE_V1
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+test_partition: SEALED
+selection_domain:
+- REFERENCE_BASELINE
+- CORE_CANDIDATE_A
+- CORE_CHALLENGER_B
+selection_rule:
+  type: LEXICOGRAPHIC_NO_COMPOSITE_SCORE
+  order:
+  - HARD_INVARIANTS
+  - PRIMARY_CAL_METRIC
+  - AGGREGATE_AND_SUPPORTED_SUBGROUP_GUARDRAILS
+  - COMPLEXITY_PREFERENCE
+  complexity_order:
+  - REFERENCE_BASELINE
+  - CORE_CANDIDATE_A
+  - CORE_CHALLENGER_B
+  note: A more complex candidate is promoted only when it clears its practical gain
+    margin and paired household-bootstrap uncertainty rule without guardrail failure.
+feature_policy:
+  candidate_A_and_B_same_semantic_feature_subset: true
+  source_outcomes_never_runtime_features: true
+  weights_are_fit_weights_not_features: true
+  technical_ids_are_keys_not_features: true
+  train_only_category_vocabulary: true
+  unseen_runtime_category: __UNSEEN__
+  silent_rare_category_pooling: false
+  intentionally_deferred_allowed_runtime_fields:
+    employment_participation: redundant with primary_activity_status in core v1; preserve
+      for later ablation
+    home_geography_context: source-compatible fine-grained conditioning not frozen
+      for core v1
+    scenario_holiday: rare-context support not frozen for core v1
+    scenario_known_context: only future scenario-specific extensions after explicit
+      source-compatibility contract
+feature_sets:
+  STATIC_CORE_V1:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  RESOURCE_CONTEXT_V1:
+  - household_resource_ownership
+  - household_resource_access
+  CALENDAR_CORE_V1:
+  - scenario_weekday
+  - scenario_month_or_season
+  PART_FEATURES_V1:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - household_resource_ownership
+  - household_resource_access
+  - scenario_weekday
+  - scenario_month_or_season
+  COUNT_FEATURES_V1:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - scenario_weekday
+  - scenario_month_or_season
+  CHAIN_FEATURES_V1:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - scenario_weekday
+  - generated_trip_count
+  - generated_chain_prefix
+  TIME_FEATURES_V1:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - scenario_weekday
+  - scenario_month_or_season
+  - generated_trip_count
+  - generated_activity_chain
+  - generated_time_prefix
+  DIST_FEATURES_V1:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - scenario_weekday
+  - scenario_month_or_season
+  - generated_trip_count
+  - generated_activity_chain
+  - generated_trip_times
+derived_generated_features:
+  trip_position_class:
+  - SINGLE
+  - FIRST
+  - MIDDLE
+  - LAST
+  remaining_trips: generated_trip_count - current_trip_index
+  departure_period:
+    NIGHT: 00:00-05:59
+    AM_PEAK: 06:00-09:59
+    DAY: 10:00-15:59
+    PM_PEAK: 16:00-19:59
+    EVENING: 20:00-23:59
+  note: These are deterministic transformations of already-authorized generated/runtime
+    state; they add no new source information.
+components:
+  DG_PARTICIPATION:
+    train_universe: REF_TRAIN_BINARY
+    target: TRIP_DAY_VS_NO_TRIP
+    weight: P_GEW
+    semantic_feature_set: PART_FEATURES_V1
+    fit_objectives:
+      PART_REF: weighted empirical Bernoulli probability
+      PART_A: weighted Bernoulli negative log-likelihood + L2
+      PART_B: weighted binary log-loss
+    cal_primary_metric: WEIGHTED_BERNOULLI_LOG_LOSS
+    cal_guardrails:
+    - M2-PART-01
+    - M2-COND-01
+    calibration:
+      PART_A:
+      - NONE
+      PART_B:
+      - NONE
+      - WEIGHTED_SIGMOID_5FOLD_HOUSEHOLD_CROSSFIT
+      sigmoid_promotion_min_logloss_gain: 0.002
+      max_trip_day_share_error_worsening: 0.005
+  DG_TRIP_COUNT:
+    train_universe: REF_TRAIN_CORE_STRICT_COUNT_MOBILE
+    target: POSITIVE_TRIP_COUNT_GIVEN_TRIP_DAY
+    weight: P_GEW
+    semantic_feature_set: COUNT_FEATURES_V1
+    fit_objectives:
+      COUNT_REF: weighted unconditional positive-count PMF
+      COUNT_A: weighted NB2 negative log-likelihood on Y=K-1
+      COUNT_B: weighted conditional empirical positive-count PMF with frozen backoff
+    tail_policy: K support is 1..K_MAX_TRAIN where K_MAX_TRAIN=max strict-TRAIN positive
+      count; NB2 is truncated and renormalized on that support, never clipped after
+      draw.
+    cal_primary_metric: WEIGHTED_DISCRETE_CRPS_ON_K
+    cal_guardrails:
+    - M2-COUNT-01
+    - M2-COUNT-02
+    - M2-CHAIN-01
+    - M2-COND-02
+  DG_ACTIVITY_CHAIN:
+    train_universe: REF_TRAIN_FULL_FUNCTIONAL_MOBILE + REF_TRAIN_TRANSITION
+    target: FUNCTIONAL_ACTIVITY_TRANSITION_SEQUENCE
+    weight: W_GEW; P_GEW for day-level checks
+    semantic_feature_set: CHAIN_FEATURES_V1
+    fit_objectives:
+      CHAIN_REF: weighted first-order transition probabilities
+      CHAIN_A: weighted next-activity categorical log-likelihood with variable-order
+        Markov backoff
+      CHAIN_B: weighted multinomial cross-entropy with L2
+    teacher_forcing_for_component_cal_only: true
+    runtime_teacher_forcing: false
+    exact_length_rule: For generated K trips, generate exactly K transitions and K+1
+      activity states; return-home is learned, never forced universally.
+    cal_primary_metric: WEIGHTED_NEXT_ACTIVITY_LOG_LOSS
+    cal_guardrails:
+    - M2-PURP-01
+    - M2-TRANS-01
+    - M2-RET-01
+  DG_TIME_SCHEDULE:
+    train_universe: REF_TRAIN_DIRECT_TIME_VALID
+    target: TEMPORAL_REALISATION_OF_GENERATED_CHAIN
+    weight: W_GEW
+    semantic_feature_set: TIME_FEATURES_V1
+    fit_objectives:
+      TIME_REF: weighted departure-hour empirical distribution
+      TIME_A: weighted conditional empirical joint schedule kernel; CAL chooses frozen
+        bandwidth
+      TIME_B: weighted multi-quantile pinball loss for departure schedule and planned
+        transition-duration prior
+    semantic_guardrail: Arrival/duration are planned schedule quantities / transition-duration
+      priors, not executed route travel time; mode, route and execution remain downstream.
+    cal_primary_metric: M2-TIME-01_TVD
+    auxiliary_metric: CIRCULAR_WASSERSTEIN_DEPARTURE_MINUTES_REPORT_ONLY
+    hard_guardrail: TEMPORAL_INVARIANT_VIOLATIONS=0
+  DG_DISTANCE_PRIOR:
+    train_universe: REF_TRAIN_DISTANCE_RAW
+    sensitivity_universe: REF_TRAIN_DISTANCE_EXPANDED
+    target: M2_DIAGNOSTIC_PATH_LENGTH_PRIOR
+    weight: W_GEW
+    semantic_feature_set: DIST_FEATURES_V1
+    fit_objectives:
+      DIST_REF: weighted unconditional raw-wegkm ECDF
+      DIST_A: weighted conditional raw-wegkm inverse ECDF with frozen backoff
+      DIST_B: weighted multi-quantile pinball loss on raw wegkm
+    quantile_sensitivity_only: wegkm_imp remains sensitivity evidence and never replaces
+      raw primary target.
+    cal_primary_metric: M2-DIST-01_WASSERSTEIN_KM
+    cal_guardrails:
+    - raw-distance mean
+    - p50
+    - p90
+    - p95
+    - M2-DIST-02 report-only sensitivity
+low_support:
+  threshold_raw_source_rows: 30
+  action: FLAG_AND_DETERMINISTIC_BACKOFF
+  cal_supported_subgroups_only_for_promotion: true
+  low_n_subgroups: REPORT_ONLY_NEVER_SILENTLY_POOLED
+backoff_hierarchies:
+  COUNT_BACKOFF_V1:
+  - - age_infr_class
+    - sex
+    - primary_activity_status
+    - household_size_class
+    - scenario_weekday
+  - - age_infr_class
+    - sex
+    - primary_activity_status
+    - household_size_class
+  - - age_infr_class
+    - sex
+    - primary_activity_status
+  - - age_infr_class
+    - primary_activity_status
+  - - primary_activity_status
+  - - age_infr_class
+  - - GLOBAL
+  CHAIN_BACKOFF_V1:
+  - - last_two_activities
+    - remaining_trips
+    - primary_activity_status
+    - scenario_weekday
+  - - last_activity
+    - remaining_trips
+    - primary_activity_status
+    - scenario_weekday
+  - - last_activity
+    - remaining_trips
+    - primary_activity_status
+  - - last_activity
+    - remaining_trips
+  - - last_activity
+  - - remaining_trips
+  - - GLOBAL
+  TIME_BACKOFF_V1:
+  - - origin_activity
+    - destination_activity
+    - trip_position_class
+    - primary_activity_status
+    - scenario_weekday
+  - - origin_activity
+    - destination_activity
+    - trip_position_class
+    - primary_activity_status
+  - - origin_activity
+    - destination_activity
+    - trip_position_class
+  - - destination_activity
+    - trip_position_class
+  - - trip_position_class
+  - - GLOBAL
+  DIST_BACKOFF_V1:
+  - - origin_activity
+    - destination_activity
+    - departure_period
+    - primary_activity_status
+    - age_infr_class
+  - - origin_activity
+    - destination_activity
+    - departure_period
+    - primary_activity_status
+  - - origin_activity
+    - destination_activity
+    - departure_period
+  - - origin_activity
+    - destination_activity
+  - - destination_activity
+  - - GLOBAL
+hyperparameter_grids:
+  PART_A:
+    lambda_l2:
+    - 0.1
+    - 1.0
+    - 10.0
+  PART_B:
+    fixed:
+      learning_rate: 0.05
+      n_estimators: 200
+      feature_fraction: 1.0
+      bagging_fraction: 1.0
+      deterministic: true
+    grid:
+    - grid_id: PB1
+      max_depth: 2
+      num_leaves: 4
+      min_data_in_leaf: 30
+      lambda_l2: 1.0
+    - grid_id: PB2
+      max_depth: 3
+      num_leaves: 8
+      min_data_in_leaf: 30
+      lambda_l2: 1.0
+    - grid_id: PB3
+      max_depth: 3
+      num_leaves: 8
+      min_data_in_leaf: 60
+      lambda_l2: 1.0
+    - grid_id: PB4
+      max_depth: 3
+      num_leaves: 8
+      min_data_in_leaf: 30
+      lambda_l2: 10.0
+  COUNT_A:
+    nb_parameterization: NB2
+    lambda_l2:
+    - 0.0
+    - 0.1
+    - 1.0
+    dispersion: ESTIMATE_ON_TRAIN
+  COUNT_B:
+    backoff_hierarchy: COUNT_BACKOFF_V1
+  CHAIN_A:
+    max_markov_order: 2
+    dirichlet_alpha:
+    - 0.1
+    - 1.0
+    backoff_hierarchy: CHAIN_BACKOFF_V1
+  CHAIN_B:
+    lambda_l2:
+    - 0.1
+    - 1.0
+    - 10.0
+  TIME_A:
+    departure_kernel_bandwidth_minutes:
+    - 0
+    - 15
+    - 30
+    backoff_hierarchy: TIME_BACKOFF_V1
+    max_rejection_attempts: 100
+  TIME_B:
+    quantiles:
+    - 0.05
+    - 0.1
+    - 0.25
+    - 0.5
+    - 0.75
+    - 0.9
+    - 0.95
+    monotone_repair: cumulative_max_then_linear_interpolation
+    fixed:
+      learning_rate: 0.05
+      n_estimators: 200
+    grid:
+    - grid_id: TB1
+      max_depth: 2
+      num_leaves: 4
+      min_data_in_leaf: 30
+      lambda_l2: 1.0
+    - grid_id: TB2
+      max_depth: 3
+      num_leaves: 8
+      min_data_in_leaf: 30
+      lambda_l2: 1.0
+    - grid_id: TB3
+      max_depth: 3
+      num_leaves: 8
+      min_data_in_leaf: 60
+      lambda_l2: 1.0
+  DIST_A:
+    backoff_hierarchy: DIST_BACKOFF_V1
+    inverse_ecdf_interpolation: LINEAR_WEIGHTED
+  DIST_B:
+    quantiles:
+    - 0.05
+    - 0.1
+    - 0.25
+    - 0.5
+    - 0.75
+    - 0.9
+    - 0.95
+    monotone_repair: cumulative_max_then_linear_interpolation
+    tail_support: GLOBAL_STRICT_TRAIN_RAW_MIN_MAX_ENDPOINTS
+    fixed:
+      learning_rate: 0.05
+      n_estimators: 200
+    grid:
+    - grid_id: DB1
+      max_depth: 2
+      num_leaves: 4
+      min_data_in_leaf: 30
+      lambda_l2: 1.0
+    - grid_id: DB2
+      max_depth: 3
+      num_leaves: 8
+      min_data_in_leaf: 30
+      lambda_l2: 1.0
+    - grid_id: DB3
+      max_depth: 3
+      num_leaves: 8
+      min_data_in_leaf: 60
+      lambda_l2: 1.0
+calibration_protocol:
+  cal_partition_reuse: CAL remains one frozen partition; no permanent resplit.
+  candidate_and_hyperparameter_selection: Evaluate only preregistered grid/candidate
+    combinations on CAL.
+  component_isolation: For downstream component selection, empirical CAL upstream
+    states may be teacher-forced only in evaluation to isolate component error; never
+    runtime.
+  propagated_check: After each component is selected in DAG order, rerun CAL using
+    selected upstream generated states.
+  stochastic_replicates_per_cal_person: 32
+  common_random_numbers_across_candidates: true
+  bootstrap:
+    unit: HOUSEHOLD
+    replicates: 1000
+    confidence_level: 0.95
+    paired: true
+    retain_original_P_GEW_W_GEW_inside_resampled_household: true
+  calibrator_crossfit_folds: 5
+  calibrator_fold_unit: HOUSEHOLD
+  final_after_selection: Refit selected TRAIN model at selected hyperparameters on
+    TRAIN only; fit any explicitly authorized post-hoc calibrator on all CAL; then
+    freeze artifact before TEST.
+promotion_margins:
+  PART_LOGLOSS:
+    min_improvement: 0.005
+    lower_is_better: true
+  COUNT_CRPS:
+    min_improvement: 0.05
+    lower_is_better: true
+  CHAIN_LOGLOSS:
+    min_improvement: 0.01
+    lower_is_better: true
+  TIME_TVD:
+    min_improvement: 0.005
+    lower_is_better: true
+  DIST_W1_KM:
+    min_improvement: 0.25
+    lower_is_better: true
+  rule: Promotion from simpler to more complex requires point improvement >= margin
+    AND 95% paired household-bootstrap CI for improvement strictly above 0.
+  interpretation: Engineering/preregistration margins to prevent complexity for numerically
+    trivial gains; not claims of universal transport significance.
+guardrail_tolerances:
+  share_absolute_error_worsening: 0.01
+  tvd_worsening: 0.005
+  mean_trips_per_day_absolute_error_worsening: 0.1
+  supported_subgroup_share_error_worsening: 0.02
+  distance_quantile_absolute_error_worsening_km: 0.5
+  temporal_invariant_violations: 0
+  structural_invariant_violations: 0
+  nofuture_violations: 0
+joint_pipeline_cal_gate_before_test:
+  all_hard_invariants_pass: true
+  no_selected_component_dominated_by_simpler_candidate_under_frozen_rules: true
+  selected_pipeline_must_not_materially_degrade_all_reference_pipeline: No primary/guardrail
+    metric may exceed its corresponding frozen worsening tolerance versus the all-reference
+    CAL pipeline.
+  low_n_remains_report_only: true
+  test_opening_requires_frozen_artifact_manifest: true
+  formal_g2: STILL_NOT_EVALUATED_AT_THIS_GATE
+seed_contract:
+  master_seed: 20260926
+  runtime_draw_derivation: SHA256(master_seed | scenario_id | generated_person_id
+    | component_namespace | draw_index) -> uint64
+  fit_seed_derivation: SHA256("F3_1C" | master_seed | candidate_id | grid_id | "FIT")
+    -> uint32
+  cal_scenario_id: CAL_EVAL_V1
+  candidate_order: canonical lexical key
+  common_random_numbers: true
+  record_all_seed_namespaces: true
+artifact_manifest_required_fields:
+- artifact_id
+- candidate_id
+- grid_id
+- parent_git_commit
+- config_sha256
+- source_hashes
+- split_manifest_hash
+- train_universe
+- train_row_counts
+- feature_set_id
+- feature_vocabulary_hash
+- weighting
+- fit_seed
+- library_versions
+- serialized_model_sha256
+- cal_metrics
+- cal_bootstrap_summary
+- backoff_or_calibration_policy
+- selection_decision
+- created_at_utc
+forbidden_during_cal:
+- adding_new_candidate_family
+- changing_feature_subset_after_inspecting_CAL
+- changing_promotion_margin_after_inspecting_CAL
+- opening_TEST
+- using_D_MATCH_as_fit_target
+- using_mode_route_execution_as_DGEN_features
