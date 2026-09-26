@@ -1,0 +1,207 @@
+phase: F3.2f
+component: DG_TIME_SCHEDULE
+status: IMPLEMENTATION_PREP_BEFORE_TRAIN_FIT
+expected_parent_commit: 8aa9af765ed9aa2d69fe797c1530c88ae55ed5f4
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+test_partition: SEALED
+calibration_policy: DO_NOT_READ_DO_NOT_SCORE_DO_NOT_FIT
+selection_policy: NONE_IN_F3_2F
+
+master_seed: 20260926
+fit_seed_rule: 'uint32_be(first4bytes(SHA256("F3_1C"|master_seed|candidate_id|grid_id|"FIT")))'
+
+inputs:
+  materialized_root: artifacts/model_data/F3_2a_training_data_v1
+  train_context: TRAIN/person_day_context.csv
+  train_time_trips: TRAIN/time_trips.csv
+  vocabulary_manifest: vocabulary_manifest.json
+  materialization_manifest: materialization_manifest.json
+  expected_sha256:
+    train_context: 157779ddf03903f68c8e39b772b7f29a5cd5936f49a3c8c7a380636de1dbc2ba
+    train_time_trips: 54014b40362b28c6786279c2a1a4fe51ed585e7781164dc3b260dc0584ab0d26
+    vocabulary_manifest: 665c5e0e05ebfd71bfbb5210b2aa1e206af3b4b0fb3dc0bfcd3b046288466594
+    materialization_manifest: 34dbc4cc5492b6d79c7d593f197e3b6256148e41c540952ccee5df20ce572739
+
+design_witnesses:
+  training_data_materialization_contract:
+    path: docs/F3_2a_MATERIALIZATION_CONTRACT_v1.md
+    sha256: c728b19c4fb5912d64005945004590c612d7e6458ed13e677845acb392b07ba1
+  training_data_expected_row_counts:
+    path: docs/F3_2a_EXPECTED_ROW_COUNTS_v1.csv
+    sha256: 660f57dd40cd561162ab6b56721ffe8cc7a0f7070c177545b5cde65e579ce77f
+  dgen_decomposition:
+    path: docs/F3_1a_DGEN_DECOMPOSITION_FREEZE_v1.md
+    sha256: 5de55270aa445612ffc3db4c0b8d4ccdaadbeec9905e65acfe7e43bfba328821
+  model_family_freeze:
+    path: docs/F3_1b_MODEL_FAMILY_FREEZE_v1.md
+    sha256: 1ef23221866b5ce55c87e95ea53a7322595701f89d17df6856a8e5181f7eff64
+  candidate_matrix:
+    path: docs/F3_1b_CANDIDATE_MATRIX_v1.csv
+    sha256: ce996a0dfee3fa960e084a01550c68a011f7100aaf529b84907d9a33fae37ca9
+  hyperparameter_grid:
+    path: docs/F3_1c_HYPERPARAMETER_GRID_v1.csv
+    sha256: 436463ecfb431455af955850466d7e19bb946a664c653243b41853f5cbd8f9e0
+  feature_subsets:
+    path: docs/F3_1c_FEATURE_SUBSETS_v1.csv
+    sha256: 4c8a4080018e715084997daf7b78561655f27d898f625843d578b442298fd035
+  objective_metric_registry:
+    path: docs/F3_1c_OBJECTIVE_METRIC_REGISTRY_v1.csv
+    sha256: 57723b53d82d14dfd97b806b17bafc59e001413c97b9fad60c1bbd3d88ddd9d2
+  backoff_hierarchies:
+    path: docs/F3_1c_BACKOFF_HIERARCHIES_v1.md
+    sha256: b45f8d3f23acfbe9fa559ff4726fd7e4081f15ed25e97df28c8b3b862d87f5be
+  fitting_calibration_freeze:
+    path: docs/F3_1c_FITTING_CALIBRATION_FREEZE_v1.md
+    sha256: 9337bebf6d1247a2d384954e39c15dfbe21f778f605ba52d6cf8fe7a021dc812
+  seed_reproducibility:
+    path: docs/F3_1c_SEED_REPRODUCIBILITY_v1.md
+    sha256: 8f360f4adc5dbfd60303647dfa536f1e4db32387331c46ad551364e3ab7bb276
+
+environment_witness:
+  root: artifacts/environment/F3_2c_modeling_environment_v1
+  environment_manifest_sha256: bc645a3903289f26d5f54996ee6108f6ef16bcf14397e37b64a439eee359993d
+  pip_freeze_sha256: f77d8137f17c08e7d17feca5892f209bf03ddc3f5c51b6326055ad44b66d4773
+  checksums_sha256: ac9146536dad0a20dc80edc2b139b3f139ca5070882067815375cfd9da2e5ba2
+  required_versions:
+    numpy: 2.5.3
+    pandas: 2.3.3
+    scipy: 1.18.1
+    scikit-learn: 1.9.1
+    statsmodels: 0.15.0
+    lightgbm: 4.7.0
+
+feature_set_id: TIME_FEATURES_V1
+categorical_feature_columns:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - source_weekday
+  - source_season
+  - origin_activity_analogue
+  - destination_activity_analogue
+  - trip_position_class
+numeric_feature_columns:
+  - source_trip_count_analogue
+  - previous_departure_clock_minute
+  - previous_arrival_absolute_minute
+semantic_feature_mapping:
+  age: age_infr_class
+  sex: sex
+  primary_activity: primary_activity_status
+  hh_size: household_size_class
+  weekday: source_weekday
+  season: source_season
+  generated_trip_count: source_trip_count_analogue
+  generated_activity_chain: [origin_activity_analogue, destination_activity_analogue, trip_position_class]
+  generated_time_prefix: [previous_departure_clock_minute, previous_arrival_absolute_minute]
+
+target_columns:
+  - target_departure_clock_minute
+  - target_arrival_clock_minute
+  - target_arrival_day_offset
+  - target_duration_from_clock_min
+weight_column: fit_weight_W_GEW
+expected_context_rows: 2200
+expected_train_rows: 6103
+expected_unresolved_transition_context_rows: 329
+
+forbidden_feature_tokens:
+  - row_id
+  - context_row_id
+  - source_household_id
+  - source_person_id
+  - source_person_slot
+  - source_trip_id
+  - fit_weight_W_GEW
+  - target_departure_clock_minute
+  - target_arrival_clock_minute
+  - target_arrival_day_offset
+  - target_duration_from_clock_min
+  - mode
+  - hvm
+  - km_routing
+  - route
+  - execution
+
+temporal_invariants:
+  departure_clock_minute: INTEGER_0_TO_1439
+  duration_from_clock_min: INTEGER_GE_1
+  arrival_identity: arrival_absolute = departure_clock + duration
+  arrival_clock_minute: arrival_absolute modulo 1440
+  arrival_day_offset: FLOOR_arrival_absolute_div_1440_MUST_BE_0_OR_1
+  chronology: departure_clock >= previous_generated_arrival_absolute_when_prefix_exists
+  future_trip_feasibility: nonfinal_trip_arrival_absolute_must_be_lt_1440
+  failure_policy: REJECT_OR_RESAMPLE_NEVER_SILENT_CLOCK_REPAIR
+  semantics: PLANNED_SCHEDULE_PRIOR_NOT_EXECUTED_ROUTE_TRAVEL_TIME
+
+part_ref:
+  candidate_id: TIME_REF
+  family: WEIGHTED_DEPARTURE_HOUR_EMPIRICAL_DISTRIBUTION
+  fit_objective: weighted_empirical_departure_hour_distribution
+  probability_weight: W_GEW
+  primary_reference_marginal: DEPARTURE_HOUR
+  auxiliary_runtime_support: GLOBAL_WEIGHTED_EMPIRICAL_DEPARTURE_DURATION_TUPLES
+  silent_clock_repair: false
+
+part_a:
+  candidate_id: TIME_A
+  family: WEIGHTED_CONDITIONAL_EMPIRICAL_TEMPORAL_KERNEL_WITH_BACKOFF
+  fit_objective: weighted_conditional_empirical_joint_schedule_kernel
+  hierarchy_id: TIME_BACKOFF_V1
+  support_count_basis: RAW_STRICT_TRAIN_ROWS_BEFORE_WEIGHTING
+  direct_support_min_n: 30
+  low_n_rule: source_n < 30
+  probability_weight: W_GEW
+  max_rejection_attempts: 100
+  silent_clock_repair: false
+  kernel_clarification:
+    status: FROZEN_PRE_CAL_IMPLEMENTATION_CLARIFICATION
+    reason: F3.1c froze bandwidth values but not kernel shape
+    shape: DISCRETE_CIRCULAR_UNIFORM_INTEGER_V1
+    support: integer_jitter_inclusive_minus_bandwidth_to_plus_bandwidth
+    duration_coupling: EMPIRICAL_JOINT_DONOR_DURATION
+    arrival_reconstruction: GENERATED_DEPARTURE_PLUS_EMPIRICAL_DURATION
+    invalid_draw_policy: REJECT_AT_CURRENT_LEVEL_THEN_DETERMINISTIC_BACKOFF
+  hierarchy:
+    - [origin_activity_analogue, destination_activity_analogue, trip_position_class, primary_activity_status, source_weekday]
+    - [origin_activity_analogue, destination_activity_analogue, trip_position_class, primary_activity_status]
+    - [origin_activity_analogue, destination_activity_analogue, trip_position_class]
+    - [destination_activity_analogue, trip_position_class]
+    - [trip_position_class]
+    - [GLOBAL]
+  grids:
+    TA1: {bandwidth_min: 0}
+    TA2: {bandwidth_min: 15}
+    TA3: {bandwidth_min: 30}
+
+part_b:
+  candidate_id: TIME_B
+  family: QUANTILE_GRADIENT_BOOSTING_TEMPORAL
+  fit_objective: weighted_multi_quantile_pinball_departure_and_duration
+  encoder:
+    type: deterministic_full_one_hot_plus_raw_numeric
+    source: TRAIN_ONLY
+    categorical_order: CANONICAL_LEXICAL
+    unknown_token: __UNSEEN__
+    missing_token: __MISSING_CONTEXT__
+    rare_pooling: NONE
+    numeric_missing_policy: NATIVE_NAN_LIGHTGBM
+  quantiles: [0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95]
+  monotone_repair: cumulative_max_then_linear_interpolation
+  common:
+    learning_rate: 0.05
+    n_estimators: 200
+  grids:
+    TB1: {max_depth: 2, num_leaves: 4, min_data_in_leaf: 30, lambda_l2: 1.0}
+    TB2: {max_depth: 3, num_leaves: 8, min_data_in_leaf: 30, lambda_l2: 1.0}
+    TB3: {max_depth: 3, num_leaves: 8, min_data_in_leaf: 60, lambda_l2: 1.0}
+
+output_policy:
+  official_output: artifacts/runs/F3_2f_time_schedule_fit_v1
+  overwrite: false
+  cal_metrics_emitted: false
+  selection_decision_emitted: false
+  test_artifacts_emitted: false
+  expected_models: 7
