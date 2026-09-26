@@ -1,0 +1,145 @@
+contract_id: F3_2A_DGEN_TRAINING_DATA_MATERIALIZATION_V1
+phase: F3.2a
+status: FROZEN_CONTRACT_BEFORE_MATERIALIZER_IMPLEMENTATION
+required_parent_commit: 58bb4183a9557b8b8b069552813db9530cb848b0
+upstream_contracts:
+  - F3_1A_DGEN_INFORMATION_CONTRACT_V1
+  - F3_1B_DGEN_MODEL_FAMILY_CONTRACT_V1
+  - F3_1C_DGEN_FIT_CAL_PROTOCOL_V1
+reference_identity: BERLIN_HYBRID_REFERENCE_V1
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+test_partition: SEALED
+materialization_root: artifacts/model_data/F3_2a_training_data_v1
+partitions:
+  allowed: [TRAIN, CALIBRATION]
+  forbidden: [TEST]
+  physical_separation_required: true
+  cal_role: EVALUATION_AND_SELECTION_ONLY_NEVER_FIT
+source_policy:
+  source_household_person_evidence_only_for_fit: true
+  synthetic_R4_rows_are_fit_source: false
+  r4_role: RUNTIME_INTERFACE_COMPATIBILITY_ONLY
+  weights_are_columns_not_features: true
+  ids_are_keys_not_features: true
+  no_mode_route_execution_fields: true
+  km_routing_forbidden: true
+  no_silent_complete_case_shrinkage: true
+  optional_context_missing_action: EXPLICIT_STATUS_AND_BACKOFF
+calendar_mapping:
+  source_weekday: ST_WOTAG
+  runtime_analogue: scenario_weekday
+  domain: [1,2,3,4,5,6,7]
+  source_season: saison
+  runtime_season_analogue: scenario_month_or_season
+  season_domain: [1,2,3,4]
+  source_month: ST_MONAT
+  source_month_role: PROVENANCE_ONLY_CORE_V1
+  holiday_role: DEFERRED_BY_F3_1C_CORE_V1
+resource_features:
+  household_ownership_columns:
+    - hh_car_stock_class
+    - hh_motorcycle_moped_stock_class
+    - hh_ebike_stock_class
+    - hh_bike_stock_class
+    - hh_carsharing_membership
+  person_access_columns:
+    - person_car_access
+    - person_bike_access
+    - person_ebike_access
+    - person_carsharing_membership
+  dynamic_availability_t: FORBIDDEN
+special_tokens:
+  missing_context: __MISSING_CONTEXT__
+  prefix_start: __START__
+  unseen_category: __UNSEEN__
+  source_unknown: UNKNOWN
+category_vocabulary:
+  fit_partition: TRAIN_ONLY
+  cal_unseen_mapping: __UNSEEN__
+  runtime_unseen_mapping: __UNSEEN__
+serialization:
+  data_format: CSV
+  encoding: UTF-8
+  line_ending: LF
+  delimiter: comma
+  quoting: MINIMAL
+  na_representation: EMPTY_FIELD
+  float_format: '%.17g'
+  byte_hash: SHA256
+  reason: Frozen source training tables are small; canonical CSV avoids a new Parquet/pyarrow dependency and permits byte-level audit.
+sort_keys:
+  person_day_context: [source_household_id, source_person_id]
+  participation: [source_household_id, source_person_id]
+  trip_count: [source_household_id, source_person_id]
+  chain_days: [source_household_id, source_person_id]
+  chain_transitions: [source_household_id, source_person_id, source_trip_id]
+  time_trips: [source_household_id, source_person_id, source_trip_id]
+  distance_raw: [source_household_id, source_person_id, source_trip_id]
+  distance_expanded_sensitivity: [source_household_id, source_person_id, source_trip_id]
+datasets:
+  person_day_context:
+    role: SHARED_FEATURE_CONTEXT
+    target: NONE
+    universe: STRICT_RMIN_DESCENDANT_PERSON_DAY
+  participation:
+    role: FIT_OR_CAL_EVAL
+    universe: REF_PARTITION_BINARY
+    target: target_trip_day
+    weight: fit_weight_P_GEW
+  trip_count:
+    role: FIT_OR_CAL_EVAL
+    universe: REF_PARTITION_CORE_STRICT_COUNT_MOBILE
+    target: target_trip_count
+    derived_target: target_excess_count = target_trip_count - 1
+    weight: fit_weight_P_GEW
+  chain_days:
+    role: DAY_LEVEL_CHAIN_AUDIT
+    universe: REF_PARTITION_FULL_FUNCTIONAL_MOBILE
+    target: target_return_home
+    weight: day_weight_P_GEW
+  chain_transitions:
+    role: FIT_OR_CAL_EVAL
+    universe: FULL_FUNCTIONAL_DAY_INTERSECT_ELIGIBLE_TRANSITION
+    target: target_destination_activity
+    weight: fit_weight_W_GEW
+  time_trips:
+    role: FIT_OR_CAL_EVAL
+    universe: REF_PARTITION_DIRECT_TIME_VALID
+    targets: [target_departure_clock_minute, target_arrival_clock_minute, target_arrival_day_offset, target_duration_from_clock_min]
+    weight: fit_weight_W_GEW
+  distance_raw:
+    role: FIT_OR_CAL_EVAL
+    universe: REF_PARTITION_DISTANCE_RAW
+    target: target_distance_prior_km
+    weight: fit_weight_W_GEW
+  distance_expanded_sensitivity:
+    role: REPORT_ONLY_SENSITIVITY
+    universe: REF_PARTITION_DISTANCE_EXPANDED
+    target: target_distance_sensitivity_km
+    weight: fit_weight_W_GEW
+teacher_forcing_semantics:
+  train_downstream_source_analogues: ALLOWED_FOR_FIT_ONLY
+  cal_isolated_source_analogues: ALLOWED_FOR_COMPONENT_EVALUATION_ONLY
+  runtime: FORBIDDEN_SOURCE_ANALOGUES_USE_GENERATED_UPSTREAM_STATE
+  propagated_cal: USE_SELECTED_GENERATED_UPSTREAM_STATE
+row_retention:
+  target_eligibility_filters_only: true
+  optional_chain_context_may_be_unknown: true
+  optional_time_context_may_be_missing_for_distance: true
+  dropping_for_optional_context: false
+  distance_missing_time_action: EXPLICIT_MISSING_CONTEXT_THEN_BACKOFF
+output_bundle_required:
+  - materialization_manifest.json
+  - source_hash_validation.csv
+  - row_counts.csv
+  - dataset_schema.csv
+  - vocabulary_manifest.json
+  - checksums.sha256
+  - TRAIN/*.csv
+  - CALIBRATION/*.csv
+forbidden_outputs:
+  - TEST
+  - model_parameters
+  - cal_metrics
+  - selection_decision

@@ -1,0 +1,100 @@
+dataset,column,role,dtype,source_or_derivation,allowed_in_X,notes
+person_day_context,row_id,IDENTITY,string,SHA256(partition|H_ID|HP_ID|dataset),NO,Deterministic row identity.
+person_day_context,source_household_id,IDENTITY,int64,H_ID,NO,Join/provenance only.
+person_day_context,source_person_id,IDENTITY,int64,HP_ID,NO,Join/provenance only.
+person_day_context,source_person_slot,IDENTITY,int16,P_ID,NO,Roster linkage only.
+person_day_context,age_infr_class,FEATURE,category,HP_ALTER -> frozen age_infr_class,YES,STATIC_CORE_V1
+person_day_context,sex,FEATURE,category,HP_SEX -> MALE/FEMALE,YES,STATIC_CORE_V1
+person_day_context,primary_activity_status,FEATURE,category,HP_TAET -> frozen activity recoding,YES,STATIC_CORE_V1
+person_day_context,household_size_class,FEATURE,category,H_GR,YES,STATIC_CORE_V1; strict source households imply 1..5.
+person_day_context,source_weekday,FEATURE_SOURCE_ANALOGUE,int8,ST_WOTAG,YES,Runtime analogue is scenario_weekday.
+person_day_context,source_season,FEATURE_SOURCE_ANALOGUE,int8,saison,YES,Runtime analogue is scenario_month_or_season; domain 1..4.
+person_day_context,hh_car_stock_class,FEATURE,category,hh_car_stock_class canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,hh_motorcycle_moped_stock_class,FEATURE,category,hh_motorcycle_moped_stock_class canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,hh_ebike_stock_class,FEATURE,category,hh_ebike_stock_class canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,hh_bike_stock_class,FEATURE,category,hh_bike_stock_class canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,hh_carsharing_membership,FEATURE,category,hh_carsharing_membership canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,person_car_access,FEATURE,category,person_car_access canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,person_bike_access,FEATURE,category,person_bike_access canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,person_ebike_access,FEATURE,category,person_ebike_access canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,person_carsharing_membership,FEATURE,category,person_carsharing_membership canonicalization,YES,Only consumed by PART_FEATURES_V1 in core v1.
+person_day_context,fit_weight_P_GEW,WEIGHT,float64,P_GEW,NO,Weight column; never in X.
+participation,context_row_id,FK,string,person_day_context.row_id,NO,Static/calendar/resource context joined without duplicating semantics.
+participation,source_household_id,IDENTITY,int64,H_ID,NO,Provenance/join only.
+participation,source_person_id,IDENTITY,int64,HP_ID,NO,Provenance/join only.
+trip_count,context_row_id,FK,string,person_day_context.row_id,NO,Static/calendar/resource context joined without duplicating semantics.
+trip_count,source_household_id,IDENTITY,int64,H_ID,NO,Provenance/join only.
+trip_count,source_person_id,IDENTITY,int64,HP_ID,NO,Provenance/join only.
+chain_days,context_row_id,FK,string,person_day_context.row_id,NO,Static/calendar/resource context joined without duplicating semantics.
+chain_days,source_household_id,IDENTITY,int64,H_ID,NO,Provenance/join only.
+chain_days,source_person_id,IDENTITY,int64,HP_ID,NO,Provenance/join only.
+chain_transitions,context_row_id,FK,string,person_day_context.row_id,NO,Static/calendar/resource context joined without duplicating semantics.
+chain_transitions,source_household_id,IDENTITY,int64,H_ID,NO,Provenance/join only.
+chain_transitions,source_person_id,IDENTITY,int64,HP_ID,NO,Provenance/join only.
+time_trips,context_row_id,FK,string,person_day_context.row_id,NO,Static/calendar/resource context joined without duplicating semantics.
+time_trips,source_household_id,IDENTITY,int64,H_ID,NO,Provenance/join only.
+time_trips,source_person_id,IDENTITY,int64,HP_ID,NO,Provenance/join only.
+distance_raw,context_row_id,FK,string,person_day_context.row_id,NO,Static/calendar/resource context joined without duplicating semantics.
+distance_raw,source_household_id,IDENTITY,int64,H_ID,NO,Provenance/join only.
+distance_raw,source_person_id,IDENTITY,int64,HP_ID,NO,Provenance/join only.
+distance_expanded_sensitivity,context_row_id,FK,string,person_day_context.row_id,NO,Static/calendar/resource context joined without duplicating semantics.
+distance_expanded_sensitivity,source_household_id,IDENTITY,int64,H_ID,NO,Provenance/join only.
+distance_expanded_sensitivity,source_person_id,IDENTITY,int64,HP_ID,NO,Provenance/join only.
+participation,target_trip_day,TARGET,int8,"mobil_diff: 0->0; {1,2,3,5}->1",NO,NoTrip participation target; never mode.
+participation,fit_weight_P_GEW,WEIGHT,float64,P_GEW,NO,Fit weight only.
+trip_count,target_trip_count,TARGET,int16,analytic_total_trip_count,NO,Positive K>=1 only.
+trip_count,target_excess_count,TARGET_DERIVED,int16,target_trip_count-1,NO,COUNT_A NB2 target Y=K-1.
+trip_count,fit_weight_P_GEW,WEIGHT,float64,P_GEW,NO,Fit weight only.
+chain_days,source_trip_count_analogue,UPSTREAM_SOURCE_ANALOGUE,int16,analytic_total_trip_count,FIT_ONLY,Full-functional day only.
+chain_days,first_origin_activity,UPSTREAM_SOURCE_ANALOGUE,category,person_sequence.first_origin_activity,FIT_ONLY,Full-functional day only.
+chain_days,final_destination_activity,TARGET_AUDIT,category,last eligible transition destination_activity,NO,Full-functional day only.
+chain_days,target_return_home,TARGET_AUDIT,bool,final_destination_activity==HOME,NO,Full-functional day only.
+chain_days,day_weight_P_GEW,WEIGHT,float64,P_GEW,NO,Full-functional day only.
+chain_transitions,source_trip_id,IDENTITY,int16,W_ID,NO,Trip key.
+chain_transitions,trip_sequence_index,UPSTREAM_SOURCE_ANALOGUE,int16,ordered W_ID within full-functional day,FIT_ONLY,Runtime analogue is generated transition index.
+chain_transitions,source_trip_count_analogue,UPSTREAM_SOURCE_ANALOGUE,int16,analytic_total_trip_count,FIT_ONLY,Runtime analogue is generated K.
+chain_transitions,prefix_second_last_activity,UPSTREAM_SOURCE_ANALOGUE,category,reconstructed source prefix order-2; __START__ when unavailable,FIT_ONLY,Runtime analogue is generated prefix.
+chain_transitions,prefix_last_activity,UPSTREAM_SOURCE_ANALOGUE,category,origin_activity,FIT_ONLY,Current activity state.
+chain_transitions,remaining_trips,UPSTREAM_SOURCE_ANALOGUE,int16,K-trip_sequence_index,FIT_ONLY,Deterministic from upstream K/index.
+chain_transitions,canonical_trip_purpose,TARGET_AUDIT,category,canonical_trip_purpose,NO,"Purpose guardrail, not predictor of same transition."
+chain_transitions,target_destination_activity,TARGET,category,destination_activity,NO,Next-activity target.
+chain_transitions,fit_weight_W_GEW,WEIGHT,float64,"W_GEW joined by HP_ID,W_ID from time audit",NO,Fit weight only.
+time_trips,source_trip_id,IDENTITY,int16,W_ID,NO,Trip key.
+time_trips,source_trip_count_analogue,UPSTREAM_SOURCE_ANALOGUE,int16,CORE_STRICT_COUNT K when available else explicit missing context,FIT_ONLY,Never causes row drop.
+time_trips,origin_activity_analogue,UPSTREAM_SOURCE_ANALOGUE,category,transition.origin_activity,FIT_ONLY,May be UNKNOWN; keep row.
+time_trips,destination_activity_analogue,UPSTREAM_SOURCE_ANALOGUE,category,transition.destination_activity,FIT_ONLY,May be UNKNOWN; keep row.
+time_trips,trip_position_class,UPSTREAM_SOURCE_ANALOGUE,category,SINGLE/FIRST/MIDDLE/LAST from source K/index,FIT_ONLY,Runtime deterministic analogue.
+time_trips,previous_departure_clock_minute,UPSTREAM_SOURCE_ANALOGUE,float64,previous valid trip departure or empty first/missing,FIT_ONLY,Generated time-prefix analogue.
+time_trips,previous_arrival_absolute_minute,UPSTREAM_SOURCE_ANALOGUE,float64,previous valid trip arrival absolute or empty,FIT_ONLY,Generated time-prefix analogue.
+time_trips,target_departure_clock_minute,TARGET,float64,departure_clock_minute,NO,Planned schedule target.
+time_trips,target_arrival_clock_minute,TARGET,float64,arrival_clock_minute,NO,"Planned schedule target, not executed route time."
+time_trips,target_arrival_day_offset,TARGET,int8,arrival_day_offset,NO,Planned schedule target.
+time_trips,target_duration_from_clock_min,TARGET,float64,duration_from_clock_min,NO,"Transition-duration prior, not executed route time."
+time_trips,fit_weight_W_GEW,WEIGHT,float64,W_GEW,NO,Fit weight only.
+time_trips,transition_context_status,QUALITY,category,ELIGIBLE/UNRESOLVED from transition_observation_eligible,NO,No silent drop.
+distance_raw,source_trip_id,IDENTITY,int16,W_ID,NO,Trip key.
+distance_raw,source_trip_count_analogue,UPSTREAM_SOURCE_ANALOGUE,int16,CORE_STRICT_COUNT K when available else missing,FIT_ONLY,No row drop for missing optional context.
+distance_raw,origin_activity_analogue,UPSTREAM_SOURCE_ANALOGUE,category,transition.origin_activity,FIT_ONLY,UNKNOWN allowed.
+distance_raw,destination_activity_analogue,UPSTREAM_SOURCE_ANALOGUE,category,transition.destination_activity,FIT_ONLY,UNKNOWN allowed.
+distance_raw,departure_clock_minute_analogue,UPSTREAM_SOURCE_ANALOGUE,float64,valid source time if present else empty,FIT_ONLY,Runtime analogue is generated departure.
+distance_raw,departure_period_analogue,UPSTREAM_SOURCE_ANALOGUE,category,derived period or __MISSING_CONTEXT__,FIT_ONLY,Missing routes deterministically to backoff.
+distance_raw,arrival_clock_minute_analogue,UPSTREAM_SOURCE_ANALOGUE,float64,valid source time if present else empty,FIT_ONLY,Runtime analogue is generated arrival.
+distance_raw,duration_from_clock_min_analogue,UPSTREAM_SOURCE_ANALOGUE,float64,valid source time if present else empty,FIT_ONLY,Runtime analogue is generated planned duration.
+distance_raw,time_context_status,QUALITY,category,VALID/MISSING_SOURCE_CONTEXT,NO,32 TRAIN and 11 CAL raw-distance rows expected missing valid time context.
+distance_raw,transition_context_status,QUALITY,category,ELIGIBLE/UNRESOLVED,NO,Do not shrink raw-distance universe.
+distance_raw,fit_weight_W_GEW,WEIGHT,float64,"W_GEW joined from time audit by HP_ID,W_ID",NO,Weight only.
+distance_raw,target_distance_prior_km,TARGET,float64,wegkm where DIRECT_SOURCE_DISTANCE_VALID,NO,"Primary target; path length prior, not exact OD."
+distance_raw,distance_provenance,PROVENANCE,category,RAW_WEGKM,NO,Always RAW_WEGKM in primary dataset.
+distance_expanded_sensitivity,source_trip_id,IDENTITY,int16,W_ID,NO,Trip key.
+distance_expanded_sensitivity,source_trip_count_analogue,UPSTREAM_SOURCE_ANALOGUE,int16,CORE_STRICT_COUNT K when available else missing,FIT_ONLY,No row drop for missing optional context.
+distance_expanded_sensitivity,origin_activity_analogue,UPSTREAM_SOURCE_ANALOGUE,category,transition.origin_activity,FIT_ONLY,UNKNOWN allowed.
+distance_expanded_sensitivity,destination_activity_analogue,UPSTREAM_SOURCE_ANALOGUE,category,transition.destination_activity,FIT_ONLY,UNKNOWN allowed.
+distance_expanded_sensitivity,departure_clock_minute_analogue,UPSTREAM_SOURCE_ANALOGUE,float64,valid source time if present else empty,FIT_ONLY,Runtime analogue is generated departure.
+distance_expanded_sensitivity,departure_period_analogue,UPSTREAM_SOURCE_ANALOGUE,category,derived period or __MISSING_CONTEXT__,FIT_ONLY,Missing routes deterministically to backoff.
+distance_expanded_sensitivity,arrival_clock_minute_analogue,UPSTREAM_SOURCE_ANALOGUE,float64,valid source time if present else empty,FIT_ONLY,Runtime analogue is generated arrival.
+distance_expanded_sensitivity,duration_from_clock_min_analogue,UPSTREAM_SOURCE_ANALOGUE,float64,valid source time if present else empty,FIT_ONLY,Runtime analogue is generated planned duration.
+distance_expanded_sensitivity,time_context_status,QUALITY,category,VALID/MISSING_SOURCE_CONTEXT,NO,32 TRAIN and 11 CAL raw-distance rows expected missing valid time context.
+distance_expanded_sensitivity,transition_context_status,QUALITY,category,ELIGIBLE/UNRESOLVED,NO,Do not shrink raw-distance universe.
+distance_expanded_sensitivity,fit_weight_W_GEW,WEIGHT,float64,"W_GEW joined from time audit by HP_ID,W_ID",NO,Weight only.
+distance_expanded_sensitivity,target_distance_sensitivity_km,TARGET_SENSITIVITY,float64,wegkm if raw valid else wegkm_imp,NO,Report-only sensitivity; never primary fit target.
+distance_expanded_sensitivity,distance_provenance,PROVENANCE,category,RAW_WEGKM or SOURCE_IMPUTED_WEGKM,NO,Keep provenance explicit.

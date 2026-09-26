@@ -1,0 +1,14 @@
+configs/design/f3_2a_training_data_contract_v1.yaml
+docs/F3_2a_DATASET_SCHEMA_v1.csv
+docs/F3_2a_DECISION_REGISTER_v1.csv
+docs/F3_2a_EXPECTED_ROW_COUNTS_v1.csv
+docs/F3_2a_JOIN_AND_ORDER_RULES_v1.md
+docs/F3_2a_LOCAL_VALIDATION_v1.md
+docs/F3_2a_MATERIALIZATION_CONTRACT_v1.md
+docs/F3_2a_RESOURCE_CANONICALIZATION_v1.csv
+docs/F3_2a_SOURCE_MANIFEST_v1.csv
+docs/MAIN_UPDATE_F3_2a_PREP_v1.md
+scripts/verify_f3_2a_contract.py
+tests/test_f3_2a_contract.py
+docs/F3_2a_OVERLAY_FILELIST_v1.txt
+docs/F3_2a_OVERLAY_CHECKSUMS_v1.sha256

@@ -1,0 +1,17 @@
+partition,dataset,expected_rows,definition
+TRAIN,person_day_context,2200,Strict TRAIN persons in strict R_min households; context base only.
+TRAIN,participation,2154,"mobil_diff in {0,1,2,3,5}."
+TRAIN,trip_count,1791,CORE_STRICT_COUNT and analytic_total_trip_count>0.
+TRAIN,chain_days,1422,full_functional_day_sequence_eligible=true.
+TRAIN,chain_transitions,4872,Eligible transitions intersect full-functional TRAIN person-days.
+TRAIN,time_trips,6103,DIRECT_TEMPORAL_VALID.
+TRAIN,distance_raw,5617,DIRECT_SOURCE_DISTANCE_VALID; W_RBW=0.
+TRAIN,distance_expanded_sensitivity,6145,Raw else source-imputed distance; report-only sensitivity.
+CALIBRATION,person_day_context,469,Strict CAL persons in strict R_min households; no TEST.
+CALIBRATION,participation,460,CAL analogue of binary participation universe.
+CALIBRATION,trip_count,381,CAL positive CORE_STRICT_COUNT.
+CALIBRATION,chain_days,319,CAL full-functional mobile person-days.
+CALIBRATION,chain_transitions,1065,Eligible transitions intersect full-functional CAL person-days.
+CALIBRATION,time_trips,1243,CAL DIRECT_TEMPORAL_VALID.
+CALIBRATION,distance_raw,1147,CAL raw distance primary.
+CALIBRATION,distance_expanded_sensitivity,1257,CAL expanded-distance sensitivity.

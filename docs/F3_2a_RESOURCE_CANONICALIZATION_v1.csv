@@ -1,0 +1,10 @@
+canonical_column,source_table,source_variable,accepted_source_codes,canonical_domain,special_mapping,semantic_group,notes
+hh_car_stock_class,Haushalte,H_ANZAUTO,0;1;2;3,0;1;2;3_PLUS,99/blank->UNKNOWN,HOUSEHOLD_OWNERSHIP,"3 is lower-bound/top-coded, never exact 3."
+hh_motorcycle_moped_stock_class,Haushalte,H_ANZMOTMOP,0;1;2;3;99,0;1;2;3_PLUS;UNKNOWN,99->UNKNOWN,HOUSEHOLD_OWNERSHIP,Preserve combined motorcycle/moped semantics.
+hh_ebike_stock_class,Haushalte,H_ANZPED,0..10;99,0..9;10_PLUS;UNKNOWN,99->UNKNOWN,HOUSEHOLD_OWNERSHIP,10 is lower-bound/top-coded.
+hh_bike_stock_class,Haushalte,H_ANZRAD,0..10;99,0..9;10_PLUS;UNKNOWN,99->UNKNOWN,HOUSEHOLD_OWNERSHIP,10 is lower-bound/top-coded.
+hh_carsharing_membership,Haushalte,H_CS,1;2;3;9,ONE_PROVIDER;MULTIPLE_PROVIDERS;NONE;UNKNOWN,9->UNKNOWN,HOUSEHOLD_OWNERSHIP,Membership is not physical stock.
+person_car_access,Personen,P_VAUTO,1;2;3;9;206;402,ALWAYS;OCCASIONAL;NEVER;UNKNOWN,9/206/402->UNKNOWN,PERSON_ACCESS,Access includes declared availability semantics; not ownership or dynamic availability(t).
+person_bike_access,Personen,P_VRAD,1;2;9,YES;NO;UNKNOWN,9->UNKNOWN,PERSON_ACCESS,Static person access.
+person_ebike_access,Personen,P_VPED,1;2;9;206;402,YES;NO;UNKNOWN,9/206/402->UNKNOWN,PERSON_ACCESS,Static person access.
+person_carsharing_membership,Personen,P_CS,1;2;3;9;202;206;403,ONE_PROVIDER;MULTIPLE_PROVIDERS;NONE;UNKNOWN,9/202/206/403->UNKNOWN,PERSON_ACCESS,Person membership; not household membership.

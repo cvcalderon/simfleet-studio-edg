@@ -1,0 +1,21 @@
+decision_id,state,topic,decision
+F32A-001,FROZEN,Parent,Parent commit is exactly 58bb4183a9557b8b8b069552813db9530cb848b0.
+F32A-002,FROZEN,Partitions,Materialize TRAIN and CALIBRATION only; never create TEST output.
+F32A-003,FROZEN,Physical isolation,TRAIN and CALIBRATION live in separate directories.
+F32A-004,FROZEN,Fit evidence,Only source MiD TRAIN evidence may fit candidate models; R4 synthetic rows are interface witnesses only.
+F32A-005,FROZEN,Weights,P_GEW/W_GEW are explicit weight columns and never X features.
+F32A-006,FROZEN,Identifiers,H_ID/HP_ID/P_ID/W_ID are keys/provenance and never X features.
+F32A-007,FROZEN,Calendar,"ST_WOTAG and saison map to scenario weekday/season analogues; month provenance-only, holiday deferred."
+F32A-008,FROZEN,Resources,Canonical source resource categories preserve ownership/access separation and top-coding.
+F32A-009,FROZEN,Missing context,Optional context missingness never causes silent target-row deletion.
+F32A-010,FROZEN,Chain universe,Chain transitions are eligible transitions intersected with full-functional person-days.
+F32A-011,FROZEN,Timing,All DIRECT_TEMPORAL_VALID rows retained even when transition context is unresolved.
+F32A-012,FROZEN,Distance primary,Raw wegkm universe is primary; expanded wegkm_imp table is report-only sensitivity.
+F32A-013,FROZEN,Forbidden distance,km_routing is absent from all materialized schemas.
+F32A-014,FROZEN,Mode boundary,"Observed/chosen mode, route and execution fields are absent."
+F32A-015,FROZEN,Upstream analogues,Observed upstream outcomes may condition downstream fitting only as explicitly tagged source analogues.
+F32A-016,FROZEN,Vocabulary,Categorical vocabularies are learned from TRAIN only; CAL/runtime unseen -> __UNSEEN__.
+F32A-017,FROZEN,Serialization,Canonical UTF-8 LF CSV with fixed sort order and byte SHA256.
+F32A-018,FROZEN,CAL role,CAL materialization is evaluation/selection-only and cannot enter fitting.
+F32A-019,FROZEN,TEST,TEST remains sealed; F3.2a verifier must reject TEST dataset declarations.
+F32A-020,DEFERRED,Implementation,Actual materializer/encoders are F3.2b; no training in F3.2a.
