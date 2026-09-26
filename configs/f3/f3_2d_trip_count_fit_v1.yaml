@@ -1,0 +1,169 @@
+phase: F3.2d
+component: DG_TRIP_COUNT
+status: IMPLEMENTATION_PREP_BEFORE_TRAIN_FIT
+expected_parent_commit: b06655ed9c87d19977f8aa8b77ed7cfcbd37d670
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+test_partition: SEALED
+calibration_policy: DO_NOT_READ_DO_NOT_SCORE_DO_NOT_FIT
+selection_policy: NONE_IN_F3_2D
+
+master_seed: 20260926
+fit_seed_rule: 'uint32_be(first4bytes(SHA256("F3_1C"|master_seed|candidate_id|grid_id|"FIT")))'
+
+inputs:
+  materialized_root: artifacts/model_data/F3_2a_training_data_v1
+  train_context: TRAIN/person_day_context.csv
+  train_trip_count: TRAIN/trip_count.csv
+  vocabulary_manifest: vocabulary_manifest.json
+  materialization_manifest: materialization_manifest.json
+  expected_sha256:
+    train_context: 157779ddf03903f68c8e39b772b7f29a5cd5936f49a3c8c7a380636de1dbc2ba
+    train_trip_count: 18af35a93c60a7a215565fe1ea0ef5c1e34dcbfac71104a3678a6b50663c61fa
+    vocabulary_manifest: 665c5e0e05ebfd71bfbb5210b2aa1e206af3b4b0fb3dc0bfcd3b046288466594
+    materialization_manifest: 34dbc4cc5492b6d79c7d593f197e3b6256148e41c540952ccee5df20ce572739
+
+design_witnesses:
+  hyperparameter_grid:
+    path: docs/F3_1c_HYPERPARAMETER_GRID_v1.csv
+    sha256: 436463ecfb431455af955850466d7e19bb946a664c653243b41853f5cbd8f9e0
+  feature_subsets:
+    path: docs/F3_1c_FEATURE_SUBSETS_v1.csv
+    sha256: 4c8a4080018e715084997daf7b78561655f27d898f625843d578b442298fd035
+  objective_metric_registry:
+    path: docs/F3_1c_OBJECTIVE_METRIC_REGISTRY_v1.csv
+    sha256: 57723b53d82d14dfd97b806b17bafc59e001413c97b9fad60c1bbd3d88ddd9d2
+  backoff_hierarchies:
+    path: docs/F3_1c_BACKOFF_HIERARCHIES_v1.md
+    sha256: b45f8d3f23acfbe9fa559ff4726fd7e4081f15ed25e97df28c8b3b862d87f5be
+  fitting_calibration_freeze:
+    path: docs/F3_1c_FITTING_CALIBRATION_FREEZE_v1.md
+    sha256: 9337bebf6d1247a2d384954e39c15dfbe21f778f605ba52d6cf8fe7a021dc812
+  seed_reproducibility:
+    path: docs/F3_1c_SEED_REPRODUCIBILITY_v1.md
+    sha256: 8f360f4adc5dbfd60303647dfa536f1e4db32387331c46ad551364e3ab7bb276
+
+environment_witness:
+  root: artifacts/environment/F3_2c_modeling_environment_v1
+  environment_manifest_sha256: bc645a3903289f26d5f54996ee6108f6ef16bcf14397e37b64a439eee359993d
+  pip_freeze_sha256: f77d8137f17c08e7d17feca5892f209bf03ddc3f5c51b6326055ad44b66d4773
+  checksums_sha256: ac9146536dad0a20dc80edc2b139b3f139ca5070882067815375cfd9da2e5ba2
+  required_versions:
+    numpy: 2.5.3
+    pandas: 2.3.3
+    scipy: 1.18.1
+    scikit-learn: 1.9.1
+    statsmodels: 0.15.0
+    lightgbm: 4.7.0
+
+feature_set_id: COUNT_FEATURES_V1
+feature_columns:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - source_weekday
+  - source_season
+semantic_feature_mapping:
+  age: age_infr_class
+  sex: sex
+  primary_activity: primary_activity_status
+  hh_size: household_size_class
+  weekday: source_weekday
+  season: source_season
+
+target_column: target_trip_count
+excess_target_column: target_excess_count
+weight_column: fit_weight_P_GEW
+expected_train_rows: 1791
+expected_join_missing_context: 0
+k_min: 1
+k_max_train: 50
+support_policy: FULL_INTEGER_SUPPORT_1_TO_K_MAX_TRAIN
+split_manifest_sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+
+forbidden_feature_tokens:
+  - row_id
+  - context_row_id
+  - source_household_id
+  - source_person_id
+  - source_person_slot
+  - fit_weight_P_GEW
+  - target_trip_count
+  - target_excess_count
+  - mobil_diff
+  - mode
+  - hvm
+  - km_routing
+  - route
+  - execution
+
+count_a_encoder:
+  type: deterministic_reference_one_hot
+  source: TRAIN_ONLY
+  category_order: CANONICAL_LEXICAL
+  reference_policy: FIRST_OBSERVED_CANONICAL_CATEGORY_PER_FIELD
+  unknown_token: __UNSEEN__
+  missing_token: __MISSING_CONTEXT__
+  rare_pooling: NONE
+
+part_ref:
+  candidate_id: COUNT_REF
+  fit_objective: weighted_unconditional_positive_count_pmf
+  grid_id: null
+
+part_a:
+  candidate_id: COUNT_A
+  target: Y_EQUALS_K_MINUS_1
+  fit_objective: weighted_mean_nb2_nll_plus_l2
+  nb2_parameterization: VAR_EQUALS_MU_PLUS_ALPHA_MU_SQUARED
+  link: LOG
+  dispersion: TRAIN_MLE
+  dispersion_parameterization: ALPHA_EQUALS_EXP_LOG_ALPHA
+  dispersion_penalized: false
+  intercept_penalized: false
+  coefficients_penalized: true
+  optimizer: scipy_L-BFGS-B
+  optimizer_maxiter: 3000
+  optimizer_ftol: 1.0e-12
+  optimizer_gtol: 1.0e-8
+  coefficient_bounds: [-20.0, 20.0]
+  log_alpha_bounds: [-12.0, 8.0]
+  reject_if_optimizer_boundary_hit: true
+  start_dispersion: WEIGHTED_METHOD_OF_MOMENTS_WITH_0_1_FLOOR
+  tail_policy: TRUNCATE_AND_RENORMALIZE_NB2_TO_K_1_THROUGH_K_MAX_TRAIN
+  posthoc_clip: false
+  grids:
+    CA1: {lambda_l2: 0.0}
+    CA2: {lambda_l2: 0.1}
+    CA3: {lambda_l2: 1.0}
+
+part_b:
+  candidate_id: COUNT_B
+  fit_objective: weighted_empirical_positive_count_pmf
+  grid_id: CB1
+  hierarchy_id: COUNT_BACKOFF_V1
+  support_count_basis: RAW_STRICT_TRAIN_ROWS_BEFORE_WEIGHTING
+  direct_support_min_n: 30
+  low_n_rule: source_n < 30
+  smoothing: NONE
+  probability_weight: P_GEW
+  support_order: CANONICAL_LEXICAL_KEY
+  canonical_count_key_format: 'K:{k:06d}'
+  hierarchy:
+    - [age_infr_class, sex, primary_activity_status, household_size_class, source_weekday]
+    - [age_infr_class, sex, primary_activity_status, household_size_class]
+    - [age_infr_class, sex, primary_activity_status]
+    - [age_infr_class, primary_activity_status]
+    - [primary_activity_status]
+    - [age_infr_class]
+    - [GLOBAL]
+  note_on_season: 'source_season is in COUNT_FEATURES_V1, but COUNT_BACKOFF_V1 contains no season-conditioned level; no extra level is invented.'
+
+output_policy:
+  official_output: artifacts/runs/F3_2d_trip_count_fit_v1
+  overwrite: false
+  cal_metrics_emitted: false
+  selection_decision_emitted: false
+  test_artifacts_emitted: false
+  expected_models: 5

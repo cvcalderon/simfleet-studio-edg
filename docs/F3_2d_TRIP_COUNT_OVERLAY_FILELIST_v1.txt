@@ -1,0 +1,11 @@
+configs/f3/f3_2d_trip_count_fit_v1.yaml
+docs/F3_2d_TRIP_COUNT_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_2d_TRIP_COUNT_IMPLEMENTATION_NOTE_v1.md
+docs/F3_2d_TRIP_COUNT_OBJECTIVE_FREEZE_v1.md
+docs/MAIN_UPDATE_F3_2d_TRIP_COUNT_PREP_v1.md
+notebooks/10_f3_2d_trip_count_fit.ipynb
+scripts/verify_f3_2d_trip_count_prep.py
+src/simfleet_edg/demand/trip_count.py
+src/simfleet_edg/repro/f3_2d_fit_trip_count.py
+tests/test_f3_2d_trip_count.py
+docs/F3_2d_TRIP_COUNT_OVERLAY_CHECKSUMS_v1.sha256
