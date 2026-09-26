@@ -1,0 +1,11 @@
+configs/f3/f3_2b_materialize_training_data.yaml
+configs/reproduction/reference/simfleet_edg_F0_3g_demand_variable_role_registry_v1.csv
+src/simfleet_edg/demand/training_data.py
+src/simfleet_edg/repro/f3_2b_materialize_training_data.py
+scripts/verify_f3_2b_prep.py
+tests/test_f3_2b_materialization.py
+notebooks/08_f3_2b_materialization.ipynb
+docs/F3_2b_IMPLEMENTATION_NOTE_v1.md
+docs/F3_2b_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_2b_LOCAL_DRYRUN_v1.md
+docs/MAIN_UPDATE_F3_2b_PREP_v1.md

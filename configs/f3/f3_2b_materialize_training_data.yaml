@@ -1,0 +1,27 @@
+run_id: F3_2b_materialize_training_data_v1
+phase: F3.2b
+status: IMPLEMENTATION_PREP
+required_design_parent_commit: 25345916d80c7d810bb7d4699bfa056ed28cc4e8
+branch: main
+upstream: origin/main
+contract:
+  materialization: configs/design/f3_2a_training_data_contract_v1.yaml
+  source_manifest: docs/F3_2a_SOURCE_MANIFEST_v1.csv
+  expected_counts: docs/F3_2a_EXPECTED_ROW_COUNTS_v1.csv
+  dataset_schema: docs/F3_2a_DATASET_SCHEMA_v1.csv
+  resource_mapping: docs/F3_2a_RESOURCE_CANONICALIZATION_v1.csv
+output_root: artifacts/model_data/F3_2a_training_data_v1
+partitions: [TRAIN, CALIBRATION]
+forbidden_partitions: [TEST]
+serialization:
+  encoding: utf-8
+  line_ending: LF
+  float_format: '%.17g'
+  na_representation: ''
+validation:
+  require_source_hashes_exact: true
+  require_expected_row_counts_exact: true
+  require_schema_exact: true
+  require_test_absent: true
+  require_no_forbidden_columns: true
+  require_clean_synced_git_for_official_run: true
