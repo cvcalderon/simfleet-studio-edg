@@ -1,0 +1,31 @@
+contract_id: F3_2C_MODELING_ENVIRONMENT_V1
+phase: F3.2c-env
+parent_implementation_commit: 1fe196a5495b5d9e0952273a4ebab3840e7aaca9
+python:
+  required: ">=3.12,<3.13"
+existing_runtime:
+  numpy: ">=1.26,<3"
+  pandas: ">=2.2,<3"
+modeling_dependencies:
+  scipy: ">=1.16,<2"
+  scikit-learn: ">=1.7,<2"
+  statsmodels: ">=0.14.5,<1"
+  lightgbm: ">=4.6,<5"
+scientific_roles:
+  scikit-learn:
+    - DG_PARTICIPATION candidate A weighted regularized logistic Bernoulli
+    - shared preprocessing/encoding utilities where consistent with frozen feature contract
+  lightgbm:
+    - DG_PARTICIPATION candidate B probabilistic binary LightGBM
+    - later frozen gradient-boosting candidates
+  statsmodels:
+    - F3.2d DG_TRIP_COUNT candidate A weighted Negative Binomial GLM
+  scipy:
+    - numerical/statistical dependency for modeling stack and diagnostics
+rules:
+  silent_algorithm_substitution: forbidden
+  test_partition_access: forbidden
+  environment_extension_changes_scientific_design: false
+  exact_versions_are_captured_after_install: true
+  generated_model_data_tracked_by_git: false
+  generated_environment_snapshots_tracked_by_git: false

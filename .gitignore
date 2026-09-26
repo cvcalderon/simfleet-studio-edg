@@ -31,5 +31,9 @@ htmlcov/
 !/artifacts/runs/.gitkeep
 /artifacts/reports/*
 !/artifacts/reports/.gitkeep
+/artifacts/model_data/*
+!/artifacts/model_data/.gitkeep
+/artifacts/environment/*
+!/artifacts/environment/.gitkeep
 # Scratch files
 /tmp/

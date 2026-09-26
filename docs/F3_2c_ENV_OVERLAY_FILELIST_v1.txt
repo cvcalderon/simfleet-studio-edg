@@ -1,0 +1,8 @@
+.gitignore
+configs/f3/f3_2c_modeling_environment_v1.yaml
+docs/F3_2c_ENVIRONMENT_EXTENSION_v1.md
+docs/MAIN_UPDATE_F3_2c_ENV_PREP_v1.md
+pyproject.toml
+scripts/capture_f3_2c_env.py
+scripts/verify_f3_2c_env.py
+tests/test_f3_2c_env_contract.py
