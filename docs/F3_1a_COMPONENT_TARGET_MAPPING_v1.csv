@@ -1,0 +1,7 @@
+component,target,source_universe,eligibility,weighting,r7_metric_ids,evaluation_role,notes
+DG_PARTICIPATION,TRIP_DAY_VS_NO_TRIP,REF_TRAIN_BINARY,"mobil_diff {0,1,2,3,5}",P_GEW,M2-PART-01,Trip-day share + conditional subgroup participation,"NoTrip is outcome, never mode."
+DG_TRIP_COUNT,POSITIVE_TRIP_COUNT_GIVEN_TRIP_DAY,REF_TRAIN_CORE_STRICT_COUNT_MOBILE,CORE_STRICT_COUNT with mobile/positive support,P_GEW,M2-COUNT-01;M2-COUNT-02;M2-CHAIN-01,Reconstruct full-day count distribution after participation,Do not learn count from realised same-day count feature.
+DG_ACTIVITY_CHAIN,FUNCTIONAL_ACTIVITY_TRANSITION_SEQUENCE,REF_TRAIN_FULL_FUNCTIONAL_MOBILE,full functional sequence + transition/purpose eligibility,W_GEW; P_GEW for day-level sequence diagnostics,M2-PURP-01;M2-TRANS-01;M2-RET-01,"Purpose, transition and return-home diagnostics","D_MATCH is diagnostic only, not target universe."
+DG_TIME_SCHEDULE,TEMPORAL_REALISATION_OF_GENERATED_CHAIN,REF_TRAIN_DIRECT_TIME_VALID,DIRECT_TEMPORAL_VALID trips,W_GEW,M2-TIME-01,Departure-hour distribution + temporal invariants,No silent repair of source chronology.
+DG_DISTANCE_PRIOR,M2_DIAGNOSTIC_PATH_LENGTH_PRIOR,REF_TRAIN_DISTANCE_RAW,DIRECT_SOURCE_DISTANCE_VALID raw wegkm,W_GEW,M2-DIST-01,Mean/quantiles/Wasserstein vs raw reference,wegkm_imp only expanded sensitivity; km_routing forbidden.
+DG_DISTANCE_PRIOR_SENSITIVITY,EXPANDED_DISTANCE_SENSITIVITY,REF_TRAIN_DISTANCE_EXPANDED,raw wegkm + provenance-preserved wegkm_imp,W_GEW,M2-DIST-02,Sensitivity only,Never replaces primary raw-distance objective.

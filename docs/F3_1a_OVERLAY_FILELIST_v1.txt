@@ -1,0 +1,12 @@
+configs/design/f3_1a_dgen_contract_v1.yaml
+docs/F3_1a_BOUNDARY_INVARIANTS_v1.csv
+docs/F3_1a_COMPONENT_TARGET_MAPPING_v1.csv
+docs/F3_1a_DECISION_REGISTER_v1.csv
+docs/F3_1a_DGEN_DECOMPOSITION_FREEZE_v1.md
+docs/F3_1a_INFORMATION_FEATURE_REGISTRY_v1.csv
+docs/F3_1a_LOCAL_VALIDATION_v1.md
+docs/F3_1a_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_1a_OVERLAY_FILELIST_v1.txt
+docs/MAIN_UPDATE_F3_1a_PREP_v1.md
+scripts/verify_f3_1a_contract.py
+tests/test_f3_1a_contract.py

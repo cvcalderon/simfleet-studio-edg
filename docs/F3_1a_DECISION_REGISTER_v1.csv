@@ -1,0 +1,18 @@
+decision_id,state,topic,decision
+F3A-ARCH-001,FROZEN,D_GEN decomposition,Sequential DAG: participation -> positive trip count -> activity chain -> time -> distance prior.
+F3A-ARCH-002,FROZEN,NoTrip branch,NoTrip terminates daily generation with zero TripIntents.
+F3A-NFI-001,FROZEN,Runtime boundary,M1 + scenario-known context + frozen artifacts + upstream generated state only.
+F3A-NFI-002,FROZEN,Generated state,Already-generated D_GEN outputs may condition downstream D_GEN components.
+F3A-NFI-003,FROZEN,Future state,Future source outcomes and future ungenerated D_GEN states are inaccessible.
+F3A-CAL-001,FROZEN,Calendar context,Source calendar variables are fit evidence; runtime uses scenario-derived calendar analogues.
+F3A-GEO-001,FROZEN,Geography,Home geography may be candidate context subject to support policy; exact destination remains M3.
+F3A-RES-001,FROZEN,Resources,Static ownership/access may be candidate context; dynamic availability(t) stays distinct/downstream.
+F3A-WGT-001,FROZEN,Weights,"P_GEW/W_GEW are fit/evaluation weights only, never features."
+F3A-REF-001,FROZEN,Empirical target,Use metric-specific strict TRAIN universes; never optimize wholesale against D_MATCH.
+F3A-LOW-001,FROZEN,Low support,FLAG_NOT_POOL; concrete backoff thresholds deferred to F3.1b.
+F3A-DIST-001,FROZEN,Distance,Raw wegkm primary; wegkm_imp sensitivity; km_routing forbidden.
+F3A-MODE-001,FROZEN,Mode,Observed/chosen mode excluded from D_GEN; M5 owns mode.
+F3A-TEST-001,FROZEN,TEST,TEST remains sealed.
+F3A-REPRO-001,FROZEN,Reproducibility,Named per-component seeds and candidate ordering must be persisted; R6 RNG provenance gap must not recur.
+F3A-MODEL-001,DEFERRED_TO_F3_1B,Model families,No concrete statistical/ML family selected in F3.1a.
+F3A-CALIB-001,DEFERRED_TO_F3_1B,CAL role,Exact calibration/tuning protocol and thresholds selected only after candidate model families are declared.

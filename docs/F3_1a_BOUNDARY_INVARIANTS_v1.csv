@@ -1,0 +1,25 @@
+invariant_id,severity,topic,rule
+F3A-INV-001,HARD,DAG_ORDER,Component order is PARTICIPATION -> TRIP_COUNT -> ACTIVITY_CHAIN -> TIME_SCHEDULE -> DISTANCE_PRIOR.
+F3A-INV-002,HARD,NO_FUTURE,"Runtime inputs are limited to M1, scenario-known context, frozen artifacts and already-generated upstream D_GEN state."
+F3A-INV-003,HARD,NO_SAME_TARGET_LEAK,A realised source outcome may be a fitting label but not a predictor of the same generated outcome.
+F3A-INV-004,HARD,NO_TRIP,NO_TRIP implies trip_count=0 and zero TripIntent rows.
+F3A-INV-005,HARD,TRIP_DAY_COUNT,TRIP_DAY implies integer trip_count>=1.
+F3A-INV-006,HARD,CARDINALITY,"For a mobile day, number of TripIntent rows equals generated_trip_count."
+F3A-INV-007,HARD,CHAIN_CARDINALITY,Activity-chain transitions equal generated_trip_count.
+F3A-INV-008,HARD,PREFIX_ONLY,"Sequential components may condition only on already-generated prefixes, never future generated states."
+F3A-INV-009,HARD,TEMPORAL_VALIDITY,"Generated time rows must satisfy the frozen temporal schema; invalid generation must be explicit failure/resample, not silent source repair."
+F3A-INV-010,HARD,SPATIAL_BOUNDARY,"D_GEN/TripIntent contains no exact destination coordinate, route geometry or feasible alternatives."
+F3A-INV-011,HARD,MODE_BOUNDARY,D_GEN does not generate or consume observed/chosen mode as runtime state; mode remains M5.
+F3A-INV-012,HARD,DISTANCE_BOUNDARY,km_routing is never a D_GEN distance target or runtime feature.
+F3A-INV-013,REPORT,DISTANCE_SEMANTICS,wegkm/distance_prior_km is path-length evidence/prior and is not exact Euclidean OD separation.
+F3A-INV-014,HARD,WEIGHTS,P_GEW/W_GEW may weight fit/evaluation but never enter the behavioral feature matrix.
+F3A-INV-015,HARD,IDENTIFIERS,Person/household/source IDs and row keys never enter the behavioral feature matrix.
+F3A-INV-016,HARD,ELIGIBILITY_FLAGS,Quality/eligibility flags select evidence and do not become behavioral predictors.
+F3A-INV-017,HARD,TEST_SEALED,"TEST outcomes remain sealed during F3.1 model-family selection, fitting and calibration."
+F3A-INV-018,HARD,LOW_SUPPORT,Low-support strata are flagged/backed off by an explicit future policy; never silently pooled in F3.1a.
+F3A-INV-019,HARD,RESOURCE_SEMANTICS,"Ownership, Access and Availability(t) remain distinct; future dynamic Availability(t) is not D_GEN information."
+F3A-INV-020,HARD,STAGE_BOUNDARY,Trip != Stage; Etappen remains diagnostic-only nonrepresentative evidence.
+F3A-INV-021,HARD,REFERENCE_IDENTITY,All F3 outputs retain BERLIN_HYBRID_REFERENCE_V1 provenance and never claim single-year observed Berlin.
+F3A-INV-022,HARD,HOUSEHOLD_SPLIT,Existing household TRAIN/CAL/TEST split is not reopened; descendants inherit household partition.
+F3A-INV-023,HARD,MODEL_FAMILY_DEFERRED,F3.1a does not select statistical/ML model families; selection is deferred to F3.1b.
+F3A-INV-024,HARD,REPRODUCIBILITY,"Implementation must record component seed namespaces, preprocessing order, candidate ordering when stochastic, config and ModelArtifact hashes."

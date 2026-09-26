@@ -1,0 +1,109 @@
+contract_id: F3_1A_DGEN_INFORMATION_CONTRACT_V1
+status: FROZEN_FOR_MODEL_FAMILY_SELECTION
+phase: F3.1a
+reference_identity: BERLIN_HYBRID_REFERENCE_V1
+reference_statement: "MiD 2017 mobility + LOR 2021 geography + Zensus 2022 population controls; not a single-year observed Berlin system"
+preg1_status: PRE_G1_EXPERIMENTAL
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+test_partition: SEALED
+model_family_selection: UNSELECTED_F3_1B
+runtime_boundary:
+  allowed:
+    - M1_STATE
+    - SCENARIO_KNOWN_CONTEXT
+    - FROZEN_MODEL_ARTIFACTS
+    - UPSTREAM_GENERATED_DGEN_STATE
+  forbidden:
+    - REALISED_SOURCE_OUTCOME_AS_RUNTIME_FEATURE
+    - DOWNSTREAM_M3_SPATIAL_REALISATION
+    - DOWNSTREAM_M5_MODE_CHOICE
+    - EXECUTION_OUTCOME
+component_order:
+  - DG_PARTICIPATION
+  - DG_TRIP_COUNT
+  - DG_ACTIVITY_CHAIN
+  - DG_TIME_SCHEDULE
+  - DG_DISTANCE_PRIOR
+components:
+  DG_PARTICIPATION:
+    target: TRIP_DAY_VS_NO_TRIP
+    source_universe: REF_TRAIN_BINARY
+    primary_weight: P_GEW
+    runtime_inputs: [M1_STATE, SCENARIO_KNOWN_CONTEXT]
+    output: generated_participation
+    stop_rule: "NO_TRIP => trip_count=0 and zero TripIntent rows"
+  DG_TRIP_COUNT:
+    target: POSITIVE_TRIP_COUNT_GIVEN_TRIP_DAY
+    source_universe: REF_TRAIN_CORE_STRICT_COUNT_MOBILE
+    primary_weight: P_GEW
+    runtime_inputs: [M1_STATE, SCENARIO_KNOWN_CONTEXT, generated_participation]
+    output: generated_trip_count
+    domain: "integer >= 1 when generated_participation=TRIP_DAY"
+  DG_ACTIVITY_CHAIN:
+    target: FUNCTIONAL_ACTIVITY_TRANSITION_SEQUENCE
+    source_universe: REF_TRAIN_FULL_FUNCTIONAL_MOBILE
+    primary_weight: W_GEW
+    secondary_day_weight: P_GEW
+    runtime_inputs: [M1_STATE, SCENARIO_KNOWN_CONTEXT, generated_participation, generated_trip_count, generated_chain_prefix]
+    output: generated_activity_chain
+    constraints: ["exactly K transitions for K trips", "return-home is a generated sequence property, not a forced universal rule"]
+  DG_TIME_SCHEDULE:
+    target: TEMPORAL_REALISATION_OF_GENERATED_CHAIN
+    source_universe: REF_TRAIN_DIRECT_TIME_VALID
+    primary_weight: W_GEW
+    runtime_inputs: [M1_STATE, SCENARIO_KNOWN_CONTEXT, generated_activity_chain, generated_time_prefix]
+    output: generated_trip_times
+    constraints: ["temporal validity required", "no silent repair from realised source times"]
+  DG_DISTANCE_PRIOR:
+    target: M2_DIAGNOSTIC_PATH_LENGTH_PRIOR
+    source_universe: REF_TRAIN_DISTANCE_RAW
+    sensitivity_universe: REF_TRAIN_DISTANCE_EXPANDED
+    primary_weight: W_GEW
+    runtime_inputs: [M1_STATE, SCENARIO_KNOWN_CONTEXT, generated_activity_chain, generated_trip_times]
+    output: generated_distance_prior_km
+    constraints: ["primary evidence uses raw wegkm", "wegkm_imp is sensitivity/expanded evidence", "km_routing forbidden", "not an exact OD separation"]
+output_contract:
+  PersonDayPlan:
+    required_fields:
+      - person_day_id
+      - generated_person_id
+      - generated_household_id
+      - generated_home_zone_id
+      - scenario_date
+      - participation_class
+      - trip_count
+      - generation_provenance
+      - trip_intents
+  TripIntent:
+    required_fields:
+      - trip_intent_id
+      - generated_person_id
+      - trip_sequence_index
+      - canonical_trip_purpose
+      - origin_activity
+      - destination_activity
+      - departure_clock_minute
+      - arrival_clock_minute
+      - arrival_day_offset
+      - duration_from_clock_min
+      - distance_prior_km
+      - distance_prior_provenance
+      - spatial_realization_status
+      - mode_status
+    forbidden_fields:
+      - exact_destination_coordinate
+      - generated_destination_coordinate
+      - route_geometry
+      - feasible_alternatives
+      - observed_mode
+      - chosen_mode
+      - execution_outcome
+      - km_routing
+boundaries:
+  M3: "Consumes spatialized TripIntent and generates exact spatial realization; D_GEN does not generate donor/exact OD coordinates."
+  M5: "Consumes downstream choice context and generates core mode; D_GEN does not emit mode choice."
+  M4: "Stage structure remains separate; Trip != Stage and Etappen evidence is diagnostic-only nonrepresentative."
+low_support_policy: FLAG_NOT_POOL
+resource_semantics: "Ownership != Access != Availability(t); static ownership/access may be candidate M1 context, dynamic future availability(t) is not D_GEN runtime information."
+seed_policy_requirement: "F3.1b/implementation must allocate deterministic named seed namespaces per component and record candidate ordering where stochastic sampling depends on order."
