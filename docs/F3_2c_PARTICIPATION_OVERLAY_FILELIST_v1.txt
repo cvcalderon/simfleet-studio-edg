@@ -1,0 +1,11 @@
+configs/f3/f3_2c_participation_fit_v1.yaml
+docs/F3_2c_PARTICIPATION_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_2c_PARTICIPATION_IMPLEMENTATION_NOTE_v1.md
+docs/F3_2c_PARTICIPATION_OBJECTIVE_FREEZE_v1.md
+docs/MAIN_UPDATE_F3_2c_PARTICIPATION_PREP_v1.md
+notebooks/09_f3_2c_participation_fit.ipynb
+scripts/verify_f3_2c_participation_prep.py
+src/simfleet_edg/demand/participation.py
+src/simfleet_edg/repro/f3_2c_fit_participation.py
+tests/test_f3_2c_participation.py
+docs/F3_2c_PARTICIPATION_OVERLAY_CHECKSUMS_v1.sha256
