@@ -1,0 +1,13 @@
+metric_id,family,metric,unit_of_analysis,reference_population,reference_weight,comparison_statistic,role
+M2-PART-01,Participation,Trip-day share,person-day,REF_TRAIN_BINARY,P_GEW,absolute percentage-point difference,PRIMARY_G2_REUSABLE
+M2-COUNT-01,TripCount,Mean trips/person/day,person-day,REF_TRAIN_CORE_STRICT_COUNT,P_GEW,absolute/relative error,PRIMARY_G2_REUSABLE
+M2-COUNT-02,TripCount,"Trip-count distribution 0..11,12+",person-day,REF_TRAIN_CORE_STRICT_COUNT,P_GEW,TVD,PRIMARY_G2_REUSABLE
+M2-CHAIN-01,Chain,Trips/mobile-day distribution,mobile person-day,REF_TRAIN_CORE_STRICT_COUNT_MOBILE,P_GEW,TVD,PRIMARY_G2_REUSABLE
+M2-PURP-01,Purpose,Canonical direct-trip purpose distribution,trip,REF_TRAIN_DIRECT_PURPOSE,W_GEW,TVD,PRIMARY_G2_REUSABLE
+M2-TIME-01,Timing,Departure-hour distribution,trip,REF_TRAIN_DIRECT_TIME_VALID,W_GEW,TVD,PRIMARY_G2_REUSABLE
+M2-RET-01,Chain,Return-home share among functional mobile days,mobile person-day,REF_TRAIN_FULL_FUNCTIONAL,P_GEW,absolute percentage-point difference,PRIMARY_G2_REUSABLE
+M2-TRANS-01,Sequence,Origin→destination activity transition distribution,trip transition,REF_TRAIN_TRANSITION,W_GEW,TVD,PRIMARY_G2_REUSABLE
+M2-DIST-01,Distance,Raw observed trip-distance distribution,trip,REF_TRAIN_DISTANCE_RAW,W_GEW,Wasserstein km + quantiles,PRIMARY_G2_REUSABLE
+M2-DIST-02,Distance,Observed+source-imputed distance sensitivity,trip,REF_TRAIN_DISTANCE_EXPANDED,W_GEW,Wasserstein km + quantiles,SENSITIVITY
+M2-COND-01,Conditional,P(TripDay | static subgroup),person-day,REF_TRAIN_BINARY,P_GEW,percentage-point difference,PRIMARY_G2_REUSABLE
+M2-COND-02,Conditional,E[Trips/day | static subgroup],person-day,REF_TRAIN_CORE_STRICT_COUNT,P_GEW,absolute/relative error,PRIMARY_G2_REUSABLE

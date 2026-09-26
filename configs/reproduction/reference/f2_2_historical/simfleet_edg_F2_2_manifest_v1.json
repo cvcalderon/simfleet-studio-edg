@@ -1,0 +1,29 @@
+{
+  "artifact_id": "simfleet_edg_f2_2_diagnostic_validation_v1",
+  "status": "SUPERADO",
+  "population": "P_TRS_EXP_V1_M",
+  "diagnostics": [
+    "D_REPLAY_EXACT_V1",
+    "D_MATCH_FULLDAY_V1"
+  ],
+  "reference_scope": "STRICT_TRAIN",
+  "metric_families": [
+    "Participation",
+    "TripCount",
+    "MobileChainLength",
+    "Purpose",
+    "DepartureTime",
+    "ReturnHome",
+    "ActivityTransitions",
+    "Distance",
+    "ConditionalParticipation",
+    "ConditionalTripCount"
+  ],
+  "selection_bias_separated": true,
+  "numeric_G2_thresholds_frozen": false,
+  "formal_G2_evaluated": false,
+  "validation": {
+    "pass": 18,
+    "total": 18
+  }
+}

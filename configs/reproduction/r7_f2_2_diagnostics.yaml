@@ -1,0 +1,136 @@
+schema_version: simfleet-studio-edg-r7-f2-2-diagnostics-v1
+phase_id: R7
+run_id: R7_f2_2_diagnostics_v1
+status: FROZEN_FOR_REPRODUCTION
+project_name: simfleet-studio-edg
+strict_git_state: true
+result_label: PRE-G1 EXPERIMENTAL DIAGNOSTIC
+formal_gate_eligible: false
+sources:
+  r4_persons:
+    path: artifacts/runs/R4_ptrs_m_v1/simfleet_edg_P_TRS_EXP_V1_M_persons_v1.csv
+    sha256: e75c5c2ba417ddbd87bc074796f6052675cc325c1cec1f671fb8faf288edf70c
+  r4_households:
+    path: artifacts/runs/R4_ptrs_m_v1/simfleet_edg_P_TRS_EXP_V1_M_households_v1.csv
+    sha256: a7aed5fdfa1e55ec94781733b3144d5ffab8d9051b2663e5eb6672939948ee42
+  r5_replay_persondays:
+    path: artifacts/runs/R5_d_replay_v1/simfleet_edg_F2_1_D_REPLAY_EXACT_V1_persondays.csv
+    sha256: bfaf6fef961d1402392948efafad387bc6527c7938a31725e331672cfd895a5e
+  r5_replay_trips:
+    path: artifacts/runs/R5_d_replay_v1/simfleet_edg_F2_1_D_REPLAY_EXACT_V1_trips.csv
+    sha256: 5c4fedaa6db1d86aed9e51eea78ea87a991b57dd601e602cf16c5b9d33663698
+  r5_full_day_donor_pool:
+    path: artifacts/runs/R5_d_replay_v1/simfleet_edg_F2_1_full_day_diary_donor_pool_v1.csv
+    sha256: 1e2b031866ec2bd86f3e65a91fbc5c76cc5da9243b281f4d8f5b9c06b25d34ab
+  r6_match_persondays:
+    path: artifacts/runs/R6_d_match_v1_retry01/simfleet_edg_F2_1_D_MATCH_FULLDAY_V1_persondays.csv
+    sha256: d908ce562f2d14de017d369aab61f3d96e998b4f19f1d8753c1820c2c799a65e
+  r6_match_trips:
+    path: artifacts/runs/R6_d_match_v1_retry01/simfleet_edg_F2_1_D_MATCH_FULLDAY_V1_trips.csv
+    sha256: 7d3617811aef04ca6e83c15e2bc64643e2fe6a7a922bd51103fc9ca7073606b6
+  r2_split_manifest:
+    path: artifacts/runs/R2_eligibility_split_v1/split_manifest_reproduced.csv
+    sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  raw_persons:
+    path: data/raw/mid/MiD2017_Personen.csv
+    sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+  activity_recoding:
+    path: configs/reproduction/reference/f0_2d_activity_recoding_v1.csv
+    sha256: 85e17e7c718133b616cd8c872f905dbd95d2369ff1ba423037087a894623e86a
+  f0_3b_personday_coverage:
+    path: configs/reproduction/reference/simfleet_edg_F0_3b_berlin_personday_coverage_v1.csv
+    sha256: 686b5d50d4ca42b494b556f9680e754a97bd69b753a61bdb2de1bcdc911ca053
+  f0_3c_trip_transition:
+    path: configs/reproduction/reference/simfleet_edg_F0_3c_berlin_trip_transition_audit_v1.csv
+    sha256: 5110c3d308c1be30d2e5084cb244466c2257914219751bcace6213939d3a5b1c
+  f0_3c_person_sequence:
+    path: configs/reproduction/reference/simfleet_edg_F0_3c_berlin_person_sequence_eligibility_v1.csv
+    sha256: 29caedf88ff0b2e894681ef977a2d2f688dc2d6e0762c8ac571bb9d359eea191
+  f0_3d_trip_time:
+    path: configs/reproduction/reference/simfleet_edg_F0_3d_berlin_trip_time_audit_v1.csv
+    sha256: 4b23543f941004c7af7fcc350a67ec47dea4b2eec36478522384d224ad0148f2
+  f0_3e_trip_spatial:
+    path: configs/reproduction/reference/simfleet_edg_F0_3e_berlin_trip_spatial_coverage_v1.csv
+    sha256: f9292252ac5e7deb871ef6230c47f4f4edb8eb3e033b8bff891c33708ddf41a1
+historical_witness_dir: configs/reproduction/reference/f2_2_historical
+historical_artifacts:
+  simfleet_edg_F2_2_metric_protocol_v1.csv:
+    sha256: f29c406155eb61c43d7339c896865ea1f76cfbeb2f222630c060abbce51369a8
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_reference_populations_v1.csv:
+    sha256: d64015e3c9768f9ef9bc18c97f05bfe98d2424cfa0ee4388b7492568f0cb68a8
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_global_metrics_v1.csv:
+    sha256: a9982f8476e5a216a25e81fd913725deea5da7c42f66306ad8753855c89199a4
+    comparison: NUMERIC_EQUIVALENT
+    atol: 1.0e-12
+  simfleet_edg_F2_2_distribution_detail_v1.csv:
+    sha256: 2feec9778931c7af406784d665c3dcd73c2b80c5f2c90608e645bf563479cbc0
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_conditional_metrics_v1.csv:
+    sha256: eadb261e32ebce78a3612ff5fb582dddd8995981bc5344d22a1e618ed647d8fc
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_selection_bias_audit_v1.csv:
+    sha256: bc376b3d66ce695fd4ab490c55a8a03fe4f3879474e420665cdaf19388524103
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_diagnostic_issues_v1.csv:
+    sha256: 68a5d4ae0e2d55281b1b2edc1981101417c988808219f1685abb321080ce1ec6
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_validation_v1.csv:
+    sha256: d92a5af7dcf00b7a492f0f73943aa8d45df5beb580fcb97f20ba0b75ec455257
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_manifest_v1.json:
+    sha256: 7de0332f377ec01c861391f13b654697fcc98e4e32bcd5a3f6edf6b561fdee6c
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_diagnostic_validation_report_v1.md:
+    sha256: 5acdc4c195cce4a7d52c37bebdd0ae8662737db3d3d4fee1c4492f1403b86c2e
+    comparison: BYTE_EXACT
+  simfleet_edg_F2_2_traceability_entry_v1.md:
+    sha256: 39eab36a2abd69d66427fef89628e34f02f861163605a34bba5194717cf8aab7
+    comparison: BYTE_EXACT
+expected:
+  validation_pass: 18
+  validation_total: 18
+  strict_train_person_days: 2200
+  ref_train_binary_rows: 2154
+  ref_train_core_strict_count_rows: 2052
+  ref_train_direct_purpose_rows: 6134
+  ref_train_direct_time_rows: 6103
+  ref_train_transition_rows: 5812
+  ref_train_distance_raw_rows: 5617
+  ref_train_distance_expanded_rows: 6145
+  ref_train_full_functional_rows: 1422
+  full_day_donors: 1658
+  replay_participation_coverage: 87591
+  replay_count_coverage: 82873
+  participation_reference: 0.8792475284865663
+  replay_participation: 0.8849996004155678
+  match_participation: 0.84426
+  mean_trips_reference: 3.190172808457594
+  replay_mean_trips: 3.261810239764459
+  match_mean_trips: 2.91508
+  purpose_tvd_replay: 0.036361247308609936
+  purpose_tvd_match: 0.03505924545870723
+  departure_hour_tvd_replay: 0.03542119789786523
+  departure_hour_tvd_match: 0.02752480397126721
+  transition_tvd_replay: 0.06674667594152071
+  transition_tvd_match: 0.06344354281880134
+  return_home_reference: 0.8599352938067653
+  return_home_match: 0.859877288986805
+  distance_raw_wasserstein_replay: 2.73343705222816
+  distance_raw_wasserstein_match: 2.013578954101594
+  unique_match_donors: 1637
+  effective_match_donors: 1101.5343712871406
+  top10_match_share: 0.02721
+policies:
+  strict_train_reference_only: true
+  calibration_test_outcomes_forbidden: true
+  person_reference_weight: P_GEW
+  trip_reference_weight: W_GEW
+  no_mode_metric: true
+  km_routing_forbidden: true
+  low_n_threshold: 30
+  low_n_action: FLAG_NOT_POOL
+  selection_bias_diagnostic_only: true
+  numeric_g2_thresholds_frozen: false
+  formal_g2_evaluated: false

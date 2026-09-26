@@ -1,0 +1,19 @@
+check_id,description,result,details
+F2.2-001,Strict TRAIN reference contains no CALIBRATION/TEST households,PASS,
+F2.2-002,"Participation reference uses only mobil_diff {0,1,2,3,5}",PASS,
+F2.2-003,Trip-count primary reference uses CORE_STRICT_COUNT only,PASS,
+F2.2-004,Purpose primary reference uses direct purpose-eligible trips only,PASS,
+F2.2-005,Timing reference uses DIRECT_TEMPORAL_VALID only,PASS,
+F2.2-006,Transition reference uses transition_observation_eligible only,PASS,
+F2.2-007,Raw distance reference uses DIRECT_SOURCE_DISTANCE_VALID only,PASS,
+F2.2-008,D_REPLAY participation excludes unknown/out-of-scope states,PASS,
+F2.2-009,D_MATCH has 100% complete-day coverage,PASS,
+F2.2-010,All categorical distributions sum to 1 within tolerance,PASS,
+F2.2-011,Conditional metrics use static M1 subgroup dimensions only,PASS,
+F2.2-012,No mode metric is introduced in F2.2,PASS,
+F2.2-013,"Selection-bias metrics are diagnostic, not acceptance gates",PASS,No numeric pass/fail threshold applied to diagnostic differences.
+F2.2-014,Primary source person metrics are weighted by P_GEW,PASS,Participation/trip-count references explicitly use P_GEW.
+F2.2-015,Primary source trip metrics are weighted by W_GEW,PASS,Purpose/time/transition/distance references explicitly use W_GEW.
+F2.2-016,Distance expanded sensitivity never substitutes km_routing,PASS,Only wegkm and wegkm_imp used.
+F2.2-017,Low source support is flagged rather than silently pooled,PASS,
+F2.2-018,D_MATCH donor concentration is reported separately from validity,PASS,

@@ -1,0 +1,4 @@
+issue_id,name,status,owner,blocks_F3,blocks_formal_G2,decision
+F2-DIAG-001,FULL_DAY_DIARY_SELECTION_BIAS,OBSERVED_DIAGNOSTIC,F3/G2 interpretation,NO,NO by itself,D_MATCH is not a D_GEN validity baseline; selection component must be reported separately.
+F2-DIAG-002,EXACT_REPLAY_INCOMPLETE_POPULATION_COVERAGE,EXPECTED_SOURCE_OBSERVABILITY,F2 diagnostic only,NO,NO,Do not repair D_REPLAY; retain incomplete states as provenance evidence.
+F2-DIAG-003,FINITE_DIARY_DIVERSITY_UNDER_100K_MATCHING,OBSERVED_DIAGNOSTIC,F3/G2 robustness,NO,NO,Report unique/effective donor counts; synthetic scale must not be interpreted as empirical diary diversity.

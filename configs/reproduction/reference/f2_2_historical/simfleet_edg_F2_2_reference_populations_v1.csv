@@ -1,0 +1,11 @@
+reference_id,unit,n_rows,weight,eligibility,used_for
+REF_TRAIN_BINARY,Person-day,2154,P_GEW,"mobil_diff in {0,1,2,3,5}",Participation
+REF_TRAIN_CORE_STRICT_COUNT,Person-day,2052,P_GEW,trip_count_fit_tier=CORE_STRICT_COUNT,Trips/person/day
+REF_TRAIN_CORE_STRICT_COUNT_MOBILE,Mobile person-day,1791,P_GEW,CORE_STRICT_COUNT and trips>0,Chain length
+REF_TRAIN_DIRECT_PURPOSE,Trip,6134,W_GEW,direct + purpose_marginal_eligible,Purpose
+REF_TRAIN_DIRECT_TIME_VALID,Trip,6103,W_GEW,direct + DIRECT_TEMPORAL_VALID,Departure time
+REF_TRAIN_TRANSITION,Trip transition,5812,W_GEW,direct + transition_observation_eligible,Activity transitions
+REF_TRAIN_DISTANCE_RAW,Trip,5617,W_GEW,direct + source raw distance valid,Distance primary
+REF_TRAIN_DISTANCE_EXPANDED,Trip,6145,W_GEW,direct + raw else source-imputed distance,Distance sensitivity
+REF_TRAIN_FULL_FUNCTIONAL,Mobile person-day,1422,P_GEW,full functional daily sequence,Return-home
+REF_FULLDAY_POOL,Person-day,1658,P_GEW,complete zero/mobile pool used by D_MATCH,Selection-bias diagnostic

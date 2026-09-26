@@ -1,0 +1,10 @@
+dimension,comparison,statistic,value,notes
+age_infr_class,REF_FULLDAY_POOL_vs_ALL_STRICT_TRAIN_PERSONS,TVD,0.04188365892409668,Quantifies static selection associated with requiring a complete M2 diary.
+sex,REF_FULLDAY_POOL_vs_ALL_STRICT_TRAIN_PERSONS,TVD,0.005149985363291171,Quantifies static selection associated with requiring a complete M2 diary.
+primary_activity_status,REF_FULLDAY_POOL_vs_ALL_STRICT_TRAIN_PERSONS,TVD,0.04395940052313979,Quantifies static selection associated with requiring a complete M2 diary.
+household_size_class,REF_FULLDAY_POOL_vs_ALL_STRICT_TRAIN_PERSONS,TVD,0.012703083114693915,Quantifies static selection associated with requiring a complete M2 diary.
+participation,REF_FULLDAY_POOL_vs_REF_TRAIN_BINARY,trip_day_share_pp_difference,-4.043980662692337,Completeness-selection effect plus differing eligibility universes.
+trip_count,REF_FULLDAY_POOL_vs_REF_TRAIN_CORE_STRICT_COUNT,mean_trips_per_day_difference,-0.3211196853357583,Completeness-selection effect.
+purpose,REF_FULLDAY_POOL_TRIPS_vs_REF_TRAIN_DIRECT_PURPOSE,TVD,0.03493853828172989,Trip-level distribution shift induced by complete-diary selection.
+departure_hour,REF_FULLDAY_POOL_TRIPS_vs_REF_TRAIN_DIRECT_TIME_VALID,TVD,0.019254515738405854,Trip-level timing shift induced by complete-diary selection.
+activity_transition,REF_FULLDAY_POOL_TRIPS_vs_REF_TRAIN_TRANSITION,TVD,0.0571335456499739,Sequence shift induced by complete-diary selection.
