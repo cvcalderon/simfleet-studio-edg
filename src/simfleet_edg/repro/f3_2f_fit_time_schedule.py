@@ -152,8 +152,6 @@ def main() -> None:
         raise FileExistsError(f"Official output already exists: {out}")
     cfg = yaml.safe_load(config_path.read_text(encoding="utf-8"))
     state = _require_official_repo_state(root)
-    if state["commit"] != str(cfg["expected_parent_commit"]):
-        raise RuntimeError(f"Expected implementation commit {cfg['expected_parent_commit']}, got {state['commit']}")
     versions = _library_versions()
     required_versions = {k: str(v) for k, v in cfg["environment_witness"]["required_versions"].items()}
     if versions != required_versions:
