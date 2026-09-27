@@ -124,3 +124,13 @@ def test_f33a_final_remediation_hashes_are_frozen():
     assert c["frozen_witnesses"]["f3_3a_core"]["sha256"] == (
         "a5aa251d2e215540d7b05942b38ae35f0f5d07823ffae637e85cbe82234c2a6d"
     )
+
+
+def test_human_contract_registry_hash_matches_frozen_yaml():
+    c = cfg()
+    contract = Path("docs/F3_4A_CONTROLLED_CAL_EXECUTION_CONTRACT_v1.md").read_text(
+        encoding="utf-8"
+    )
+    expected = c["candidate_registry"]["sha256"]
+    assert expected in contract
+    assert "14280b82fab60248e955fe6e5fc1ef45e487440021f0b1d424daca935c91cd9b" not in contract

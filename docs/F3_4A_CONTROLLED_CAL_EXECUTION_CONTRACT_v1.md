@@ -29,7 +29,7 @@ No command is allowed to select all five components unattended.
 ## 2. Candidate universe
 
 The authoritative registry is `docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv`, SHA-256
-`14280b82fab60248e955fe6e5fc1ef45e487440021f0b1d424daca935c91cd9b`.
+`52328037d9a57866b188166373f798da4fb97460fc794748f8f0ef3968e86ad8`.
 
 Exactly 31 TRAIN-fit artifacts are eligible:
 
