@@ -1,0 +1,76 @@
+contract_id: F3_3B_COMPONENT_CAL_ADAPTERS_V1
+phase: F3.3b
+status: PRE_CAL_ADAPTER_IMPLEMENTATION_CAL_UNOPENED
+required_parent_commit: d79c215bcd938d772c5ee494ed62320045f4b4dc
+reference_identity: BERLIN_HYBRID_REFERENCE_V1
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+cal_partition: UNOPENED
+test_partition: SEALED
+candidate_selection: NONE
+cal_rows_read: 0
+component_order:
+- DG_PARTICIPATION
+- DG_TRIP_COUNT
+- DG_ACTIVITY_CHAIN
+- DG_TIME_SCHEDULE
+- DG_DISTANCE_PRIOR
+candidate_registry:
+  path: docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv
+  sha256: 52328037d9a57866b188166373f798da4fb97460fc794748f8f0ef3968e86ad8
+  expected_rows: 31
+adapter_contract:
+  evaluation_modes:
+  - ISOLATED
+  - PROPAGATED
+  adapter_input_boundary: FIT_ANALOGUE_SCHEMA_V1
+  isolated_upstream_source: EMPIRICAL_CAL_UPSTREAM_STATE_EVALUATION_ONLY
+  propagated_upstream_source: GENERATED_SELECTED_UPSTREAM_STATE
+  teacher_forcing_runtime: false
+  component_namespace: EXACT_COMPONENT_ID
+  seed_source: F3_3A_RUNTIME_DRAW_SEED
+  part_b_probability_calibration: NOT_APPLIED_IN_F3_3B
+time_runtime_clarifications:
+  status: FROZEN_PRE_CAL_IMPLEMENTATION_CLARIFICATIONS
+  time_ref_rejection:
+    id: TIME_REF_RUNTIME_REJECTION_V1
+    max_rejection_attempts: 100
+    policy: GLOBAL_EMPIRICAL_JOINT_DRAW_REJECT_INVALID_NO_CLOCK_REPAIR
+    reason: The TIME_REF fit froze rejection semantics but not a finite runtime attempt
+      cap.
+  time_b_sampling:
+    id: TIME_B_RUNTIME_SAMPLING_V1
+    quantile_support:
+    - 0.05
+    - 0.1
+    - 0.25
+    - 0.5
+    - 0.75
+    - 0.9
+    - 0.95
+    departure_global_endpoints:
+    - 0
+    - 1439
+    duration_global_endpoints:
+    - 1
+    - 480
+    knot_clamp: CLAMP_TO_FROZEN_GLOBAL_TRAIN_SUPPORT_BEFORE_CUMULATIVE_MAX
+    monotone_repair: CUMULATIVE_MAX
+    tail_reconstruction: ADD_Q0_Q1_GLOBAL_SUPPORT_ENDPOINTS_THEN_LINEAR_INTERPOLATION
+    departure_duration_uniform_coupling: INDEPENDENT_UNIFORMS_FROM_SAME_EVENT_SEED_STREAM
+    minute_integerization: ROUND_HALF_UP
+    max_rejection_attempts: 100
+    failure_policy: REJECT_PAIR_AND_RESAMPLE_NEVER_SILENT_CLOCK_REPAIR
+    reason: F3.1c/F3.2f froze quantile models and monotone interpolation but not tails,
+      minute rounding, or departure-duration copula.
+safe_entrypoint:
+  module: simfleet_edg.repro.f3_3b_pre_cal_adapters
+  must_read_cal: false
+  must_read_test: false
+  expected_artifact_adapters: 31
+  expected_synthetic_cases: 31
+cal_opening_blocker:
+  state: BLOCKED
+  required_future_gate: F3_3_PRE_CAL_GATE_PASS
+  f3_3b_must_not_read_cal: true
+  test_remains_sealed: true
