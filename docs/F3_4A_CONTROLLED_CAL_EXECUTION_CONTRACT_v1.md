@@ -1,7 +1,7 @@
 # F3.4a — Controlled CAL Execution Contract v1
 
-**Required parent:** `3a6b0eb3e3ef4ab9311383a418c88d9e9ef20ada`  
-**State at entry:** F3.3d SUPERADO · CAL rows read = 0 · TEST SEALED · candidate selection = NONE.  
+**Required parent:** `3a6b0eb3e3ef4ab9311383a418c88d9e9ef20ada`
+**State at entry:** F3.3d SUPERADO · CAL rows read = 0 · TEST SEALED · candidate selection = NONE.
 **Purpose:** freeze the execution semantics of controlled CAL before implementing the CAL runner or reading CAL rows.
 
 ## 1. Scope
