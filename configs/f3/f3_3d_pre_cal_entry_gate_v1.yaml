@@ -1,0 +1,92 @@
+contract_id: F3_3D_PRE_CAL_ENTRY_GATE_V1
+phase: F3.3d
+status: PRE_CAL_GATE_EVALUATION
+required_parent_commit: a4f650165f6e9f89b2d72fededec559a81bd30f8
+reference_identity: BERLIN_HYBRID_REFERENCE_V1
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+lineage:
+  f3_3a_feature_commit: 3a3a6b608c8a67a0a7d7c6abf19b4dc41e9489ab
+  f3_3a_final_commit: d79c215bcd938d772c5ee494ed62320045f4b4dc
+  f3_3b_commit: 9bb4e40ecb00ba29a5c1765b9492cd18ffba0569
+  f3_3c_commit: a4f650165f6e9f89b2d72fededec559a81bd30f8
+required_committed_contracts:
+  f3_3a_config: configs/f3/f3_3_pre_cal_core_v1.yaml
+  f3_3b_config: configs/f3/f3_3b_cal_adapters_v1.yaml
+  f3_3c_config: configs/f3/f3_3c_pre_cal_execution_harness_v1.yaml
+  candidate_registry: docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv
+  metric_bridge: docs/F3_3_METRIC_DEFINITION_BRIDGE_v1.csv
+required_overlay_checksum_manifests:
+  - docs/F3_3A_PRE_CAL_CORE_OVERLAY_CHECKSUMS_v1.sha256
+  - docs/F3_3B_CAL_ADAPTERS_OVERLAY_CHECKSUMS_v1.sha256
+  - docs/F3_3C_EXECUTION_HARNESS_OVERLAY_CHECKSUMS_v1.sha256
+component_order:
+  - DG_PARTICIPATION
+  - DG_TRIP_COUNT
+  - DG_ACTIVITY_CHAIN
+  - DG_TIME_SCHEDULE
+  - DG_DISTANCE_PRIOR
+candidate_counts:
+  DG_PARTICIPATION: 8
+  DG_TRIP_COUNT: 5
+  DG_ACTIVITY_CHAIN: 6
+  DG_TIME_SCHEDULE: 7
+  DG_DISTANCE_PRIOR: 5
+selection:
+  type: LEXICOGRAPHIC_NO_COMPOSITE_SCORE
+  complexity_order:
+    - REFERENCE_BASELINE
+    - CORE_CANDIDATE_A
+    - CORE_CHALLENGER_B
+  candidate_selection_before_cal: NONE
+protocol:
+  evaluation_modes: [ISOLATED, PROPAGATED]
+  stochastic_replicates: 32
+  common_random_numbers: true
+  master_seed: 20260926
+  cal_scenario_id: CAL_EVAL_V1
+  household_bootstrap_replicates: 1000
+  bootstrap_unit: HOUSEHOLD
+  confidence_level: 0.95
+  bootstrap_interval: PERCENTILE_95_V1
+  part_b_crossfit_folds: 5
+  evidence_schema: F3_3C_STANDARD_EVIDENCE_V1
+  evaluation_person_id: CAL_PIPE_HH_PERSON_V1
+  draw_index_encoding: REPLICATE_U32_EVENT_U32_V1
+promotion_margins:
+  DG_PARTICIPATION: 0.005
+  DG_TRIP_COUNT: 0.05
+  DG_ACTIVITY_CHAIN: 0.01
+  DG_TIME_SCHEDULE: 0.005
+  DG_DISTANCE_PRIOR: 0.25
+primary_metrics:
+  DG_PARTICIPATION: WEIGHTED_BERNOULLI_LOG_LOSS
+  DG_TRIP_COUNT: WEIGHTED_DISCRETE_CRPS_ON_K
+  DG_ACTIVITY_CHAIN: WEIGHTED_NEXT_ACTIVITY_LOG_LOSS
+  DG_TIME_SCHEDULE: M2-TIME-01_TVD
+  DG_DISTANCE_PRIOR: M2-DIST-01_WASSERSTEIN_KM
+guardrail_tolerances:
+  share_absolute_error_worsening: 0.01
+  tvd_worsening: 0.005
+  mean_trips_per_day_absolute_error_worsening: 0.10
+  supported_subgroup_share_error_worsening: 0.02
+  distance_quantile_absolute_error_worsening_km: 0.50
+hard_invariants:
+  structural_invariant_violations: 0
+  temporal_invariant_violations: 0
+  nofuture_violations: 0
+boundaries_before_gate:
+  cal_partition: UNOPENED
+  cal_rows_read: 0
+  test_partition: SEALED
+  test_rows_read: 0
+  candidate_selection: NONE
+gate_outcome_policy:
+  pass:
+    cal_open_authorized_for_next_controlled_run: true
+    test_open_authorized: false
+    formal_g2: NOT_EVALUATED
+  fail:
+    cal_open_authorized_for_next_controlled_run: false
+    test_open_authorized: false
+    formal_g2: NOT_EVALUATED

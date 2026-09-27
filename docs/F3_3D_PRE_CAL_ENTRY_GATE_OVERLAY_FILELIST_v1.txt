@@ -1,0 +1,12 @@
+configs/f3/f3_3d_pre_cal_entry_gate_v1.yaml
+docs/F3_3D_PRE_CAL_ENTRY_GATE_CONTRACT_v1.md
+docs/F3_3D_PRE_CAL_ENTRY_GATE_EVIDENCE_v1.yaml
+docs/F3_3D_PRE_CAL_ENTRY_GATE_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_3D_PRE_CAL_ENTRY_GATE_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_3D_PRE_CAL_ENTRY_GATE_OVERLAY_FILELIST_v1.txt
+docs/MAIN_UPDATE_F3_3D_PRE_CAL_ENTRY_GATE_v1.md
+notebooks/17_f3_3d_pre_cal_entry_gate.ipynb
+scripts/verify_f3_3d_pre_cal_entry_gate.py
+src/simfleet_edg/evaluation/pre_cal_entry_gate.py
+src/simfleet_edg/repro/f3_3d_pre_cal_entry_gate.py
+tests/test_f3_3d_pre_cal_entry_gate.py

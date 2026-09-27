@@ -1,0 +1,27 @@
+evidence_id: F3_3D_PRE_CAL_ENTRY_GATE_EVIDENCE_V1
+f3_3a:
+  focused_tests_pass: 23
+  full_regression_pass: 197
+  ruff: PASS
+  artifact_checks: 31
+  cal_rows_read: 0
+  test_partition: SEALED
+  selection: NONE
+f3_3b:
+  focused_tests_pass: 57
+  full_regression_pass: 254
+  ruff: PASS
+  artifact_checks: 31
+  synthetic_cases: 31
+  cal_rows_read: 0
+  test_rows_read: 0
+  selection: NONE
+f3_3c:
+  focused_tests_pass: 17
+  full_regression_pass: 271
+  ruff: PASS
+  artifact_checks: 31
+  cal_rows_read: 0
+  test_rows_read: 0
+  selection: NONE
+source: MAIN-reviewed VM terminal evidence before CAL opening
