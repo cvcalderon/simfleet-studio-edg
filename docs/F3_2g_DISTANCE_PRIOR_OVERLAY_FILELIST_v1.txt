@@ -1,0 +1,14 @@
+configs/f3/f3_2g_distance_prior_fit_v1.yaml
+docs/F3_2g_DISTANCE_PRIOR_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_2g_DISTANCE_PRIOR_IMPLEMENTATION_CLARIFICATIONS_v1.md
+docs/F3_2g_DISTANCE_PRIOR_IMPLEMENTATION_NOTE_v1.md
+docs/F3_2g_DISTANCE_PRIOR_OBJECTIVE_FREEZE_v1.md
+docs/F3_2g_DISTANCE_PRIOR_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_2g_DISTANCE_PRIOR_OVERLAY_FILELIST_v1.txt
+docs/F3_2g_DISTANCE_PRIOR_SOURCE_AUDIT_ERRATA_v1.md
+docs/MAIN_UPDATE_F3_2g_DISTANCE_PRIOR_PREP_v1.md
+notebooks/13_f3_2g_distance_prior_fit.ipynb
+scripts/verify_f3_2g_distance_prior_prep.py
+src/simfleet_edg/demand/distance_prior.py
+src/simfleet_edg/repro/f3_2g_fit_distance_prior.py
+tests/test_f3_2g_distance_prior.py

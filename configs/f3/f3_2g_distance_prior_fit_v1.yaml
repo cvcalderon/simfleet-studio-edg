@@ -1,0 +1,236 @@
+phase: F3.2g
+component: DG_DISTANCE_PRIOR
+status: IMPLEMENTATION_PREP_BEFORE_TRAIN_FIT
+expected_parent_commit: 799d5c6085c7c29ba7e83e02d37b37aac22ee296
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+test_partition: SEALED
+calibration_policy: DO_NOT_READ_DO_NOT_SCORE_DO_NOT_FIT
+selection_policy: NONE_IN_F3_2G
+
+master_seed: 20260926
+fit_seed_rule: 'uint32_be(first4bytes(SHA256("F3_1C"|master_seed|candidate_id|grid_id|"FIT")))'
+
+inputs:
+  materialized_root: artifacts/model_data/F3_2a_training_data_v1
+  train_context: TRAIN/person_day_context.csv
+  train_distance_raw: TRAIN/distance_raw.csv
+  train_distance_expanded_sensitivity: TRAIN/distance_expanded_sensitivity.csv
+  vocabulary_manifest: vocabulary_manifest.json
+  materialization_manifest: materialization_manifest.json
+  expected_sha256:
+    train_context: 157779ddf03903f68c8e39b772b7f29a5cd5936f49a3c8c7a380636de1dbc2ba
+    train_distance_raw: 6527bb0708f8eded6fcd77017e8eb7971f1f30fa16c9cfb49b7aa0b92c33e912
+    train_distance_expanded_sensitivity: 81b40383e75f3596f163105d2c3de80c675b020df2a3d21797b8dc7c00d7f55b
+    vocabulary_manifest: 665c5e0e05ebfd71bfbb5210b2aa1e206af3b4b0fb3dc0bfcd3b046288466594
+    materialization_manifest: 34dbc4cc5492b6d79c7d593f197e3b6256148e41c540952ccee5df20ce572739
+
+design_witnesses:
+  training_data_materialization_contract:
+    path: docs/F3_2a_MATERIALIZATION_CONTRACT_v1.md
+    sha256: c728b19c4fb5912d64005945004590c612d7e6458ed13e677845acb392b07ba1
+  training_data_expected_row_counts:
+    path: docs/F3_2a_EXPECTED_ROW_COUNTS_v1.csv
+    sha256: 660f57dd40cd561162ab6b56721ffe8cc7a0f7070c177545b5cde65e579ce77f
+  dgen_decomposition:
+    path: docs/F3_1a_DGEN_DECOMPOSITION_FREEZE_v1.md
+    sha256: 5de55270aa445612ffc3db4c0b8d4ccdaadbeec9905e65acfe7e43bfba328821
+  information_feature_registry:
+    path: docs/F3_1a_INFORMATION_FEATURE_REGISTRY_v1.csv
+    sha256: ef39c86bda27e4b2e8ab1e823eb1294cf18af3788aaeb36e2f4065fc50bbaf13
+  model_family_freeze:
+    path: docs/F3_1b_MODEL_FAMILY_FREEZE_v1.md
+    sha256: 1ef23221866b5ce55c87e95ea53a7322595701f89d17df6856a8e5181f7eff64
+  candidate_matrix:
+    path: docs/F3_1b_CANDIDATE_MATRIX_v1.csv
+    sha256: ce996a0dfee3fa960e084a01550c68a011f7100aaf529b84907d9a33fae37ca9
+  hyperparameter_grid:
+    path: docs/F3_1c_HYPERPARAMETER_GRID_v1.csv
+    sha256: 436463ecfb431455af955850466d7e19bb946a664c653243b41853f5cbd8f9e0
+  feature_subsets:
+    path: docs/F3_1c_FEATURE_SUBSETS_v1.csv
+    sha256: 4c8a4080018e715084997daf7b78561655f27d898f625843d578b442298fd035
+  objective_metric_registry:
+    path: docs/F3_1c_OBJECTIVE_METRIC_REGISTRY_v1.csv
+    sha256: 57723b53d82d14dfd97b806b17bafc59e001413c97b9fad60c1bbd3d88ddd9d2
+  backoff_hierarchies:
+    path: docs/F3_1c_BACKOFF_HIERARCHIES_v1.md
+    sha256: b45f8d3f23acfbe9fa559ff4726fd7e4081f15ed25e97df28c8b3b862d87f5be
+  fitting_calibration_freeze:
+    path: docs/F3_1c_FITTING_CALIBRATION_FREEZE_v1.md
+    sha256: 9337bebf6d1247a2d384954e39c15dfbe21f778f605ba52d6cf8fe7a021dc812
+  seed_reproducibility:
+    path: docs/F3_1c_SEED_REPRODUCIBILITY_v1.md
+    sha256: 8f360f4adc5dbfd60303647dfa536f1e4db32387331c46ad551364e3ab7bb276
+
+environment_witness:
+  root: artifacts/environment/F3_2c_modeling_environment_v1
+  environment_manifest_sha256: bc645a3903289f26d5f54996ee6108f6ef16bcf14397e37b64a439eee359993d
+  pip_freeze_sha256: f77d8137f17c08e7d17feca5892f209bf03ddc3f5c51b6326055ad44b66d4773
+  checksums_sha256: ac9146536dad0a20dc80edc2b139b3f139ca5070882067815375cfd9da2e5ba2
+  required_versions:
+    numpy: 2.5.3
+    pandas: 2.3.3
+    scipy: 1.18.1
+    scikit-learn: 1.9.1
+    statsmodels: 0.15.0
+    lightgbm: 4.7.0
+
+primary_target:
+  column: target_distance_prior_km
+  evidence: RAW_WEGKM
+  universe: DIRECT_SOURCE_DISTANCE_VALID
+  weight: W_GEW
+  semantics: M2_PATH_LENGTH_PRIOR_FOR_M3_NOT_EXACT_OD_OR_ROUTED_DISTANCE
+
+sensitivity_target:
+  column: target_distance_sensitivity_km
+  evidence: RAW_WEGKM_OR_SOURCE_IMPUTED_WEGKM
+  role: REPORT_ONLY_NOT_PRIMARY_FIT
+  consumed_for_primary_fit: false
+
+feature_set_id: DIST_FEATURES_V1
+categorical_feature_columns:
+  - age_infr_class
+  - sex
+  - primary_activity_status
+  - household_size_class
+  - source_weekday
+  - source_season
+  - origin_activity_analogue
+  - destination_activity_analogue
+  - departure_period_analogue
+numeric_feature_columns:
+  - source_trip_count_analogue
+  - departure_clock_minute_analogue
+  - arrival_clock_minute_analogue
+  - duration_from_clock_min_analogue
+semantic_feature_mapping:
+  age: age_infr_class
+  sex: sex
+  primary_activity: primary_activity_status
+  hh_size: household_size_class
+  weekday: source_weekday
+  season: source_season
+  generated_trip_count: source_trip_count_analogue
+  generated_activity_chain: [origin_activity_analogue, destination_activity_analogue]
+  generated_trip_times:
+    - departure_clock_minute_analogue
+    - departure_period_analogue
+    - arrival_clock_minute_analogue
+    - duration_from_clock_min_analogue
+
+implementation_clarifications:
+  status: FROZEN_PRE_CAL_IMPLEMENTATION_CLARIFICATIONS
+  encoder:
+    id: DIST_FEATURES_V1_ENCODER_V1
+    reason: F3.1c froze the semantic set but not the concrete representation of chain/time state
+    type: DETERMINISTIC_FULL_ONE_HOT_PLUS_RAW_NUMERIC_V1
+    categorical_order: CANONICAL_LEXICAL
+    unknown_token: __UNSEEN__
+    missing_token: __MISSING_CONTEXT__
+    rare_pooling: NONE
+    numeric_missing_policy: NATIVE_NAN_LIGHTGBM
+  inverse_ecdf:
+    id: LINEAR_WEIGHTED_CUMULATIVE_MASS_KNOTS_V1
+    reason: F3.1c froze weighted linear inverse-ECDF but not the knot convention
+    support_sort: ASCENDING_DISTANCE_KM
+    knots: ZERO_MIN_ANCHOR_THEN_WEIGHTED_CUMULATIVE_MASS
+    interpolation: LINEAR
+  dist_b_training_common:
+    id: DIST_B_COMMON_TRAINING_V1
+    reason: F3.1c DIST_B rows froze quantiles/depth/leaves/min_leaf/L2 but did not state learning rate or estimator count
+    learning_rate: 0.05
+    n_estimators: 200
+  dist_b_reconstruction:
+    id: DIST_B_QUANTILE_RECONSTRUCTION_V1
+    reason: F3.1c froze the quantile grid but not a full-u reconstruction rule
+    clamp_quantile_knots: GLOBAL_STRICT_TRAIN_RAW_MIN_MAX
+    monotone_repair: CUMULATIVE_MAX_AFTER_CLAMP
+    endpoint_knots: [Q0_GLOBAL_MIN, Q1_GLOBAL_MAX]
+    interpolation: LINEAR_IN_QUANTILE_PROBABILITY
+
+expected_context_rows: 2200
+expected_train_rows: 5617
+expected_sensitivity_rows: 6145
+expected_missing_trip_count_rows: 80
+expected_missing_time_context_rows: 32
+expected_unresolved_transition_context_rows: 217
+weight_column: fit_weight_W_GEW
+
+forbidden_feature_tokens:
+  - row_id
+  - context_row_id
+  - source_household_id
+  - source_person_id
+  - source_person_slot
+  - source_trip_id
+  - fit_weight_W_GEW
+  - target_distance_prior_km
+  - target_distance_sensitivity_km
+  - distance_provenance
+  - time_context_status
+  - transition_context_status
+  - mode
+  - hvm
+  - km_routing
+  - route
+  - execution
+
+part_ref:
+  candidate_id: DIST_REF
+  family: WEIGHTED_UNCONDITIONAL_RAW_WEGKM_ECDF
+  target: target_distance_prior_km
+  probability_weight: W_GEW
+  inverse_ecdf_policy: LINEAR_WEIGHTED_CUMULATIVE_MASS_KNOTS_V1
+
+part_a:
+  candidate_id: DIST_A
+  family: WEIGHTED_CONDITIONAL_INVERSE_ECDF_RAW_WEGKM_WITH_BACKOFF
+  target: target_distance_prior_km
+  hierarchy_id: DIST_BACKOFF_V1
+  support_count_basis: RAW_STRICT_TRAIN_ROWS_BEFORE_WEIGHTING
+  direct_support_min_n: 30
+  low_n_rule: source_n < 30
+  probability_weight: W_GEW
+  inverse_ecdf_policy: LINEAR_WEIGHTED_CUMULATIVE_MASS_KNOTS_V1
+  hierarchy:
+    - [origin_activity_analogue, destination_activity_analogue, departure_period_analogue, primary_activity_status, age_infr_class]
+    - [origin_activity_analogue, destination_activity_analogue, departure_period_analogue, primary_activity_status]
+    - [origin_activity_analogue, destination_activity_analogue, departure_period_analogue]
+    - [origin_activity_analogue, destination_activity_analogue]
+    - [destination_activity_analogue]
+    - [GLOBAL]
+  grids:
+    DA1: {inverse_ecdf_interpolation: LINEAR_WEIGHTED}
+
+part_b:
+  candidate_id: DIST_B
+  family: QUANTILE_GRADIENT_BOOSTING_RAW_WEGKM
+  target: target_distance_prior_km
+  fit_objective: weighted_raw_wegkm_multi_quantile_pinball
+  encoder:
+    type: deterministic_full_one_hot_plus_raw_numeric
+    source: TRAIN_ONLY
+    categorical_order: CANONICAL_LEXICAL
+    unknown_token: __UNSEEN__
+    missing_token: __MISSING_CONTEXT__
+    rare_pooling: NONE
+    numeric_missing_policy: NATIVE_NAN_LIGHTGBM
+  quantiles: [0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95]
+  reconstruction: DIST_B_QUANTILE_RECONSTRUCTION_V1
+  common:
+    learning_rate: 0.05
+    n_estimators: 200
+  grids:
+    DB1: {max_depth: 2, num_leaves: 4, min_data_in_leaf: 30, lambda_l2: 1.0}
+    DB2: {max_depth: 3, num_leaves: 8, min_data_in_leaf: 30, lambda_l2: 1.0}
+    DB3: {max_depth: 3, num_leaves: 8, min_data_in_leaf: 60, lambda_l2: 1.0}
+
+output_policy:
+  official_output: artifacts/runs/F3_2g_distance_prior_fit_v1
+  overwrite: false
+  cal_metrics_emitted: false
+  selection_decision_emitted: false
+  test_artifacts_emitted: false
+  expected_models: 5
