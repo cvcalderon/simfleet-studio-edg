@@ -1,0 +1,41 @@
+phase: F3.3c
+status: PRE_CAL_ONLY
+identity:
+  parent_commit: 9bb4e40ecb00ba29a5c1765b9492cd18ffba0569
+  core_commit: d79c215bcd938d772c5ee494ed62320045f4b4dc
+  adapters_commit: 9bb4e40ecb00ba29a5c1765b9492cd18ffba0569
+protocol:
+  stochastic_replicates: 32
+  household_bootstrap_replicates: 1000
+  confidence_level: 0.95
+  master_seed: 20260926
+  scenario_id: CAL_EVAL_V1
+  evaluation_person_id: CAL_PIPE_HH_PERSON_V1
+  draw_index_encoding: REPLICATE_U32_EVENT_U32_V1
+  evidence_schema: F3_3C_STANDARD_EVIDENCE_V1
+  metric_replicate_aggregation: ARITHMETIC_MEAN_OF_32_V1
+  bootstrap_interval: PERCENTILE_95_V1
+  bootstrap_unit: HOUSEHOLD
+  paired_crn: true
+evaluation_modes:
+  - ISOLATED
+  - PROPAGATED
+boundaries:
+  cal_open_authorized: false
+  test_open_authorized: false
+  candidate_selection: NONE
+  cal_rows_read: 0
+  test_rows_read: 0
+  ids_are_behavioral_features: false
+  test_open_blocked: true
+source_contract:
+  materialization_id: F3_2A_TRAINING_DATA_V1
+  calibration_table_sha256:
+    person_day_context: 83a826357b28b1be949f79e23d13cea07c00ad91390daa8f2eeaa17bea3f9d4a
+    participation: 6c9e9639f9e305232512a324a7a8c3ce6814355f9c538c08f575be0364304117
+    trip_count: 9e77ff7e2f0ac63d1517e7aab162731fe2270d9da4b184c568247cbaa5fe81d2
+    chain_days: c82fae3ba7b37e059e57bc07b0b9deae23f705dfff964afa173714f8342a838f
+    chain_transitions: b397a381b9d2d86ce7771d0de4ac5a7e45d65897c2caea59832eb139493ed7d0
+    time_trips: 7bdbde6d66e15a916b1bbe5510b00cfc86a84fe5402699e49f84cbcad57d7a70
+    distance_raw: 8686aa395a834ce8e519dc0ed97072e31c30e84493678fedd2806f6fd6903ce9
+    distance_expanded_sensitivity: c2f96f7b13460f85948bc18806026bd3ec7544b4254a6693fa9f2b2f9e96cb40

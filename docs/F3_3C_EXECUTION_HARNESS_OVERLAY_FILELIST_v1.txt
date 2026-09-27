@@ -1,0 +1,16 @@
+configs/f3/f3_3c_pre_cal_execution_harness_v1.yaml
+docs/F3_3C_EXECUTION_HARNESS_CONTRACT_v1.md
+docs/F3_3C_EXECUTION_HARNESS_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_3C_EXECUTION_HARNESS_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_3C_EXECUTION_HARNESS_OVERLAY_FILELIST_v1.txt
+docs/F3_3C_PRE_CAL_GATE_v1.md
+docs/F3_3C_PRE_CAL_IMPLEMENTATION_CLARIFICATIONS_v1.md
+docs/MAIN_UPDATE_F3_3C_PRE_CAL_HARNESS_v1.md
+notebooks/16_f3_3c_pre_cal_execution_harness.ipynb
+scripts/verify_f3_3c_pre_cal_harness.py
+src/simfleet_edg/evaluation/cal_access_guard.py
+src/simfleet_edg/evaluation/cal_bootstrap_eval.py
+src/simfleet_edg/evaluation/cal_evidence.py
+src/simfleet_edg/evaluation/cal_harness.py
+src/simfleet_edg/repro/f3_3c_pre_cal_execution_harness.py
+tests/test_f3_3c_pre_cal_harness.py
