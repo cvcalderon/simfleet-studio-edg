@@ -1,0 +1,12 @@
+configs/f3/f3_4b1_participation_cal_runner_dryrun_v1.yaml
+docs/F3_4B1_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4B1_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_4B1_OVERLAY_FILELIST_v1.txt
+docs/F3_4B1_PARTICIPATION_DRYRUN_CONTRACT_v1.md
+docs/F3_4B1_RUNBUNDLE_DRYRUN_SPEC_v1.md
+docs/MAIN_UPDATE_F3_4B1_PREP_v1.md
+notebooks/18_f3_4b1_participation_cal_runner_dryrun.ipynb
+scripts/verify_f3_4b1_participation_dryrun.py
+src/simfleet_edg/evaluation/participation_cal_dryrun.py
+src/simfleet_edg/repro/f3_4b1_participation_dryrun.py
+tests/test_f3_4b1_participation_dryrun.py
