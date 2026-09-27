@@ -1,1 +1,1 @@
-"""Future F2.2 diagnostic metric reproduction. Not implemented."""
+"""Frozen PRE-CAL evaluation primitives for D_GEN."""

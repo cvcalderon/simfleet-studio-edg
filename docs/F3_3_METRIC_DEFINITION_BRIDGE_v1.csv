@@ -1,0 +1,13 @@
+metric_id,family,definition,unit,weight,role_or_use
+M2-PART-01,Participation,Trip-day share,person-day,P_GEW,guardrail
+M2-COUNT-01,TripCount,Mean trips/person/day,person-day,P_GEW,guardrail
+M2-COUNT-02,TripCount,"Trip-count distribution 0..11,12+",person-day,P_GEW,guardrail_TVD
+M2-CHAIN-01,Chain,Trips/mobile-day distribution,mobile person-day,P_GEW,guardrail_TVD
+M2-PURP-01,Purpose,Canonical direct-trip purpose distribution,trip,W_GEW,guardrail_TVD
+M2-TIME-01,Timing,Departure-hour distribution,trip,W_GEW,primary_for_time_TVD
+M2-RET-01,Chain,Return-home share among functional mobile days,mobile person-day,P_GEW,guardrail
+M2-TRANS-01,Sequence,Origin→destination activity transition distribution,trip transition,W_GEW,guardrail_TVD
+M2-DIST-01,Distance,Raw observed trip-distance distribution,trip,W_GEW,primary_for_distance_Wasserstein_plus_guardrails
+M2-DIST-02,Distance,Observed+source-imputed distance sensitivity,trip,W_GEW,report_only_sensitivity
+M2-COND-01,Conditional,P(TripDay | static subgroup),person-day,P_GEW,supported_subgroup_guardrail
+M2-COND-02,Conditional,E[Trips/day | static subgroup],person-day,P_GEW,supported_subgroup_guardrail

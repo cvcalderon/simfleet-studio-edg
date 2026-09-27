@@ -1,0 +1,168 @@
+contract_id: F3_3A_PRE_CAL_CORE_V1
+phase: F3.3a
+status: PRE_CAL_CORE_IMPLEMENTATION_CAL_UNOPENED
+required_parent_commit: a128dd29ca4d3d99545039c458ddac68159b592f
+reference_identity: BERLIN_HYBRID_REFERENCE_V1
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+cal_partition: UNOPENED
+test_partition: SEALED
+candidate_selection: NONE
+component_order:
+- DG_PARTICIPATION
+- DG_TRIP_COUNT
+- DG_ACTIVITY_CHAIN
+- DG_TIME_SCHEDULE
+- DG_DISTANCE_PRIOR
+candidate_registry:
+  path: docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv
+  sha256: 52328037d9a57866b188166373f798da4fb97460fc794748f8f0ef3968e86ad8
+  expected_rows: 31
+  expected_rows_by_component:
+    DG_PARTICIPATION: 8
+    DG_TRIP_COUNT: 5
+    DG_ACTIVITY_CHAIN: 6
+    DG_TIME_SCHEDULE: 7
+    DG_DISTANCE_PRIOR: 5
+accepted_runbundles:
+- component: DG_PARTICIPATION
+  run_dir: artifacts/runs/F3_2c_participation_fit_v1
+  runbundle_sha256: b158c147ea657bd68b6e049d3ce6947dc6928f7a21e15d3a9cd7cbc9bcbf4e9a
+  implementation_commit: b06655ed9c87d19977f8aa8b77ed7cfcbd37d670
+- component: DG_TRIP_COUNT
+  run_dir: artifacts/runs/F3_2d_trip_count_fit_v1
+  runbundle_sha256: c6e449d217a331f5fa289d0e02bc6134ef5fd452347043c3b99b5e970d1f4de1
+  implementation_commit: a69389d904c526c1b8c320f4354b42ab9bfa7a18
+- component: DG_ACTIVITY_CHAIN
+  run_dir: artifacts/runs/F3_2e_activity_chain_fit_v1
+  runbundle_sha256: 5d0ee68d0b363b54c53378677a5a21c36707f97c146de49f6158ee7eb7ac3c2c
+  implementation_commit: 8aa9af765ed9aa2d69fe797c1530c88ae55ed5f4
+- component: DG_TIME_SCHEDULE
+  run_dir: artifacts/runs/F3_2f_time_schedule_fit_v1
+  runbundle_sha256: d40c7694a1d9e07e1a19289f6b81ce10c0abda10cae59c28722b24cc2e878520
+  implementation_commit: 799d5c6085c7c29ba7e83e02d37b37aac22ee296
+- component: DG_DISTANCE_PRIOR
+  run_dir: artifacts/runs/F3_2g_distance_prior_fit_v1
+  runbundle_sha256: 11edbbdfbf22b9e04acc1a4a0fbb6dfcd282a939a54c410a4c68de5505d02be7
+  implementation_commit: a128dd29ca4d3d99545039c458ddac68159b592f
+source_witnesses:
+  f3_1c_protocol_yaml:
+    path: configs/design/f3_1c_fit_cal_protocol_v1.yaml
+    sha256: 52dc8a1cc450850bd76f4c6fd92b9fcaeb728ebe1f161182bf8d41ab6844a88e
+  f3_1c_cal_promotion_protocol:
+    path: docs/F3_1c_CAL_PROMOTION_PROTOCOL_v1.md
+    sha256: 3378568cb461aa63e5725d96e4f51e0648956ca963bcff4c6cc7e2d1360fc735
+  f3_1c_acceptance_thresholds:
+    path: docs/F3_1c_ACCEPTANCE_THRESHOLDS_v1.csv
+    sha256: ea282d418590a9196aa8bb03ede076c3778f9db7fa95b1b1d479d447bbefa4c6
+  f3_1c_objective_metric_registry:
+    path: docs/F3_1c_OBJECTIVE_METRIC_REGISTRY_v1.csv
+    sha256: 57723b53d82d14dfd97b806b17bafc59e001413c97b9fad60c1bbd3d88ddd9d2
+  f3_1c_seed_reproducibility:
+    path: docs/F3_1c_SEED_REPRODUCIBILITY_v1.md
+    sha256: 8f360f4adc5dbfd60303647dfa536f1e4db32387331c46ad551364e3ab7bb276
+  f2_2_metric_protocol:
+    path: configs/reproduction/reference/f2_2_historical/simfleet_edg_F2_2_metric_protocol_v1.csv
+    sha256: f29c406155eb61c43d7339c896865ea1f76cfbeb2f222630c060abbce51369a8
+selection_rule:
+  type: LEXICOGRAPHIC_NO_COMPOSITE_SCORE
+  complexity_order:
+  - REFERENCE_BASELINE
+  - CORE_CANDIDATE_A
+  - CORE_CHALLENGER_B
+  lower_is_better: true
+  tie_resolution: LOWER_COMPLEXITY; WITHIN_SAME_FAMILY_LEXICAL_GRID_ID
+evaluation_modes:
+  required:
+  - ISOLATED
+  - PROPAGATED
+  teacher_forcing_runtime: false
+  isolated_teacher_forcing_evaluation_only: true
+stochastic_protocol:
+  replicates_per_cal_person: 32
+  common_random_numbers: true
+  master_seed: 20260926
+  cal_scenario_id: CAL_EVAL_V1
+  runtime_draw_derivation: SHA256(master_seed | scenario_id | generated_person_id
+    | component_namespace | draw_index) -> uint64
+bootstrap:
+  unit: HOUSEHOLD
+  replicates: 1000
+  confidence_level: 0.95
+  paired: true
+  retain_original_weights_inside_household: true
+  ci_method: PERCENTILE_2_5_97_5
+  seed_namespace: F3_3_BOOTSTRAP_V1
+part_b_calibration:
+  options:
+  - NONE
+  - WEIGHTED_SIGMOID
+  folds: 5
+  fold_unit: HOUSEHOLD
+  fold_assignment: SHA256(F3_3_PART_B_CAL_FOLD_V1|master_seed|source_household_id)
+    MOD 5
+  min_logloss_gain: 0.002
+  max_trip_day_share_error_worsening: 0.005
+promotion_margins:
+  DG_PARTICIPATION: 0.005
+  DG_TRIP_COUNT: 0.05
+  DG_ACTIVITY_CHAIN: 0.01
+  DG_TIME_SCHEDULE: 0.005
+  DG_DISTANCE_PRIOR: 0.25
+primary_metrics:
+  DG_PARTICIPATION: WEIGHTED_BERNOULLI_LOG_LOSS
+  DG_TRIP_COUNT: WEIGHTED_DISCRETE_CRPS_ON_K
+  DG_ACTIVITY_CHAIN: WEIGHTED_NEXT_ACTIVITY_LOG_LOSS
+  DG_TIME_SCHEDULE: M2-TIME-01_TVD
+  DG_DISTANCE_PRIOR: M2-DIST-01_WASSERSTEIN_KM
+guardrail_tolerances:
+  share_absolute_error_worsening: 0.01
+  tvd_worsening: 0.005
+  mean_trips_per_day_absolute_error_worsening: 0.1
+  supported_subgroup_share_error_worsening: 0.02
+  distance_quantile_absolute_error_worsening_km: 0.5
+  temporal_invariant_violations: 0
+  structural_invariant_violations: 0
+  nofuture_violations: 0
+low_support:
+  threshold_raw_source_rows: 30
+  supported_for_promotion: SOURCE_N_GTE_30_ONLY
+  low_n: REPORT_ONLY
+pre_cal_implementation_clarifications:
+  replicate_aggregation:
+    id: CAL_REPLICATE_AGGREGATION_V1
+    rule: COMPUTE_METRIC_PER_REPLICATE_THEN_ARITHMETIC_MEAN_OVER_32
+    reason: F3.1c fixes 32 paired replicates but not the point-estimate aggregation
+      rule.
+  bootstrap_ci:
+    id: PAIRED_HOUSEHOLD_PERCENTILE_CI_V1
+    rule: PERCENTILE_CI_OF_PAIRED_IMPROVEMENT_DISTRIBUTION
+    quantiles:
+    - 0.025
+    - 0.975
+    reason: F3.1c fixes paired household bootstrap and 95% CI but not CI construction.
+  within_family_grid_selection:
+    id: WITHIN_FAMILY_GRID_SELECTION_V1
+    rule: AMONG_HARD_AND_GUARDRAIL_ELIGIBLE_GRIDS_CHOOSE_LOWEST_POINT_PRIMARY; EXACT_TIE_BY_LEXICAL_GRID_ID
+    reason: F3.1c permits CAL hyperparameter selection but does not state the within-family
+      tie/eligibility algorithm.
+  sequential_family_promotion:
+    id: SEQUENTIAL_FAMILY_PROMOTION_V1
+    rule: START_REF; TEST_BEST_A_VS_INCUMBENT; THEN_TEST_BEST_B_VS_CURRENT_INCUMBENT
+    reason: Operationalizes the frozen complexity order without a composite score.
+  bootstrap_seed:
+    id: BOOTSTRAP_SEED_DERIVATION_V1
+    rule: SHA256(F3_3_BOOTSTRAP_V1|master_seed|component|incumbent_artifact_id|challenger_artifact_id)
+      -> uint64
+    reason: F3.1c requires reproducible paired bootstrap but does not define a bootstrap
+      seed namespace.
+  part_b_fold_assignment:
+    id: PART_B_HOUSEHOLD_FOLD_ASSIGNMENT_V1
+    rule: SHA256(F3_3_PART_B_CAL_FOLD_V1|master_seed|source_household_id) MOD 5
+    reason: F3.1c fixes five household cross-fit folds but not deterministic fold
+      assignment.
+cal_opening_blocker:
+  state: BLOCKED
+  required_future_gate: F3_3_PRE_CAL_GATE_PASS
+  core_overlay_must_not_read_cal: true
+  test_remains_sealed: true
