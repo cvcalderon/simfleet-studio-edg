@@ -1,0 +1,11 @@
+decision_id,state,decision
+F3.4A-001,FROZEN,One component per controlled CAL run; MAIN review required before the next component.
+F3.4A-002,FROZEN,The first controlled CAL run is DG_PARTICIPATION only.
+F3.4A-003,FROZEN,Participation primary log-loss is evaluated directly from predicted probabilities; 32 stochastic replicates are used for realization-based share guardrails/propagation evidence.
+F3.4A-004,FROZEN,Downstream components require ISOLATED and PROPAGATED views after upstream selection.
+F3.4A-005,FROZEN,"Within-family grid selection: hard/guardrail eligible then lowest primary metric, lexical grid_id tie-break."
+F3.4A-006,FROZEN,Sequential promotion is REF->best A then current incumbent->best B.
+F3.4A-007,FROZEN,PART_B sigmoid calibration is post family/grid selection; it cannot rescue a non-selected PART_B family.
+F3.4A-008,FROZEN,No TEST read/opening is authorized by F3.4a or any component CAL run.
+F3.4A-009,FROZEN,Each component produces a RunBundle and freezes its selected artifact before the next component starts.
+F3.4A-010,FROZEN,Joint selected-vs-all-reference CAL gate runs only after all five components are selected.

@@ -1,0 +1,13 @@
+configs/f3/f3_4a_controlled_cal_execution_contract_v1.yaml
+docs/F3_4A_CAL_INPUT_MANIFEST_v1.csv
+docs/F3_4A_CANDIDATE_EXECUTION_PLAN_v1.csv
+docs/F3_4A_CONTROLLED_CAL_EXECUTION_CONTRACT_v1.md
+docs/F3_4A_DECISION_REGISTER_v1.csv
+docs/F3_4A_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4A_METRIC_PROMOTION_MATRIX_v1.csv
+docs/F3_4A_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_4A_OVERLAY_FILELIST_v1.txt
+docs/F3_4A_RUNBUNDLE_SPEC_v1.md
+docs/MAIN_UPDATE_F3_4A_PREP_v1.md
+scripts/verify_f3_4a_contract.py
+tests/test_f3_4a_contract.py
