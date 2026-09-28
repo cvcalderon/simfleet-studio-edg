@@ -1,0 +1,38 @@
+{
+  "calibration_rows_read": 0,
+  "candidate_selection": "NONE",
+  "formal_g2": "NOT_EVALUATED",
+  "global_weighted_p_return_previous": 0.029805493179307727,
+  "phase": "F3.4d-2b-R1",
+  "primitive_id": "CHAIN_PURPOSE_ATTRIBUTION_V1",
+  "purpose_artifact_sha256": "ab42cf42c9568ef4f085f071299fc941d421c42337f353e00870cd05c94f94fb",
+  "return_eligible_row_share": 0.3232758620689655,
+  "return_eligible_rows": 1575,
+  "return_eligible_weight_share": 0.31750286558756174,
+  "return_previous_rows": 53,
+  "return_previous_weight_share": 0.00946332949468073,
+  "selected_level_rows": {
+    "L1": 780,
+    "L2": 184,
+    "L3": 405,
+    "L4": 175,
+    "L5_GLOBAL": 31
+  },
+  "selected_level_weight_shares": {
+    "L1": 0.4951948919386195,
+    "L2": 0.11926669463821858,
+    "L3": 0.243178154320729,
+    "L4": 0.11705554135082424,
+    "L5_GLOBAL": 0.025304717751608575
+  },
+  "selected_rows_with_p_one": 0,
+  "selected_rows_with_p_zero": 1255,
+  "selected_weight_share_with_p_zero": 0.7973789867586494,
+  "semantic_direct_mapping_violations": 0,
+  "semantic_return_previous_violations": 0,
+  "test_rows_read": 0,
+  "train_rows": 4872,
+  "train_source_path": "artifacts/model_data/F3_2a_training_data_v1/TRAIN/chain_transitions.csv",
+  "train_source_sha256": "8f7271e3cc2ae0db7ba9de11d4240401e38f6e305df2406021ee5a04091a3c85",
+  "witness_id": "F3_4D2BR1_TRAIN_PURPOSE_WITNESS_V1"
+}

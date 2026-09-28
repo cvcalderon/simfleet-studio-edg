@@ -1,0 +1,6855 @@
+{
+  "calibration_rows_read": 0,
+  "candidate_identity_in_rng_key": false,
+  "candidate_scope": "SHARED_IDENTICAL_PRIMITIVE_FOR_ALL_SIX_ACTIVITY_CHAIN_CANDIDATES",
+  "direct_mapping": {
+    "BUSINESS": "BUSINESS",
+    "EDUCATION": "EDUCATION",
+    "ESCORT": "ESCORT",
+    "HOME": "RETURN_HOME",
+    "LEISURE": "LEISURE",
+    "OTHER": "OTHER",
+    "PRIVATE_ERRAND": "PRIVATE_ERRAND",
+    "SHOPPING": "SHOPPING",
+    "WORK": "WORK_COMMUTE"
+  },
+  "fit_partition": "TRAIN",
+  "global_return_eligible": {
+    "p_return_previous": 0.029805493179307727,
+    "return_previous_weight": 193.07740399945249,
+    "source_n": 1575,
+    "weight": 6477.913411394086
+  },
+  "levels": [
+    {
+      "cells": [
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "BUSINESS",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.550049677498192
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "BUSINESS",
+            2,
+            5
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 0.550049677498192,
+          "source_n": 1,
+          "weight": 0.550049677498192
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "BUSINESS",
+            3,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.5838150315649498
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 36.34063853491326
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 6.245614540200671
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.92235344661014
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            2,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 5.30404051360466
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.02280683802821
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            3,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.91780804687444
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            4,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.3873372455212539
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "LEISURE",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.73791687278275
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "SHOPPING",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.30701888959682
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "WORK",
+            1,
+            4
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 3.90831152199163,
+          "source_n": 1,
+          "weight": 3.90831152199163
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "WORK",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.59277224657518
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "WORK",
+            3,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 2.23736615499605,
+          "source_n": 1,
+          "weight": 2.23736615499605
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "WORK",
+            3,
+            8
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 0.907817936212991,
+          "source_n": 1,
+          "weight": 0.907817936212991
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "EDUCATION",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 19.39428317229061
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "EDUCATION",
+            3,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 8.63590096527105,
+          "source_n": 1,
+          "weight": 8.63590096527105
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "ESCORT",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.38122429283861
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 71,
+          "weight": 341.9808631658184
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 13.36678354876506
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.96952798828165
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            1,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.58103466441216
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            2,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 27,
+          "weight": 135.52282221708327
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            3,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 36.38849779643617
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            4,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.7713605596344
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 8.12603765236025
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.97058945439264
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.06441868439065
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.49987842219864
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            4,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.70353476578807
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            5,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.70353476578807
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 12,
+          "weight": 40.76084042220821
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 15.618339587090981
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 31.07051536012701
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 12.88368979749521
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            0,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 12.7999653371111
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            0,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 23.577853726306163
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            0,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.46005571767135
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.38270541831606
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            2,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 22.68771139422687
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 33.3787600120134
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            2,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 9.76249660230533
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            2,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.95584604251182
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            2,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.46005571767135
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            3,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 18.889385096666523
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            4,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 9,
+          "weight": 33.52192388044334
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            4,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 23.26726071387483
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            4,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 9.65385999201653
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            5,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 18.35235996091874
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            6,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 23.26726071387483
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "LEISURE",
+            1,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 2.32262314331368,
+          "source_n": 1,
+          "weight": 2.32262314331368
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "PRIVATE_ERRAND",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.21387534316389
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "PRIVATE_ERRAND",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.49501403645747
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "PRIVATE_ERRAND",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.21387534316389
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "PRIVATE_ERRAND",
+            3,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "SHOPPING",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.80508348926383
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "BUSINESS",
+            1,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.92235344661014,
+          "source_n": 1,
+          "weight": 1.92235344661014
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "EDUCATION",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 10.41056377197677
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "EDUCATION",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.04038366400992
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 5.72426734776621
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.8709541156005094
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.35362822294859
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            1,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.32311480467094
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            1,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.46005571767135
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.86438971099184
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 37.100812126612944
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            2,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.70353476578807
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 22.585523487601883
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            3,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.27353825205848
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.22643361693213
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            5,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 23.26726071387483
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.07059415248523
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "HOME",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.26217689708161
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            0,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.1394855150312
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.18320949024626
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 7.71776060180648
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 5.464512385740109
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            0,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 7.82305167799567
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 13,
+          "weight": 42.74130935786742
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 8.69844349654042
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 16.16147092496647
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 12.43875287501883
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 6.44274515168807
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.73791687278275
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            4,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.2971023943759694
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "OTHER",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 16.76415377997842
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "OTHER",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.80508348926383
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "OTHER",
+            1,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.4450448696465
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 13,
+          "weight": 58.60975583191193
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.04625329785789
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.92691623656384
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            1,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 10.335236218709781
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.77823650973117
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            2,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.31182033455938
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.21887437286915
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            3,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.03078986084932
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.565053701841397
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            5,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            1,
+            4
+          ],
+          "p_return_previous": 0.10154840043278032,
+          "return_previous_weight": 5.80508348926383,
+          "source_n": 18,
+          "weight": 57.165681236963344
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 6.6291310776472745
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.8826595511578095
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            1,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.6846148293094294
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.812515388025947
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 12.40060575944793
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            2,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.69308916471674
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 25.363136358692888
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            3,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.83385393659933
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 15.488197196823279
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            5,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.83385393659933
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            5,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.95584604251182
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "WORK",
+            1,
+            4
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 3.96403004971754,
+          "source_n": 1,
+          "weight": 3.96403004971754
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "BUSINESS",
+            1,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.02280683802821
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "BUSINESS",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.92235344661014
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "EDUCATION",
+            1,
+            4
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 6.58103466441216,
+          "source_n": 1,
+          "weight": 6.58103466441216
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "EDUCATION",
+            3,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 2.56570246362888,
+          "source_n": 1,
+          "weight": 2.56570246362888
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "ESCORT",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 8.57438131746556
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "ESCORT",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.32262314331368
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "LEISURE",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 105,
+          "weight": 551.8475038208325
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "LEISURE",
+            "HOME",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 74,
+          "weight": 299.5584826267635
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 16,
+          "weight": 93.58943531915564
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 19,
+          "weight": 83.43996838713643
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            0,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 12,
+          "weight": 67.27781799820049
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            0,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.932311207475615
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            0,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 2.5396610740767698
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            1,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 4.63259199889197
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 10.24067100981295
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            1,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.55295454134566
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            1,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.5259492836197
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "LEISURE",
+            "HOME",
+            2,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 33,
+          "weight": 115.09932301003782
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 20.872453693590558
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            2,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 9.65385999201653
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            3,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 19.73444776160457
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            4,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 30.308134327428334
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            4,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 8.61367209709116
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            5,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 12.129190606952111
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            0,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 22.104381327139546
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.74685125274659
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 21.868644429106425
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 9,
+          "weight": 18.993469283416694
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            1,
+            5
+          ],
+          "p_return_previous": 0.20910165895190747,
+          "return_previous_weight": 6.788919906017244,
+          "source_n": 10,
+          "weight": 32.46707816688661
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 4.99859822189982
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            1,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 9.77653804357422
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            2,
+            5
+          ],
+          "p_return_previous": 0.4712641712516646,
+          "return_previous_weight": 16.881730679840782,
+          "source_n": 8,
+          "weight": 35.82222394501872
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            2,
+            6
+          ],
+          "p_return_previous": 0.7934439756805438,
+          "return_previous_weight": 3.96610764601389,
+          "source_n": 2,
+          "weight": 4.99859822189982
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            2,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 13.817534944593422
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            2,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.2971023943759694
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 2.8813790380961297
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            3,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 8.70472921718855
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.0409969010192
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "OTHER",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 11.054450626194
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "OTHER",
+            0,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.84231153745676
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "OTHER",
+            1,
+            4
+          ],
+          "p_return_previous": 0.5467800721116175,
+          "return_previous_weight": 1.37591283589941,
+          "source_n": 2,
+          "weight": 2.51639170130278
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "PRIVATE_ERRAND",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.87061988953848
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "PRIVATE_ERRAND",
+            2,
+            5
+          ],
+          "p_return_previous": 0.5691564577742011,
+          "return_previous_weight": 5.95838984478005,
+          "source_n": 2,
+          "weight": 10.46880829233057
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "PRIVATE_ERRAND",
+            2,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.64582931106803
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "SHOPPING",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 9.92572386221934
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "SHOPPING",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.7713605596344
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "SHOPPING",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.9369487504960095
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.64585905953699
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            1,
+            5
+          ],
+          "p_return_previous": 0.4969873915407111,
+          "return_previous_weight": 4.66373231616935,
+          "source_n": 2,
+          "weight": 9.384005299835291
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            2,
+            5
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 9.70205518801191,
+          "source_n": 2,
+          "weight": 9.70205518801191
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            3,
+            6
+          ],
+          "p_return_previous": 0.14765512598955283,
+          "return_previous_weight": 0.8868763699195,
+          "source_n": 3,
+          "weight": 6.006404206937251
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            3,
+            7
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 5.70620462481869,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            4,
+            7
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 13.596391146472289,
+          "source_n": 2,
+          "weight": 13.596391146472289
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            5,
+            8
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 0.907817936212991,
+          "source_n": 1,
+          "weight": 0.907817936212991
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            6,
+            9
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 0.5838150315649498,
+          "source_n": 1,
+          "weight": 0.5838150315649498
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "EDUCATION",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 7.99568217993913
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "EDUCATION",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.58103466441216
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 13,
+          "weight": 51.49834484021659
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 10,
+          "weight": 56.39752246730943
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.4248195135158
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.39229707140247
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            2,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 29.30571487159103
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            3,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.599842125215858
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            5,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.212682889587169
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "LEISURE",
+            0,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.72129897534254
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "OTHER",
+            0,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.17524353289886
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "OTHER",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 13.825811185828401
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "OTHER",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 13.825811185828401
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "WORK",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.28660508586763
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.5547210251258
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            2,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 3.21387534316389,
+          "source_n": 1,
+          "weight": 3.21387534316389
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            2,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            3,
+            6
+          ],
+          "p_return_previous": 0.4866536109525525,
+          "return_previous_weight": 4.16390818320681,
+          "source_n": 2,
+          "weight": 8.55620525460928
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            4,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 63,
+          "weight": 222.63049905415448
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 35,
+          "weight": 127.23595589912401
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 16.59732628327317
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 10,
+          "weight": 41.1449699781761
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            0,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 9.21366823893501
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            0,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 14.63845636284357
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            0,
+            11
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            1,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 2.9276933505637
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            2,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 34,
+          "weight": 153.79790621370353
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 14.77607549496159
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            2,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.03078986084932
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            3,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 20.640213471390084
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            3,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 5.100956806087837
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            3,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 16.1575411587161
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            4,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 22.521247869202696
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            4,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.03078986084932
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            5,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.565053701841397
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            6,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            6,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.46005571767135
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            9,
+            11
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.51041844755052
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.87061988953848
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.6258170716318694
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            0,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 9.38011116493025
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 14.36529460649998
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.72027298366594
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            0,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.64582931106803
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            1,
+            4
+          ],
+          "p_return_previous": 0.2848009260101699,
+          "return_previous_weight": 9.38374618385078,
+          "source_n": 5,
+          "weight": 32.94843986397607
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 4.294574692936672
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            1,
+            6
+          ],
+          "p_return_previous": 0.41047108552357214,
+          "return_previous_weight": 4.07118137428374,
+          "source_n": 2,
+          "weight": 9.91831463375986
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            1,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.07118137428374
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            1,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.15043707525891
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 6.077856606355943
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            2,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 7.1043147422056006
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            2,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.15043707525891
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.61783251753367
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            3,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 8.68060030666604
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            3,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 2.87639960624006
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 5.647466938744181
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            4,
+            8
+          ],
+          "p_return_previous": 0.39995731913019045,
+          "return_previous_weight": 1.15043707525891,
+          "source_n": 2,
+          "weight": 2.87639960624006
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            5,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 2.87639960624006
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            6,
+            9
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.17384505521526,
+          "source_n": 1,
+          "weight": 1.17384505521526
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.47296615549027
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.77823650973117
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING",
+            3,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.17384505521526
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.96610764601389
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            1,
+            4
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 5.25278475209884,
+          "source_n": 2,
+          "weight": 5.25278475209884
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            1,
+            7
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 4.72027298366594,
+          "source_n": 1,
+          "weight": 4.72027298366594
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            3,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.71817804642003
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            4,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.7650855652800894
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            5,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.932311207475615
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "EDUCATION",
+            1,
+            5
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 7.95306507775872,
+          "source_n": 1,
+          "weight": 7.95306507775872
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "ESCORT",
+            2,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 6.212682889587169,
+          "source_n": 1,
+          "weight": 6.212682889587169
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "ESCORT",
+            2,
+            7
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 4.72027298366594,
+          "source_n": 1,
+          "weight": 4.72027298366594
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 70,
+          "weight": 302.4711079429767
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 60,
+          "weight": 238.6056349000384
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 8,
+          "weight": 25.630938013962222
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 9,
+          "weight": 27.318473452389167
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            0,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 5.3171270102107595
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            0,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 4.59243276552242
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            0,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 9.65385999201653
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            1,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 15.744427431700949
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 4.959551359404858
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            1,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 12.845720824156718
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            2,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 51,
+          "weight": 169.2165064541994
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 18,
+          "weight": 65.32476819451242
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            2,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 4.54993592276566
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            2,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 28.033425857949773
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            2,
+            11
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            3,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 8,
+          "weight": 24.631362519068905
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            3,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 13.25112144125491
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            3,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.73684925476207
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            4,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 14,
+          "weight": 60.58300096811473
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            4,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.83385393659933
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            4,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.95584604251182
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            4,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.46005571767135
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            5,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 8,
+          "weight": 24.062721471861188
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            6,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 13.47831589453981
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            8,
+            10
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.46005571767135
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "LEISURE",
+            0,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.84689732940848
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "LEISURE",
+            1,
+            4
+          ],
+          "p_return_previous": 0.12371564383892666,
+          "return_previous_weight": 1.43572898077072,
+          "source_n": 4,
+          "weight": 11.60507221414931
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "LEISURE",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.03092508657959
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "LEISURE",
+            2,
+            5
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.34773678105891,
+          "source_n": 1,
+          "weight": 1.34773678105891
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.8780370470341294
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 36.15872063815457
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            1,
+            7
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.57628556446044,
+          "source_n": 1,
+          "weight": 1.57628556446044
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            2,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 3.73684925476207,
+          "source_n": 1,
+          "weight": 3.73684925476207
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            2,
+            9
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.17384505521526,
+          "source_n": 1,
+          "weight": 1.17384505521526
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            4,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.18793681637219
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            4,
+            9
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.17384505521526,
+          "source_n": 1,
+          "weight": 1.17384505521526
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 14.60425677847957
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            1,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 8.65457522938738
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            1,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.9369487504960095
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            2,
+            5
+          ],
+          "p_return_previous": 0.4707185659085088,
+          "return_previous_weight": 8.23438378556431,
+          "source_n": 3,
+          "weight": 17.49322075213151
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.68786705124235
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            2,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.9369487504960095
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            3,
+            6
+          ],
+          "p_return_previous": 0.13836568039486233,
+          "return_previous_weight": 1.68786705124235,
+          "source_n": 2,
+          "weight": 12.19859611448145
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            5,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.02280683802821
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            1,
+            4
+          ],
+          "p_return_previous": 0.6074674378776664,
+          "return_previous_weight": 7.666749919522246,
+          "source_n": 4,
+          "weight": 12.620840956196567
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            3,
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 0.906002297548231,
+          "source_n": 1,
+          "weight": 0.906002297548231
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            3,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.212682889587169
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            4,
+            7
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.7038113136995,
+          "source_n": 1,
+          "weight": 1.7038113136995
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "EDUCATION",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.95838984478005
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "ESCORT",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 21.4129339039636
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "ESCORT",
+            2,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 8.84464160370822
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "ESCORT",
+            6,
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "WORK",
+            "HOME",
+            0,
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 135,
+          "weight": 498.08620474361373
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            0,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 19.1129242213322
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            0,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 16.74839233397509
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            0,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 15.70876874568273
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            1,
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 8,
+          "weight": 35.08520879384524
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "WORK",
+            "HOME",
+            2,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 49,
+          "weight": 187.29964391176648
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            2,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 8.62737773371723
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            3,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 9,
+          "weight": 35.5018929824979
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            4,
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 9,
+          "weight": 35.56500466666894
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            5,
+            7
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 6.34075131567703
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            6,
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.5259492836197
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "LEISURE",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.28660508586763
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "PRIVATE_ERRAND",
+            1,
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.02091351861496
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "SHOPPING",
+            1,
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "WORK",
+            5,
+            11
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        }
+      ],
+      "dimensions": [
+        "prefix_last_activity",
+        "target_destination_activity",
+        "remaining_trips",
+        "source_trip_count_analogue"
+      ],
+      "level": "L1"
+    },
+    {
+      "cells": [
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "BUSINESS",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.550049677498192
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "BUSINESS",
+            2
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 0.550049677498192,
+          "source_n": 1,
+          "weight": 0.550049677498192
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "BUSINESS",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.5838150315649498
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 9,
+          "weight": 44.50860652172406
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 9.32684735163287
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.91780804687444
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.3873372455212539
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "LEISURE",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.73791687278275
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "SHOPPING",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.30701888959682
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "WORK",
+            1
+          ],
+          "p_return_previous": 0.5210329123865216,
+          "return_previous_weight": 3.90831152199163,
+          "source_n": 2,
+          "weight": 7.50108376856681
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "WORK",
+            3
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 3.1451840912090407,
+          "source_n": 2,
+          "weight": 3.1451840912090407
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "EDUCATION",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 19.39428317229061
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "EDUCATION",
+            3
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 8.63590096527105,
+          "source_n": 1,
+          "weight": 8.63590096527105
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "ESCORT",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.38122429283861
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 75,
+          "weight": 362.31717470286503
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.58103466441216
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 27,
+          "weight": 135.52282221708327
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 36.38849779643617
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "HOME",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.7713605596344
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 8.12603765236025
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.97058945439264
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.06441868439065
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 10.20341318798671
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.70353476578807
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "ESCORT",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 36,
+          "weight": 139.17125994801003
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.38270541831606
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 15,
+          "weight": 70.24486976872878
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 18.889385096666523
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 12,
+          "weight": 66.44304458633471
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 18.35235996091874
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "HOME",
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 23.26726071387483
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "LEISURE",
+            1
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 2.32262314331368,
+          "source_n": 1,
+          "weight": 2.32262314331368
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "PRIVATE_ERRAND",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.21387534316389
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "PRIVATE_ERRAND",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.49501403645747
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "PRIVATE_ERRAND",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 8.92007996798258
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "SHOPPING",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.80508348926383
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "BUSINESS",
+            1
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.92235344661014,
+          "source_n": 1,
+          "weight": 1.92235344661014
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "EDUCATION",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 10.41056377197677
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "EDUCATION",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.04038366400992
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 18.732020208657598
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 46.66873660339285
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 27.859061739660362
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.22643361693213
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 23.26726071387483
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 4.332771049566841
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 25.32801967081972
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 21,
+          "weight": 67.60122377937432
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 12.43875287501883
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 6.44274515168807
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "LEISURE",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 9.03501926715872
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "OTHER",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 26.014282138888753
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 19,
+          "weight": 71.91816158504346
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 9.090056844290551
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 4.24966423371847
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.565053701841397
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            1
+          ],
+          "p_return_previous": 0.08134688541365524,
+          "return_previous_weight": 5.80508348926383,
+          "source_n": 23,
+          "weight": 71.36208669507786
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 18.90621031219062
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 29.196990295292217
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 15.488197196823279
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "SHOPPING",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 5.78969997911115
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "WORK",
+            1
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 3.96403004971754,
+          "source_n": 1,
+          "weight": 3.96403004971754
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "BUSINESS",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.02280683802821
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "BUSINESS",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.92235344661014
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "EDUCATION",
+            1
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 6.58103466441216,
+          "source_n": 1,
+          "weight": 6.58103466441216
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "EDUCATION",
+            3
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 2.56570246362888,
+          "source_n": 1,
+          "weight": 2.56570246362888
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "ESCORT",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 8.57438131746556
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "ESCORT",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.32262314331368
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "LEISURE",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 229,
+          "weight": 1099.185180433641
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 20.95216683367028
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "LEISURE",
+            "HOME",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 39,
+          "weight": 145.62563669564494
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 19.73444776160457
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 38.92180642451949
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "HOME",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 12.129190606952111
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 11,
+          "weight": 46.71987700899257
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            1
+          ],
+          "p_return_previous": 0.10249641167967778,
+          "return_previous_weight": 6.788919906017244,
+          "source_n": 23,
+          "weight": 66.23568371577734
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            2
+          ],
+          "p_return_previous": 0.359845913084299,
+          "return_previous_weight": 20.84783832585467,
+          "source_n": 14,
+          "weight": 57.93545950588793
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 11.58610825528468
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "LEISURE",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.0409969010192
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "OTHER",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 16.89676216365076
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "OTHER",
+            1
+          ],
+          "p_return_previous": 0.5467800721116175,
+          "return_previous_weight": 1.37591283589941,
+          "source_n": 2,
+          "weight": 2.51639170130278
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "PRIVATE_ERRAND",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.87061988953848
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "PRIVATE_ERRAND",
+            2
+          ],
+          "p_return_previous": 0.42214260204210674,
+          "return_previous_weight": 5.95838984478005,
+          "source_n": 3,
+          "weight": 14.114637603398599
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "SHOPPING",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 12.697084421853742
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "SHOPPING",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.9369487504960095
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            1
+          ],
+          "p_return_previous": 0.33241464042051605,
+          "return_previous_weight": 4.66373231616935,
+          "source_n": 3,
+          "weight": 14.02986435937228
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            2
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 9.70205518801191,
+          "source_n": 2,
+          "weight": 9.70205518801191
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            3
+          ],
+          "p_return_previous": 0.562904566304872,
+          "return_previous_weight": 6.59308099473819,
+          "source_n": 4,
+          "weight": 11.71260883175594
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            4
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 13.596391146472289,
+          "source_n": 2,
+          "weight": 13.596391146472289
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            5
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 0.907817936212991,
+          "source_n": 1,
+          "weight": 0.907817936212991
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK",
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 0.5838150315649498,
+          "source_n": 1,
+          "weight": 0.5838150315649498
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "EDUCATION",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 7.99568217993913
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "EDUCATION",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.58103466441216
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 25,
+          "weight": 113.7129838924443
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 29.30571487159103
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.599842125215858
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "HOME",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.212682889587169
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "LEISURE",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.72129897534254
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "OTHER",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 16.00105471872726
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "OTHER",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 13.825811185828401
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "WORK",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.28660508586763
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.5547210251258
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            2
+          ],
+          "p_return_previous": 0.3602966962964077,
+          "return_previous_weight": 3.21387534316389,
+          "source_n": 2,
+          "weight": 8.92007996798258
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            3
+          ],
+          "p_return_previous": 0.4866536109525525,
+          "return_previous_weight": 4.16390818320681,
+          "source_n": 2,
+          "weight": 8.55620525460928
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 121,
+          "weight": 434.84414137139413
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 2.9276933505637
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 41,
+          "weight": 169.60477156951444
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 11,
+          "weight": 41.89871143619401
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 8,
+          "weight": 23.55203773005202
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.565053701841397
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 5.84332127255915
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME",
+            9
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.51041844755052
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.87061988953848
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.6258170716318694
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 32.1115080661642
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            1
+          ],
+          "p_return_previous": 0.25685701481611456,
+          "return_previous_weight": 13.454927558134521,
+          "source_n": 11,
+          "weight": 52.38294764021525
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 14.332608423820453
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 14.174832430439771
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            4
+          ],
+          "p_return_previous": 0.13496657522587208,
+          "return_previous_weight": 1.15043707525891,
+          "source_n": 4,
+          "weight": 8.52386654498424
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 2.87639960624006
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND",
+            6
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.17384505521526,
+          "source_n": 1,
+          "weight": 1.17384505521526
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.47296615549027
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.77823650973117
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.17384505521526
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.96610764601389
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            1
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 9.973057735764781,
+          "source_n": 3,
+          "weight": 9.973057735764781
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.71817804642003
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.7650855652800894
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 0.932311207475615
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "EDUCATION",
+            1
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 7.95306507775872,
+          "source_n": 1,
+          "weight": 7.95306507775872
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "ESCORT",
+            2
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 10.93295587325311,
+          "source_n": 2,
+          "weight": 10.93295587325311
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 152,
+          "weight": 613.5895740771163
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 8,
+          "weight": 33.549699615262526
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 76,
+          "weight": 270.5079019843151
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 14,
+          "weight": 41.61933321508589
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 17,
+          "weight": 68.83275666489723
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 8,
+          "weight": 24.062721471861188
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 13.47831589453981
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "HOME",
+            8
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.46005571767135
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "LEISURE",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.84689732940848
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "LEISURE",
+            1
+          ],
+          "p_return_previous": 0.08140900433860812,
+          "return_previous_weight": 1.43572898077072,
+          "source_n": 5,
+          "weight": 17.6359973007289
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "LEISURE",
+            2
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.34773678105891,
+          "source_n": 1,
+          "weight": 1.34773678105891
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            1
+          ],
+          "p_return_previous": 0.038812298668951827,
+          "return_previous_weight": 1.57628556446044,
+          "source_n": 5,
+          "weight": 40.61304324964914
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            2
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 4.91069430997733,
+          "source_n": 2,
+          "weight": 4.91069430997733
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND",
+            4
+          ],
+          "p_return_previous": 0.49701670985655877,
+          "return_previous_weight": 1.17384505521526,
+          "source_n": 2,
+          "weight": 2.36178187158745
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 26.195780758362957
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            2
+          ],
+          "p_return_previous": 0.3722927107706396,
+          "return_previous_weight": 8.23438378556431,
+          "source_n": 5,
+          "weight": 22.11803655386987
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            3
+          ],
+          "p_return_previous": 0.13836568039486233,
+          "return_previous_weight": 1.68786705124235,
+          "source_n": 2,
+          "weight": 12.19859611448145
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.02280683802821
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            1
+          ],
+          "p_return_previous": 0.6074674378776664,
+          "return_previous_weight": 7.666749919522246,
+          "source_n": 4,
+          "weight": 12.620840956196567
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            3
+          ],
+          "p_return_previous": 0.12727101616819939,
+          "return_previous_weight": 0.906002297548231,
+          "source_n": 2,
+          "weight": 7.118685187135401
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK",
+            4
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.7038113136995,
+          "source_n": 1,
+          "weight": 1.7038113136995
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "EDUCATION",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.95838984478005
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "ESCORT",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 21.4129339039636
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "ESCORT",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 8.84464160370822
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "ESCORT",
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "WORK",
+            "HOME",
+            0
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 145,
+          "weight": 549.6562900446037
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 8,
+          "weight": 35.08520879384524
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "WORK",
+            "HOME",
+            2
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 50,
+          "weight": 195.9270216454837
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            3
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 9,
+          "weight": 35.5018929824979
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            4
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 9,
+          "weight": 35.56500466666894
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 6.34075131567703
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "HOME",
+            6
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 4.5259492836197
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "LEISURE",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.28660508586763
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "PRIVATE_ERRAND",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.02091351861496
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "SHOPPING",
+            1
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "WORK",
+            5
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        }
+      ],
+      "dimensions": [
+        "prefix_last_activity",
+        "target_destination_activity",
+        "remaining_trips"
+      ],
+      "level": "L2"
+    },
+    {
+      "cells": [
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "BUSINESS"
+          ],
+          "p_return_previous": 0.326649431757294,
+          "return_previous_weight": 0.550049677498192,
+          "source_n": 3,
+          "weight": 1.683914386561334
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 14,
+          "weight": 58.140599165752626
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "LEISURE"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.73791687278275
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "SHOPPING"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.30701888959682
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS",
+            "WORK"
+          ],
+          "p_return_previous": 0.6625322325253966,
+          "return_previous_weight": 7.0534956132006705,
+          "source_n": 4,
+          "weight": 10.64626785977585
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "EDUCATION"
+          ],
+          "p_return_previous": 0.30809290880463996,
+          "return_previous_weight": 8.63590096527105,
+          "source_n": 3,
+          "weight": 28.030184137561662
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION",
+            "ESCORT"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.38122429283861
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "EDUCATION",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 111,
+          "weight": 543.580889940431
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "ESCORT"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 6,
+          "weight": 33.06799374491832
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "ESCORT",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 76,
+          "weight": 338.7508854928497
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "LEISURE"
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 2.32262314331368,
+          "source_n": 1,
+          "weight": 2.32262314331368
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "PRIVATE_ERRAND"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 15.62896934760394
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "ESCORT",
+            "SHOPPING"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.80508348926383
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "BUSINESS"
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 1.92235344661014,
+          "source_n": 1,
+          "weight": 1.92235344661014
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "EDUCATION"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 13.45094743598669
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "ESCORT"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 18,
+          "weight": 117.75351288251777
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 4.332771049566841
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "HOME",
+            "LEISURE"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 36,
+          "weight": 120.84576074405965
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "OTHER"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 26.014282138888753
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "PRIVATE_ERRAND"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 25,
+          "weight": 89.20620191978168
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "HOME",
+            "SHOPPING"
+          ],
+          "p_return_previous": 0.04124592967520086,
+          "return_previous_weight": 5.80508348926383,
+          "source_n": 41,
+          "weight": 140.7431844784951
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "HOME",
+            "WORK"
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 3.96403004971754,
+          "source_n": 1,
+          "weight": 3.96403004971754
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "BUSINESS"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 5.94516028463835
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "EDUCATION"
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 9.146737128041039,
+          "source_n": 2,
+          "weight": 9.146737128041039
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "ESCORT"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 3,
+          "weight": 10.89700446077924
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "LEISURE",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 291,
+          "weight": 1336.5484287560323
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "LEISURE",
+            "LEISURE"
+          ],
+          "p_return_previous": 0.14817197081803732,
+          "return_previous_weight": 27.636758231871916,
+          "source_n": 53,
+          "weight": 186.5181253869617
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "OTHER"
+          ],
+          "p_return_previous": 0.07087528618332016,
+          "return_previous_weight": 1.37591283589941,
+          "source_n": 4,
+          "weight": 19.41315386495354
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "PRIVATE_ERRAND"
+          ],
+          "p_return_previous": 0.35079773428561245,
+          "return_previous_weight": 5.95838984478005,
+          "source_n": 4,
+          "weight": 16.98525749293708
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "SHOPPING"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 15.634033172349751
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "LEISURE",
+            "WORK"
+          ],
+          "p_return_previous": 0.7133400320097548,
+          "return_previous_weight": 36.04689261316969,
+          "source_n": 13,
+          "weight": 50.532552493390355
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "EDUCATION"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 2,
+          "weight": 14.576716844351289
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "OTHER",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 34,
+          "weight": 149.83122377883834
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "LEISURE"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 1.72129897534254
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "OTHER"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 5,
+          "weight": 29.82686590455566
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER",
+            "WORK"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.28660508586763
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "ESCORT"
+          ],
+          "p_return_previous": 0.25673276223968966,
+          "return_previous_weight": 7.3777835263707,
+          "source_n": 6,
+          "weight": 28.73721087253635
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "PRIVATE_ERRAND",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 187,
+          "weight": 682.6189959870065
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "LEISURE"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 16.713060033539556
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "PRIVATE_ERRAND",
+            "PRIVATE_ERRAND"
+          ],
+          "p_return_previous": 0.12565465305981274,
+          "return_previous_weight": 15.779209688608692,
+          "source_n": 36,
+          "weight": 125.57600776707923
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "SHOPPING"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 4,
+          "weight": 13.39115536645059
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "PRIVATE_ERRAND",
+            "WORK"
+          ],
+          "p_return_previous": 0.6480795288443568,
+          "return_previous_weight": 9.973057735764781,
+          "source_n": 6,
+          "weight": 15.388632554940516
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "EDUCATION"
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 7.95306507775872,
+          "source_n": 1,
+          "weight": 7.95306507775872
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "ESCORT"
+          ],
+          "p_return_previous": 1.0,
+          "return_previous_weight": 10.93295587325311,
+          "source_n": 2,
+          "weight": 10.93295587325311
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "SHOPPING",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 280,
+          "weight": 1068.1003586407492
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "LEISURE"
+          ],
+          "p_return_previous": 0.12191803685572185,
+          "return_previous_weight": 2.78346576182963,
+          "source_n": 7,
+          "weight": 22.83063141119629
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "PRIVATE_ERRAND"
+          ],
+          "p_return_previous": 0.15998207852078475,
+          "return_previous_weight": 7.66082492965303,
+          "source_n": 9,
+          "weight": 47.88551943121392
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "SHOPPING"
+          ],
+          "p_return_previous": 0.15374939135719476,
+          "return_previous_weight": 9.92225083680666,
+          "source_n": 13,
+          "weight": 64.53522026474249
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "SHOPPING",
+            "WORK"
+          ],
+          "p_return_previous": 0.3785170114393937,
+          "return_previous_weight": 10.276563530769977,
+          "source_n": 8,
+          "weight": 27.149542081850157
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "EDUCATION"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.95838984478005
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "ESCORT"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 7,
+          "weight": 35.96378013249051
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "WORK",
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 224,
+          "weight": 862.6021187323963
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "LEISURE"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 6.28660508586763
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "PRIVATE_ERRAND"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 2.02091351861496
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "SHOPPING"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 5.70620462481869
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "WORK",
+            "WORK"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1,
+          "weight": 3.3832655548878
+        }
+      ],
+      "dimensions": [
+        "prefix_last_activity",
+        "target_destination_activity"
+      ],
+      "level": "L3"
+    },
+    {
+      "cells": [
+        {
+          "eligible_direct": false,
+          "key": [
+            "BUSINESS"
+          ],
+          "p_return_previous": 0.25885167051597546,
+          "return_previous_weight": 2.472403124108332,
+          "source_n": 6,
+          "weight": 9.551428117809824
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "EDUCATION"
+          ],
+          "p_return_previous": 0.3252905860642021,
+          "return_previous_weight": 25.73570317107081,
+          "source_n": 12,
+          "weight": 79.11604046847945
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "ESCORT"
+          ],
+          "p_return_previous": 0.07543551117088405,
+          "return_previous_weight": 18.310739399623806,
+          "source_n": 43,
+          "weight": 242.73368225933396
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "HOME"
+          ],
+          "p_return_previous": 0.0,
+          "return_previous_weight": 0.0,
+          "source_n": 1219,
+          "weight": 5044.506271543623
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "LEISURE"
+          ],
+          "p_return_previous": 0.0902066395127091,
+          "return_previous_weight": 32.742847137015225,
+          "source_n": 104,
+          "weight": 362.97602165306387
+        },
+        {
+          "eligible_direct": false,
+          "key": [
+            "OTHER"
+          ],
+          "p_return_previous": 0.018283510723070915,
+          "return_previous_weight": 1.37591283589941,
+          "source_n": 13,
+          "weight": 75.25430190839795
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "PRIVATE_ERRAND"
+          ],
+          "p_return_previous": 0.09888375620031901,
+          "return_previous_weight": 29.398424463041767,
+          "source_n": 79,
+          "weight": 297.3028694772309
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "SHOPPING"
+          ],
+          "p_return_previous": 0.06313107883342592,
+          "return_previous_weight": 15.72733432607049,
+          "source_n": 65,
+          "weight": 249.1219002857173
+        },
+        {
+          "eligible_direct": true,
+          "key": [
+            "WORK"
+          ],
+          "p_return_previous": 0.5736133427215787,
+          "return_previous_weight": 67.31403954262264,
+          "source_n": 34,
+          "weight": 117.35089568042986
+        }
+      ],
+      "dimensions": [
+        "target_destination_activity"
+      ],
+      "level": "L4"
+    }
+  ],
+  "primitive_id": "CHAIN_PURPOSE_ATTRIBUTION_V1",
+  "probability_estimator": "WEIGHTED_BERNOULLI_MLE",
+  "return_eligible_rows": 1575,
+  "return_previous_rows": 53,
+  "semantic_validation": {
+    "direct_mapping_violations": 0,
+    "return_previous_violations": 0
+  },
+  "smoothing": "NONE",
+  "source": {
+    "path": "artifacts/model_data/F3_2a_training_data_v1/TRAIN/chain_transitions.csv",
+    "rows": 4872,
+    "sha256": "8f7271e3cc2ae0db7ba9de11d4240401e38f6e305df2406021ee5a04091a3c85"
+  },
+  "source_n_min": 30,
+  "test_rows_read": 0,
+  "train_rows": 4872
+}
