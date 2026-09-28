@@ -1,0 +1,26 @@
+phase: F3.4b-2c
+component: DG_PARTICIPATION
+status: MAIN_SELECTION_FREEZE
+required_parent_commit: d3ad3ba5881cc5629db4b64782441199c6f69df8
+source_run:
+  phase: F3.4b-2b
+  execution_mode: CONTROLLED_REAL_CAL
+  expected_run_dir_basename: F3_4b2b_DG_PARTICIPATION_CAL_v1
+  implementation_commit: d3ad3ba5881cc5629db4b64782441199c6f69df8
+selection:
+  artifact_id: DG_PARTICIPATION::PART_A::PA1
+  candidate_id: PART_A
+  grid_id: PA1
+  role: CORE_CANDIDATE_A
+  state: MAIN_FROZEN
+  calibrator_retained: false
+cal_state:
+  physical_rows_read: 929
+  evaluation_rows: 460
+test:
+  rows_read: 0
+  open_authorized: false
+formal_g2: NOT_EVALUATED
+downstream:
+  next_component: DG_TRIP_COUNT
+  authorized_by_this_freeze: false
