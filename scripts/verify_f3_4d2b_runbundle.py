@@ -111,7 +111,7 @@ def main() -> None:
         "auth_real_cal_true": auth.get("real_activity_chain_cal_open_authorized") is True,
         "purpose_primitive_exact": purpose.get("primitive_id") == "CHAIN_PURPOSE_ATTRIBUTION_V1",
         "purpose_hash_exact": purpose.get("artifact_sha256") == "ab42cf42c9568ef4f085f071299fc941d421c42337f353e00870cd05c94f94fb",
-        "validation_all_pass": not validation.empty and validation["status"].eq("PASS").all(),
+        "validation_all_pass": bool(not validation.empty and validation["status"].eq("PASS").all()),
     }
     failed = [key for key, value in checks.items() if not value]
     payload = {
