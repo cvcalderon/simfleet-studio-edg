@@ -1,0 +1,104 @@
+freeze_id: F3_4D2C_ACTIVITY_CHAIN_MAIN_FREEZE_V1
+phase: F3.4d-2c
+component: DG_ACTIVITY_CHAIN
+status: PRECOMMIT_MAIN_FREEZE
+required_parent_commit: 6c2c27cd92a835a641a044c9e758f7c0cf1e1742
+
+source_real_cal:
+  runbundle_path: $HOME/simfleet-edg-runs/F3_4d2b_A1_DG_ACTIVITY_CHAIN_CAL_v1
+  execution_implementation_commit: 16756fd766aaedea8ad0e532e135899d4b13ebfb
+  verifier_remediation_commit: 6c2c27cd92a835a641a044c9e758f7c0cf1e1742
+  run_status: PASS
+  runbundle_checksums: PASS
+  runbundle_verifier: PASS
+  cal_physical_rows_read: 1853
+  fixed_source_cohort_days: 319
+  isolated_transition_rows: 1065
+  candidate_artifacts: 6
+  stochastic_replicates: 32
+  bootstrap_replicates: 1000
+
+selected_artifact:
+  artifact_id: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+  component: DG_ACTIVITY_CHAIN
+  candidate_id: CHAIN_A
+  grid_id: CHA2
+  role: CORE_CANDIDATE_A
+  state_after_commit: MAIN_FROZEN
+  train_implementation_commit: 8aa9af765ed9aa2d69fe797c1530c88ae55ed5f4
+  official_run_dir: F3_2e_activity_chain_fit_v1
+  model_relpath: models/CHAIN_A/CHA2/model.json
+  artifact_manifest_relpath: models/CHAIN_A/CHA2/artifact_manifest.json
+  model_sha256: 242085ebab9eb5ec8a53ea3b8ffe65c1d1e1fdb660bcacff0ab172d1b5ef1ecf
+  manifest_sha256: 337140dd45522a47659603998838a3c869646cbd70961ba874d6f34be555ea73
+
+purpose_primitive:
+  primitive_id: CHAIN_PURPOSE_ATTRIBUTION_V1
+  artifact_sha256: ab42cf42c9568ef4f085f071299fc941d421c42337f353e00870cd05c94f94fb
+  state_after_commit: FROZEN_SHARED_RUNTIME_PRIMITIVE
+
+primary_metric:
+  metric: WEIGHTED_NEXT_ACTIVITY_LOG_LOSS
+  lower_is_better: true
+  practical_margin: 0.01
+  values:
+    DG_ACTIVITY_CHAIN::CHAIN_REF::REFERENCE: 3.042920920013547
+    DG_ACTIVITY_CHAIN::CHAIN_A::CHA1: 1.3914707267968025
+    DG_ACTIVITY_CHAIN::CHAIN_A::CHA2: 1.3549031390197808
+    DG_ACTIVITY_CHAIN::CHAIN_B::CHB1: 1.5795339318736559
+    DG_ACTIVITY_CHAIN::CHAIN_B::CHB2: 1.7904982627799542
+    DG_ACTIVITY_CHAIN::CHAIN_B::CHB3: 1.86030330835725
+
+promotion:
+  incumbent: DG_ACTIVITY_CHAIN::CHAIN_REF::REFERENCE
+  challenger: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+  point_improvement: 1.6880177809937664
+  bootstrap_ci95_lower: 0.24699909115857205
+  bootstrap_ci95_median: 1.6023327006507748
+  bootstrap_ci95_upper: 3.7193672069888444
+  promoted: true
+
+isolated_guardrails:
+  incumbent: DG_ACTIVITY_CHAIN::CHAIN_REF::REFERENCE
+  challenger: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+  M2_PURP_01:
+    worsening: -0.018315310625009004
+    tolerance: 0.005
+  M2_TRANS_01:
+    worsening: -0.013759616325551005
+    tolerance: 0.005
+  M2_RET_01:
+    worsening: -0.3828637577883278
+    tolerance: 0.01
+  pass: true
+
+propagated_guardrails:
+  incumbent: DG_ACTIVITY_CHAIN::CHAIN_REF::REFERENCE
+  challenger: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+  M2_PURP_01:
+    worsening: -0.014992277950988682
+    tolerance: 0.005
+  M2_TRANS_01:
+    worsening: -0.016740147660785965
+    tolerance: 0.005
+  M2_RET_01:
+    worsening: -0.3653512157293543
+    tolerance: 0.01
+  pass: true
+
+challenger_b:
+  DG_ACTIVITY_CHAIN::CHAIN_B::CHB1:
+    isolated_guardrails_pass: false
+  DG_ACTIVITY_CHAIN::CHAIN_B::CHB2:
+    isolated_guardrails_pass: false
+  DG_ACTIVITY_CHAIN::CHAIN_B::CHB3:
+    isolated_guardrails_pass: false
+
+boundaries:
+  selected_artifact_main_frozen: true
+  authorized_for_runtime_dgen: true
+  next_component_authorized: false
+  real_time_schedule_cal_open_authorized: false
+  test_open_authorized: false
+  test_rows_read: 0
+  formal_g2: NOT_EVALUATED
