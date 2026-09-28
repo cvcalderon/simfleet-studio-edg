@@ -1,0 +1,74 @@
+phase: F3.4c-2a
+component: DG_TRIP_COUNT
+status: PREOPEN_IMPLEMENTATION
+required_parent_commit: 5b29b668a2e4367c11661c70dbd15beb27070377
+
+contract:
+  path: configs/f3/f3_4c1_trip_count_cal_contract_v1.yaml
+  sha256: e5be950802b3bb7ae72a223cbae529e0136b1f73f7002581fc953a1b92a279e4
+
+upstream_participation:
+  artifact_id: DG_PARTICIPATION::PART_A::PA1
+  freeze_path: configs/f3/f3_4b2c_participation_main_freeze_v1.yaml
+  freeze_sha256: 025eb31f3c4ef04d838bd3c92bb05349b43820a75bc81112adc3631b8070ea75
+  state: MAIN_FROZEN
+
+candidate_registry:
+  path: docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv
+  sha256: 52328037d9a57866b188166373f798da4fb97460fc794748f8f0ef3968e86ad8
+  candidate_artifacts: 5
+  required_train_state: FITTED_TRAIN_ONLY_NOT_SELECTED
+
+cal_input:
+  root: artifacts/model_data/F3_2a_training_data_v1/CALIBRATION
+  person_day_context:
+    filename: person_day_context.csv
+    expected_rows: 469
+    sha256: 83a826357b28b1be949f79e23d13cea07c00ad91390daa8f2eeaa17bea3f9d4a
+  participation:
+    filename: participation.csv
+    expected_rows: 460
+    sha256: 6c9e9639f9e305232512a324a7a8c3ce6814355f9c538c08f575be0364304117
+  trip_count:
+    filename: trip_count.csv
+    expected_rows: 381
+    sha256: 9e77ff7e2f0ac63d1517e7aab162731fe2270d9da4b184c568247cbaa5fe81d2
+  expected_isolated_rows: 381
+  expected_full_person_days: 460
+
+evaluation:
+  primary_metric: WEIGHTED_DISCRETE_CRPS_ON_K
+  practical_margin: 0.05
+  stochastic_replicates: 32
+  household_bootstrap_replicates: 1000
+  confidence_level: 0.95
+  master_seed: 20260926
+  common_random_numbers: true
+  isolated_selection: true
+  propagated_post_selection_check: true
+
+guardrail_tolerances:
+  M2_COUNT_01: 0.10
+  M2_COUNT_02: 0.005
+  M2_CHAIN_01: 0.005
+  M2_COND_02: 0.02
+  supported_subgroup_source_n_min: 30
+
+preopen:
+  execution_mode: SYNTHETIC_TRAIN_PREOPEN_ONLY
+  new_trip_count_cal_rows_read: 0
+  test_rows_read: 0
+  candidate_selection: NONE
+  real_trip_count_cal_open_authorized: false
+  test_open_authorized: false
+  formal_g2: NOT_EVALUATED
+
+future_authorization:
+  required_phase: F3.4c-2b
+  commit_bound: true
+  allowed_cal_files:
+    - person_day_context.csv
+    - participation.csv
+    - trip_count.csv
+
+next_step_if_pass: COMMIT_F3_4C2A_THEN_ISSUE_COMMIT_BOUND_F3_4C2B_AUTHORIZATION

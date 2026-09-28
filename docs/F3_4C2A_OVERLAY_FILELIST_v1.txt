@@ -1,0 +1,17 @@
+configs/f3/f3_4c2a_trip_count_real_cal_preopen_v1.yaml
+docs/F3_4C2A_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4C2A_LOCAL_VALIDATION_v1.md
+docs/F3_4C2A_RUNBUNDLE_SPEC_v1.md
+docs/F3_4C2A_TRIP_COUNT_PREOPEN_CONTRACT_v1.md
+docs/F3_4C2_EXECUTION_AUTHORIZATION_TEMPLATE_v1.json
+docs/MAIN_UPDATE_F3_4C2A_PREP_v1.md
+notebooks/20_f3_4c2a_trip_count_real_cal_preopen.ipynb
+scripts/verify_f3_4c2_runbundle.py
+scripts/verify_f3_4c2a_preopen.py
+src/simfleet_edg/evaluation/trip_count_cal_preopen.py
+src/simfleet_edg/evaluation/trip_count_cal_real.py
+src/simfleet_edg/repro/f3_4c2_trip_count_cal.py
+src/simfleet_edg/repro/f3_4c2a_trip_count_preopen.py
+tests/test_f3_4c2_trip_count_preopen.py
+docs/F3_4C2A_OVERLAY_FILELIST_v1.txt
+docs/F3_4C2A_OVERLAY_CHECKSUMS_v1.sha256
