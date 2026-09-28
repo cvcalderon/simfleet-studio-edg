@@ -1,0 +1,83 @@
+run_id: F3_4e2a_DG_TIME_SCHEDULE_SYNTHETIC_v1
+phase: F3.4e-2a
+component: DG_TIME_SCHEDULE
+mode: SYNTHETIC_PREOPEN
+required_parent_commit: eaf54f0e8f49ee784387b5887bcbb27c282e5849
+
+candidate_registry:
+  path: docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv
+  frozen_snapshot: configs/f3/f3_4e1_time_schedule_candidate_registry_v1.json
+  expected_candidates: 7
+  allowed_train_state: FITTED_TRAIN_ONLY_NOT_SELECTED
+
+synthetic_protocol:
+  generated_person_id: SYNTHETIC_TIME_PERSON
+  trip_slot: 1
+  stochastic_replicates: 32
+  master_seed: 20260926
+  scenario_id: CAL_EVAL_V1
+  rng_namespace: DG_TIME_SCHEDULE::TRIP::1
+  candidate_identity_in_rng_key: false
+  empirical_cal_rows_used: 0
+  test_rows_used: 0
+
+synthetic_metric_smoke:
+  primary_metric: M2-TIME-01
+  implementation:
+    - weighted_distribution
+    - total_variation_distance
+  synthetic_observed_departure_hours:
+    - 6
+    - 7
+    - 7
+    - 8
+    - 8
+    - 8
+    - 9
+    - 9
+    - 10
+    - 11
+    - 12
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 16
+    - 17
+    - 17
+    - 17
+    - 18
+    - 18
+    - 18
+    - 19
+    - 19
+    - 20
+    - 20
+    - 21
+    - 21
+    - 22
+    - 22
+    - 23
+  synthetic_weights: UNIT
+  selection_authorized: false
+
+temporal_smoke:
+  temporal_invariant_policy: REJECT_INVALID_DRAW_NO_SILENT_REPAIR
+  required_invariant_violations: 0
+  direct_validator_negative_cases:
+    - DEPARTURE_BELOW_ZERO
+    - ZERO_DURATION
+    - DEPARTURE_BEFORE_PREVIOUS_ARRIVAL
+    - NONFINAL_TRIP_CROSSES_MIDNIGHT
+
+boundaries:
+  future_cal_physical_rows: 1712
+  cal_rows_read: 0
+  cal_files_read: []
+  candidate_selection: NONE
+  real_time_schedule_cal_open_authorized: false
+  distance_prior_real_cal_authorized: false
+  test_rows_read: 0
+  test_open_authorized: false
+  formal_g2: NOT_EVALUATED
