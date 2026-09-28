@@ -230,6 +230,95 @@ def _merge_target_context(
     return merged
 
 
+def _build_count_observability_universe(
+    participation_full: pd.DataFrame,
+    positive: pd.DataFrame,
+    cfg: dict[str, Any],
+) -> tuple[pd.DataFrame, dict[str, int]]:
+    if len(participation_full) != int(
+        cfg["cal_input"]["expected_participation_rows"]
+    ):
+        raise ValueError("Unexpected CAL Participation evaluation rows")
+    if len(positive) != int(cfg["cal_input"]["expected_isolated_rows"]):
+        raise ValueError("Unexpected isolated positive-count evaluation rows")
+
+    part_y = participation_full["target_trip_day"].astype(int).to_numpy()
+    if not set(np.unique(part_y)).issubset({0, 1}):
+        raise ValueError("Participation target must be binary")
+
+    count_y = positive["target_trip_count"].astype(int).to_numpy()
+    if np.any(count_y < 1):
+        raise ValueError("Trip Count target must be positive")
+
+    mobile_mask = participation_full["target_trip_day"].astype(int) == 1
+    notrip_mask = ~mobile_mask
+    mobile_context_ids = set(
+        participation_full.loc[mobile_mask, "context_row_id"].astype(str)
+    )
+    count_context_ids = set(positive["context_row_id"].astype(str))
+
+    if not count_context_ids <= mobile_context_ids:
+        raise ValueError(
+            "Trip Count target rows must be a subset of observed CAL TripDay rows"
+        )
+
+    count_target_unobserved = mobile_context_ids - count_context_ids
+    observed_tripday_rows = len(mobile_context_ids)
+    known_notrip_rows = int(notrip_mask.sum())
+
+    if observed_tripday_rows != int(
+        cfg["cal_input"]["expected_observed_tripday_rows"]
+    ):
+        raise ValueError("Unexpected observed CAL TripDay rows")
+    if known_notrip_rows != int(cfg["cal_input"]["expected_known_notrip_rows"]):
+        raise ValueError("Unexpected known CAL NoTrip rows")
+    if len(count_target_unobserved) != int(
+        cfg["cal_input"]["expected_count_target_unobserved_tripday_rows"]
+    ):
+        raise ValueError("Unexpected count-target-unobserved TripDay rows")
+
+    context_as_str = participation_full["context_row_id"].astype(str)
+    evaluable_mask = notrip_mask | context_as_str.isin(count_context_ids)
+    evaluable = participation_full.loc[evaluable_mask].copy()
+
+    if len(evaluable) != int(
+        cfg["cal_input"]["expected_count_guardrail_person_days"]
+    ):
+        raise ValueError("Unexpected count-observable guardrail person-days")
+
+    observed_by_context = dict(
+        zip(
+            positive["context_row_id"].astype(str),
+            positive["target_trip_count"].astype(int),
+        )
+    )
+    observed_counts: list[int] = []
+    for context_id, trip_day in zip(
+        evaluable["context_row_id"].astype(str),
+        evaluable["target_trip_day"].astype(int),
+    ):
+        if trip_day == 0:
+            observed_counts.append(0)
+        else:
+            if context_id not in observed_by_context:
+                raise ValueError(
+                    "Count-unobserved TripDay leaked into Trip Count guardrail universe"
+                )
+            observed_counts.append(observed_by_context[context_id])
+
+    evaluable["observed_trip_count_full"] = observed_counts
+
+    stats = {
+        "participation_rows": len(participation_full),
+        "observed_tripday_rows": observed_tripday_rows,
+        "known_notrip_rows": known_notrip_rows,
+        "count_target_observed_tripday_rows": len(count_context_ids),
+        "count_target_unobserved_tripday_rows": len(count_target_unobserved),
+        "count_guardrail_person_days": len(evaluable),
+    }
+    return evaluable, stats
+
+
 def load_and_validate_trip_count_cal(
     repo_root: Path,
     cfg: dict[str, Any],
@@ -296,39 +385,21 @@ def load_and_validate_trip_count_cal(
     if trip_count["context_row_id"].duplicated().any():
         raise ValueError("CAL trip_count context_row_id must be unique")
 
-    full = _merge_target_context(participation, context, target_name="participation")
-    positive = _merge_target_context(trip_count, context, target_name="trip_count")
-
-    if len(full) != int(cfg["cal_input"]["expected_full_person_days"]):
-        raise ValueError("Unexpected full person-day evaluation rows")
-    if len(positive) != int(cfg["cal_input"]["expected_isolated_rows"]):
-        raise ValueError("Unexpected isolated positive-count evaluation rows")
-
-    part_y = full["target_trip_day"].astype(int).to_numpy()
-    if not set(np.unique(part_y)).issubset({0, 1}):
-        raise ValueError("Participation target must be binary")
-    count_y = positive["target_trip_count"].astype(int).to_numpy()
-    if np.any(count_y < 1):
-        raise ValueError("Trip Count target must be positive")
-
-    mobile_context_ids = set(
-        full.loc[full["target_trip_day"].astype(int) == 1, "context_row_id"].astype(str)
+    participation_full = _merge_target_context(
+        participation,
+        context,
+        target_name="participation",
     )
-    count_context_ids = set(positive["context_row_id"].astype(str))
-    if mobile_context_ids != count_context_ids:
-        raise ValueError("Positive Trip Count rows must exactly match CAL TripDay rows")
-
-    full = full.copy()
-    observed_by_context = dict(
-        zip(
-            positive["context_row_id"].astype(str),
-            positive["target_trip_count"].astype(int),
-        )
+    positive = _merge_target_context(
+        trip_count,
+        context,
+        target_name="trip_count",
     )
-    full["observed_trip_count_full"] = [
-        observed_by_context.get(str(context_id), 0)
-        for context_id in full["context_row_id"]
-    ]
+    guardrail_frame, observability = _build_count_observability_universe(
+        participation_full,
+        positive,
+        cfg,
+    )
 
     access = {
         "cal_partition": "OPENED_AUTHORIZED_F3_4C2B",
@@ -346,12 +417,23 @@ def load_and_validate_trip_count_cal(
         },
         "cal_rows_read_total_physical": sum(len(frame) for frame in loaded.values()),
         "cal_isolated_evaluation_rows": len(positive),
-        "cal_full_person_days": len(full),
+        "cal_participation_rows": observability["participation_rows"],
+        "cal_observed_tripday_rows": observability["observed_tripday_rows"],
+        "cal_known_notrip_rows": observability["known_notrip_rows"],
+        "cal_count_target_observed_tripday_rows": observability[
+            "count_target_observed_tripday_rows"
+        ],
+        "cal_count_target_unobserved_tripday_rows": observability[
+            "count_target_unobserved_tripday_rows"
+        ],
+        "cal_count_guardrail_person_days": observability[
+            "count_guardrail_person_days"
+        ],
         "test_partition": "SEALED",
         "test_files_opened": [],
         "test_rows_read": 0,
     }
-    return positive, full, input_rows, access
+    return positive, guardrail_frame, input_rows, access
 
 
 def _pmfs(
@@ -1175,7 +1257,12 @@ def _run_controlled_trip_count_cal_direct(
             "wall_seconds": time.perf_counter() - started,
             "cal_physical_rows_read": access["cal_rows_read_total_physical"],
             "isolated_evaluation_rows": len(positive),
-            "full_person_days": len(full),
+            "participation_rows": access["cal_participation_rows"],
+            "observed_tripday_rows": access["cal_observed_tripday_rows"],
+            "count_target_unobserved_tripday_rows": access[
+                "cal_count_target_unobserved_tripday_rows"
+            ],
+            "count_guardrail_person_days": len(full),
             "candidate_artifacts": len(records),
             "stochastic_replicates": REPLICATES,
             "bootstrap_replicates": BOOTSTRAPS,
@@ -1196,7 +1283,18 @@ def _run_controlled_trip_count_cal_direct(
         "cal_files_opened": access["cal_files_opened"],
         "cal_rows_read_total_physical": access["cal_rows_read_total_physical"],
         "cal_isolated_evaluation_rows": access["cal_isolated_evaluation_rows"],
-        "cal_full_person_days": access["cal_full_person_days"],
+        "cal_participation_rows": access["cal_participation_rows"],
+        "cal_observed_tripday_rows": access["cal_observed_tripday_rows"],
+        "cal_known_notrip_rows": access["cal_known_notrip_rows"],
+        "cal_count_target_observed_tripday_rows": access[
+            "cal_count_target_observed_tripday_rows"
+        ],
+        "cal_count_target_unobserved_tripday_rows": access[
+            "cal_count_target_unobserved_tripday_rows"
+        ],
+        "cal_count_guardrail_person_days": access[
+            "cal_count_guardrail_person_days"
+        ],
         "test_rows_read": 0,
         "next_component_authorized": False,
         "test_open_authorized": False,

@@ -32,3 +32,17 @@ The future real F3.4c-2b bundle contains at least:
 - checksums.sha256
 
 A successful execution proposes a Trip Count selection but never freezes it in MAIN.
+
+## F3.4c-2b-R1 count-observability clarification
+
+For Trip Count, the CAL participation surface contains 460 person-days:
+61 observed NoTrip and 399 observed TripDay. Only 381 TripDay rows have an
+observable `target_trip_count`; the remaining 18 are `COUNT_TARGET_UNOBSERVED`.
+
+Therefore:
+- ISOLATED CRPS remains on 381 positive count-target rows.
+- Count-based full-day guardrails use 442 person-days = 61 known NoTrip + 381
+  TripDay with observable K.
+- The 18 count-unobserved TripDay rows are excluded from Trip Count scoring and
+  must never be coerced to K=0.
+- Participation itself remains validated on its original 460-row surface.

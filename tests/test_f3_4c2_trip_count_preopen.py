@@ -98,3 +98,14 @@ def test_real_runner_requires_three_exact_cal_files():
     assert '"participation.csv"' in text
     assert '"trip_count.csv"' in text
     assert "real_trip_count_cal_open_authorized" in text
+
+
+def test_count_observability_cardinalities_are_frozen():
+    cfg = load_preopen_config(CFG)
+    cal = cfg["cal_input"]
+    assert cal["expected_participation_rows"] == 460
+    assert cal["expected_observed_tripday_rows"] == 399
+    assert cal["expected_known_notrip_rows"] == 61
+    assert cal["expected_isolated_rows"] == 381
+    assert cal["expected_count_target_unobserved_tripday_rows"] == 18
+    assert cal["expected_count_guardrail_person_days"] == 442

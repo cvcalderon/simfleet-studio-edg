@@ -77,7 +77,21 @@ def main() -> None:
         "candidate_artifacts_5": manifest.get("candidate_artifacts") == 5,
         "cal_physical_rows_1310": manifest.get("cal_rows_read_total_physical") == 1310,
         "isolated_rows_381": manifest.get("cal_isolated_evaluation_rows") == 381,
-        "full_person_days_460": manifest.get("cal_full_person_days") == 460,
+        "participation_rows_460": manifest.get("cal_participation_rows") == 460,
+        "observed_tripday_rows_399": manifest.get("cal_observed_tripday_rows") == 399,
+        "known_notrip_rows_61": manifest.get("cal_known_notrip_rows") == 61,
+        "count_target_observed_tripday_rows_381": manifest.get(
+            "cal_count_target_observed_tripday_rows"
+        )
+        == 381,
+        "count_target_unobserved_tripday_rows_18": manifest.get(
+            "cal_count_target_unobserved_tripday_rows"
+        )
+        == 18,
+        "count_guardrail_person_days_442": manifest.get(
+            "cal_count_guardrail_person_days"
+        )
+        == 442,
         "primary_metrics_5": len(primary) == 5,
         "grid_candidates_4": len(grid) == 4,
         "promotion_stages_2": len(promotions) == 2,

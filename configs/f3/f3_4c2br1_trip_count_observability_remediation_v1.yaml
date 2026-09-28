@@ -1,0 +1,54 @@
+remediation_id: F3_4C2B_R1_COUNT_OBSERVABILITY_V1
+phase: F3.4c-2b-R1
+status: PRECOMMIT_REMEDIATION
+required_parent_commit: 806c1b3e09530645163fc6983b9a76c0baf4efd1
+component: DG_TRIP_COUNT
+
+trigger:
+  failed_attempt: F3.4c-2b-A1
+  failure_stage: INPUT_UNIVERSE_VALIDATION_BEFORE_CANDIDATE_EVALUATION
+  exception: Positive Trip Count rows must exactly match CAL TripDay rows
+  candidate_metrics_produced: false
+  candidate_selection: NONE
+
+observed_cal_structure:
+  participation_rows: 460
+  known_notrip_rows: 61
+  observed_tripday_rows: 399
+  count_target_observed_tripday_rows: 381
+  count_target_unobserved_tripday_rows: 18
+  count_rows_subset_of_tripday_rows: true
+
+superseded_clause:
+  previous_count_guardrail_person_days: 460
+  reason: COUNT_TARGET_UNOBSERVED_TRIPDAY_ROWS_MUST_NOT_BE_COERCED_TO_ZERO
+
+frozen_replacement:
+  isolated_crps_rows: 381
+  count_guardrail_person_days: 442
+  construction:
+    - INCLUDE_61_OBSERVED_NOTRIP_AS_K_ZERO
+    - INCLUDE_381_TRIPDAY_WITH_OBSERVED_K
+    - EXCLUDE_18_TRIPDAY_WITH_COUNT_TARGET_UNOBSERVED
+  excluded_label: COUNT_TARGET_UNOBSERVED
+  excluded_rows_are_zero: false
+
+unchanged_science:
+  candidates: 5
+  primary_metric: WEIGHTED_DISCRETE_CRPS_ON_K
+  practical_margin: 0.05
+  stochastic_replicates: 32
+  household_bootstrap_replicates: 1000
+  confidence_level: 0.95
+  master_seed: 20260926
+  selection_surface: ISOLATED
+  propagated_surface: POST_SELECTION_GUARDRAIL_ONLY
+  upstream: DG_PARTICIPATION::PART_A::PA1
+  upstream_state: MAIN_FROZEN
+  test_open_authorized: false
+  formal_g2: NOT_EVALUATED
+
+authorization:
+  previous_f3_4c2b_authorization_valid_for_retry: false
+  reason: COMMIT_BOUND_AUTHORIZATION_WILL_NOT_MATCH_REMEDIATED_IMPLEMENTATION
+  new_authorization_required_after_remediation_commit: true

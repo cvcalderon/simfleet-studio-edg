@@ -34,7 +34,11 @@ cal_input:
     expected_rows: 381
     sha256: 9e77ff7e2f0ac63d1517e7aab162731fe2270d9da4b184c568247cbaa5fe81d2
   expected_isolated_rows: 381
-  expected_full_person_days: 460
+  expected_participation_rows: 460
+  expected_observed_tripday_rows: 399
+  expected_known_notrip_rows: 61
+  expected_count_target_unobserved_tripday_rows: 18
+  expected_count_guardrail_person_days: 442
 
 evaluation:
   primary_metric: WEIGHTED_DISCRETE_CRPS_ON_K

@@ -1,0 +1,13 @@
+configs/f3/f3_4c2a_trip_count_real_cal_preopen_v1.yaml
+configs/f3/f3_4c2br1_trip_count_observability_remediation_v1.yaml
+docs/F3_4C2A_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_4C2A_RUNBUNDLE_SPEC_v1.md
+docs/F3_4C2BR1_COUNT_OBSERVABILITY_REMEDIATION_v1.md
+docs/F3_4C2B_ATTEMPT_A1_FAILURE_RECORD_v1.md
+scripts/verify_f3_4c2_runbundle.py
+scripts/verify_f3_4c2br1_precommit.py
+src/simfleet_edg/evaluation/trip_count_cal_real.py
+tests/test_f3_4c2_trip_count_preopen.py
+tests/test_f3_4c2br1_count_observability.py
+docs/F3_4C2BR1_OVERLAY_FILELIST_v1.txt
+docs/F3_4C2BR1_OVERLAY_CHECKSUMS_v1.sha256
