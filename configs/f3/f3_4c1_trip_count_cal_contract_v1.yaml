@@ -1,0 +1,136 @@
+contract_id: F3_4C1_TRIP_COUNT_CAL_CONTRACT_V1
+phase: F3.4c-1
+status: FROZEN_BEFORE_TRIP_COUNT_CAL_RUNNER_AND_NEW_COMPONENT_CAL_READ
+required_parent_commit: 5169dd6e966e4ed55962c4bbba513f442d3c3f15
+component: DG_TRIP_COUNT
+reference_identity: BERLIN_HYBRID_REFERENCE_V1
+formal_g1: OPEN
+formal_g2: NOT_EVALUATED
+
+upstream_selection:
+  component: DG_PARTICIPATION
+  artifact_id: DG_PARTICIPATION::PART_A::PA1
+  state: MAIN_FROZEN
+  freeze_config: configs/f3/f3_4b2c_participation_main_freeze_v1.yaml
+  freeze_config_sha256: 025eb31f3c4ef04d838bd3c92bb05349b43820a75bc81112adc3631b8070ea75
+
+candidate_registry:
+  path: docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv
+  sha256: 52328037d9a57866b188166373f798da4fb97460fc794748f8f0ef3968e86ad8
+  required_train_state: FITTED_TRAIN_ONLY_NOT_SELECTED
+  component_artifacts: 5
+
+candidates:
+  - artifact_id: DG_TRIP_COUNT::COUNT_REF::REFERENCE
+    candidate_id: COUNT_REF
+    grid_id: REFERENCE
+    role: REFERENCE_BASELINE
+  - artifact_id: DG_TRIP_COUNT::COUNT_A::CA1
+    candidate_id: COUNT_A
+    grid_id: CA1
+    role: CORE_CANDIDATE_A
+  - artifact_id: DG_TRIP_COUNT::COUNT_A::CA2
+    candidate_id: COUNT_A
+    grid_id: CA2
+    role: CORE_CANDIDATE_A
+  - artifact_id: DG_TRIP_COUNT::COUNT_A::CA3
+    candidate_id: COUNT_A
+    grid_id: CA3
+    role: CORE_CANDIDATE_A
+  - artifact_id: DG_TRIP_COUNT::COUNT_B::CB1
+    candidate_id: COUNT_B
+    grid_id: CB1
+    role: CORE_CHALLENGER_B
+
+cal_input:
+  root: artifacts/model_data/F3_2a_training_data_v1/CALIBRATION
+  files_for_future_trip_count_run:
+    - person_day_context.csv
+    - participation.csv
+    - trip_count.csv
+  trip_count_expected_rows: 381
+  participation_expected_rows: 460
+  person_day_context_expected_rows: 469
+  trip_count_expected_sha256_from_f3_2_materialization: 9e77ff7e2f0ac63d1517e7aab162731fe2270d9da4b184c568247cbaa5fe81d2
+  new_component_rows_read_in_f3_4c1: 0
+  test_rows_read: 0
+
+evaluation:
+  primary_metric: WEIGHTED_DISCRETE_CRPS_ON_K
+  primary_weight: P_GEW
+  practical_margin: 0.05
+  stochastic_replicates: 32
+  master_seed: 20260926
+  common_random_numbers: true
+  household_bootstrap_replicates: 1000
+  confidence_level: 0.95
+  low_n_source_rows: 30
+
+isolated:
+  role: CANDIDATE_SELECTION_AND_PROMOTION
+  upstream_participation: EMPIRICAL_CAL_TEACHER_FORCED_FOR_EVALUATION_ONLY
+  primary_universe: EMPIRICAL_POSITIVE_TRIP_DAY_ROWS
+  primary_expected_rows: 381
+  full_person_day_guardrail_universe: PARTICIPATION_CAL_ROWS_460
+  no_trip_days_contribute_trip_count_zero: true
+
+propagated:
+  role: POST_SELECTION_PIPELINE_CHECK_BEFORE_MAIN_FREEZE
+  upstream_participation: GENERATED_BY_MAIN_FROZEN_DG_PARTICIPATION_PA1
+  participation_draws_shared_across_trip_count_candidates: true
+  trip_count_draw_namespace: DG_TRIP_COUNT
+  primary_metric_reused_for_selection: false
+  guardrail_only: true
+  failure_action: BLOCK_MAIN_FREEZE_AND_RETURN_TO_MAIN_NO_AUTOMATIC_FALLBACK
+
+guardrails:
+  M2-COUNT-01:
+    definition: ABS_ERROR_MEAN_TRIPS_PER_PERSON_DAY
+    tolerance_worsening: 0.1
+  M2-COUNT-02:
+    definition: TVD_TRIP_COUNT_DISTRIBUTION_0_TO_11_12_PLUS
+    tolerance_worsening: 0.005
+  M2-CHAIN-01:
+    definition: TVD_TRIPS_PER_MOBILE_DAY_DISTRIBUTION
+    tolerance_worsening: 0.005
+  M2-COND-02:
+    definition: MAX_SUPPORTED_STATIC_SUBGROUP_ABS_ERROR_E_TRIPS_PER_DAY
+    subgroup_dimensions:
+      - age_infr_class
+      - sex
+      - primary_activity_status
+      - household_size_class
+    source_n_min: 30
+    low_n: REPORT_ONLY
+    tolerance_worsening: 0.02
+  stochastic_metric_reduction: METRIC_PER_REPLICATE_THEN_ARITHMETIC_MEAN_OF_32
+
+selection:
+  type: LEXICOGRAPHIC_NO_COMPOSITE_SCORE
+  selection_evaluation_mode: ISOLATED
+  complexity_order:
+    - REFERENCE_BASELINE
+    - CORE_CANDIDATE_A
+    - CORE_CHALLENGER_B
+  within_family:
+    - HARD_PASS
+    - GUARDRAILS_PASS
+    - LOWEST_PRIMARY_METRIC
+    - LEXICAL_GRID_ID_TIEBREAK
+  promotion_requires:
+    - HARD_PASS
+    - POINT_IMPROVEMENT_AT_LEAST_0_05
+    - PAIRED_BOOTSTRAP_CI_LOWER_GT_ZERO
+    - ISOLATED_GUARDRAILS_PASS
+  after_provisional_selection:
+    - RUN_PROPAGATED_CHECK_WITH_PA1
+    - REQUIRE_PROPAGATED_GUARDRAILS_PASS_BEFORE_MAIN_FREEZE
+
+boundary:
+  trip_count_candidate_selection: NONE
+  real_trip_count_cal_open_authorized: false
+  downstream_component_authorized: false
+  test_open_authorized: false
+  formal_g2: NOT_EVALUATED
+
+next_step_if_pass: IMPLEMENT_F3_4C2A_TRIP_COUNT_RUNNER_SYNTHETIC_OR_PREOPEN_WITH_ZERO_NEW_COMPONENT_CAL_ROWS

@@ -1,0 +1,11 @@
+configs/f3/f3_4c1_trip_count_cal_contract_v1.yaml
+docs/F3_4C1_CANDIDATE_PLAN_v1.csv
+docs/F3_4C1_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4C1_IMPLEMENTATION_CLARIFICATIONS_v1.md
+docs/F3_4C1_INPUT_MANIFEST_v1.csv
+docs/F3_4C1_TRIP_COUNT_CAL_CONTRACT_v1.md
+docs/MAIN_UPDATE_F3_4C1_PREP_v1.md
+scripts/verify_f3_4c1_trip_count_contract.py
+tests/test_f3_4c1_trip_count_contract.py
+docs/F3_4C1_OVERLAY_FILELIST_v1.txt
+docs/F3_4C1_OVERLAY_CHECKSUMS_v1.sha256
