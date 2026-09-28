@@ -1,0 +1,74 @@
+{
+  "snapshot_id": "F3_4E1_TIME_SCHEDULE_CANDIDATE_REGISTRY_V1",
+  "component": "DG_TIME_SCHEDULE",
+  "train_implementation_commit": "799d5c6085c7c29ba7e83e02d37b37aac22ee296",
+  "official_run_dir": "F3_2f_time_schedule_fit_v1",
+  "runbundle_sha256": "d40c7694a1d9e07e1a19289f6b81ce10c0abda10cae59c28722b24cc2e878520",
+  "candidate_count": 7,
+  "candidate_selection": "NONE",
+  "candidates": [
+    {
+      "artifact_id": "TIME_REF_REFERENCE",
+      "candidate_id": "TIME_REF",
+      "grid_id": "REFERENCE",
+      "role": "REFERENCE_BASELINE",
+      "model_sha256": "c3eeb68a49442775ed40fb812f73400eecf037c231814c96d52c19754efbacd8",
+      "manifest_sha256": "31b880dbc7f3bf829140c96f8f0fe1340691950046b3a7d6294e0e6dc989c7ca",
+      "train_state": "FITTED_TRAIN_ONLY_NOT_SELECTED"
+    },
+    {
+      "artifact_id": "TIME_A_TA1",
+      "candidate_id": "TIME_A",
+      "grid_id": "TA1",
+      "role": "CORE_CANDIDATE_A",
+      "model_sha256": "21b2acfb93c5a550549872cd80099b562de09db393a52a5bc68fee3a4ee24c03",
+      "manifest_sha256": "c0cd133840ad2cdcc3841cd63a3d262b34f30bb79a732996ccd51ff93b1fb123",
+      "train_state": "FITTED_TRAIN_ONLY_NOT_SELECTED"
+    },
+    {
+      "artifact_id": "TIME_A_TA2",
+      "candidate_id": "TIME_A",
+      "grid_id": "TA2",
+      "role": "CORE_CANDIDATE_A",
+      "model_sha256": "22cf2431a23a7b93924160b85c006f77628fc82355dad637a32d63dd3555ef17",
+      "manifest_sha256": "a61e9d60ce2e58cfe681e45061d4ee773b9e82394f90d4397777a1dcf1f04f4e",
+      "train_state": "FITTED_TRAIN_ONLY_NOT_SELECTED"
+    },
+    {
+      "artifact_id": "TIME_A_TA3",
+      "candidate_id": "TIME_A",
+      "grid_id": "TA3",
+      "role": "CORE_CANDIDATE_A",
+      "model_sha256": "414f2213b0a62d5630e2d209af81c3faac3fcbf96b526d3a0d36f87c60f429be",
+      "manifest_sha256": "c392e0fb6191d2f2078e4c18d49cd6ed8b055e9a2c1d10cce8c12fc3b8a2cab8",
+      "train_state": "FITTED_TRAIN_ONLY_NOT_SELECTED"
+    },
+    {
+      "artifact_id": "TIME_B_TB1",
+      "candidate_id": "TIME_B",
+      "grid_id": "TB1",
+      "role": "CORE_CHALLENGER_B",
+      "model_sha256": "0e28e92a51fcb7b3d691d0b569a79acb5cfbd29750879048f9985502d2b070a9",
+      "manifest_sha256": "6a4d098517137714212fdf4a9718ee687521c8d6aede97acde60c41c0125abe1",
+      "train_state": "FITTED_TRAIN_ONLY_NOT_SELECTED"
+    },
+    {
+      "artifact_id": "TIME_B_TB2",
+      "candidate_id": "TIME_B",
+      "grid_id": "TB2",
+      "role": "CORE_CHALLENGER_B",
+      "model_sha256": "74aa012647291854c4fa087f1dd798e9d909e3c681046f1447307a23a6d5f900",
+      "manifest_sha256": "ff3caa54e7ee11c2bde79e49da5604277d506c826b891fb7a1e4edd04b157c5a",
+      "train_state": "FITTED_TRAIN_ONLY_NOT_SELECTED"
+    },
+    {
+      "artifact_id": "TIME_B_TB3",
+      "candidate_id": "TIME_B",
+      "grid_id": "TB3",
+      "role": "CORE_CHALLENGER_B",
+      "model_sha256": "27654c80ab52be8d87792686e92d6bcc8238d549dce0e4a1c1216d96923893b9",
+      "manifest_sha256": "2a2ccdf2bec75eb1b35b553e072c979c974395356066b266e65f150af52cddbe",
+      "train_state": "FITTED_TRAIN_ONLY_NOT_SELECTED"
+    }
+  ]
+}
