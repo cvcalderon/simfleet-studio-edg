@@ -1,0 +1,44 @@
+contract_id: F3_4C2C_TRIP_COUNT_MAIN_FREEZE_V1
+phase: F3.4c-2c
+component: DG_TRIP_COUNT
+status: PRECOMMIT_MAIN_FREEZE
+
+required_parent_commit: 2d55e7fd28611f529c91741476cb55bdb2b79c9e
+source_real_cal_attempt: F3.4c-2b-A2
+source_run_implementation_commit: 372a6c03739f71b68c65c15c546a515f09830435
+
+selection:
+  artifact_id: DG_TRIP_COUNT::COUNT_REF::REFERENCE
+  candidate_id: COUNT_REF
+  grid_id: REFERENCE
+  role: REFERENCE_BASELINE
+  target_state_after_commit: MAIN_FROZEN
+  authorized_for_downstream_component_execution: false
+
+decision_basis:
+  candidate_artifacts: 5
+  primary_metric: WEIGHTED_DISCRETE_CRPS_ON_K
+  primary_reference_value: 0.8931199056452576
+  eligible_family_winners: 0
+  promotion_decision_rows: 0
+  bootstrap_rows: 0
+  propagated_guardrails_pass: true
+  propagated_interpretation: REFERENCE_SELF_CHECK_ONLY
+  challengers_failed_isolated_guardrails: true
+
+cal_evidence:
+  physical_rows_read: 1310
+  participation_rows: 460
+  observed_tripday_rows: 399
+  known_notrip_rows: 61
+  isolated_rows: 381
+  count_target_observed_tripday_rows: 381
+  count_target_unobserved_tripday_rows: 18
+  count_guardrail_person_days: 442
+
+boundaries:
+  reopen_cal: false
+  test_open_authorized: false
+  test_rows_read: 0
+  next_component_authorized: false
+  formal_g2: NOT_EVALUATED

@@ -1,0 +1,51 @@
+{
+  "bootstrap_rows": 0,
+  "boundaries": {
+    "formal_g2": "NOT_EVALUATED",
+    "next_component_authorized": false,
+    "test_open_authorized": false,
+    "test_rows_read": 0
+  },
+  "cal_rows": {
+    "count_guardrail_person_days": 442,
+    "count_target_observed_tripday": 381,
+    "count_target_unobserved_tripday": 18,
+    "isolated": 381,
+    "known_notrip": 61,
+    "observed_tripday": 399,
+    "participation": 460,
+    "physical": 1310
+  },
+  "candidate_artifacts": 5,
+  "candidate_selection_state": "PROPOSED_BY_FROZEN_CAL_RULES_AWAITING_MAIN_FREEZE",
+  "component": "DG_TRIP_COUNT",
+  "eligible_family_winners": 0,
+  "file_sha256": {
+    "bootstrap_intervals.csv": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "checksums.sha256": "9e311e13b2a8c3aa3c70849fce5eac41e6161444cdad64a5ed3a7cb28d674081",
+    "evidence_manifest.json": "49ef41a830717ba83f1ff1fa8654d01c63e3810e448b0b884f3f1c213e68fdaf",
+    "execution_authorization_snapshot.json": "ef14ae4b1a6879280b83bda6c571ae9369cd8990628b6a480af17b5c10fbb821",
+    "grid_selection.csv": "93e64568e4f63dbb2b318a32e1bfbac4a6f345afcfd1052b03b9f5108f523023",
+    "input_hash_validation.csv": "d2e6cf9c417bfbf0296b3bbbbcd12a1dfbf225aead59ab53b2652fde8a91fbb0",
+    "isolated_guardrails.csv": "138db3ce1db1eaf2f91e5549a11b6c45f9476afa674b87b62846f11b983b751d",
+    "primary_metrics.csv": "b5fd1698562aca350ad3e65647fb9fc86be70a57e4ac83c4a180c5734812ce66",
+    "promotion_decisions.csv": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "propagated_guardrails.csv": "663d9088e1dc4d76b79fa3da36663368a3abf0fb339e31cf5ecedbdb94e93f30",
+    "run_manifest.json": "61d18d9cc0278d6f5c230af4395203d4ab6899d230da73161266da30839e6011",
+    "selected_component_artifact.json": "d44a552ffa5942007dfc4562ddcdf7ef1b469c9405c06fa0c9afee89f9cb3a66",
+    "stochastic_evidence.csv.gz": "6603af4d4cd09efbcf85197ec99da1df828661d2528e74e70be7f7cc701007f8"
+  },
+  "implementation_commit": "372a6c03739f71b68c65c15c546a515f09830435",
+  "primary_reference_value": 0.8931199056452576,
+  "promotion_decision_rows": 0,
+  "propagated_guardrail_rows": 1,
+  "propagated_guardrails_pass": true,
+  "proposed_selected_artifact_id": "DG_TRIP_COUNT::COUNT_REF::REFERENCE",
+  "run_dir_basename": "F3_4c2b_A2_DG_TRIP_COUNT_CAL_v1",
+  "run_status": "PASS",
+  "selected_component_artifact_status": "PROPOSED_BY_FROZEN_CAL_RULES_AWAITING_MAIN_FREEZE",
+  "selected_component_authorized_for_downstream": false,
+  "source_attempt": "A2",
+  "source_phase": "F3.4c-2b",
+  "witness_id": "F3_4C2C_A2_RUN_WITNESS_V1"
+}
