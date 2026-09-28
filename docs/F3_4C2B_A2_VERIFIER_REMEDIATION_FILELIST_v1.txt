@@ -1,0 +1,5 @@
+docs/F3_4C2B_A2_VERIFIER_EMPTY_DECISIONS_REMEDIATION_v1.md
+docs/F3_4C2B_A2_VERIFIER_REMEDIATION_CHECKSUMS_v1.sha256
+docs/F3_4C2B_A2_VERIFIER_REMEDIATION_FILELIST_v1.txt
+scripts/verify_f3_4c2_runbundle.py
+tests/test_f3_4c2b_runbundle_verifier_empty_decisions.py

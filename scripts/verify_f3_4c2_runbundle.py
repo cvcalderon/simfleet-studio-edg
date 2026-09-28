@@ -35,6 +35,27 @@ REQUIRED = {
     "checksums.sha256",
 }
 
+PROMOTION_COLUMNS = [
+    "incumbent_artifact_id",
+    "challenger_artifact_id",
+    "point_improvement",
+    "practical_margin",
+    "bootstrap_ci_lower",
+    "bootstrap_ci_upper",
+    "promoted",
+    "reasons",
+    "stage",
+]
+
+BOOTSTRAP_COLUMNS = [
+    "incumbent_artifact_id",
+    "challenger_artifact_id",
+    "bootstrap_replicates",
+    "ci_lower",
+    "ci_median",
+    "ci_upper",
+]
+
 
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
@@ -54,6 +75,20 @@ def checksums_ok(run_dir: Path) -> bool:
     return True
 
 
+def read_csv_allow_empty(path: Path, columns: list[str]) -> pd.DataFrame:
+    try:
+        return pd.read_csv(path)
+    except pd.errors.EmptyDataError:
+        return pd.DataFrame(columns=columns)
+
+
+def expected_decision_rows(grid: pd.DataFrame) -> int:
+    if "selected_within_family" not in grid.columns:
+        raise ValueError("grid_selection.csv lacks selected_within_family")
+    selected = grid["selected_within_family"].astype(str).str.lower() == "true"
+    return int(selected.sum())
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-dir", type=Path, required=True)
@@ -66,8 +101,19 @@ def main() -> None:
     validation = pd.read_csv(run / "validation.csv")
     primary = pd.read_csv(run / "primary_metrics.csv")
     grid = pd.read_csv(run / "grid_selection.csv")
-    promotions = pd.read_csv(run / "promotion_decisions.csv")
+    promotions = read_csv_allow_empty(
+        run / "promotion_decisions.csv",
+        PROMOTION_COLUMNS,
+    )
+    bootstraps = read_csv_allow_empty(
+        run / "bootstrap_intervals.csv",
+        BOOTSTRAP_COLUMNS,
+    )
     propagated = pd.read_csv(run / "propagated_guardrails.csv")
+
+    expected_decisions = expected_decision_rows(grid)
+    proposal = manifest.get("proposed_selected_artifact_id")
+    selected_status = selected.get("status")
 
     checks = {
         "required_files_exact_or_superset": REQUIRED <= {p.name for p in run.iterdir()},
@@ -94,13 +140,28 @@ def main() -> None:
         == 442,
         "primary_metrics_5": len(primary) == 5,
         "grid_candidates_4": len(grid) == 4,
-        "promotion_stages_2": len(promotions) == 2,
+        "decision_rows_match_eligible_family_winners": (
+            len(promotions) == expected_decisions
+        ),
+        "bootstrap_rows_match_decision_rows": len(bootstraps) == len(promotions),
+        "zero_decisions_valid_when_no_family_winner": (
+            expected_decisions != 0
+            or (promotions.empty and bootstraps.empty)
+        ),
         "propagated_guardrail_one": len(propagated) == 1,
         "upstream_pa1": upstream.get("artifact_id")
         == "DG_PARTICIPATION::PART_A::PA1",
-        "selection_proposal_not_main_frozen": selected.get("authorized_for_downstream")
+        "selection_proposal_present_or_explicitly_blocked": (
+            proposal is not None
+            or selected_status == "BLOCKED_PROPAGATED_GUARDRAIL_RETURN_TO_MAIN"
+        ),
+        "selection_proposal_not_main_frozen": selected.get(
+            "authorized_for_downstream"
+        )
         is False,
-        "next_component_not_authorized": manifest.get("next_component_authorized")
+        "next_component_not_authorized": manifest.get(
+            "next_component_authorized"
+        )
         is False,
         "test_rows_zero": manifest.get("test_rows_read") == 0,
         "test_not_authorized": manifest.get("test_open_authorized") is False,
@@ -112,9 +173,11 @@ def main() -> None:
         "phase": "F3.4c-2b",
         "status": "PASS" if not failed else "FAIL",
         "runbundle_gate": "PASS" if not failed else "FAIL",
-        "proposed_selected_artifact_id": manifest.get(
-            "proposed_selected_artifact_id"
-        ),
+        "proposed_selected_artifact_id": proposal,
+        "candidate_selection_state": manifest.get("candidate_selection_state"),
+        "eligible_family_winners": expected_decisions,
+        "promotion_decision_rows": len(promotions),
+        "bootstrap_rows": len(bootstraps),
         "propagated_guardrails_pass": manifest.get(
             "propagated_guardrails_pass"
         ),
