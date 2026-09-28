@@ -1,0 +1,89 @@
+contract_id: F3_4D2A_ACTIVITY_CHAIN_SYNTHETIC_PREOPEN_V1
+phase: F3.4d-2a
+component: DG_ACTIVITY_CHAIN
+required_parent_commit: f595bbd26eb895b3b39ca5fcb2f12ce61acf4856
+frozen_contract:
+  path: configs/f3/f3_4d1_activity_chain_cal_contract_v1.yaml
+  sha256: 2a7c41ccd371d68f10e603a65336ac58208251ad63d2ff1868ed351230ded91f
+train_fit_run:
+  root: artifacts/runs/F3_2e_activity_chain_fit_v1
+  accepted_fit_commit: 8aa9af765ed9aa2d69fe797c1530c88ae55ed5f4
+  model_artifact_index: model_artifact_index.csv
+  fit_validation: fit_validation.csv
+candidates:
+- candidate_id: CHAIN_REF
+  grid_id: REFERENCE
+  role: REFERENCE_BASELINE
+  artifact_id: DG_ACTIVITY_CHAIN::CHAIN_REF::REFERENCE
+  model_sha256: 818a2b1015a3273a1c8b08672e6be8d790774cd356c4cd7102c70515407cb6a3
+  manifest_sha256: 93896d0bad98bd89aa620dab626d731dfbab2a9f95346c4184826f580a6edd31
+  state: FITTED_TRAIN_ONLY_NOT_SELECTED
+- candidate_id: CHAIN_A
+  grid_id: CHA1
+  role: CORE_CANDIDATE_A
+  artifact_id: DG_ACTIVITY_CHAIN::CHAIN_A::CHA1
+  model_sha256: 9f84b56e8e8a63b7d1d1030e723dffd16789dac6a711c32e55f7e07360a76654
+  manifest_sha256: 0942923fd045d9fc5535464ad4d32bb1c674d56537be775c81173bde6b799d13
+  state: FITTED_TRAIN_ONLY_NOT_SELECTED
+- candidate_id: CHAIN_A
+  grid_id: CHA2
+  role: CORE_CANDIDATE_A
+  artifact_id: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+  model_sha256: 242085ebab9eb5ec8a53ea3b8ffe65c1d1e1fdb660bcacff0ab172d1b5ef1ecf
+  manifest_sha256: 337140dd45522a47659603998838a3c869646cbd70961ba874d6f34be555ea73
+  state: FITTED_TRAIN_ONLY_NOT_SELECTED
+- candidate_id: CHAIN_B
+  grid_id: CHB1
+  role: CORE_CHALLENGER_B
+  artifact_id: DG_ACTIVITY_CHAIN::CHAIN_B::CHB1
+  model_sha256: a216e87894b25affcc2e3ada1af368660c784c4e8bb5eba3a24a539bbc406550
+  manifest_sha256: a07eca2b5422ad3e0bd549eef19eb0a1cb4fdd1e65a50a4a11d99269c7b5eeee
+  state: FITTED_TRAIN_ONLY_NOT_SELECTED
+- candidate_id: CHAIN_B
+  grid_id: CHB2
+  role: CORE_CHALLENGER_B
+  artifact_id: DG_ACTIVITY_CHAIN::CHAIN_B::CHB2
+  model_sha256: 5593dbd10ce2206ad1a15fc72467d66ba8451675ff5165fdda916e14a6f3db77
+  manifest_sha256: e16645bde21622a80d486e30733dce646e6db59ab557ee11d182de966edc0d22
+  state: FITTED_TRAIN_ONLY_NOT_SELECTED
+- candidate_id: CHAIN_B
+  grid_id: CHB3
+  role: CORE_CHALLENGER_B
+  artifact_id: DG_ACTIVITY_CHAIN::CHAIN_B::CHB3
+  model_sha256: c9ddff7d43ae192dbe8979b82871343a532c443a3f119211dca3d6c480ca82c2
+  manifest_sha256: 3d423fa386b4a936bbe6b4a8e53d73e14efd9ee68878c32033f1ad37068e9ba1
+  state: FITTED_TRAIN_ONLY_NOT_SELECTED
+synthetic_protocol:
+  master_seed: 20260926
+  scenario_id: SYNTHETIC_PREOPEN_V1
+  component_namespace: DG_ACTIVITY_CHAIN
+  replicates: 32
+  bootstrap_replicates: 1000
+  confidence_level: 0.95
+  activities:
+  - HOME
+  - WORK
+  - SHOPPING
+  - LEISURE
+frozen_evaluation:
+  primary_metric: WEIGHTED_NEXT_ACTIVITY_LOG_LOSS
+  practical_margin: 0.01
+  guardrails:
+  - metric: M2-PURP-01
+    statistic: TVD
+    worsening_tolerance: 0.005
+  - metric: M2-TRANS-01
+    statistic: TVD
+    worsening_tolerance: 0.005
+  - metric: M2-RET-01
+    statistic: ABS_RETURN_HOME_SHARE_ERROR
+    worsening_tolerance: 0.01
+boundaries:
+  calibration_root_must_not_be_opened: artifacts/model_data/F3_2a_training_data_v1/CALIBRATION
+  cal_read_performed: false
+  real_cal_open_authorized: false
+  candidate_selection: NONE
+  test_open_authorized: false
+  test_rows_read: 0
+  next_component_authorized: false
+  formal_g2: NOT_EVALUATED
