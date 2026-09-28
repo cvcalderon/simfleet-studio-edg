@@ -32,4 +32,3 @@ Preserved failed-attempt witness hashes:
   `3689b1bf3611fe08cd977eec26082e65c133e0fc6840b3cc481316785d1703b1`
 - `checksums.sha256`:
   `902465109244b224ad3d7f1d239929e616d9072d271dc371ce9c2156a1837ec9`
-
