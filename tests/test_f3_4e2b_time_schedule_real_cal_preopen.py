@@ -274,3 +274,36 @@ def test_time_b_exact_conditional_sampler_fails_when_support_is_empty() -> None:
             trips_remaining_after_current=0,
             seed=123,
         )
+
+
+
+def test_time_b_exact_conditional_sampler_preserves_missing_k_semantics() -> None:
+    class DummyRecord:
+        candidate_id = "TIME_B"
+
+    class DummyAdapter:
+        record = DummyRecord()
+        quantiles = [0.25, 0.5, 0.75]
+        DEP_MIN = 0
+        DEP_MAX = 1439
+        DUR_MIN = 1
+        DUR_MAX = 480
+
+    # None means source K is unavailable.  It must not be coerced to 0 and must
+    # not trigger a comparison TypeError inside the exact conditional sampler.
+    result = real._sample_time_b_precomputed(
+        DummyAdapter(),
+        np.asarray([420.0, 720.0, 1080.0]),
+        np.asarray([10.0, 20.0, 30.0]),
+        previous_arrival_absolute_minute=None,
+        trips_remaining_after_current=None,
+        seed=123,
+    )
+    assert result["sampling_policy"] == "EXACT_TIME_B_FEASIBLE_CONDITIONAL_V1"
+    ok, _ = real.validate_temporal_row(
+        result["departure_clock_minute"],
+        result["duration_from_clock_min"],
+        previous_arrival_absolute_minute=None,
+        trips_remaining_after_current=None,
+    )
+    assert ok

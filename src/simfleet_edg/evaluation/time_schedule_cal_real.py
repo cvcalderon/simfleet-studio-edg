@@ -451,7 +451,7 @@ def _sample_time_b_precomputed(
     dur_knots: np.ndarray,
     *,
     previous_arrival_absolute_minute: float | None,
-    trips_remaining_after_current: int,
+    trips_remaining_after_current: int | None,
     seed: int,
 ) -> dict[str, Any]:
     """Sample TIME_B exactly conditional on the frozen temporal invariant.
@@ -479,7 +479,7 @@ def _sample_time_b_precomputed(
     if previous_arrival_absolute_minute is not None:
         dep_feasible &= dep_values.astype(float) >= float(previous_arrival_absolute_minute)
 
-    if trips_remaining_after_current > 0:
+    if trips_remaining_after_current is not None and trips_remaining_after_current > 0:
         dur_cdf = np.cumsum(dur_probability)
         max_duration = (1439 - dep_values).astype(int)
         allowed_mass = np.zeros(len(dep_values), dtype=float)
@@ -499,7 +499,7 @@ def _sample_time_b_precomputed(
     dep_index = int(rng.choice(len(dep_values), p=dep_weight))
     departure = int(dep_values[dep_index])
 
-    if trips_remaining_after_current > 0:
+    if trips_remaining_after_current is not None and trips_remaining_after_current > 0:
         dur_mask = dur_values <= 1439 - departure
     else:
         dur_mask = np.ones(len(dur_values), dtype=bool)
