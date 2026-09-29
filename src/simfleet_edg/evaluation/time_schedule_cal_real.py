@@ -66,6 +66,7 @@ REFERENCE_ID = "TIME_REF_REFERENCE"
 REPLICATES = 32
 BOOTSTRAPS = 1000
 PRACTICAL_MARGIN = 0.005
+MISSING_CONTEXT = "__MISSING_CONTEXT__"
 ROLE_RANK = {
     "REFERENCE_BASELINE": 0,
     "CORE_CANDIDATE_A": 1,
@@ -200,6 +201,13 @@ def _merge_time_context(time_rows: pd.DataFrame, context: pd.DataFrame) -> pd.Da
 
 
 def _validate_source_temporal_rows(frame: pd.DataFrame) -> None:
+    """Validate frozen CAL targets without complete-case collapse.
+
+    F3.2a explicitly retains optional upstream-context missingness.  The observed
+    CAL target rows are reference evidence; the sequential temporal invariant is
+    a hard guardrail on generated draws, not a reason to reject empirical target
+    rows whose optional teacher-forced prefix is incomplete or overlaps.
+    """
     required = {
         "context_row_id",
         "source_household_id_time",
@@ -220,24 +228,39 @@ def _validate_source_temporal_rows(frame: pd.DataFrame) -> None:
     missing = sorted(required - set(frame.columns))
     if missing:
         raise ValueError(f"Missing CAL time columns: {missing}")
+
     weights = frame["fit_weight_W_GEW"].astype(float).to_numpy()
     if not np.isfinite(weights).all() or np.any(weights <= 0):
         raise ValueError("CAL W_GEW must be finite and strictly positive")
-    for position in frame["trip_position_class"].astype(str):
-        if position not in {"SINGLE", "FIRST", "MIDDLE", "LAST"}:
-            raise ValueError(f"Unexpected trip_position_class: {position}")
-    for _, row in frame.iterrows():
-        previous = row["previous_arrival_absolute_minute"]
-        previous_value = None if pd.isna(previous) else float(previous)
-        remaining = _trips_remaining_after_current(str(row["trip_position_class"]))
-        ok, _ = validate_temporal_row(
-            float(row["target_departure_clock_minute"]),
-            float(row["target_duration_from_clock_min"]),
-            previous_arrival_absolute_minute=previous_value,
-            trips_remaining_after_current=remaining,
-        )
-        if not ok:
-            raise ValueError("Observed CAL temporal row violates frozen temporal invariant")
+
+    positions = frame["trip_position_class"].astype(str)
+    allowed_positions = {"SINGLE", "FIRST", "MIDDLE", "LAST", MISSING_CONTEXT}
+    unexpected = sorted(set(positions) - allowed_positions)
+    if unexpected:
+        raise ValueError(f"Unexpected trip_position_class values: {unexpected}")
+
+    missing_k = frame["source_trip_count_analogue"].isna().to_numpy()
+    missing_position = positions.eq(MISSING_CONTEXT).to_numpy()
+    if not np.array_equal(missing_k, missing_position):
+        raise ValueError("Missing source K and trip_position_class context must agree")
+
+    dep = frame["target_departure_clock_minute"].astype(float).to_numpy()
+    arr = frame["target_arrival_clock_minute"].astype(float).to_numpy()
+    offset = frame["target_arrival_day_offset"].astype(float).to_numpy()
+    dur = frame["target_duration_from_clock_min"].astype(float).to_numpy()
+    if not np.isfinite(dep).all() or not np.isfinite(arr).all() or not np.isfinite(offset).all() or not np.isfinite(dur).all():
+        raise ValueError("CAL temporal targets must be finite")
+    if np.any(dep < 0) or np.any(dep >= 1440):
+        raise ValueError("CAL departure clocks outside [0,1439]")
+    if np.any(arr < 0) or np.any(arr >= 1440):
+        raise ValueError("CAL arrival clocks outside [0,1439]")
+    if not set(np.unique(offset.astype(int))).issubset({0, 1}) or not np.allclose(offset, offset.astype(int)):
+        raise ValueError("CAL arrival day offsets must be integer 0/1")
+    if np.any(dur < 1):
+        raise ValueError("CAL duration must be >=1 minute")
+    reconstructed = arr + 1440.0 * offset - dep
+    if not np.allclose(reconstructed, dur, rtol=0.0, atol=1e-12):
+        raise ValueError("CAL arrival/departure/day-offset/duration identity mismatch")
 
 
 def load_and_validate_time_schedule_cal(
@@ -296,11 +319,16 @@ def load_and_validate_time_schedule_cal(
     return merged, cohort, input_rows, access
 
 
-def _trips_remaining_after_current(position: str) -> int:
+def _trips_remaining_after_current(position: str) -> int | None:
     if position in {"SINGLE", "LAST"}:
         return 0
     if position in {"FIRST", "MIDDLE"}:
         return 1
+    if position == MISSING_CONTEXT:
+        # Source K is genuinely unavailable for this retained row.  Do not invent
+        # whether more trips remain; validate all other temporal constraints and
+        # preserve the explicit missing feature value for candidate backoff.
+        return None
     raise ValueError(f"Unexpected trip_position_class: {position}")
 
 

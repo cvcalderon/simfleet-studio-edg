@@ -82,6 +82,7 @@ def test_trips_remaining_mapping_does_not_assume_trip_id_ordinal() -> None:
     assert real._trips_remaining_after_current("LAST") == 0
     assert real._trips_remaining_after_current("FIRST") == 1
     assert real._trips_remaining_after_current("MIDDLE") == 1
+    assert real._trips_remaining_after_current("__MISSING_CONTEXT__") is None
     with pytest.raises(ValueError):
         real._trips_remaining_after_current("UNKNOWN")
 
@@ -107,6 +108,68 @@ def test_circular_wasserstein_identical_is_zero() -> None:
     weights = np.array([1.0, 2.0, 1.0])
     assert real._circular_wasserstein_minutes(values, values.copy(), weights) == 0.0
 
+
+
+def test_source_temporal_validation_retains_explicit_missing_context_and_empirical_overlap() -> None:
+    frame = real.pd.DataFrame([
+        {
+            "context_row_id": "ctx-missing",
+            "source_household_id_time": "hh-1",
+            "source_person_id_time": "p-1",
+            "source_trip_id": 1,
+            "source_trip_count_analogue": np.nan,
+            "origin_activity_analogue": "HOME",
+            "destination_activity_analogue": "WORK",
+            "trip_position_class": "__MISSING_CONTEXT__",
+            "previous_departure_clock_minute": np.nan,
+            "previous_arrival_absolute_minute": np.nan,
+            "target_departure_clock_minute": 420,
+            "target_arrival_clock_minute": 450,
+            "target_arrival_day_offset": 0,
+            "target_duration_from_clock_min": 30,
+            "fit_weight_W_GEW": 1.0,
+        },
+        {
+            "context_row_id": "ctx-overlap",
+            "source_household_id_time": "hh-2",
+            "source_person_id_time": "p-2",
+            "source_trip_id": 2,
+            "source_trip_count_analogue": 5,
+            "origin_activity_analogue": "WORK",
+            "destination_activity_analogue": "BUSINESS",
+            "trip_position_class": "MIDDLE",
+            "previous_departure_clock_minute": 615,
+            "previous_arrival_absolute_minute": 635,
+            "target_departure_clock_minute": 630,
+            "target_arrival_clock_minute": 645,
+            "target_arrival_day_offset": 0,
+            "target_duration_from_clock_min": 15,
+            "fit_weight_W_GEW": 1.0,
+        },
+    ])
+    real._validate_source_temporal_rows(frame)
+
+
+def test_source_temporal_validation_rejects_inconsistent_missing_k_position() -> None:
+    frame = real.pd.DataFrame([{
+        "context_row_id": "ctx",
+        "source_household_id_time": "hh",
+        "source_person_id_time": "p",
+        "source_trip_id": 1,
+        "source_trip_count_analogue": np.nan,
+        "origin_activity_analogue": "HOME",
+        "destination_activity_analogue": "WORK",
+        "trip_position_class": "FIRST",
+        "previous_departure_clock_minute": np.nan,
+        "previous_arrival_absolute_minute": np.nan,
+        "target_departure_clock_minute": 420,
+        "target_arrival_clock_minute": 450,
+        "target_arrival_day_offset": 0,
+        "target_duration_from_clock_min": 30,
+        "fit_weight_W_GEW": 1.0,
+    }])
+    with pytest.raises(ValueError, match="Missing source K"):
+        real._validate_source_temporal_rows(frame)
 
 def test_downstream_boundaries_remain_closed() -> None:
     cfg = yaml.safe_load(CONFIG.read_text(encoding="utf-8"))
