@@ -427,6 +427,55 @@ def _sample_time_b_precomputed(
     raise RuntimeError("TIME_B exhausted 100 rejection attempts")
 
 
+def _sample_time_ref_conditioned(
+    adapter: TimeScheduleAdapter,
+    *,
+    previous_arrival_absolute_minute: float | None,
+    trips_remaining_after_current: int | None,
+    seed: int,
+) -> dict[str, Any]:
+    """Sample TIME_REF exactly from its temporally feasible empirical support.
+
+    This is the exact conditional distribution induced by rejection sampling
+    given eventual acceptance.  It removes the finite-attempt exhaustion artefact
+    while preserving the frozen support, probabilities, seed schedule, and hard
+    temporal invariant.  No draw is repaired and no value is invented.
+    """
+    support = list(adapter.model["joint_temporal_support"])
+    feasible: list[tuple[dict[str, Any], dict[str, int | float]]] = []
+    probability: list[float] = []
+    for sample in support:
+        ok, result = validate_temporal_row(
+            int(sample["departure_clock_minute"]),
+            int(sample["duration_from_clock_min"]),
+            previous_arrival_absolute_minute=previous_arrival_absolute_minute,
+            trips_remaining_after_current=trips_remaining_after_current,
+        )
+        if ok:
+            feasible.append((sample, result))
+            probability.append(float(sample["probability"]))
+
+    if not feasible:
+        raise RuntimeError("TIME_REF has no feasible support under frozen temporal state")
+
+    p = np.asarray(probability, dtype=float)
+    total = float(p.sum())
+    if not np.isfinite(total) or total <= 0:
+        raise RuntimeError("TIME_REF feasible support has invalid probability mass")
+    p /= total
+    rng = np.random.default_rng(seed)
+    selected = int(rng.choice(len(feasible), p=p))
+    sample, result = feasible[selected]
+    return {
+        **result,
+        "attempt": 1,
+        "selected_level": 0,
+        "sampling_policy": "EXACT_FEASIBLE_SUPPORT_CONDITIONAL_V1",
+        "source_departure_clock_minute": int(sample["departure_clock_minute"]),
+        "source_duration_from_clock_min": int(sample["duration_from_clock_min"]),
+    }
+
+
 def _weighted_hour_tvd(observed_hours: np.ndarray, generated_hours: np.ndarray, weights: np.ndarray) -> float:
     if weights.sum() <= 0:
         raise ValueError("TVD total weight must be positive")
@@ -473,7 +522,14 @@ def _generate_isolated_candidate(
         for replicate in range(REPLICATES):
             seed = _time_seed(row["context_row_id"], slot, replicate)
             try:
-                if repaired is not None:
+                if adapter.record.candidate_id == "TIME_REF":
+                    result = _sample_time_ref_conditioned(
+                        adapter,
+                        previous_arrival_absolute_minute=previous_value,
+                        trips_remaining_after_current=remaining,
+                        seed=seed,
+                    )
+                elif repaired is not None:
                     result = _sample_time_b_precomputed(
                         adapter,
                         repaired["departure_clock_minute"][row_index],
@@ -701,12 +757,20 @@ def _run_propagated_time(
                 )
                 seed = _time_seed(day["row_id"], trip_index, replicate)
                 try:
-                    result = adapter.sample_one(
-                        pd.DataFrame([state]),
-                        previous_arrival_absolute_minute=prev_arr,
-                        trips_remaining_after_current=k - trip_index,
-                        seed=seed,
-                    )
+                    if adapter.record.candidate_id == "TIME_REF":
+                        result = _sample_time_ref_conditioned(
+                            adapter,
+                            previous_arrival_absolute_minute=prev_arr,
+                            trips_remaining_after_current=k - trip_index,
+                            seed=seed,
+                        )
+                    else:
+                        result = adapter.sample_one(
+                            pd.DataFrame([state]),
+                            previous_arrival_absolute_minute=prev_arr,
+                            trips_remaining_after_current=k - trip_index,
+                            seed=seed,
+                        )
                     ok, validated = validate_temporal_row(
                         result["departure_clock_minute"],
                         result["duration_from_clock_min"],

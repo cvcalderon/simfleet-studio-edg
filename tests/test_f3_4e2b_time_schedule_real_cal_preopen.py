@@ -176,3 +176,47 @@ def test_downstream_boundaries_remain_closed() -> None:
     assert cfg["preopen"]["distance_prior_real_cal_authorized"] is False
     assert cfg["preopen"]["test_open_authorized"] is False
     assert cfg["preopen"]["formal_g2"] == "NOT_EVALUATED"
+
+def test_time_ref_exact_conditional_sampler_avoids_finite_rejection_exhaustion() -> None:
+    class DummyRecord:
+        candidate_id = "TIME_REF"
+
+    class DummyAdapter:
+        record = DummyRecord()
+        model = {
+            "joint_temporal_support": [
+                {"departure_clock_minute": 60, "duration_from_clock_min": 10, "probability": 0.999},
+                {"departure_clock_minute": 1420, "duration_from_clock_min": 10, "probability": 0.001},
+            ]
+        }
+
+    result = real._sample_time_ref_conditioned(
+        DummyAdapter(),
+        previous_arrival_absolute_minute=1418,
+        trips_remaining_after_current=0,
+        seed=123,
+    )
+    assert result["departure_clock_minute"] == 1420
+    assert result["duration_from_clock_min"] == 10
+    assert result["sampling_policy"] == "EXACT_FEASIBLE_SUPPORT_CONDITIONAL_V1"
+
+
+def test_time_ref_exact_conditional_sampler_fails_when_support_truly_empty() -> None:
+    class DummyRecord:
+        candidate_id = "TIME_REF"
+
+    class DummyAdapter:
+        record = DummyRecord()
+        model = {
+            "joint_temporal_support": [
+                {"departure_clock_minute": 100, "duration_from_clock_min": 10, "probability": 1.0},
+            ]
+        }
+
+    with pytest.raises(RuntimeError, match="no feasible support"):
+        real._sample_time_ref_conditioned(
+            DummyAdapter(),
+            previous_arrival_absolute_minute=1400,
+            trips_remaining_after_current=0,
+            seed=123,
+        )
