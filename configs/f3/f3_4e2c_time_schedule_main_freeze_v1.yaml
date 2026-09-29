@@ -1,0 +1,88 @@
+freeze_id: F3_4E2C_TIME_SCHEDULE_MAIN_FREEZE_V1
+phase: F3.4e-2c
+component: DG_TIME_SCHEDULE
+status: PRECOMMIT_MAIN_FREEZE
+required_parent_commit: e7207c81b803444fdaae78bd3ec489a1021fb96f
+
+source_real_cal:
+  runbundle_path: $HOME/simfleet-edg-runs/F3_4e2b_DG_TIME_SCHEDULE_REAL_CAL_A6_v1
+  execution_implementation_commit: e7207c81b803444fdaae78bd3ec489a1021fb96f
+  run_status: PASS
+  runbundle_checksums: PASS
+  runbundle_verifier: PASS
+  cal_physical_rows_read: 1712
+  fixed_source_cohort_days: 378
+  isolated_time_rows: 1243
+  candidate_artifacts: 7
+  stochastic_replicates: 32
+  bootstrap_replicates: 1000
+
+selected_artifact:
+  artifact_id: TIME_B_TB2
+  component: DG_TIME_SCHEDULE
+  candidate_id: TIME_B
+  grid_id: TB2
+  role: CORE_CHALLENGER_B
+  state_after_commit: MAIN_FROZEN
+  train_implementation_commit: 799d5c6085c7c29ba7e83e02d37b37aac22ee296
+  official_run_dir: F3_2f_time_schedule_fit_v1
+  model_relpath: models/TIME_B/TB2/model.json
+  artifact_manifest_relpath: models/TIME_B/TB2/artifact_manifest.json
+  model_sha256: 74aa012647291854c4fa087f1dd798e9d909e3c681046f1447307a23a6d5f900
+  manifest_sha256: ff3caa54e7ee11c2bde79e49da5604277d506c826b891fb7a1e4edd04b157c5a
+
+primary_metric:
+  metric: M2-TIME-01
+  statistic: DEPARTURE_HOUR_DISTRIBUTION_TVD_MEAN32
+  lower_is_better: true
+  practical_margin: 0.005
+  reported_values:
+    TIME_REF_REFERENCE: 0.252671
+    TIME_B_TB1: 0.115787
+    TIME_B_TB2: 0.112080
+    TIME_B_TB3: 0.112718
+
+promotion:
+  incumbent: TIME_REF_REFERENCE
+  challenger: TIME_B_TB2
+  point_improvement_reported: 0.140591
+  practical_margin: 0.005
+  bootstrap_replicates: 1000
+  bootstrap_ci95_lower_reported: 0.084075
+  bootstrap_ci95_median_reported: 0.123817
+  bootstrap_ci95_upper_reported: 0.163467
+  promoted: true
+
+isolated_guardrails:
+  TIME_REF_REFERENCE:
+    temporal_invariant_violations: 0
+    hard_pass: true
+  TIME_B_TB2:
+    temporal_invariant_violations: 0
+    hard_pass: true
+  pass: true
+
+propagated_guardrails:
+  TIME_REF_REFERENCE:
+    temporal_invariant_violations: 0
+    generated_time_rows: 39449
+    hard_pass: true
+  TIME_B_TB2:
+    temporal_invariant_violations: 0
+    generated_time_rows: 39449
+    hard_pass: true
+  conjunctive_pass: true
+
+sampling_policy:
+  isolated: UNCHANGED_FROM_A5
+  propagated_time_b: EXACT_TIME_B_FULL_CHAIN_MIN_SLACK_CONDITIONAL_V1
+  propagated_time_ref: EXACT_REFERENCE_FULL_CHAIN_SUPPORT_CONDITIONAL_V1
+
+boundaries:
+  selected_artifact_main_frozen: true
+  authorized_for_runtime_dgen: true
+  next_component_authorized: false
+  distance_prior_real_cal_authorized: false
+  test_open_authorized: false
+  test_rows_read: 0
+  formal_g2: NOT_EVALUATED

@@ -1,0 +1,42 @@
+{
+  "freeze_id": "F3_4E2C_TIME_SCHEDULE_MAIN_FREEZE_V1",
+  "component": "DG_TIME_SCHEDULE",
+  "artifact_id": "TIME_B_TB2",
+  "candidate_id": "TIME_B",
+  "grid_id": "TB2",
+  "role": "CORE_CHALLENGER_B",
+  "state": "MAIN_FROZEN",
+  "authorized_for_runtime_dgen": true,
+  "train_implementation_commit": "799d5c6085c7c29ba7e83e02d37b37aac22ee296",
+  "official_run_dir": "F3_2f_time_schedule_fit_v1",
+  "model_relpath": "models/TIME_B/TB2/model.json",
+  "artifact_manifest_relpath": "models/TIME_B/TB2/artifact_manifest.json",
+  "model_sha256": "74aa012647291854c4fa087f1dd798e9d909e3c681046f1447307a23a6d5f900",
+  "manifest_sha256": "ff3caa54e7ee11c2bde79e49da5604277d506c826b891fb7a1e4edd04b157c5a",
+  "sampling_policy": {
+    "isolated": "UNCHANGED_FROM_A5",
+    "propagated": "EXACT_TIME_B_FULL_CHAIN_MIN_SLACK_CONDITIONAL_V1"
+  },
+  "selection_evidence": {
+    "runbundle": "$HOME/simfleet-edg-runs/F3_4e2b_DG_TIME_SCHEDULE_REAL_CAL_A6_v1",
+    "implementation_commit": "e7207c81b803444fdaae78bd3ec489a1021fb96f",
+    "primary_metric": "M2-TIME-01",
+    "primary_statistic": "DEPARTURE_HOUR_DISTRIBUTION_TVD_MEAN32",
+    "primary_value_reported": 0.11208,
+    "reference_value_reported": 0.252671,
+    "point_improvement_reported": 0.140591,
+    "practical_margin": 0.005,
+    "bootstrap_ci95_reported": [
+      0.084075,
+      0.163467
+    ],
+    "isolated_guardrails_pass": true,
+    "propagated_guardrails_pass": true,
+    "reference_propagated_violations": 0,
+    "selected_propagated_violations": 0
+  },
+  "next_component_authorized": false,
+  "distance_prior_real_cal_authorized": false,
+  "test_open_authorized": false,
+  "formal_g2": "NOT_EVALUATED"
+}
