@@ -220,3 +220,57 @@ def test_time_ref_exact_conditional_sampler_fails_when_support_truly_empty() -> 
             trips_remaining_after_current=0,
             seed=123,
         )
+
+
+def test_time_b_exact_conditional_sampler_handles_tiny_feasible_mass() -> None:
+    class DummyRecord:
+        candidate_id = "TIME_B"
+
+    class DummyAdapter:
+        record = DummyRecord()
+        quantiles = [0.25, 0.5, 0.75]
+        DEP_MIN = 0
+        DEP_MAX = 1439
+        DUR_MIN = 1
+        DUR_MAX = 480
+
+    result = real._sample_time_b_precomputed(
+        DummyAdapter(),
+        np.asarray([100.0, 200.0, 1420.0]),
+        np.asarray([10.0, 20.0, 30.0]),
+        previous_arrival_absolute_minute=1418,
+        trips_remaining_after_current=0,
+        seed=123,
+    )
+    assert result["departure_clock_minute"] >= 1418
+    assert result["sampling_policy"] == "EXACT_TIME_B_FEASIBLE_CONDITIONAL_V1"
+    ok, _ = real.validate_temporal_row(
+        result["departure_clock_minute"],
+        result["duration_from_clock_min"],
+        previous_arrival_absolute_minute=1418,
+        trips_remaining_after_current=0,
+    )
+    assert ok
+
+
+def test_time_b_exact_conditional_sampler_fails_when_support_is_empty() -> None:
+    class DummyRecord:
+        candidate_id = "TIME_B"
+
+    class DummyAdapter:
+        record = DummyRecord()
+        quantiles = [0.25, 0.5, 0.75]
+        DEP_MIN = 0
+        DEP_MAX = 1439
+        DUR_MIN = 1
+        DUR_MAX = 480
+
+    with pytest.raises(RuntimeError, match="no feasible support"):
+        real._sample_time_b_precomputed(
+            DummyAdapter(),
+            np.asarray([100.0, 200.0, 300.0]),
+            np.asarray([10.0, 20.0, 30.0]),
+            previous_arrival_absolute_minute=2000,
+            trips_remaining_after_current=0,
+            seed=123,
+        )

@@ -396,6 +396,55 @@ def _round_half_up(value: float) -> int:
     return int(math.floor(float(value) + 0.5))
 
 
+def _rounded_interp_pmf(
+    xp: np.ndarray,
+    fp: np.ndarray,
+    *,
+    lo: int,
+    hi: int,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Exact PMF after monotone interpolation of U(0,1) and half-up rounding."""
+    xp = np.asarray(xp, dtype=float)
+    fp = np.asarray(fp, dtype=float)
+    if xp.ndim != 1 or fp.ndim != 1 or len(xp) != len(fp):
+        raise ValueError("Interpolation support must be aligned one-dimensional arrays")
+    if np.any(np.diff(xp) <= 0) or np.any(np.diff(fp) < -1e-12):
+        raise ValueError("Interpolation support must be strictly ordered in u and monotone in value")
+
+    def cdf_le(value: int) -> float:
+        if value < lo:
+            return 0.0
+        if value >= hi:
+            return 1.0
+        threshold = float(value) + 0.5
+        if fp[0] >= threshold:
+            return 0.0
+        for idx in range(len(fp) - 1):
+            y0 = float(fp[idx])
+            y1 = float(fp[idx + 1])
+            if y0 >= threshold:
+                return float(xp[idx])
+            if y1 >= threshold:
+                if y1 <= y0 + 1e-15:
+                    return float(xp[idx])
+                fraction = (threshold - y0) / (y1 - y0)
+                return float(xp[idx] + fraction * (xp[idx + 1] - xp[idx]))
+        return 1.0
+
+    values = np.arange(lo, hi + 1, dtype=np.int32)
+    cdf = np.asarray([cdf_le(int(value)) for value in values], dtype=float)
+    previous = np.concatenate(([0.0], cdf[:-1]))
+    probability = np.maximum(cdf - previous, 0.0)
+    keep = probability > 1e-15
+    values = values[keep]
+    probability = probability[keep]
+    total = float(probability.sum())
+    if not np.isfinite(total) or total <= 0:
+        raise RuntimeError("TIME_B reconstructed distribution has no probability mass")
+    probability /= total
+    return values, probability
+
+
 def _sample_time_b_precomputed(
     adapter: TimeScheduleAdapter,
     dep_knots: np.ndarray,
@@ -405,27 +454,78 @@ def _sample_time_b_precomputed(
     trips_remaining_after_current: int,
     seed: int,
 ) -> dict[str, Any]:
+    """Sample TIME_B exactly conditional on the frozen temporal invariant.
+
+    The frozen quantile interpolation and half-up rounding induce discrete
+    departure and duration distributions. Their independent joint distribution
+    is conditioned exactly on temporal feasibility. This is the eventual-
+    acceptance distribution of rejection sampling without a finite retry cap.
+    No generated value is repaired or invented.
+    """
     xp = np.asarray([0.0, *adapter.quantiles, 1.0], dtype=float)
     dep_fp = np.asarray([adapter.DEP_MIN, *dep_knots.tolist(), adapter.DEP_MAX], dtype=float)
     dur_fp = np.asarray([adapter.DUR_MIN, *dur_knots.tolist(), adapter.DUR_MAX], dtype=float)
     if np.any(np.diff(dep_fp) < -1e-12) or np.any(np.diff(dur_fp) < -1e-12):
         raise ValueError("TIME_B reconstruction knots are not monotone")
-    rng = np.random.default_rng(seed)
-    for attempt in range(1, adapter.MAX_REJECTION_ATTEMPTS + 1):
-        u_dep = float(rng.random())
-        u_dur = float(rng.random())
-        departure = min(max(_round_half_up(np.interp(u_dep, xp, dep_fp)), adapter.DEP_MIN), adapter.DEP_MAX)
-        duration = min(max(_round_half_up(np.interp(u_dur, xp, dur_fp)), adapter.DUR_MIN), adapter.DUR_MAX)
-        ok, result = validate_temporal_row(
-            departure,
-            duration,
-            previous_arrival_absolute_minute=previous_arrival_absolute_minute,
-            trips_remaining_after_current=trips_remaining_after_current,
-        )
-        if ok:
-            return {**result, "attempt": attempt, "uniform_departure": u_dep, "uniform_duration": u_dur}
-    raise RuntimeError("TIME_B exhausted 100 rejection attempts")
 
+    dep_values, dep_probability = _rounded_interp_pmf(
+        xp, dep_fp, lo=adapter.DEP_MIN, hi=adapter.DEP_MAX
+    )
+    dur_values, dur_probability = _rounded_interp_pmf(
+        xp, dur_fp, lo=adapter.DUR_MIN, hi=adapter.DUR_MAX
+    )
+
+    dep_feasible = np.ones(len(dep_values), dtype=bool)
+    if previous_arrival_absolute_minute is not None:
+        dep_feasible &= dep_values.astype(float) >= float(previous_arrival_absolute_minute)
+
+    if trips_remaining_after_current > 0:
+        dur_cdf = np.cumsum(dur_probability)
+        max_duration = (1439 - dep_values).astype(int)
+        allowed_mass = np.zeros(len(dep_values), dtype=float)
+        indices = np.searchsorted(dur_values, max_duration, side="right") - 1
+        valid = indices >= 0
+        allowed_mass[valid] = dur_cdf[indices[valid]]
+    else:
+        allowed_mass = np.ones(len(dep_values), dtype=float)
+
+    dep_weight = dep_probability * dep_feasible.astype(float) * allowed_mass
+    total = float(dep_weight.sum())
+    if not np.isfinite(total) or total <= 0:
+        raise RuntimeError("TIME_B has no feasible support under frozen temporal state")
+    dep_weight /= total
+
+    rng = np.random.default_rng(seed)
+    dep_index = int(rng.choice(len(dep_values), p=dep_weight))
+    departure = int(dep_values[dep_index])
+
+    if trips_remaining_after_current > 0:
+        dur_mask = dur_values <= 1439 - departure
+    else:
+        dur_mask = np.ones(len(dur_values), dtype=bool)
+    feasible_dur_values = dur_values[dur_mask]
+    feasible_dur_probability = dur_probability[dur_mask]
+    duration_total = float(feasible_dur_probability.sum())
+    if not np.isfinite(duration_total) or duration_total <= 0:
+        raise RuntimeError("TIME_B has no feasible duration support after departure draw")
+    feasible_dur_probability /= duration_total
+    duration = int(rng.choice(feasible_dur_values, p=feasible_dur_probability))
+
+    ok, result = validate_temporal_row(
+        departure,
+        duration,
+        previous_arrival_absolute_minute=previous_arrival_absolute_minute,
+        trips_remaining_after_current=trips_remaining_after_current,
+    )
+    if not ok:
+        raise RuntimeError("TIME_B exact conditional sampler produced invalid temporal row")
+    return {
+        **result,
+        "attempt": 1,
+        "uniform_departure": None,
+        "uniform_duration": None,
+        "sampling_policy": "EXACT_TIME_B_FEASIBLE_CONDITIONAL_V1",
+    }
 
 def _sample_time_ref_conditioned(
     adapter: TimeScheduleAdapter,
@@ -760,6 +860,16 @@ def _run_propagated_time(
                     if adapter.record.candidate_id == "TIME_REF":
                         result = _sample_time_ref_conditioned(
                             adapter,
+                            previous_arrival_absolute_minute=prev_arr,
+                            trips_remaining_after_current=k - trip_index,
+                            seed=seed,
+                        )
+                    elif adapter.record.candidate_id == "TIME_B":
+                        time_b_quantiles = adapter._time_b_quantiles(pd.DataFrame([state]))
+                        result = _sample_time_b_precomputed(
+                            adapter,
+                            time_b_quantiles["departure_clock_minute"][0],
+                            time_b_quantiles["duration_from_clock_min"][0],
                             previous_arrival_absolute_minute=prev_arr,
                             trips_remaining_after_current=k - trip_index,
                             seed=seed,
