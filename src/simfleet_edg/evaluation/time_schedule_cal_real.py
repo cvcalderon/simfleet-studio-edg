@@ -527,6 +527,199 @@ def _sample_time_b_precomputed(
         "sampling_policy": "EXACT_TIME_B_FEASIBLE_CONDITIONAL_V1",
     }
 
+def _sample_time_b_propagated_lookahead(
+    adapter: TimeScheduleAdapter,
+    dep_knots: np.ndarray,
+    dur_knots: np.ndarray,
+    *,
+    previous_arrival_absolute_minute: int | None,
+    trips_remaining_after_current: int,
+    seed: int,
+) -> dict[str, Any]:
+    """Sample TIME_B with exact full-chain minimum-slack conditioning.
+
+    This propagated-only sampler preserves the frozen TIME_B quantile
+    interpolation, half-up rounding, independent departure/duration law, and
+    candidate-independent RNG seed schedule.  It conditions the current draw on
+    leaving the universal minimum temporal slack needed to place all remaining
+    trips: one minute of minimum duration per future trip.  No value is repaired
+    or invented.
+    """
+    xp = np.asarray([0.0, *adapter.quantiles, 1.0], dtype=float)
+    dep_fp = np.asarray([adapter.DEP_MIN, *dep_knots.tolist(), adapter.DEP_MAX], dtype=float)
+    dur_fp = np.asarray([adapter.DUR_MIN, *dur_knots.tolist(), adapter.DUR_MAX], dtype=float)
+    if np.any(np.diff(dep_fp) < -1e-12) or np.any(np.diff(dur_fp) < -1e-12):
+        raise ValueError("TIME_B reconstruction knots are not monotone")
+
+    dep_values, dep_probability = _rounded_interp_pmf(
+        xp, dep_fp, lo=adapter.DEP_MIN, hi=adapter.DEP_MAX
+    )
+    dur_values, dur_probability = _rounded_interp_pmf(
+        xp, dur_fp, lo=adapter.DUR_MIN, hi=adapter.DUR_MAX
+    )
+
+    dep_feasible = np.ones(len(dep_values), dtype=bool)
+    if previous_arrival_absolute_minute is not None:
+        dep_feasible &= dep_values >= int(previous_arrival_absolute_minute)
+
+    if trips_remaining_after_current > 0:
+        arrival_limit = 1440 - trips_remaining_after_current
+        dur_cdf = np.cumsum(dur_probability)
+        max_duration = (arrival_limit - dep_values).astype(int)
+        allowed_mass = np.zeros(len(dep_values), dtype=float)
+        indices = np.searchsorted(dur_values, max_duration, side="right") - 1
+        valid = indices >= 0
+        allowed_mass[valid] = dur_cdf[indices[valid]]
+    else:
+        arrival_limit = adapter.DEP_MAX + adapter.DUR_MAX
+        allowed_mass = np.ones(len(dep_values), dtype=float)
+
+    dep_weight = dep_probability * dep_feasible.astype(float) * allowed_mass
+    total = float(dep_weight.sum())
+    if not np.isfinite(total) or total <= 0:
+        raise RuntimeError(
+            "TIME_B has no full-chain minimum-slack support under frozen propagated temporal state"
+        )
+    dep_weight /= total
+
+    rng = np.random.default_rng(seed)
+    dep_index = int(rng.choice(len(dep_values), p=dep_weight))
+    departure = int(dep_values[dep_index])
+
+    if trips_remaining_after_current > 0:
+        dur_mask = dur_values <= arrival_limit - departure
+    else:
+        dur_mask = np.ones(len(dur_values), dtype=bool)
+    feasible_dur_values = dur_values[dur_mask]
+    feasible_dur_probability = dur_probability[dur_mask]
+    duration_total = float(feasible_dur_probability.sum())
+    if not np.isfinite(duration_total) or duration_total <= 0:
+        raise RuntimeError(
+            "TIME_B has no full-chain minimum-slack duration support after departure draw"
+        )
+    feasible_dur_probability /= duration_total
+    duration = int(rng.choice(feasible_dur_values, p=feasible_dur_probability))
+
+    ok, result = validate_temporal_row(
+        departure,
+        duration,
+        previous_arrival_absolute_minute=previous_arrival_absolute_minute,
+        trips_remaining_after_current=trips_remaining_after_current,
+    )
+    if not ok:
+        raise RuntimeError("TIME_B full-chain lookahead sampler produced invalid temporal row")
+    return {
+        **result,
+        "attempt": 1,
+        "uniform_departure": None,
+        "uniform_duration": None,
+        "sampling_policy": "EXACT_TIME_B_FULL_CHAIN_MIN_SLACK_CONDITIONAL_V1",
+        "future_minimum_slack_arrival_limit": int(arrival_limit),
+    }
+
+
+def _reference_support_rows(adapter: TimeScheduleAdapter) -> list[dict[str, Any]]:
+    support = list(adapter.model["joint_temporal_support"])
+    if not support:
+        raise RuntimeError("TIME_REF empirical joint support is empty")
+    return support
+
+
+def _reference_full_chain_thresholds(
+    adapter: TimeScheduleAdapter,
+    max_trip_count: int,
+) -> dict[int, int | None]:
+    """Return exact previous-arrival thresholds for complete TIME_REF paths.
+
+    thresholds[n] is the greatest previous-arrival minute from which at least one
+    n-trip continuation exists using only the frozen empirical joint support.
+    """
+    support = _reference_support_rows(adapter)
+    thresholds: dict[int, int | None] = {0: 10**9}
+
+    for trips_left in range(1, max_trip_count + 1):
+        remaining_after_current = trips_left - 1
+        future_threshold = thresholds[trips_left - 1]
+        viable_departures: list[int] = []
+        for sample in support:
+            departure = int(sample["departure_clock_minute"])
+            duration = int(sample["duration_from_clock_min"])
+            ok, result = validate_temporal_row(
+                departure,
+                duration,
+                previous_arrival_absolute_minute=None,
+                trips_remaining_after_current=remaining_after_current,
+            )
+            if not ok:
+                continue
+            if remaining_after_current > 0:
+                if future_threshold is None:
+                    continue
+                if int(result["arrival_absolute_minute"]) > int(future_threshold):
+                    continue
+            viable_departures.append(departure)
+        thresholds[trips_left] = max(viable_departures) if viable_departures else None
+
+    return thresholds
+
+
+def _sample_time_ref_propagated_lookahead(
+    adapter: TimeScheduleAdapter,
+    *,
+    previous_arrival_absolute_minute: int | None,
+    trips_remaining_after_current: int,
+    seed: int,
+    full_chain_thresholds: dict[int, int | None],
+) -> dict[str, Any]:
+    """Sample TIME_REF conditional on a complete frozen-support continuation."""
+    support = _reference_support_rows(adapter)
+    future_threshold = full_chain_thresholds[trips_remaining_after_current]
+    feasible: list[tuple[dict[str, Any], dict[str, int | float]]] = []
+    probability: list[float] = []
+
+    for sample in support:
+        departure = int(sample["departure_clock_minute"])
+        duration = int(sample["duration_from_clock_min"])
+        ok, result = validate_temporal_row(
+            departure,
+            duration,
+            previous_arrival_absolute_minute=previous_arrival_absolute_minute,
+            trips_remaining_after_current=trips_remaining_after_current,
+        )
+        if not ok:
+            continue
+        if trips_remaining_after_current > 0:
+            if future_threshold is None:
+                continue
+            if int(result["arrival_absolute_minute"]) > int(future_threshold):
+                continue
+        feasible.append((sample, result))
+        probability.append(float(sample["probability"]))
+
+    if not feasible:
+        raise RuntimeError(
+            "TIME_REF has no full-chain support under frozen propagated temporal state"
+        )
+
+    p = np.asarray(probability, dtype=float)
+    total = float(p.sum())
+    if not np.isfinite(total) or total <= 0:
+        raise RuntimeError("TIME_REF full-chain feasible support has invalid probability mass")
+    p /= total
+    rng = np.random.default_rng(seed)
+    selected = int(rng.choice(len(feasible), p=p))
+    sample, result = feasible[selected]
+    return {
+        **result,
+        "attempt": 1,
+        "selected_level": 0,
+        "sampling_policy": "EXACT_REFERENCE_FULL_CHAIN_SUPPORT_CONDITIONAL_V1",
+        "source_departure_clock_minute": int(sample["departure_clock_minute"]),
+        "source_duration_from_clock_min": int(sample["duration_from_clock_min"]),
+        "future_support_threshold": future_threshold,
+    }
+
+
 def _sample_time_ref_conditioned(
     adapter: TimeScheduleAdapter,
     *,
@@ -834,6 +1027,11 @@ def _run_propagated_time(
     violations = 0
     generated_rows = 0
     failure_rows: list[dict[str, Any]] = []
+    reference_thresholds = (
+        _reference_full_chain_thresholds(adapter, int(generated_k.max()))
+        if adapter.record.candidate_id == "TIME_REF"
+        else None
+    )
     for replicate in range(REPLICATES):
         for row_index, (_, day) in enumerate(cohort.iterrows()):
             k = int(generated_k[replicate, row_index])
@@ -858,15 +1056,18 @@ def _run_propagated_time(
                 seed = _time_seed(day["row_id"], trip_index, replicate)
                 try:
                     if adapter.record.candidate_id == "TIME_REF":
-                        result = _sample_time_ref_conditioned(
+                        if reference_thresholds is None:
+                            raise RuntimeError("TIME_REF propagated support thresholds are unavailable")
+                        result = _sample_time_ref_propagated_lookahead(
                             adapter,
                             previous_arrival_absolute_minute=prev_arr,
                             trips_remaining_after_current=k - trip_index,
                             seed=seed,
+                            full_chain_thresholds=reference_thresholds,
                         )
                     elif adapter.record.candidate_id == "TIME_B":
                         time_b_quantiles = adapter._time_b_quantiles(pd.DataFrame([state]))
-                        result = _sample_time_b_precomputed(
+                        result = _sample_time_b_propagated_lookahead(
                             adapter,
                             time_b_quantiles["departure_clock_minute"][0],
                             time_b_quantiles["duration_from_clock_min"][0],

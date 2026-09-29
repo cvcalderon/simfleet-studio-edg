@@ -307,3 +307,80 @@ def test_time_b_exact_conditional_sampler_preserves_missing_k_semantics() -> Non
         trips_remaining_after_current=None,
     )
     assert ok
+
+
+def test_time_b_propagated_lookahead_reserves_minimum_future_slack() -> None:
+    class DummyRecord:
+        candidate_id = "TIME_B"
+
+    class DummyAdapter:
+        record = DummyRecord()
+        quantiles = [0.25, 0.5, 0.75]
+        DEP_MIN = 0
+        DEP_MAX = 1439
+        DUR_MIN = 1
+        DUR_MAX = 480
+
+    result = real._sample_time_b_propagated_lookahead(
+        DummyAdapter(),
+        np.asarray([100.0, 900.0, 1437.0]),
+        np.asarray([1.0, 1.0, 1.0]),
+        previous_arrival_absolute_minute=1437,
+        trips_remaining_after_current=2,
+        seed=123,
+    )
+    assert result["arrival_absolute_minute"] <= 1438
+    assert result["sampling_policy"] == "EXACT_TIME_B_FULL_CHAIN_MIN_SLACK_CONDITIONAL_V1"
+
+
+def test_time_b_propagated_lookahead_fails_when_future_slack_is_impossible() -> None:
+    class DummyRecord:
+        candidate_id = "TIME_B"
+
+    class DummyAdapter:
+        record = DummyRecord()
+        quantiles = [0.25, 0.5, 0.75]
+        DEP_MIN = 0
+        DEP_MAX = 1439
+        DUR_MIN = 1
+        DUR_MAX = 480
+
+    with pytest.raises(RuntimeError, match="full-chain minimum-slack support"):
+        real._sample_time_b_propagated_lookahead(
+            DummyAdapter(),
+            np.asarray([100.0, 900.0, 1439.0]),
+            np.asarray([1.0, 1.0, 1.0]),
+            previous_arrival_absolute_minute=1439,
+            trips_remaining_after_current=1,
+            seed=123,
+        )
+
+
+def test_time_ref_propagated_lookahead_preserves_only_complete_support_paths() -> None:
+    class DummyRecord:
+        candidate_id = "TIME_REF"
+
+    class DummyAdapter:
+        record = DummyRecord()
+        model = {
+            "joint_temporal_support": [
+                {"departure_clock_minute": 100, "duration_from_clock_min": 100, "probability": 0.5},
+                {"departure_clock_minute": 200, "duration_from_clock_min": 10, "probability": 0.5},
+            ]
+        }
+
+    adapter = DummyAdapter()
+    thresholds = real._reference_full_chain_thresholds(adapter, 2)
+    assert thresholds[1] == 200
+    assert thresholds[2] == 100
+
+    result = real._sample_time_ref_propagated_lookahead(
+        adapter,
+        previous_arrival_absolute_minute=None,
+        trips_remaining_after_current=1,
+        seed=123,
+        full_chain_thresholds=thresholds,
+    )
+    assert result["departure_clock_minute"] == 100
+    assert result["arrival_absolute_minute"] == 200
+    assert result["sampling_policy"] == "EXACT_REFERENCE_FULL_CHAIN_SUPPORT_CONDITIONAL_V1"
