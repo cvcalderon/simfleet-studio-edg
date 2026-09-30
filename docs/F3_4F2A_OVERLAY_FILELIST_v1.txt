@@ -1,0 +1,10 @@
+configs/f3/f3_4f2a_distance_prior_synthetic_preopen_v1.yaml
+docs/F3_4F2A_DISTANCE_PRIOR_SYNTHETIC_PREOPEN_v1.md
+docs/F3_4F2A_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4F2A_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_4F2A_OVERLAY_FILELIST_v1.txt
+docs/MAIN_UPDATE_F3_4F2A_DISTANCE_PRIOR_SYNTHETIC_PREOPEN_v1.md
+scripts/verify_f3_4f2a_distance_prior_synthetic.py
+scripts/verify_f3_4f2a_preopen.py
+src/simfleet_edg/repro/f3_4f2a_distance_prior_synthetic.py
+tests/test_f3_4f2a_distance_prior_synthetic_preopen.py

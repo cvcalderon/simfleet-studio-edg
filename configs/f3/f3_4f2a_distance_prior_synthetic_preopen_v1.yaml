@@ -1,0 +1,99 @@
+run_id: F3_4f2a_DG_DISTANCE_PRIOR_SYNTHETIC_v1
+phase: F3.4f-2a
+component: DG_DISTANCE_PRIOR
+mode: SYNTHETIC_PREOPEN
+status: PREOPEN_IMPLEMENTATION
+required_parent_commit: 6ef56286460939e57b4a01703f56b47967615bea
+
+frozen_contract:
+  path: configs/f3/f3_4f1_distance_prior_cal_contract_freeze_v1.yaml
+  required_phase: F3.4f-1
+  required_status: FROZEN_BEFORE_FIRST_DISTANCE_CAL_ROW_READ
+
+candidate_registry:
+  path: docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv
+  frozen_snapshot: configs/f3/f3_4f1_distance_prior_candidate_registry_v1.json
+  expected_candidates: 5
+  allowed_train_state: FITTED_TRAIN_ONLY_NOT_SELECTED
+
+synthetic_protocol:
+  generated_person_id: SYNTHETIC_DISTANCE_PERSON
+  synthetic_trip_slot: 1
+  stochastic_replicates: 32
+  master_seed: 20260926
+  scenario_id: CAL_EVAL_V1
+  rng_namespace: DG_DISTANCE_PRIOR::TRIP::1
+  candidate_identity_in_rng_key: false
+  empirical_cal_rows_used: 0
+  test_rows_used: 0
+  adapter_context_policy: CANDIDATE_VALID_SYNTHETIC_SMOKE_CONTEXT_NOT_SCIENTIFIC_COMPARISON
+
+synthetic_metric_smoke:
+  primary_metric: M2-DIST-01
+  implementation: WEIGHTED_1D_WASSERSTEIN_DISTANCE_KM
+  synthetic_observed_distance_km:
+    - 0.8
+    - 1.0
+    - 1.2
+    - 1.5
+    - 1.8
+    - 2.0
+    - 2.4
+    - 2.8
+    - 3.2
+    - 3.7
+    - 4.1
+    - 4.6
+    - 5.0
+    - 5.5
+    - 6.0
+    - 6.6
+    - 7.2
+    - 8.0
+    - 8.8
+    - 9.6
+    - 10.5
+    - 11.5
+    - 12.5
+    - 13.7
+    - 15.0
+    - 16.5
+    - 18.0
+    - 20.0
+    - 22.0
+    - 25.0
+    - 28.0
+    - 32.0
+  synthetic_weights: UNIT
+  selection_authorized: false
+  scientific_interpretation: SMOKE_ONLY_NOT_CAL_EVIDENCE
+
+summary_smoke:
+  mandatory_statistics:
+    - MEAN
+    - P50
+    - P90
+    - P95
+  mean_role: REPORT_ONLY_UNTHRESHOLDED
+  quantile_tolerance_km_frozen_for_future_real_cal: 0.50
+  synthetic_guardrail_decision_authorized: false
+
+hard_invariant_smoke:
+  generated_distance_positive_finite: true
+  required_violations: 0
+  km_routing_consumed: false
+  mode_route_execution_consumed: false
+  multirow_sample_one_must_reject: true
+
+boundaries:
+  future_cal_physical_rows: 2873
+  cal_rows_read: 0
+  cal_files_read: []
+  candidate_selection: NONE
+  real_distance_prior_cal_open_authorized: false
+  joint_cal_gate_authorized: false
+  test_rows_read: 0
+  test_open_authorized: false
+  formal_g2: NOT_EVALUATED
+
+next_step_if_pass: COMMIT_F3_4F2A_SYNTHETIC_PREOPEN_THEN_BUILD_F3_4F2B_REAL_CAL_PREOPEN
