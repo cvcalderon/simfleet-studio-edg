@@ -1,0 +1,77 @@
+phase: F3.4f-2b
+component: DG_DISTANCE_PRIOR
+status: PREOPEN_IMPLEMENTATION
+required_parent_commit: 47a95201cea51d4e856acbb90a3a3e49e1cb9a5a
+contract:
+  path: configs/f3/f3_4f1_distance_prior_cal_contract_freeze_v1.yaml
+  required_phase: F3.4f-1
+candidate_registry:
+  path: docs/F3_3_CANDIDATE_ARTIFACT_REGISTRY_v1.csv
+  frozen_snapshot: configs/f3/f3_4f1_distance_prior_candidate_registry_v1.json
+  expected_candidates: 5
+  required_train_state: FITTED_TRAIN_ONLY_NOT_SELECTED
+upstream:
+  participation: DG_PARTICIPATION::PART_A::PA1
+  trip_count: DG_TRIP_COUNT::COUNT_REF::REFERENCE
+  activity_chain: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+  time_schedule: TIME_B_TB2
+cal_input:
+  root: artifacts/model_data/F3_2a_training_data_v1/CALIBRATION
+  person_day_context:
+    filename: person_day_context.csv
+    expected_rows: 469
+    sha256: 83a826357b28b1be949f79e23d13cea07c00ad91390daa8f2eeaa17bea3f9d4a
+  distance_raw:
+    filename: distance_raw.csv
+    expected_rows: 1147
+    sha256: 8686aa395a834ce8e519dc0ed97072e31c30e84493678fedd2806f6fd6903ce9
+  distance_expanded_sensitivity:
+    filename: distance_expanded_sensitivity.csv
+    expected_rows: 1257
+    sha256: c2f96f7b13460f85948bc18806026bd3ec7544b4254a6693fa9f2b2f9e96cb40
+  expected_physical_rows: 2873
+  propagated_fixed_cohort_rule: UNIQUE_CONTEXT_ROW_ID_PRESENT_IN_DISTANCE_RAW
+evaluation:
+  primary_metric: M2-DIST-01
+  primary_statistic: WEIGHTED_1D_WASSERSTEIN_DISTANCE_KM
+  practical_margin_km: 0.25
+  stochastic_replicates: 32
+  household_bootstrap_replicates: 1000
+  confidence_level: 0.95
+  master_seed: 20260926
+  scenario_id: CAL_EVAL_V1
+  common_random_numbers: true
+  metric_replicate_aggregation: ARITHMETIC_MEAN_OF_32
+  sensitivity_metric: M2-DIST-02
+  sensitivity_role: REPORT_ONLY
+summary_guardrails:
+  quantiles: [0.50, 0.90, 0.95]
+  candidate_error_aggregation: MEAN_OF_32_ABSOLUTE_WEIGHTED_QUANTILE_ERRORS
+  max_worsening_km: 0.50
+  mean_role: REPORT_ONLY_UNTHRESHOLDED
+  comparison_basis: CHALLENGER_ERROR_MINUS_CURRENT_INCUMBENT_ERROR
+selection:
+  type: LEXICOGRAPHIC_NO_COMPOSITE_SCORE
+  family_order: [REFERENCE_BASELINE, CORE_CANDIDATE_A, CORE_CHALLENGER_B]
+  propagated_role: HARD_RUNTIME_ADMISSIBILITY_ONLY
+  propagated_primary_redefined: false
+rng:
+  candidate_identity_in_rng_key: false
+  isolated_identity: CONTEXT_ROW_ID_PLUS_SOURCE_TRIP_ID_PLUS_REPLICATE
+  propagated_identity: CONTEXT_ROW_ID_PLUS_GENERATED_TRIP_INDEX_PLUS_REPLICATE
+preopen:
+  execution_mode: PREOPEN_NO_CAL
+  cal_rows_read: 0
+  candidate_selection: NONE
+  real_distance_prior_cal_open_authorized: false
+  joint_cal_gate_authorized: false
+  test_rows_read: 0
+  test_open_authorized: false
+  formal_g2: NOT_EVALUATED
+future_authorization:
+  required_phase: F3.4f-2b
+  commit_bound: true
+  allowed_cal_files: [person_day_context.csv, distance_raw.csv, distance_expanded_sensitivity.csv]
+  joint_cal_gate_authorized: false
+  test_open_authorized: false
+next_step_if_pass: COMMIT_F3_4F2B_PREOPEN_THEN_ISSUE_COMMIT_BOUND_F3_4F2B_A1_AUTHORIZATION

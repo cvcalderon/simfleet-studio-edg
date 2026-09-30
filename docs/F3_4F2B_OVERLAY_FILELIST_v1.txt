@@ -1,0 +1,13 @@
+configs/f3/f3_4f2b_distance_prior_real_cal_preopen_v1.yaml
+docs/F3_4F2B_DISTANCE_PRIOR_REAL_CAL_PREOPEN_v1.md
+docs/F3_4F2B_RUNBUNDLE_SPEC_v1.md
+docs/F3_4F2B_EXECUTION_AUTHORIZATION_TEMPLATE_v1.json
+docs/F3_4F2B_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4F2B_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_4F2B_OVERLAY_FILELIST_v1.txt
+docs/MAIN_UPDATE_F3_4F2B_DISTANCE_PRIOR_PREOPEN_v1.md
+scripts/verify_f3_4f2b_preopen.py
+scripts/verify_f3_4f2b_runbundle.py
+src/simfleet_edg/evaluation/distance_prior_cal_real.py
+src/simfleet_edg/repro/f3_4f2b_distance_prior_cal.py
+tests/test_f3_4f2b_distance_prior_real_cal_preopen.py
