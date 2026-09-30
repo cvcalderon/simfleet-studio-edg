@@ -1,0 +1,11 @@
+configs/f3/f3_4f1_distance_prior_cal_contract_freeze_v1.yaml
+configs/f3/f3_4f1_distance_prior_candidate_registry_v1.json
+docs/F3_4F1_DISTANCE_PRIOR_CAL_CONTRACT_FREEZE_v1.md
+docs/F3_4F1_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4F1_IMPLEMENTATION_CLARIFICATIONS_v1.md
+docs/F3_4F1_OVERLAY_CHECKSUMS_v1.sha256
+docs/F3_4F1_OVERLAY_FILELIST_v1.txt
+docs/F3_4F1_PROTOCOL_GAP_RESOLUTION_v1.md
+docs/MAIN_UPDATE_F3_4F1_DISTANCE_PRIOR_CAL_CONTRACT_v1.md
+scripts/verify_f3_4f1_contract.py
+tests/test_f3_4f1_distance_prior_cal_contract.py

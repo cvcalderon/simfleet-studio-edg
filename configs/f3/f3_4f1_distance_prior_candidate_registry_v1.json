@@ -1,0 +1,12 @@
+{
+  "component": "DG_DISTANCE_PRIOR",
+  "candidate_count": 5,
+  "required_train_state": "FITTED_TRAIN_ONLY_NOT_SELECTED",
+  "candidates": [
+    {"artifact_id":"DIST_REF_REFERENCE","candidate_id":"DIST_REF","grid_id":"REFERENCE","role":"REFERENCE_BASELINE","model_sha256":"21554c37d44aad7144c8daac1ddfd9e9a63402d59e105f9e790e83c1ea6e4cab","manifest_sha256":"4a30ae1f586418c31a55028e2902d28c43e234a1fddaadccba9103c1a09bd409"},
+    {"artifact_id":"DIST_A_DA1","candidate_id":"DIST_A","grid_id":"DA1","role":"CORE_CANDIDATE_A","model_sha256":"1ca545f4be8ee0a374baf501446db55eeb617e2629c1d79803601cef8895c898","manifest_sha256":"b79f5b766973a4cff344ab0689c05416f6c01f73b7118065f48b799f434722e1"},
+    {"artifact_id":"DIST_B_DB1","candidate_id":"DIST_B","grid_id":"DB1","role":"CORE_CHALLENGER_B","model_sha256":"092912f5390b414ef346576eda142b6f50d063ced4aa4105a59445f9644c289b","manifest_sha256":"9c19f21663595ca915e0cc9638898f35686404ebeba3b73ccf8077fe49fbb53c"},
+    {"artifact_id":"DIST_B_DB2","candidate_id":"DIST_B","grid_id":"DB2","role":"CORE_CHALLENGER_B","model_sha256":"65de0919de24cdd3689fffde5afa5ed6c4237f438d67d22715c3c0ee9921e02f","manifest_sha256":"0942f6869dbb3d9d548fc8ac3fcbc377756fe728ba330019936d5621e3fdd027"},
+    {"artifact_id":"DIST_B_DB3","candidate_id":"DIST_B","grid_id":"DB3","role":"CORE_CHALLENGER_B","model_sha256":"967bd5255d2dda53b311d2412e86165fb1f0bc82b0ae40c9e90879662f124aeb","manifest_sha256":"a34696b0d68217f10da5ebe3c8181bfa9fd1193e5a9fa3d85146df618ba27c9e"}
+  ]
+}
