@@ -1,0 +1,10 @@
+configs/f3/f3_4f2c_distance_prior_main_freeze_v1.yaml
+configs/f3/f3_4f2c_selected_distance_prior_artifact_v1.json
+docs/F3_4F2C_A1_CLOSURE_v1.md
+docs/F3_4F2C_DISTANCE_PRIOR_MAIN_FREEZE_DECISION_v1.md
+docs/F3_4F2C_EXECUTION_INSTRUCTIONS_v1.md
+docs/MAIN_UPDATE_F3_4F2C_DISTANCE_PRIOR_MAIN_FREEZE_v1.md
+scripts/verify_f3_4f2c_main_freeze.py
+tests/test_f3_4f2c_distance_prior_main_freeze.py
+docs/F3_4F2C_OVERLAY_FILELIST_v1.txt
+docs/F3_4F2C_OVERLAY_CHECKSUMS_v1.sha256

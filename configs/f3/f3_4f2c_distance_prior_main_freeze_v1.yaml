@@ -1,0 +1,117 @@
+freeze_id: F3_4F2C_DISTANCE_PRIOR_MAIN_FREEZE_V1
+phase: F3.4f-2c
+component: DG_DISTANCE_PRIOR
+status: PRECOMMIT_MAIN_FREEZE
+required_parent_commit: 48dddece478e30a5e592f4eda681e0b972df02db
+
+source_real_cal:
+  runbundle_path: $HOME/Downloads/F3_4f2b_A1_distance_prior_real_cal_run_v1
+  execution_implementation_commit: 1530cac0b4d634eb064bc46d5fb7ee429518d208
+  verifier_remediation_commit: 48dddece478e30a5e592f4eda681e0b972df02db
+  formal_closure: PASS
+  run_status: PASS
+  runbundle_checksums: PASS
+  runbundle_verifier: PASS
+  cal_physical_rows_read: 2873
+  fixed_source_cohort_days: 350
+  isolated_raw_rows: 1147
+  sensitivity_rows: 1257
+  candidate_artifacts: 5
+  stochastic_replicates: 32
+  bootstrap_replicates_preregistered: 1000
+  bootstrap_replicates_executed: 0
+  bootstrap_not_executed_reason: NO_GUARDRAIL_ELIGIBLE_CHALLENGER
+
+selected_artifact:
+  artifact_id: DIST_REF_REFERENCE
+  component: DG_DISTANCE_PRIOR
+  candidate_id: DIST_REF
+  grid_id: REFERENCE
+  role: REFERENCE_BASELINE
+  state_after_commit: MAIN_FROZEN
+  train_implementation_commit: a128dd29ca4d3d99545039c458ddac68159b592f
+  official_run_dir: F3_2g_distance_prior_fit_v1
+  model_relpath: models/DIST_REF/model.json
+  artifact_manifest_relpath: models/DIST_REF/artifact_manifest.json
+  model_sha256: 21554c37d44aad7144c8daac1ddfd9e9a63402d59e105f9e790e83c1ea6e4cab
+  manifest_sha256: 4a30ae1f586418c31a55028e2902d28c43e234a1fddaadccba9103c1a09bd409
+
+primary_metric:
+  metric: M2-DIST-01
+  statistic: WEIGHTED_1D_WASSERSTEIN_DISTANCE_KM_MEAN32
+  lower_is_better: true
+  practical_margin_km: 0.25
+  reported_values:
+    DIST_REF_REFERENCE: 3.0134776044003124
+    DIST_A_DA1: 2.5908176376904204
+    DIST_B_DB1: 15.871672967497646
+    DIST_B_DB2: 16.01525654610018
+    DIST_B_DB3: 16.315301803221385
+
+candidate_a_resolution:
+  challenger: DIST_A_DA1
+  point_improvement_vs_reference_km: 0.42265996670989203
+  practical_margin_km: 0.25
+  primary_margin_pass: true
+  p50_worsening_km: -0.0495083625632291
+  p90_worsening_km: 0.15803498746503397
+  p95_worsening_km: 1.8529040985750047
+  quantile_worsening_tolerance_km: 0.50
+  guardrails_pass: false
+  failed_guardrail: P95
+  eligible_for_within_family_selection: false
+  bootstrap_executed: false
+  promoted: false
+
+candidate_b_resolution:
+  DIST_B_DB1:
+    p50_worsening_km: 0.092615
+    p90_worsening_km: 3.917796
+    p95_worsening_km: 80.838269
+    guardrails_pass: false
+  DIST_B_DB2:
+    p50_worsening_km: 0.021730
+    p90_worsening_km: 3.490229
+    p95_worsening_km: 87.412379
+    guardrails_pass: false
+  DIST_B_DB3:
+    p50_worsening_km: 0.043424
+    p90_worsening_km: 4.464444
+    p95_worsening_km: 91.195028
+    guardrails_pass: false
+  any_guardrail_eligible: false
+  bootstrap_executed: false
+  promoted: false
+
+report_only:
+  mean_role: REPORT_ONLY_UNTHRESHOLDED
+  sensitivity_metric: M2-DIST-02
+  sensitivity_role: REPORT_ONLY
+  sensitivity_values:
+    DIST_REF_REFERENCE: 2.785627
+    DIST_A_DA1: 2.500009
+    DIST_B_DB1: 16.241821
+    DIST_B_DB2: 16.452159
+    DIST_B_DB3: 16.741100
+
+propagated_guardrail:
+  evaluated_artifact_id: DIST_REF_REFERENCE
+  runtime_invariant_violations: 0
+  generated_distance_rows: 36449
+  hard_pass: true
+  role: HARD_RUNTIME_ADMISSIBILITY_ONLY
+
+semantic_boundary:
+  generated_distance: M2_PATH_LENGTH_PRIOR_FOR_M3_NOT_EXACT_OD_OR_ROUTED_DISTANCE
+  primary_target: wegkm
+  sensitivity_target: wegkm_imp
+  forbidden_target: km_routing
+
+boundaries:
+  selected_artifact_main_frozen: true
+  distance_prior_authorized_for_runtime_dgen: true
+  all_five_dgen_components_main_frozen: true
+  joint_cal_gate_authorized: false
+  test_open_authorized: false
+  test_rows_read: 0
+  formal_g2: NOT_EVALUATED
