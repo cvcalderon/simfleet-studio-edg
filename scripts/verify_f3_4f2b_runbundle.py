@@ -42,7 +42,7 @@ def main() -> None:
         "test_sealed": manifest.get("test_open_authorized") is False,
         "g2_not_evaluated": manifest.get("formal_g2") == "NOT_EVALUATED",
         "selected_not_downstream_authorized": selected.get("authorized_for_downstream") is False,
-        "validation_all_pass": validation["status"].eq("PASS").all(),
+        "validation_all_pass": bool(validation["status"].eq("PASS").all()),
         "checksums_ok": checksum_ok,
     }
     failed = [k for k,v in checks.items() if not v]
