@@ -1,0 +1,114 @@
+contract_id: F3_4G1_JOINT_CAL_CONTRACT_FREEZE_V1
+phase: F3.4g-1
+component: DGEN_JOINT_PIPELINE
+status: FROZEN_BEFORE_JOINT_RUNNER_IMPLEMENTATION_AND_JOINT_CAL_READ
+required_parent_commit: 5913f9604378cf2356a9251accf59105c51e9163
+
+entry_state:
+  all_five_dgen_components_main_frozen: true
+  selected_pipeline:
+    DG_PARTICIPATION: DG_PARTICIPATION::PART_A::PA1
+    DG_TRIP_COUNT: DG_TRIP_COUNT::COUNT_REF::REFERENCE
+    DG_ACTIVITY_CHAIN: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+    DG_TIME_SCHEDULE: TIME_B_TB2
+    DG_DISTANCE_PRIOR: DIST_REF_REFERENCE
+  all_reference_pipeline:
+    DG_PARTICIPATION: DG_PARTICIPATION::PART_REF::REFERENCE
+    DG_TRIP_COUNT: DG_TRIP_COUNT::COUNT_REF::REFERENCE
+    DG_ACTIVITY_CHAIN: DG_ACTIVITY_CHAIN::CHAIN_REF::REFERENCE
+    DG_TIME_SCHEDULE: TIME_REF_REFERENCE
+    DG_DISTANCE_PRIOR: DIST_REF_REFERENCE
+
+frozen_component_witnesses:
+  DG_PARTICIPATION:
+    path: configs/f3/f3_4b2c_participation_main_freeze_v1.yaml
+    sha256: 025eb31f3c4ef04d838bd3c92bb05349b43820a75bc81112adc3631b8070ea75
+  DG_TRIP_COUNT:
+    path: configs/f3/f3_4c2c_trip_count_main_freeze_v1.yaml
+    sha256: 633f189aaca017311fd43d96693a6d10abfc18fee2abe153f7a9652e0fcc2097
+  DG_ACTIVITY_CHAIN:
+    path: configs/f3/f3_4d2c_activity_chain_main_freeze_v1.yaml
+    sha256: 39a6732fe5e6ffece6e713dd15f20fc077840446f3e4558180974253b0b6ce7e
+  DG_TIME_SCHEDULE:
+    path: configs/f3/f3_4e2c_time_schedule_main_freeze_v1.yaml
+    sha256: 44718b1b178ee3df92e016ba57b02576b888c93fe465f9eddac424ea270b958a
+  DG_DISTANCE_PRIOR:
+    path: configs/f3/f3_4f2c_distance_prior_main_freeze_v1.yaml
+    sha256: b4897d901c62a766599038e3e0db6dc3b4347f1e5dd028c674e6c91b026e18c4
+
+joint_gate_source:
+  primitive: src/simfleet_edg/evaluation/cal_joint_gate.py
+  frozen_protocol: configs/design/f3_1c_fit_cal_protocol_v1.yaml
+  controlled_cal_contract: configs/f3/f3_4a_controlled_cal_execution_contract_v1.yaml
+  compare: SELECTED_DGEN_PIPELINE_VS_ALL_REFERENCE_DGEN_PIPELINE
+
+cal_access:
+  root: artifacts/model_data/F3_2a_training_data_v1/CALIBRATION
+  allowed_files:
+    person_day_context.csv: 469
+    participation.csv: 460
+    trip_count.csv: 381
+    chain_days.csv: 319
+    chain_transitions.csv: 1065
+    time_trips.csv: 1243
+    distance_raw.csv: 1147
+    distance_expanded_sensitivity.csv: 1257
+  expected_total_physical_rows_if_opened_once_each: 6341
+  rows_read_in_f3_4g1: 0
+  file_content_read_in_f3_4g1: false
+
+joint_generation:
+  generation_universe: PERSON_DAY_CONTEXT_469
+  metric_denominators: REUSE_ACCEPTED_COMPONENT_CAL_DENOMINATOR_SEMANTICS
+  teacher_forcing_runtime: false
+  selected_pipeline_fully_propagated: true
+  all_reference_pipeline_fully_propagated: true
+  stochastic_replicates: 32
+  common_random_numbers: true
+  master_seed: 20260926
+  same_seed_schedule_across_pipelines: true
+
+primary_evidence:
+  role: STATIC_COMPONENT_DOMINANCE_WITNESS_FROM_ACCEPTED_MAIN_FREEZES
+  recompute_proper_scores_on_propagated_generated_state: false
+  selected_component_dominated_if_any_frozen_component_rule_failed: true
+  witness_csv: docs/F3_4G1_PRIMARY_EVIDENCE_WITNESS_v1.csv
+
+pipeline_material_degradation:
+  evaluation_surface: GENERATED_END_TO_END_GUARDRAILS
+  metric_matrix: docs/F3_4G1_JOINT_METRIC_MATRIX_v1.csv
+  rule: >
+    For every decision-driving generated pipeline metric, selected-pipeline error
+    minus all-reference-pipeline error must be <= the already-frozen worsening
+    tolerance for that metric.
+  distance_w1_clarification:
+    metric: M2-DIST-01_WASSERSTEIN_KM
+    max_worsening_km: 0.25
+    numeric_source: F3_1C_DIST_W1_KM_PROMOTION_MIN_IMPROVEMENT
+    interpretation: >
+      Reuse the already-preregistered primary-scale materiality magnitude as the
+      joint maximum worsening; no new numeric threshold is introduced.
+  report_only_metrics_cannot_fail_gate: true
+  low_n_report_only: true
+
+hard_gate:
+  selected_structural_invariant_violations_required: 0
+  selected_temporal_invariant_violations_required: 0
+  selected_nofuture_violations_required: 0
+  all_reference_structural_invariant_violations_required: 0
+  all_reference_temporal_invariant_violations_required: 0
+  all_reference_nofuture_violations_required: 0
+  selected_component_dominated_required: false
+  selected_pipeline_material_degradation_required: false
+  selected_artifact_manifests_frozen_required: true
+  post_cal_design_change_required: false
+
+boundaries:
+  joint_cal_runner_implementation_authorized_after_commit: true
+  joint_real_cal_open_authorized: false
+  joint_gate_evaluated: false
+  test_open_authorized: false
+  test_rows_read: 0
+  formal_g2: NOT_EVALUATED
+
+next_step_if_pass: IMPLEMENT_F3_4G2A_JOINT_SYNTHETIC_PREOPEN_WITH_ZERO_CAL_ROWS
