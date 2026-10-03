@@ -1,0 +1,12 @@
+configs/f3/f3_4g2b_joint_real_cal_auth_preopen_v1.yaml
+configs/f3/f3_4g2b_joint_real_cal_authorization_TEMPLATE_v1.json
+docs/F3_4G2B_AUTHORIZATION_SCHEMA_v1.md
+docs/F3_4G2B_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4G2B_JOINT_REAL_CAL_AUTH_PREOPEN_v1.md
+docs/MAIN_UPDATE_F3_4G2B_JOINT_REAL_CAL_AUTH_PREOPEN_v1.md
+scripts/prove_f3_4g2b_negative_auth_zero_io.py
+scripts/verify_f3_4g2b_preopen.py
+src/simfleet_edg/repro/f3_4g2b_joint_real_cal_auth.py
+tests/test_f3_4g2b_joint_real_cal_auth_preopen.py
+docs/F3_4G2B_OVERLAY_FILELIST_v1.txt
+docs/F3_4G2B_OVERLAY_CHECKSUMS_v1.sha256
