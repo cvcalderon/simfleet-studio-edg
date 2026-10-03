@@ -1,0 +1,408 @@
+{
+  "datasets": {
+    "chain_days": {
+      "first_origin_activity": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "HOME",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      }
+    },
+    "chain_transitions": {
+      "prefix_last_activity": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "BUSINESS",
+          "EDUCATION",
+          "ESCORT",
+          "HOME",
+          "LEISURE",
+          "OTHER",
+          "PRIVATE_ERRAND",
+          "SHOPPING",
+          "UNKNOWN",
+          "WORK",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "prefix_second_last_activity": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "BUSINESS",
+          "EDUCATION",
+          "ESCORT",
+          "HOME",
+          "LEISURE",
+          "OTHER",
+          "PRIVATE_ERRAND",
+          "SHOPPING",
+          "UNKNOWN",
+          "WORK",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      }
+    },
+    "distance_expanded_sensitivity": {
+      "departure_period_analogue": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "AM_PEAK",
+          "DAY",
+          "EVENING",
+          "NIGHT",
+          "PM_PEAK",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "destination_activity_analogue": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "BUSINESS",
+          "EDUCATION",
+          "ESCORT",
+          "HOME",
+          "LEISURE",
+          "OTHER",
+          "PRIVATE_ERRAND",
+          "SHOPPING",
+          "UNKNOWN",
+          "WORK",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "origin_activity_analogue": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "BUSINESS",
+          "EDUCATION",
+          "ESCORT",
+          "HOME",
+          "LEISURE",
+          "NON_HOME_UNKNOWN",
+          "OTHER",
+          "PRIVATE_ERRAND",
+          "SHOPPING",
+          "UNKNOWN",
+          "WORK",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      }
+    },
+    "distance_raw": {
+      "departure_period_analogue": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "AM_PEAK",
+          "DAY",
+          "EVENING",
+          "NIGHT",
+          "PM_PEAK",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "destination_activity_analogue": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "BUSINESS",
+          "EDUCATION",
+          "ESCORT",
+          "HOME",
+          "LEISURE",
+          "OTHER",
+          "PRIVATE_ERRAND",
+          "SHOPPING",
+          "UNKNOWN",
+          "WORK",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "origin_activity_analogue": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "BUSINESS",
+          "EDUCATION",
+          "ESCORT",
+          "HOME",
+          "LEISURE",
+          "NON_HOME_UNKNOWN",
+          "OTHER",
+          "PRIVATE_ERRAND",
+          "SHOPPING",
+          "UNKNOWN",
+          "WORK",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      }
+    },
+    "participation": {},
+    "person_day_context": {
+      "age_infr_class": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "01_LT3",
+          "02_3_5",
+          "03_6_9",
+          "04_10_15",
+          "05_16_18",
+          "06_19_24",
+          "07_25_39",
+          "08_40_59",
+          "09_60_66",
+          "10_67_74",
+          "11_75_PLUS",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "hh_bike_stock_class": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "0",
+          "1",
+          "10_PLUS",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "hh_car_stock_class": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "0",
+          "1",
+          "2",
+          "3_PLUS",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "hh_carsharing_membership": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "MULTIPLE_PROVIDERS",
+          "NONE",
+          "ONE_PROVIDER",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "hh_ebike_stock_class": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "0",
+          "1",
+          "2",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "hh_motorcycle_moped_stock_class": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "0",
+          "1",
+          "2",
+          "3_PLUS",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "household_size_class": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "person_bike_access": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "NO",
+          "UNKNOWN",
+          "YES",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "person_car_access": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "ALWAYS",
+          "NEVER",
+          "OCCASIONAL",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "person_carsharing_membership": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "MULTIPLE_PROVIDERS",
+          "NONE",
+          "ONE_PROVIDER",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "person_ebike_access": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "NO",
+          "UNKNOWN",
+          "YES",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "primary_activity_status": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "APPRENTICE",
+          "CHILDCARE_INSTITUTION",
+          "CHILD_HOMECARE",
+          "EMPLOYED_FULL_TIME",
+          "EMPLOYED_MARGINAL",
+          "EMPLOYED_PART_TIME",
+          "EMPLOYED_SECONDARY_OR_INTERNSHIP",
+          "HOMEMAKER",
+          "NOT_EMPLOYED_UNSPECIFIED",
+          "OTHER_ACTIVITY",
+          "RETIRED",
+          "SCHOOL",
+          "STUDENT",
+          "UNEMPLOYED",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "sex": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "FEMALE",
+          "MALE",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      }
+    },
+    "time_trips": {
+      "destination_activity_analogue": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "BUSINESS",
+          "EDUCATION",
+          "ESCORT",
+          "HOME",
+          "LEISURE",
+          "OTHER",
+          "PRIVATE_ERRAND",
+          "SHOPPING",
+          "UNKNOWN",
+          "WORK",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "origin_activity_analogue": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "BUSINESS",
+          "EDUCATION",
+          "ESCORT",
+          "HOME",
+          "LEISURE",
+          "NON_HOME_UNKNOWN",
+          "OTHER",
+          "PRIVATE_ERRAND",
+          "SHOPPING",
+          "UNKNOWN",
+          "WORK",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      },
+      "trip_position_class": {
+        "cal_unseen_count": 0,
+        "vocabulary": [
+          "FIRST",
+          "LAST",
+          "MIDDLE",
+          "SINGLE",
+          "UNKNOWN",
+          "__MISSING_CONTEXT__",
+          "__START__",
+          "__UNSEEN__"
+        ]
+      }
+    },
+    "trip_count": {}
+  },
+  "fit_partition": "TRAIN",
+  "reserved_tokens": [
+    "UNKNOWN",
+    "__MISSING_CONTEXT__",
+    "__START__",
+    "__UNSEEN__"
+  ],
+  "unseen_token": "__UNSEEN__"
+}

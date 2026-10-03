@@ -1,0 +1,13 @@
+configs/f3/f3_4g2f_heldout_test_runner_preopen_v1.yaml
+configs/f3/f3_4g2f_train_vocabulary_snapshot_v1.json
+docs/F3_4G2F_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4G2F_HELDOUT_TEST_RUNNER_PREOPEN_v1.md
+docs/F3_4G2F_RUNBUNDLE_SPEC_v1.md
+docs/MAIN_UPDATE_F3_4G2F_HELDOUT_TEST_RUNNER_v1.md
+scripts/prove_f3_4g2f_negative_auth_zero_io.py
+scripts/verify_f3_4g2f_preopen.py
+scripts/verify_f3_4g2f_runbundle.py
+src/simfleet_edg/repro/f3_4g2f_heldout_test_runner.py
+tests/test_f3_4g2f_heldout_test_runner_preopen.py
+docs/F3_4G2F_OVERLAY_FILELIST_v1.txt
+docs/F3_4G2F_OVERLAY_CHECKSUMS_v1.sha256

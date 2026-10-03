@@ -1,0 +1,117 @@
+contract_id: F3_4G2F_HELDOUT_TEST_RUNNER_PREOPEN_V1
+phase: F3.4g-2f
+component: DGEN_JOINT_PIPELINE
+status: HELDOUT_TEST_RUNNER_IMPLEMENTED_PREOPEN
+required_parent_commit: 18a8b7921b7af14d7cd6f31e37a6624f4ac551b1
+
+frozen_test_protocol:
+  path: configs/f3/f3_4g2e_heldout_test_protocol_preopen_v1.yaml
+  authoritative_commit: 18a8b7921b7af14d7cd6f31e37a6624f4ac551b1
+
+split_identity:
+  path: artifacts/runs/R2_eligibility_split_v1/split_manifest_reproduced.csv
+  sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  split: TEST
+  split_unit: HOUSEHOLD
+  split_seed: 20260912
+  strict_rmin_households: 260
+  eligibility_column: joint_rmin_donor_eligible
+
+materializer_reuse:
+  original_contract: configs/design/f3_2a_training_data_contract_v1.yaml
+  original_config: configs/f3/f3_2b_materialize_training_data.yaml
+  original_implementation: src/simfleet_edg/demand/training_data.py
+  original_runner: src/simfleet_edg/repro/f3_2b_materialize_training_data.py
+  source_manifest: docs/F3_2a_SOURCE_MANIFEST_v1.csv
+  schema: docs/F3_2a_DATASET_SCHEMA_v1.csv
+  activity_recoding: configs/reproduction/reference/f0_2d_activity_recoding_v1.csv
+  frozen_train_vocabulary:
+    runtime_path: artifacts/model_data/F3_2a_training_data_v1/vocabulary_manifest.json
+    semantic_snapshot: configs/f3/f3_4g2f_train_vocabulary_snapshot_v1.json
+  original_train_cal_contract_remains_unchanged: true
+  original_test_forbidden_rule_remains_unchanged: true
+  test_materialization_uses_separate_commit_bound_runner: true
+  source_hash_validation_after_authorization: true
+  source_hash_validation_expected_pass: 13
+  test_row_counts_are_observed_once_not_tuned_targets: true
+
+logical_test_tables:
+  - person_day_context
+  - participation
+  - trip_count
+  - chain_days
+  - chain_transitions
+  - time_trips
+  - distance_raw
+  - distance_expanded_sensitivity
+
+execution:
+  scenario_id: TEST_EVAL_V1
+  master_seed: 20261003
+  stochastic_replicates: 32
+  common_random_numbers: true
+  same_seed_schedule_across_pipelines: true
+  candidate_selection: NONE
+  post_test_tuning: FORBIDDEN
+  teacher_forcing: false
+  generated_trip_evaluation_weight: SOURCE_PERSON_DAY_FIT_WEIGHT_P_GEW
+  observed_trip_target_weight: FIT_WEIGHT_W_GEW
+
+activity_chain:
+  purpose_artifact:
+    path: configs/f3/f3_4d2br1_purpose_attribution_artifact_v1.json
+    sha256: ab42cf42c9568ef4f085f071299fc941d421c42337f353e00870cd05c94f94fb
+
+metrics:
+  matrix: docs/F3_4G1_JOINT_METRIC_MATRIX_v1.csv
+  matrix_sha256: 3b6d57b885029f8da4237f617e9b23890cd2f5a01d40643c037f093d7d1676d0
+  total: 17
+  decision: 14
+  report_only: 3
+  thresholds_reused_without_change: true
+  no_composite_score: true
+
+authorization:
+  validator: src/simfleet_edg/repro/f3_4g2e_test_auth.py
+  tracked_negative_template: configs/f3/f3_4g2e_test_authorization_TEMPLATE_v1.json
+  external_positive_file_required: true
+  authorization_before_staging: true
+  authorization_before_source_content_io: true
+  authorization_before_test_materialization: true
+
+holdout_consumption:
+  marker_file: holdout_consumption.json
+  marker_written_immediately_after_first_source_content_block_read: true
+  consumed_trigger: FIRST_PROTECTED_SOURCE_CONTENT_BLOCK_READ
+  same_holdout_rerun_after_consumption: false
+  failure_after_consumption_requires_main_review: true
+  default_failure_action: REQUIRE_NEW_HELDOUT_VERSION
+
+formal_g2:
+  evaluated_after_valid_authorized_test_execution: true
+  execution_failure_is_not_scientific_fail: true
+  valid_scientific_fail_is_terminal_on_same_holdout: true
+  pass_requires:
+    - structural_invariant_violations_zero
+    - temporal_invariant_violations_zero
+    - nofuture_violations_zero
+    - all_14_decision_metrics_pass
+    - ten_artifact_slots_frozen
+    - no_post_test_design_change
+
+runbundle:
+  output_outside_repository: true
+  staging_suffix: .partial
+  preserve_partial_on_failure: true
+  materialized_test_subdir: materialized_test
+  recursive_checksums: true
+
+preopen:
+  test_outcome_source_files_opened: []
+  test_outcome_rows_read: 0
+  test_materialized: false
+  holdout_consumed: false
+  positive_authorization_issued: false
+  formal_g2: NOT_EVALUATED
+
+next_step_if_pass: COMMIT_F3_4G2F_THEN_ISSUE_SINGLE_USE_COMMIT_BOUND_TEST_AUTHORIZATION
