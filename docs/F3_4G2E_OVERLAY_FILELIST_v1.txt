@@ -1,0 +1,12 @@
+configs/f3/f3_4g2e_heldout_test_protocol_preopen_v1.yaml
+configs/f3/f3_4g2e_test_authorization_TEMPLATE_v1.json
+docs/F3_4G2E_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4G2E_G2_DECISION_RULE_v1.md
+docs/F3_4G2E_HELDOUT_TEST_PROTOCOL_v1.md
+docs/MAIN_UPDATE_F3_4G2E_HELDOUT_TEST_PROTOCOL_v1.md
+scripts/prove_f3_4g2e_negative_test_auth_zero_io.py
+scripts/verify_f3_4g2e_test_protocol_preopen.py
+src/simfleet_edg/repro/f3_4g2e_test_auth.py
+tests/test_f3_4g2e_heldout_test_protocol_preopen.py
+docs/F3_4G2E_OVERLAY_FILELIST_v1.txt
+docs/F3_4G2E_OVERLAY_CHECKSUMS_v1.sha256
