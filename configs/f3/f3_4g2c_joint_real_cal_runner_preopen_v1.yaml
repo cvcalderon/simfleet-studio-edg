@@ -1,0 +1,120 @@
+contract_id: F3_4G2C_JOINT_REAL_CAL_RUNNER_PREOPEN_V1
+phase: F3.4g-2c
+component: DGEN_JOINT_PIPELINE
+status: REAL_CAL_RUNNER_IMPLEMENTED_PREOPEN
+required_parent_commit: b0ee17a17eb6c58d655b770780cbb40e07b9b33b
+
+frozen_sources:
+  joint_contract:
+    path: configs/f3/f3_4g1_joint_cal_contract_freeze_v1.yaml
+    sha256: d2a031afa0d6a74d234039b995d2e5d12e8c4a1687e0e888b84f51eec9814375
+  joint_metric_matrix:
+    path: docs/F3_4G1_JOINT_METRIC_MATRIX_v1.csv
+    sha256: 3b6d57b885029f8da4237f617e9b23890cd2f5a01d40643c037f093d7d1676d0
+  primary_witness:
+    path: docs/F3_4G1_PRIMARY_EVIDENCE_WITNESS_v1.csv
+    sha256: e31fd69d1a2b51d121bbb98b139e5dab8a9a447f3670584a2ebb6f7db8c5941c
+  authorization_boundary:
+    path: configs/f3/f3_4g2b_joint_real_cal_auth_preopen_v1.yaml
+
+authorization:
+  required_phase: F3.4g-2b
+  external_positive_file_required: true
+  authorization_before_cal_io: true
+  authorization_before_staging: true
+  tracked_template:
+    path: configs/f3/f3_4g2b_joint_real_cal_authorization_TEMPLATE_v1.json
+    remains_negative: true
+
+cal_input:
+  root: artifacts/model_data/F3_2a_training_data_v1/CALIBRATION
+  person_day_context:
+    filename: person_day_context.csv
+    expected_rows: 469
+    sha256: 83a826357b28b1be949f79e23d13cea07c00ad91390daa8f2eeaa17bea3f9d4a
+  participation:
+    filename: participation.csv
+    expected_rows: 460
+    sha256: 6c9e9639f9e305232512a324a7a8c3ce6814355f9c538c08f575be0364304117
+  trip_count:
+    filename: trip_count.csv
+    expected_rows: 381
+    sha256: 9e77ff7e2f0ac63d1517e7aab162731fe2270d9da4b184c568247cbaa5fe81d2
+  chain_days:
+    filename: chain_days.csv
+    expected_rows: 319
+    sha256: c82fae3ba7b37e059e57bc07b0b9deae23f705dfff964afa173714f8342a838f
+  chain_transitions:
+    filename: chain_transitions.csv
+    expected_rows: 1065
+    sha256: b397a381b9d2d86ce7771d0de4ac5a7e45d65897c2caea59832eb139493ed7d0
+  time_trips:
+    filename: time_trips.csv
+    expected_rows: 1243
+    sha256: 7bdbde6d66e15a916b1bbe5510b00cfc86a84fe5402699e49f84cbcad57d7a70
+  distance_raw:
+    filename: distance_raw.csv
+    expected_rows: 1147
+    sha256: 8686aa395a834ce8e519dc0ed97072e31c30e84493678fedd2806f6fd6903ce9
+  distance_expanded_sensitivity:
+    filename: distance_expanded_sensitivity.csv
+    expected_rows: 1257
+    sha256: c2f96f7b13460f85948bc18806026bd3ec7544b4254a6693fa9f2b2f9e96cb40
+  expected_total_physical_rows: 6341
+
+execution:
+  stochastic_replicates: 32
+  master_seed: 20260926
+  common_random_numbers: true
+  same_seed_schedule_across_pipelines: true
+  candidate_selection: NONE
+  generated_trip_evaluation_weight: SOURCE_PERSON_DAY_FIT_WEIGHT_P_GEW
+  observed_trip_target_weight: FIT_WEIGHT_W_GEW
+  note: GENERATED_TRIP_WEIGHT_OPERATIONALIZES_PROPAGATED_DAY_WEIGHT_SEMANTICS_BEFORE_JOINT_CAL_OPEN
+
+activity_chain:
+  purpose_artifact:
+    path: configs/f3/f3_4d2br1_purpose_attribution_artifact_v1.json
+    sha256: ab42cf42c9568ef4f085f071299fc941d421c42337f353e00870cd05c94f94fb
+  selected_artifact: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+  reference_artifact: DG_ACTIVITY_CHAIN::CHAIN_REF::REFERENCE
+
+joint_gate:
+  primitive: src/simfleet_edg/evaluation/cal_joint_gate.py
+  selected_component_dominated_source: F3_4G1_PRIMARY_EVIDENCE_WITNESS_v1.csv
+  material_degradation_source: F3_4G1_JOINT_METRIC_MATRIX_v1.csv
+  selected_artifact_manifests_frozen_required: true
+  post_cal_design_change: false
+  test_eligibility_may_be_true_after_pass: true
+  explicit_test_open_authorization_in_this_phase: false
+
+runbundle:
+  output_outside_repository: true
+  staging_suffix: .partial
+  preserve_partial_on_failure_after_staging: true
+  required_files:
+    - run_manifest.json
+    - authorization_snapshot.json
+    - contract_snapshot.json
+    - cal_access_manifest.json
+    - input_validation.csv
+    - pipeline_artifact_validation.csv
+    - generated_days.csv
+    - generated_trips.csv
+    - joint_metrics.csv
+    - joint_gate.json
+    - validation.csv
+    - issues.csv
+    - environment.json
+    - checksums.sha256
+
+preopen:
+  cal_rows_read: 0
+  positive_authorization_issued: false
+  real_cal_execution_authorized: false
+  joint_gate_evaluated: false
+  test_rows_read: 0
+  test_open_authorized: false
+  formal_g2: NOT_EVALUATED
+
+next_step_if_pass: COMMIT_F3_4G2C_THEN_ISSUE_COMMIT_BOUND_A1_JOINT_REAL_CAL_AUTHORIZATION

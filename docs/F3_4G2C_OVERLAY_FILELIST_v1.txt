@@ -1,0 +1,12 @@
+configs/f3/f3_4g2c_joint_real_cal_runner_preopen_v1.yaml
+docs/F3_4G2C_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4G2C_JOINT_REAL_CAL_RUNNER_PREOPEN_v1.md
+docs/F3_4G2C_RUNBUNDLE_SPEC_v1.md
+docs/MAIN_UPDATE_F3_4G2C_JOINT_REAL_CAL_RUNNER_v1.md
+scripts/prove_f3_4g2c_negative_auth_zero_io.py
+scripts/verify_f3_4g2c_preopen.py
+scripts/verify_f3_4g2c_runbundle.py
+src/simfleet_edg/repro/f3_4g2c_joint_real_cal.py
+tests/test_f3_4g2c_joint_real_cal_runner_preopen.py
+docs/F3_4G2C_OVERLAY_FILELIST_v1.txt
+docs/F3_4G2C_OVERLAY_CHECKSUMS_v1.sha256
