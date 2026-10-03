@@ -1,0 +1,60 @@
+closure_id: F3_4G2D_JOINT_CAL_A1_CLOSURE_V1
+phase: F3.4g-2d
+component: DGEN_JOINT_PIPELINE
+required_parent_commit: beeb79a79e81aaaff3041542c3a9f3c08937e1dc
+status_after_commit: JOINT_CAL_A1_CLOSED_PASS
+
+source_runbundle:
+  expected_path: $HOME/Downloads/F3_4g2c_A1_joint_real_cal_run_v1
+  source_zip_sha256: 16066748f9791e2ebf40f3110f08c3489e2faa98b072d97e36c7d34c3987cf0c
+  implementation_commit: beeb79a79e81aaaff3041542c3a9f3c08937e1dc
+  execution_status: PASS
+  cal_rows_read_total_physical: 6341
+  generated_day_rows: 30016
+  generated_trip_rows: 97134
+  stochastic_replicates: 32
+  pipeline_artifact_slots: 10
+  candidate_selection: NONE
+
+joint_gate:
+  evaluated: true
+  pass: true
+  reasons: []
+  selected_component_dominated: false
+  selected_pipeline_material_degradation: false
+  structural_invariant_violations: 0
+  temporal_invariant_violations: 0
+  nofuture_violations: 0
+
+metric_summary:
+  total_metrics: 17
+  decision_metrics: 14
+  report_only_metrics: 3
+  decision_metrics_pass: 14
+  decision_metrics_fail: 0
+  decision_metrics_with_positive_worsening: 2
+  positive_worsening_metrics:
+    M2-COUNT-01:
+      worsening: 0.0060957306269697
+      max_worsening: 0.10
+      headroom: 0.0939042693730303
+    DIST-P50:
+      worsening: 0.0129273219145168
+      max_worsening: 0.50
+      headroom: 0.4870726780854832
+
+interpretation:
+  gate_threshold_semantics: MAX_SELECTED_MINUS_ALL_REFERENCE_WORSENING
+  absolute_error_threshold_claim: false
+  joint_pass_claim: true
+  all_absolute_errors_small_claim: false
+
+test_boundary:
+  test_eligible_by_joint_gate: true
+  test_open_authorized: false
+  test_rows_read: 0
+  explicit_main_authorization_required_before_test_open: true
+
+formal_g2: NOT_EVALUATED
+
+next_step_if_pass: COMMIT_CLOSURE_THEN_FREEZE_HELD_OUT_TEST_PROTOCOL_BEFORE_ANY_TEST_IO
