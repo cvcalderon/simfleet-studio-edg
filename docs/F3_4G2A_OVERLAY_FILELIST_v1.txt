@@ -1,0 +1,11 @@
+configs/f3/f3_4g2a_joint_synthetic_preopen_v1.yaml
+docs/F3_4G2A_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4G2A_JOINT_SYNTHETIC_PREOPEN_v1.md
+docs/F3_4G2A_RUNBUNDLE_SPEC_v1.md
+docs/MAIN_UPDATE_F3_4G2A_JOINT_SYNTHETIC_PREOPEN_v1.md
+scripts/verify_f3_4g2a_joint_synthetic.py
+scripts/verify_f3_4g2a_preopen.py
+src/simfleet_edg/repro/f3_4g2a_joint_synthetic.py
+tests/test_f3_4g2a_joint_synthetic_preopen.py
+docs/F3_4G2A_OVERLAY_FILELIST_v1.txt
+docs/F3_4G2A_OVERLAY_CHECKSUMS_v1.sha256

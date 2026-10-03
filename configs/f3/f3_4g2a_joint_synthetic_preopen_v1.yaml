@@ -1,0 +1,57 @@
+run_id: F3_4G2A_DGEN_JOINT_SYNTHETIC_v1
+phase: F3.4g-2a
+component: DGEN_JOINT_PIPELINE
+mode: SYNTHETIC_PREOPEN
+required_parent_commit: 19e903ffbc4cb914d2b70d637bae2e82d1200e30
+
+contract:
+  joint_contract: configs/f3/f3_4g1_joint_cal_contract_freeze_v1.yaml
+  pipeline_registry: configs/f3/f3_4g1_joint_pipeline_registry_v1.json
+
+synthetic_protocol:
+  synthetic_person_days: 8
+  stochastic_replicates: 32
+  master_seed: 20260926
+  scenario_id: CAL_EVAL_V1
+  common_random_numbers: true
+  same_seed_schedule_across_pipelines: true
+  generated_person_id_prefix: SYNTH_JOINT
+  weights: UNIT_ONLY_SYNTHETIC_SMOKE
+
+pipeline_execution:
+  selected_pipeline:
+    - DG_PARTICIPATION::PART_A::PA1
+    - DG_TRIP_COUNT::COUNT_REF::REFERENCE
+    - DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+    - TIME_B_TB2
+    - DIST_REF_REFERENCE
+  all_reference_pipeline:
+    - DG_PARTICIPATION::PART_REF::REFERENCE
+    - DG_TRIP_COUNT::COUNT_REF::REFERENCE
+    - DG_ACTIVITY_CHAIN::CHAIN_REF::REFERENCE
+    - TIME_REF_REFERENCE
+    - DIST_REF_REFERENCE
+
+synthetic_smoke:
+  execute_real_frozen_adapters: true
+  generated_end_to_end: true
+  teacher_forcing_runtime: false
+  metric_smoke_decision_authorized: false
+  selection_authorized: false
+  hard_invariants_required_zero: true
+  expected_pipeline_slots: 10
+  expected_day_rows: 512
+  expected_seed_rows: 32
+
+access_boundaries:
+  cal_files_read: []
+  cal_rows_read: 0
+  future_joint_cal_physical_rows: 6341
+  joint_real_cal_open_authorized: false
+  joint_gate_evaluated: false
+  test_files_read: []
+  test_rows_read: 0
+  test_open_authorized: false
+  formal_g2: NOT_EVALUATED
+
+next_step_if_pass: COMMIT_SYNTHETIC_PREOPEN_THEN_AUTHORITATIVE_SYNTHETIC_RERUN
