@@ -5,6 +5,7 @@ docs/F1_PCONSTR_IMPL01_EXECUTION_INSTRUCTIONS_v1.md
 docs/F1_PCONSTR_IMPL01_IMPLEMENTATION_NOTE_v1.md
 docs/F1_PCONSTR_IMPL01_OVERLAY_FILELIST_v1.txt
 docs/F1_PCONSTR_IMPL01_REMEDIATION_R1_v1.md
+docs/F1_PCONSTR_IMPL01_REMEDIATION_R2_v1.md
 scripts/stage_f1_pconstr_sources.py
 scripts/verify_f1_pconstr_impl01_prep.py
 src/simfleet_edg/population/age_projection.py
