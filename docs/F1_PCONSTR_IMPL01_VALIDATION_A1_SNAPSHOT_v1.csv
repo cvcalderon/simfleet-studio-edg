@@ -1,0 +1,11 @@
+check,status,observed,expected
+bezirk_count,PASS,12,12
+detail_cells,PASS,1584,1584
+detail_cells_changed,PASS,56,56
+stage1_l1_total,PASS,161,161
+stage2_l1_total,PASS,272,272
+stage3_l1_total,PASS,478,478
+max_detailed_abs_adjustment,PASS,12,12
+all_bezirke_feasible,PASS,True,True
+source_rows_3082_detail_cube,PASS,1584,1584
+published_zero_preservation,PASS,0,0

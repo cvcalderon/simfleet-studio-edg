@@ -1,0 +1,58 @@
+closure_freeze_id: F1_PCONSTR_IMPL01_A1_MAIN_FREEZE_V1
+phase: F1-P_CONSTR-IMPL-01
+component: POPULATION_CONSTRUCTION_RECONCILIATION_CORE
+required_parent_commit: 2b08eeb1440c1fd8171917b91047b1b0c6be46f6
+status_after_commit: IMPL01_A1_CLOSED_FROZEN
+
+source_runbundle:
+  expected_directory: $HOME/Downloads/F1_PCONSTR_IMPL01_A1_official_run_v1
+  expected_zip: $HOME/Downloads/F1_PCONSTR_IMPL01_A1_official_run_v1.zip
+  zip_sha256: de4e70a07483f594053c2bb6b04e82e8be8d38191e0336bebad3e38186175de0
+  schema_version: simfleet-edg-f1-pconstr-impl01-runbundle-v1
+  implementation_commit: 2b08eeb1440c1fd8171917b91047b1b0c6be46f6
+  execution_status: PASS
+
+source_evidence:
+  normalized_rows: 4284
+  normalized_rows_by_table:
+    1000A-1029: 84
+    1000A-2070: 840
+    1000A-2071: 252
+    1000A-3082: 3024
+    5000H-1001: 84
+  source_sha256:
+    1000A-1029: 57a2b0e9fad9122a9acfd96c8dcaff074505f2e3e8f65a7716815e540c6891fe
+    1000A-2070: 0f81311bbc550371332f57e45a48916d1ee642624e9d2b275ec7efc1deabb152
+    1000A-2071: cf819cd0082aa35e167308cf1afaa39ffccffc458f594d0cde21980bfe8a53ca
+    1000A-3082: aa5696af6b59ffd26a529eaffc759b1d4f7a6ba4cc198572b51e3aa82efc3c14
+    5000H-1001: 6d9905f880814c4469703966823a3c27f7a1180b5c57d41e5f30146f023c484b
+
+reconciliation:
+  algorithm_id: EDG_RECONCILED_PHH_PERSON_CUBE_V1
+  stage4_tie_break: CANONICAL_WEIGHTED_LINEAR_V1
+  person_domain_total: 3532081
+  bezirk_count: 12
+  detail_cells: 1584
+  detail_cells_changed: 56
+  stage1_l1_total: 161
+  stage2_l1_total: 272
+  stage3_l1_total: 478
+  max_detailed_abs_adjustment: 12
+  published_zero_violations: 0
+  all_bezirke_feasible: true
+  exact_bezirk_person_totals: true
+  aggregate_divisibility_sizes_1_to_5: true
+
+boundaries:
+  calibration_read: false
+  test_read: false
+  holdout_1000A_1035_read: false
+  f3_modified: false
+  six_plus_completion: deferred_to_IMPL_02
+  scale_projection: deferred_to_IMPL_02
+
+project_gates:
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+
+next_step_if_committed: F1-P_CONSTR-IMPL-02_PREOPEN

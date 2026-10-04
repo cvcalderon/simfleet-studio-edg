@@ -1,0 +1,13 @@
+bezirk_code,bezirk_name,published_total_persons_1029,stage1_detail_l1_optimum,stage2_hhsize_margin_l1_optimum_given_stage1,stage3_sex_hhsize_margin_l1_optimum_given_stage1_2,detail_cells,detail_cells_changed,detail_max_abs_adjustment,hhsize_margin_max_abs_deviation,sex_hhsize_margin_max_abs_deviation,feasible
+11000000000001,Mitte,352216,25,25,45,132,9,6,14,9,True
+11000000000002,Friedrichshain-Kreuzberg,260745,7,40,45,132,6,2,18,13,True
+11000000000003,Pankow,392353,5,22,58,132,3,3,6,9,True
+11000000000004,Charlottenburg-Wilmersdorf,312892,28,11,28,132,7,12,6,5,True
+11000000000005,Spandau,232748,3,27,52,132,3,1,11,15,True
+11000000000006,Steglitz-Zehlendorf,288577,4,16,23,132,3,2,4,5,True
+11000000000007,Tempelhof-Schöneberg,326853,7,42,69,132,3,3,18,14,True
+11000000000008,Neukölln,301169,13,21,29,132,7,5,6,7,True
+11000000000009,Treptow-Köpenick,270108,13,20,35,132,5,5,8,8,True
+11000000000010,Marzahn-Hellersdorf,263865,1,19,28,132,1,1,5,5,True
+11000000000011,Lichtenberg,282848,3,25,45,132,2,2,9,11,True
+11000000000012,Reinickendorf,247707,52,4,21,132,7,12,3,3,True

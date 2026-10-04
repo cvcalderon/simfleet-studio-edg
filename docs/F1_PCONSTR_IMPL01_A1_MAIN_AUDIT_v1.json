@@ -1,0 +1,39 @@
+{
+  "audit_id": "F1_PCONSTR_IMPL01_A1_MAIN_AUDIT_V1",
+  "status": "PASS",
+  "runbundle_zip_sha256": "de4e70a07483f594053c2bb6b04e82e8be8d38191e0336bebad3e38186175de0",
+  "implementation_commit": "2b08eeb1440c1fd8171917b91047b1b0c6be46f6",
+  "independent_rederivation": {
+    "normalized_rows": 4284,
+    "normalized_rows_by_table": {
+      "1000A-1029": 84,
+      "1000A-2070": 840,
+      "1000A-2071": 252,
+      "1000A-3082": 3024,
+      "5000H-1001": 84
+    },
+    "person_domain_total": 3532081,
+    "bezirk_count": 12,
+    "detail_cells": 1584,
+    "detail_cells_changed": 56,
+    "stage1_l1_total": 161,
+    "stage2_l1_total": 272,
+    "stage3_l1_total": 478,
+    "max_detailed_abs_adjustment": 12,
+    "published_zero_cells": 38,
+    "published_zero_violations": 0,
+    "negative_fit_cells": 0,
+    "duplicate_cube_keys": 0,
+    "aggregate_divisibility_violations_sizes_1_to_5": 0,
+    "all_bezirke_feasible": true
+  },
+  "boundaries": {
+    "calibration_read": false,
+    "test_read": false,
+    "holdout_1000A_1035_read": false,
+    "f3_modified": false
+  },
+  "decision": "ACCEPT_FOR_MAIN_FREEZE",
+  "formal_g1": "OPEN",
+  "formal_g2": "PASS_CLOSED_DO_NOT_REOPEN"
+}
