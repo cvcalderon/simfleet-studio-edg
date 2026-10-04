@@ -1,0 +1,107 @@
+{
+  "audit_id": "F1_PCONSTR_IMPL02_A1_MAIN_AUDIT_V1",
+  "boundaries": {
+    "G1": "OPEN",
+    "G2": "PASS_CLOSED_DO_NOT_REOPEN",
+    "calibration_read": false,
+    "candidate_HD_U_HD_W": false,
+    "donor_materialization": false,
+    "f3_modified": false,
+    "holdout_1000A_1035_read": false,
+    "mid_test_global_state": "CONSUMED_BY_G2_DO_NOT_REOPEN",
+    "mid_test_read_by_impl02": false,
+    "spatial_PLR_allocation": false
+  },
+  "decision": "ACCEPT_FOR_MAIN_FREEZE",
+  "implementation_commit": "b60017b8233856fa365bc63d4ddca9aa47e14566",
+  "independent_rederivation": {
+    "full_h6_households_berlin": 28343,
+    "reconciled_fullscale_p6_persons": 242676,
+    "reference_persons": 3532081,
+    "rho_multi_2_5": "0.993516178214743",
+    "scales": {
+      "L": {
+        "all_bezirk_targets_exact": true,
+        "bezirk_count": 12,
+        "detail_cells": 1584,
+        "divisibility_violations_sizes_1_to_5": 0,
+        "donor_materialization_status": [
+          "DEFERRED_TO_IMPL_03"
+        ],
+        "h6_all_at_least_six": true,
+        "h6_gt10_count": 1537,
+        "h6_households_berlin": 8024,
+        "h6_ids_unique": true,
+        "h6_max_size": 38,
+        "h6_min_size": 6,
+        "h6_person_sum": 68711,
+        "h6_prior_capacity_feasible": true,
+        "h6_prior_households": 8024,
+        "h6_prior_persons": 68711,
+        "h6_size6_count": 2389,
+        "p6_persons_berlin": 68711,
+        "projection_l1_scaled_numerator": 1326140012,
+        "structural_zero_violations": 0,
+        "target_persons": 1000000
+      },
+      "M": {
+        "all_bezirk_targets_exact": true,
+        "bezirk_count": 12,
+        "detail_cells": 1584,
+        "divisibility_violations_sizes_1_to_5": 0,
+        "donor_materialization_status": [
+          "DEFERRED_TO_IMPL_03"
+        ],
+        "h6_all_at_least_six": true,
+        "h6_gt10_count": 150,
+        "h6_households_berlin": 802,
+        "h6_ids_unique": true,
+        "h6_max_size": 25,
+        "h6_min_size": 6,
+        "h6_person_sum": 6873,
+        "h6_prior_capacity_feasible": true,
+        "h6_prior_households": 802,
+        "h6_prior_persons": 6873,
+        "h6_size6_count": 230,
+        "p6_persons_berlin": 6873,
+        "projection_l1_scaled_numerator": 1360353392,
+        "structural_zero_violations": 0,
+        "target_persons": 100000
+      },
+      "S": {
+        "all_bezirk_targets_exact": true,
+        "bezirk_count": 12,
+        "detail_cells": 1584,
+        "divisibility_violations_sizes_1_to_5": 0,
+        "donor_materialization_status": [
+          "DEFERRED_TO_IMPL_03"
+        ],
+        "h6_all_at_least_six": true,
+        "h6_gt10_count": 18,
+        "h6_households_berlin": 80,
+        "h6_ids_unique": true,
+        "h6_max_size": 16,
+        "h6_min_size": 6,
+        "h6_person_sum": 685,
+        "h6_prior_capacity_feasible": true,
+        "h6_prior_households": 80,
+        "h6_prior_persons": 685,
+        "h6_size6_count": 19,
+        "p6_persons_berlin": 685,
+        "projection_l1_scaled_numerator": 1392907648,
+        "structural_zero_violations": 0,
+        "target_persons": 10000
+      }
+    },
+    "source_households_6plus_5000H": 28528
+  },
+  "phase": "F1-P_CONSTR-IMPL-02",
+  "runbundle_zip_sha256": "3a22dcf88dfbd83271d8b0b65d4d3c5590431bcf8ac269fddf713c4364474b81",
+  "semantic_note": {
+    "difference": -24,
+    "interpretation": "EXPECTED: 1000A-1029 HSHGR2 is a Stage-2 margin objective, not a simultaneous exact hard equality. Scale projection uses the reconciled IMPL-01 cube.",
+    "published_1000A_1029_p6_persons": 242700,
+    "reconciled_fullscale_p6_persons": 242676
+  },
+  "status": "PASS"
+}

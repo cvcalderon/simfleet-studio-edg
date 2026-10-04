@@ -1,0 +1,4 @@
+scale_id,target_persons,bezirk_count,detail_cells,projection_l1_scaled_numerator,structural_zero_violations,divisibility_violations_sizes_1_to_5,all_bezirk_targets_exact,p6_persons_berlin,h6_households_berlin,h6_min_size,h6_max_size,h6_size6_count,h6_gt10_count,h6_household_count_exact,h6_person_count_exact,h6_all_at_least_six
+S,10000,12,1584,1392907648,0,0,True,685,80,6,16,19,18,True,True,True
+M,100000,12,1584,1360353392,0,0,True,6873,802,6,25,230,150,True,True,True
+L,1000000,12,1584,1326140012,0,0,True,68711,8024,6,38,2389,1537,True,True,True

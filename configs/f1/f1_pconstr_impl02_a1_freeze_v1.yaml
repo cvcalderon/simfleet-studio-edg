@@ -1,0 +1,84 @@
+closure_freeze_id: F1_PCONSTR_IMPL02_A1_MAIN_FREEZE_V1
+phase: F1-P_CONSTR-IMPL-02
+component: POPULATION_SCALE_PROJECTION_AND_SIX_PLUS_STRUCTURE
+required_parent_commit: b60017b8233856fa365bc63d4ddca9aa47e14566
+status_after_commit: IMPL02_A1_CLOSED_FROZEN
+source_runbundle:
+  expected_directory: $HOME/Downloads/F1_PCONSTR_IMPL02_A1_official_run_v1
+  expected_zip: $HOME/Downloads/F1_PCONSTR_IMPL02_A1_official_run_v1.zip
+  zip_sha256: 3a22dcf88dfbd83271d8b0b65d4d3c5590431bcf8ac269fddf713c4364474b81
+  schema_version: simfleet-edg-f1-pconstr-impl02-runbundle-v1
+  implementation_commit: b60017b8233856fa365bc63d4ddca9aa47e14566
+  execution_status: PASS
+upstream:
+  impl01_status: CLOSED_FROZEN
+  impl01_freeze_commit: 6ca6a2fd1f577433237fce3cca8763c84d8f68fe
+  impl01_runbundle_sha256: de4e70a07483f594053c2bb6b04e82e8be8d38191e0336bebad3e38186175de0
+  reference_persons: 3532081
+scale_projection:
+  algorithm_id: EXACT_L1_MODULAR_ROUNDING_V1
+  tie_break_id: CANONICAL_WEIGHTED_INCREMENT_V1
+  scales:
+    S:
+      target_persons: 10000
+      projection_l1_scaled_numerator: 1392907648
+      p6_persons_berlin: 685
+    M:
+      target_persons: 100000
+      projection_l1_scaled_numerator: 1360353392
+      p6_persons_berlin: 6873
+    L:
+      target_persons: 1000000
+      projection_l1_scaled_numerator: 1326140012
+      p6_persons_berlin: 68711
+  all_bezirk_targets_exact: true
+  structural_zero_violations: 0
+  divisibility_violations_sizes_1_to_5: 0
+six_plus:
+  policy_id: H6_COMPLETION_V1
+  size_method_id: UNIFORM_WEAK_COMPOSITION_V1
+  master_seed: 20261004
+  rho_multi_2_5: '0.993516178214743'
+  full_scale_h6_berlin: 28343
+  role: MODEL_FIXED_STRUCTURAL_TARGET_NOT_SOURCE_HARD
+  scales:
+    S:
+      h6_households: 80
+      person_sum: 685
+      min_size: 6
+      max_size: 16
+      size6_count: 19
+      gt10_count: 18
+    M:
+      h6_households: 802
+      person_sum: 6873
+      min_size: 6
+      max_size: 25
+      size6_count: 230
+      gt10_count: 150
+    L:
+      h6_households: 8024
+      person_sum: 68711
+      min_size: 6
+      max_size: 38
+      size6_count: 2389
+      gt10_count: 1537
+  donor_materialization: DEFERRED_TO_IMPL_03
+semantic_note:
+  published_1000A_1029_p6_persons: 242700
+  reconciled_fullscale_p6_persons: 242676
+  difference: -24
+  rule: SCALE_PROJECTION_USES_RECONCILED_IMPL01_CUBE_NOT_RAW_1029_MARGIN
+boundaries:
+  calibration_read: false
+  mid_test_read_by_impl02: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  holdout_1000A_1035_read: false
+  f3_modified: false
+  donor_materialization: false
+  spatial_PLR_allocation: false
+  candidate_HD_U_HD_W: false
+project_gates:
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+next_step_if_committed: F1-P_CONSTR-IMPL-03_PREOPEN
