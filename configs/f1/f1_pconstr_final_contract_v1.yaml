@@ -1,0 +1,265 @@
+contract_id: F1_P_CONSTR_PHH_V1_FINAL_FREEZE_V1
+date: '2026-10-04'
+status: FINAL_DESIGN_FROZEN_READY_FOR_IMPLEMENTATION
+formal_gate:
+  G0: PASS
+  G1: OPEN
+  G2: PASS_CLOSED_NO_REOPEN
+
+supersedes:
+  - R_MIN_PHH_FIT_V1
+  - F1_P_CONSTR_PHH_V1_PREOPEN_DESIGN_V1
+
+scope:
+  target_population: PRIVATE_HOUSEHOLD_PERSON_DOMAIN
+  hard_demographic_geography: BEZIRK
+  fine_spatial_layer: PLR
+  reference_date: '2022-05-15'
+
+frozen_sources:
+  person_domain:
+    primary_joint: 1000A-3082
+    person_hhsize_margin: 1000A-1029
+    redundant_sex_hhsize_margin: 1000A-2071
+    cross_taxonomy_diagnostic: 1000A-2070
+  household_domain:
+    structural_prior: 5000H-1001
+    legacy_spatial_prior: HH_SIZE_NAT@BZR/PLR
+
+fit_projection:
+  id: R_MIN_PHH_FIT_V2
+  dimensions:
+    - BEZIRK
+    - age_zensus_11_v1
+    - sex
+    - HSHGR2
+  canonical_age_fields_unchanged: true
+  age_zensus_11_v1_source: deterministic projection from age_years
+  forbidden_mapping: age_infr_class -> age_zensus_11_v1
+
+control_roles:
+  SOURCE_HARD:
+    - 1000A-1029 total persons by Bezirk
+    - published zero detailed cells in 1000A-3082
+  SOURCE_FIT_OBJECTIVE:
+    - non-total detailed 1000A-3082 cells
+    - 1000A-1029 persons by HSHGR2 margins
+    - 1000A-2071 sex x HSHGR2 margins
+  SOURCE_DIAGNOSTIC:
+    - 1000A-2070
+    - redundant totals from 3082/2071/1029
+  MODEL_FIXED_STRUCTURAL:
+    - 6plus household-count prior derived from 5000H-1001 via rho_multi_2_5
+    - scale-specific exact target population N
+    - scale-specific Bezirk totals derived by largest remainder
+  SPATIAL_PRIOR_ONLY:
+    - HH_SIZE_NAT@BZR
+    - HH_SIZE_NAT@PLR
+    - 5000H-1001 for household-domain structural diagnostics
+
+full_scale_reconciliation:
+  id: EDG_RECONCILED_PHH_PERSON_CUBE_V1
+  decision_variables: x[b,a,s,h] nonnegative integer
+  hard_constraints:
+    - for each Bezirk b, sum(a,s,h) x[b,a,s,h] equals published 1000A-1029 total persons
+    - all published-zero detailed 1000A-3082 cells remain zero
+    - for h in 1..5, sum(a,s) x[b,a,s,h] is divisible by h
+    - all x are nonnegative integers
+  hierarchical_objective:
+    stage_1: minimize L1 adjustment from detailed non-total 1000A-3082 cells
+    stage_2: with stage_1 optimum fixed, minimize L1 deviation from 1000A-1029 HSHGR2 margins
+    stage_3: with stages_1_2 fixed, minimize L1 deviation from 1000A-2071 sex x HSHGR2 margins
+    stage_4: with stages_1_2_3 fixed, minimize deterministic canonical weighted linear tie-break
+    stage_4_id: CANONICAL_WEIGHTED_LINEAR_V1
+  canonical_cell_order:
+    geography: ascending GEOBZ1 code
+    age: official ALTKL2 order
+    sex: [GESM, GESW]
+    household_size: [PERSON01, PERSON02, PERSON03, PERSON04, PERSON05, PERSON06UM]
+  provenance_required:
+    - published_value
+    - published_raw
+    - value_q
+    - fit_target_value
+    - adjustment
+    - adjustment_reason
+    - source_table
+    - source_sha256
+  forbidden:
+    - overwrite published source values
+    - force all independently Cell-Key-protected margins as simultaneous exact equalities
+    - residual subtraction presented as observed evidence
+    - convert missing/suppressed values to zero
+
+reference_feasibility_audit:
+  status: PASS_DESIGN_REFERENCE_ONLY
+  all_12_bezirke_feasible: true
+  detailed_cells: 1584
+  detailed_cells_changed: 56
+  stage_1_L1_total: 161
+  max_detailed_abs_adjustment: 12
+  p99_detailed_abs_adjustment: 3
+  stage_2_HSHGR2_margin_L1_total: 272
+  max_HSHGR2_margin_abs_deviation: 18
+  stage_3_sex_HSHGR2_margin_L1_total: 478
+  max_sex_HSHGR2_margin_abs_deviation: 15
+  role: implementation regression anchor, not new observed data
+
+scale_projection:
+  full_reference_person_total: 3532081
+  scales:
+    S: {target_persons: 10000, nominal_factor: 0.0028311921498969024}
+    M: {target_persons: 100000, nominal_factor: 0.028311921498969023}
+    L: {target_persons: 1000000, nominal_factor: 0.2831192149896902}
+  algorithm:
+    - derive exact Bezirk target totals by largest remainder from full-scale published totals, summing exactly to N
+    - for each Bezirk solve an integer projection closest in L1 to scaled full reconciled cube
+    - preserve full-cube structural zeros
+    - preserve divisibility by h for sizes 1..5
+    - use canonical deterministic tie-break
+
+six_plus:
+  policy_id: H6_COMPLETION_V1
+  source_household_prior: 5000H-1001 PERSON06UM
+  source_person_target: reconciled 1000A person-domain PERSON06UM cube
+  domain_conversion_ratio:
+    id: rho_multi_2_5
+    value: 0.993516178214743
+    derivation: Berlin-wide ratio of person-domain implied household counts to 5000H household counts for exact multiperson sizes 2..5
+    size_1_excluded_reason: one-person domain difference is materially larger and is not representative of multiperson households
+  full_scale_household_count:
+    algorithm: constrained largest remainder of rho_multi_2_5 * 5000H_6plus_by_Bezirk
+    Berlin_total: 28343
+    role: MODEL_FIXED_STRUCTURAL_TARGET_NOT_SOURCE_HARD
+  scale_specific_household_count:
+    algorithm: constrained largest remainder from scaled full H6 prior
+    constraints:
+      - H6_b >= 0
+      - 6 * H6_b <= P6_b
+      - sum_b H6_b equals deterministic rounded scaled Berlin H6 target when feasible
+  household_size_completion:
+    method: UNIFORM_WEAK_COMPOSITION_V1
+    for_each_bezirk:
+      base_members_per_household: 6
+      extras: E_b = P6_b - 6*H6_b
+      allocation: sample uniformly from all weak compositions of E_b into H6_b nonnegative parts
+      exact_invariants:
+        - n_i >= 6
+        - number_of_households = H6_b
+        - sum_i n_i = P6_b
+    master_seed: 20261004
+    substream_key: H6_SIZE_COMPOSITION
+    interpretation: EDG-derived minimum-assumption completion; individual 6/7/8/... sizes are not observed
+  member_materialization:
+    household_template_pool: TRAIN private 6_PLUS households only
+    household_template_sampling: H_GEW-weighted with replacement
+    person_donor_pool: TRAIN private-household persons with observation-compatible static attributes
+    person_donor_match: exact age_zensus_11_v1 x sex, with replacement
+    person_donor_weighting: P_GEW where valid, otherwise documented uniform fallback
+    target_assignment: deterministic seeded permutation of reconciled 6+ age x sex multiset into generated household slots
+    same_branch_for_P_TRS_and_P_CONSTR: true
+    provenance_flags:
+      - household_size_topcoded=true
+      - household_size_generated=true
+      - six_plus_completion_policy=H6_COMPLETION_V1
+      - household_template_source_id
+      - person_donor_source_id
+    forbidden:
+      - claim exact 6+/7+/8+ size as observed
+      - use TEST donors
+      - use mobility outcomes as member-donor matching features
+
+population_variants:
+  baseline:
+    id: P_TRS_V1_FINAL
+    donor_partition: TRAIN
+    sampling_unit: whole household
+    sampling_weight: H_GEW
+    size_6plus_branch: H6_COMPLETION_V1
+  constrained_candidates:
+    - id: P_CONSTR_RMIN_V2_HD_U
+      donor_partition: TRAIN
+      equivalence_basis: household contribution vector to age_zensus_11_v1 x sex x HSHGR2 controls
+      fitting: equivalence classes + fitting/IPU + integerization
+      geographic_distribution: Berlin -> Bezirk constrained HD; Bezirk -> PLR spatial-prior allocation
+      materialization_within_equivalence_class: uniform
+    - id: P_CONSTR_RMIN_V2_HD_W
+      donor_partition: TRAIN
+      equivalence_basis: household contribution vector to age_zensus_11_v1 x sex x HSHGR2 controls
+      fitting: equivalence classes + fitting/IPU + integerization
+      geographic_distribution: Berlin -> Bezirk constrained HD; Bezirk -> PLR spatial-prior allocation
+      materialization_within_equivalence_class: H_GEW-weighted
+  candidate_selection: CALIBRATION only
+  TEST_candidate_selection: forbidden
+
+spatial_allocation:
+  hard_demographic_level: BEZIRK
+  BZR_PLR_role: SPATIAL_PRIOR_ONLY
+  observed_PLR_weights: HH_SIZE_NAT household-domain counts, by size where available
+  missing_PLR_policy:
+    ids:
+      - '03400831 Pankower Tor'
+      - '06200418 Landweg'
+    status: NO_STAT_TARGET
+    no_zero_imputation: true
+    fallback_id: PLR_NO_STAT_AREA_PRIOR_V1
+    method: derive model weight from PLR area times median observed household density of sibling PLRs in the same BZR; use parent household-size distribution for composition; renormalize within parent BZR
+    evidence_role: MODELLED_SPATIAL_FALLBACK_NOT_OBSERVED
+    excluded_from_G1_hard_fit_score: true
+  parent_residual_as_observed: forbidden
+
+g1_evidence:
+  G_HARD_zero_violations_required:
+    - orphan_persons
+    - multi_household_membership
+    - household_atomicity
+    - materialized_household_size_mismatch
+    - duplicate_shared_resources
+    - invalid_zone_id
+    - split_leakage
+    - forbidden_TEST_donor_use
+    - NoFutureInformation violations
+    - published_zero violations in reconciled source cube
+    - 6plus n_i < 6
+    - 6plus household/person sum mismatch
+  source_reconciliation_regression:
+    expected_stage1_L1_total: 161
+    expected_stage2_L1_total: 272
+    expected_stage3_L1_total: 478
+    expected_max_detailed_abs_adjustment: 12
+    implementation_tolerance: exact stage1_2_3 and max-adjustment anchors; stage4 must use CANONICAL_WEIGHTED_LINEAR_V1
+  G_EMPIRICAL_fit_metrics:
+    - MAE
+    - absolute_error
+    - relative_error
+    - MAPE_where_defined
+    - P50_P90_P95_P99_max
+    - small_cell_stratification
+    - by_Bezirk
+    - by_age
+    - by_sex
+    - by_household_size
+  G_EMPIRICAL_preservation_metrics:
+    - P(primary_activity_status | age_infr_class)
+    - P(car_driver_license | age_infr_class, sex)
+    - P(household_car_stock | household_size_class)
+    - P(household_bike_ebike_stock | household_size_class)
+  threshold_policy:
+    numeric_materiality_thresholds: freeze from TRAIN+CALIBRATION after implementation and before G1 TEST
+    TEST_threshold_tuning: forbidden
+    failed_TEST_requires_new_lineage: true
+  P_CONSTR_vs_P_TRS:
+    rule: P_CONSTR retained only if CAL shows preregistered material fit improvement without material preservation degradation or unacceptable engineering cost
+    winner_between_HD_U_HD_W: CALIBRATION only
+
+TEST_policy:
+  split_manifest: original household split seed 20260912
+  G1_TEST_role: population-preservation evaluation only after candidate and thresholds frozen
+  F3_heldout_runner: DO_NOT_RERUN
+  G2: DO_NOT_REOPEN
+  limitation: mobility TEST outcomes were previously consumed for G2; G1 must not use them for tuning and may only evaluate its separately preregistered M1 preservation metrics
+
+implementation_boundary:
+  status: NOT_IMPLEMENTED_IN_THIS_FREEZE
+  next_task: F1-P_CONSTR-PHH-V1-IMPL
+  github_required_next: true

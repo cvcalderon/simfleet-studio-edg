@@ -1,0 +1,53 @@
+schema_version: simfleet-edg-f1-pconstr-impl01-v1
+phase_id: F1-P_CONSTR-IMPL-01
+run_id: F1_PCONSTR_IMPL01_reconciliation_v1
+status: FROZEN_FOR_IMPLEMENTATION
+strict_git_state: true
+reference_date: '2022-05-15'
+hard_demographic_geography: BEZIRK
+
+sources:
+  1000A-1029:
+    path: data/raw/zensus/f1_pconstr/1000A-1029_de_flat.zip
+    sha256: 57a2b0e9fad9122a9acfd96c8dcaff074505f2e3e8f65a7716815e540c6891fe
+    role: PERSON_HHSIZE_MARGIN
+  1000A-2070:
+    path: data/raw/zensus/f1_pconstr/1000A-2070_de_flat.zip
+    sha256: 0f81311bbc550371332f57e45a48916d1ee642624e9d2b275ec7efc1deabb152
+    role: CROSS_TAXONOMY_DIAGNOSTIC
+  1000A-2071:
+    path: data/raw/zensus/f1_pconstr/1000A-2071_de_flat.zip
+    sha256: cf819cd0082aa35e167308cf1afaa39ffccffc458f594d0cde21980bfe8a53ca
+    role: SEX_HHSIZE_FIT_OBJECTIVE
+  1000A-3082:
+    path: data/raw/zensus/f1_pconstr/1000A-3082_de_flat.zip
+    sha256: aa5696af6b59ffd26a529eaffc759b1d4f7a6ba4cc198572b51e3aa82efc3c14
+    role: PRIMARY_JOINT_FIT_SOURCE
+  5000H-1001:
+    path: data/raw/zensus/f1_pconstr/5000H-1001_de_flat.zip
+    sha256: 6d9905f880814c4469703966823a3c27f7a1180b5c57d41e5f30146f023c484b
+    role: HOUSEHOLD_STRUCTURAL_PRIOR_DIAGNOSTIC
+
+reconciliation:
+  algorithm_id: EDG_RECONCILED_PHH_PERSON_CUBE_V1
+  stage4_tie_break: CANONICAL_WEIGHTED_LINEAR_V1
+  published_zero_hard: true
+  exact_total_persons_by_bezirk: true
+  divisibility_household_sizes: [1, 2, 3, 4, 5]
+
+expected_reconciliation:
+  bezirk_count: 12
+  detail_cells: 1584
+  detail_cells_changed: 56
+  stage1_l1_total: 161
+  stage2_l1_total: 272
+  stage3_l1_total: 478
+  max_detailed_abs_adjustment: 12
+  all_bezirke_feasible: true
+
+boundaries:
+  calibration_read: false
+  test_read: false
+  f3_modification: forbidden
+  six_plus_completion: deferred_to_IMPL_02
+  scale_projection: deferred_to_IMPL_02
