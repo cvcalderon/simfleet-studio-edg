@@ -1,0 +1,76 @@
+closure_id: F3_4G2G_HELDOUT_TEST_A1_CLOSURE_V1
+phase: F3.4g-2g
+component: DGEN_JOINT_PIPELINE
+required_parent_commit: 911abb2ee194d9c3529880f26ba4773eb82c821d
+status_after_commit: HELDOUT_TEST_A1_CLOSED_G2_PASS
+
+source_runbundle:
+  expected_path: $HOME/Downloads/F3_4g2f_A1_heldout_test_run_v1
+  source_zip_sha256: 5aef668a98df71c592e6b16fefd622dcda5c6dcab6404a089fb84dd74b1530e3
+  implementation_commit: 911abb2ee194d9c3529880f26ba4773eb82c821d
+  authorization_id: F3_4G2F_A1_HELDOUT_TEST_SINGLE_USE_V1
+  execution_status: PASS
+  formal_g2: PASS
+  holdout_consumed: true
+  strict_test_households: 260
+  generated_day_rows: 29632
+  generated_trip_rows: 95046
+  stochastic_replicates: 32
+  test_master_seed: 20261003
+  test_scenario_id: TEST_EVAL_V1
+  pipeline_artifact_slots: 10
+  candidate_selection: NONE
+
+materialized_test:
+  table_count: 8
+  row_counts:
+    person_day_context: 463
+    participation: 455
+    trip_count: 371
+    chain_days: 292
+    chain_transitions: 968
+    time_trips: 1239
+    distance_raw: 1152
+    distance_expanded_sensitivity: 1243
+  source_hash_validation: 13/13_PASS
+  train_vocabulary_reused: true
+  test_vocabulary_fit: false
+
+formal_g2:
+  evaluated: true
+  result: PASS
+  decision_metrics_pass: 14
+  decision_metrics_total: 14
+  report_only_metrics: 3
+  structural_invariant_violations: 0
+  temporal_invariant_violations: 0
+  nofuture_violations: 0
+  ten_artifact_slots_frozen: true
+  no_post_test_design_change: true
+
+metric_summary:
+  total_metrics: 17
+  decision_metrics: 14
+  report_only_metrics: 3
+  positive_worsening_decision_metrics: 4
+  closest_to_threshold:
+    metric_id: M2-CHAIN-01
+    worsening: 0.0004276826400734
+    max_worsening: 0.005
+    headroom: 0.0045723173599266
+  threshold_semantics: MAX_SELECTED_MINUS_ALL_REFERENCE_WORSENING
+  absolute_error_threshold_claim: false
+
+holdout_boundary:
+  consumed: true
+  same_holdout_rerun_authorized: false
+  post_test_tuning_authorized: false
+  same_authorization_rerun_authorized: false
+  result_is_terminal_for_this_holdout: true
+
+project_gate_note:
+  formal_g1: OPEN
+  heldout_g2: PASS
+  implication: G2_PASS_DOES_NOT_CLOSE_G1_SOURCE_BLOCKER
+
+next_step_if_pass: COMMIT_G2_CLOSURE_AND_FREEZE_FINAL_F3_EVIDENCE

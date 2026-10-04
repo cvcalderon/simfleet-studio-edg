@@ -1,0 +1,40 @@
+{
+  "authorization_id": "F3_4G2F_A1_HELDOUT_TEST_SINGLE_USE_V1",
+  "decision_metrics_pass": 14,
+  "decision_metrics_total": 14,
+  "formal_g2": "PASS",
+  "generated_day_rows": 29632,
+  "generated_trip_rows": 95046,
+  "holdout_consumed": true,
+  "implementation_commit": "911abb2ee194d9c3529880f26ba4773eb82c821d",
+  "materialized_test_row_counts": {
+    "chain_days": 292,
+    "chain_transitions": 968,
+    "distance_expanded_sensitivity": 1243,
+    "distance_raw": 1152,
+    "participation": 455,
+    "person_day_context": 463,
+    "time_trips": 1239,
+    "trip_count": 371
+  },
+  "materialized_test_table_sha256": {
+    "chain_days": "fc8a416ef2955852b36a2bbaf8e902fa1bc93b1fb04fef401b39fb2e2c6df71e",
+    "chain_transitions": "5c9d8c57f8121c64bbdf577092fad40218f55e47e0e4e4f87538de78f2494d0a",
+    "distance_expanded_sensitivity": "323d4735e0913569df35bb6366af40784ad3efb985f06d3f07bacd403f67ba75",
+    "distance_raw": "52b246afd710d4278aebb9a49837d77982e961da4ff005a192fcd61a04ce301a",
+    "participation": "3b5ea02e9cecf7edac58ddcca13dc6af4f9e9758a347207c31dd3c78a69a104c",
+    "person_day_context": "24ba54c34d9547330f059927e6597bf22c81373038936d10133ffd3b008fa19c",
+    "time_trips": "590928ab65998514455a6c70beb9a1d76b27d816369b5f6928654068fe4c3474",
+    "trip_count": "919b5aad9d70a4408a050d3054a1ba165c16ce1cb236a3c3f8e48d1b18dd9298"
+  },
+  "nofuture_violations": 0,
+  "pipeline_artifact_slots": 10,
+  "post_test_tuning_authorized": false,
+  "report_only_metrics": 3,
+  "same_holdout_rerun_authorized": false,
+  "source_hash_validation_pass": 13,
+  "source_runbundle_zip_sha256": "5aef668a98df71c592e6b16fefd622dcda5c6dcab6404a089fb84dd74b1530e3",
+  "strict_test_households": 260,
+  "structural_invariant_violations": 0,
+  "temporal_invariant_violations": 0
+}

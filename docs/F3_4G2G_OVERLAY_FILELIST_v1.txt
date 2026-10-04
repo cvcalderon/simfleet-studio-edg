@@ -1,0 +1,10 @@
+configs/f3/f3_4g2g_heldout_test_a1_closure_v1.yaml
+docs/F3_4G2G_EXECUTION_INSTRUCTIONS_v1.md
+docs/F3_4G2G_HELDOUT_TEST_A1_CLOSURE_v1.md
+docs/F3_4G2G_TEST_A1_EVIDENCE_SUMMARY_v1.json
+docs/F3_4G2G_TEST_METRICS_A1_SNAPSHOT_v1.csv
+docs/MAIN_UPDATE_F3_4G2G_G2_CLOSURE_v1.md
+scripts/verify_f3_4g2g_g2_closure.py
+tests/test_f3_4g2g_heldout_test_a1_closure.py
+docs/F3_4G2G_OVERLAY_FILELIST_v1.txt
+docs/F3_4G2G_OVERLAY_CHECKSUMS_v1.sha256
