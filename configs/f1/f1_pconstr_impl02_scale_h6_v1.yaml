@@ -1,0 +1,85 @@
+schema_version: simfleet-edg-f1-pconstr-impl02-v1
+phase_id: F1-P_CONSTR-IMPL-02
+status: PREOPEN_IMPLEMENTATION_ONLY
+required_parent_commit: 6ca6a2fd1f577433237fce3cca8763c84d8f68fe
+
+upstream:
+  impl01_status: CLOSED_FROZEN
+  impl01_freeze_commit: 6ca6a2fd1f577433237fce3cca8763c84d8f68fe
+  impl01_config: configs/f1/f1_pconstr_impl01_reconciliation_v1.yaml
+  impl01_runbundle_sha256: de4e70a07483f594053c2bb6b04e82e8be8d38191e0336bebad3e38186175de0
+  reference_persons: 3532081
+
+scale_projection:
+  algorithm_id: EXACT_L1_MODULAR_ROUNDING_V1
+  tie_break_id: CANONICAL_WEIGHTED_INCREMENT_V1
+  scale_order: [S, M, L]
+  scales:
+    S: 10000
+    M: 100000
+    L: 1000000
+  invariants:
+    exact_target_persons: true
+    exact_bezirk_targets_hamilton: true
+    preserve_full_cube_structural_zeros: true
+    exact_divisibility_sizes_1_to_5: true
+
+six_plus:
+  policy_id: H6_COMPLETION_V1
+  size_method_id: UNIFORM_WEAK_COMPOSITION_V1
+  master_seed: 20261004
+  rho_multi_2_5: '0.993516178214743'
+  full_scale_h6_berlin: 28343
+  role: MODEL_FIXED_STRUCTURAL_TARGET_NOT_SOURCE_HARD
+  donor_materialization: DEFERRED_TO_IMPL_03
+
+expected:
+  full_h6_households_by_bezirk: [3948, 2381, 2136, 2308, 2202, 2201, 2661, 3567, 1591, 1586, 1421, 2341]
+  scales:
+    S:
+      target_persons: 10000
+      bezirk_targets: [997, 738, 1111, 886, 659, 817, 925, 853, 765, 747, 801, 701]
+      projection_l1_scaled_numerator: 1392907648
+      p6_persons_by_bezirk: [100, 63, 58, 67, 47, 44, 65, 80, 39, 37, 32, 53]
+      p6_persons_berlin: 685
+      h6_households_by_bezirk: [11, 7, 6, 7, 6, 6, 8, 10, 4, 4, 4, 7]
+      h6_households_berlin: 80
+      h6_min_size: 6
+      h6_max_size: 16
+      h6_size6_count: 19
+      h6_gt10_count: 18
+    M:
+      target_persons: 100000
+      bezirk_targets: [9972, 7382, 11108, 8859, 6590, 8170, 9254, 8527, 7647, 7470, 8008, 7013]
+      projection_l1_scaled_numerator: 1360353392
+      p6_persons_by_bezirk: [986, 621, 590, 681, 478, 472, 657, 806, 382, 363, 326, 511]
+      p6_persons_berlin: 6873
+      h6_households_by_bezirk: [112, 68, 61, 65, 62, 62, 75, 101, 45, 45, 40, 66]
+      h6_households_berlin: 802
+      h6_min_size: 6
+      h6_max_size: 25
+      h6_size6_count: 230
+      h6_gt10_count: 150
+    L:
+      target_persons: 1000000
+      bezirk_targets: [99719, 73822, 111083, 88586, 65895, 81702, 92538, 85267, 76473, 74705, 80080, 70130]
+      projection_l1_scaled_numerator: 1326140012
+      p6_persons_by_bezirk: [9867, 6225, 5896, 6791, 4783, 4717, 6570, 8058, 3800, 3637, 3255, 5112]
+      p6_persons_berlin: 68711
+      h6_households_by_bezirk: [1118, 674, 605, 653, 623, 623, 753, 1010, 451, 449, 402, 663]
+      h6_households_berlin: 8024
+      h6_min_size: 6
+      h6_max_size: 38
+      h6_size6_count: 2389
+      h6_gt10_count: 1537
+
+boundaries:
+  calibration_read: false
+  mid_test_read_by_impl02: false
+  holdout_1000A_1035_read: false
+  f3_modified: false
+  donor_materialization: false
+  spatial_PLR_allocation: false
+  candidate_HD_U_HD_W: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
