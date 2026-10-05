@@ -1,0 +1,68 @@
+closure_freeze_id: F1_PCONSTR_G1_HOLD_MREAL01_A1_MAIN_FREEZE_V1
+phase: F1-P_CONSTR-G1-HOLD-MREAL-001
+component: SELECTED_CANDIDATE_M_SCALE_REALIZATION
+required_parent_commit: 57891354e314df7bb38cd5b3f9e020f762826c49
+status_after_commit: HOLD_MREAL_001_RESOLVED_FROZEN
+source_execution:
+  runner_commit: 57891354e314df7bb38cd5b3f9e020f762826c49
+  authorization_status: AUTHORIZED_A1
+  authorization_json_sha256: baa10be37bf4735fe06d0cf25e0afdcf7a83f51b5352d6ea1305b7a651be0911
+  authorization_package_sha256: 013ce54f695af827d35e5b538cac3ef4bfe602e72d6499da50b0d6b7e9d07a3d
+source_runbundle:
+  expected_directory_name: F1_PCONSTR_G1_HOLD_MREAL01_A1_official_run_v1
+  expected_zip_name: F1_PCONSTR_G1_HOLD_MREAL01_A1_official_run_v1.zip
+  zip_sha256: 00b440d58b2c4f7f5484e8260a43f1fb9f2ce69c0b5d5c23a6272aa3b2afa505
+  zip_size_bytes: 10345871
+  zip_file_count: 12
+  schema_version: simfleet-edg-f1-pconstr-g1-hold-mreal01-runbundle-v1
+  execution_status: PASS
+realization:
+  selected_candidate: P_CONSTR_RMIN_V2_HD_U
+  scale_id: M
+  nominal_target_persons: 100000
+  candidate_master_seed: 20261005
+  h6_master_seed: 20261004
+  donor_partition: TRAIN_ONLY
+  home_zone_level: BEZIRK
+anchors:
+  persons: 100000
+  strict_persons: 93127
+  six_plus_persons: 6873
+  households: 54828
+  strict_households: 54026
+  six_plus_households: 802
+  resources: 642364
+  donor_source_households: 1230
+  target_fit_l1: 3172
+  target_fit_max_abs: 40
+  equivalence_classes_used: 241
+  equivalence_catalog_classes: 249
+  test_donor_violations: 0
+  calibration_donor_violations: 0
+  six_plus_target_violations: 0
+  h6_min_size: 6
+  h6_max_size: 25
+core_hashes:
+  equivalence_class_fit_M: f5bad8b5ba09a3a09a64a0e5570d65b956655b8d1889b29f728cd1d5b6a99355
+  equivalence_plan_M: be4aafe54cae4e66f116273f03043248224f1f468146296098fd605656cb8274
+  h6_households_M: c3d3a451a472d25655fae925016b05a232c4130dbd742fcb4ae4190477276351
+  households: 99e63cd1f203f36a0a1e7096abf0cd89555615b64a421a58cbc5c5f1af2d1c1b
+  persons: e75d768637ae97c19bf34c678a99aeec4fe0e5594805ced01ac4da4e95164d49
+  projected_cube_M: 28df9945df31d32700cf7a3c41638bb8a99ecb5b92a49ef04d4b51046288d30d
+  resources: 0d101d2a544227a13b7c7bfa108fd977c0256de3822c49f5cec61d81c557bcce
+boundaries:
+  holdout_1000A_1035_acquired: false
+  holdout_1000A_1035_values_read: false
+  holdout_1000A_1035_authorized: false
+  holdout_metric_evaluation: false
+  holdout_threshold_tuning: false
+  HOLD_THRESH_001: OPEN
+  cal_reopened: false
+  mid_test_reopened: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  spatial_plr_allocation: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+next_step_if_committed: F1-P-CONSTR-G1-HOLD-THRESH-001-PREOPEN
+next_step_guardrail: 1000A-1035_REMAINS_UNACQUIRED_UNREAD_UNAUTHORIZED

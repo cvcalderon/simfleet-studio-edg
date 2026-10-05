@@ -1,0 +1,2 @@
+calibration_donor_violations,donor_source_households,equivalence_classes_used,h6_max_size,h6_min_size,households,persons,resources,scale_id,six_plus_households,six_plus_persons,six_plus_target_violations,strict_households,strict_persons,target_fit_l1,target_fit_max_abs,test_donor_violations,variant_id
+0,1230,241,25,6,54828,100000,642364,M,802,6873,0,54026,93127,3172,40,0,P_CONSTR_RMIN_V2_HD_U
