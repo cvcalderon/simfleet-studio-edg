@@ -1,0 +1,135 @@
+schema_version: simfleet-edg-f1-pconstr-impl03-v1
+phase_id: F1-P_CONSTR-IMPL-03
+status: PREOPEN_IMPLEMENTATION
+required_parent_commit: 2f547ec53501245af1d605a866e19febfc5089b8
+
+upstream:
+  impl01_config: configs/f1/f1_pconstr_impl01_reconciliation_v1.yaml
+  impl02_freeze: configs/f1/f1_pconstr_impl02_a1_freeze_v1.yaml
+  impl02_runbundle_sha256: 3a22dcf88dfbd83271d8b0b65d4d3c5590431bcf8ac269fddf713c4364474b81
+
+sources:
+  mid_households:
+    path: data/raw/mid/MiD2017_Haushalte.csv
+    sha256: 0d7a20b5f29839a29ce0b41ffaecaca15da844ff85e15d1acc6fe786c9bde4f5
+    role: TRAIN_DONOR_SOURCE_STATIC_FIELDS_ONLY
+  mid_persons:
+    path: data/raw/mid/MiD2017_Personen.csv
+    sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+    role: TRAIN_PERSON_DONOR_SOURCE_STATIC_FIELDS_ONLY
+  r2_split_manifest:
+    path: artifacts/runs/R2_eligibility_split_v1/split_manifest_reproduced.csv
+    sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+    role: FROZEN_HOUSEHOLD_SPLIT
+  activity_recoding:
+    path: configs/reproduction/reference/f0_2d_activity_recoding_v1.csv
+    sha256: 85e17e7c718133b616cd8c872f905dbd95d2369ff1ba423037087a894623e86a
+    role: FROZEN_STATIC_ACTIVITY_RECODING
+
+berlin:
+  BLAND: 11
+
+seeds:
+  candidate_master_seed: 20261005
+  h6_master_seed: 20261004
+
+variants:
+  - id: P_TRS_V1_FINAL
+    strict_branch: H_GEW_GLOBAL_TRAIN_WITH_REPLACEMENT
+    composition_fitting: false
+    six_plus_branch: H6_COMPLETION_V1_COMMON
+  - id: P_CONSTR_RMIN_V2_HD_U
+    strict_branch: EQUIVALENCE_FIT_PLUS_INTEGERIZATION
+    within_equivalence_class: UNIFORM
+    six_plus_branch: H6_COMPLETION_V1_COMMON
+  - id: P_CONSTR_RMIN_V2_HD_W
+    strict_branch: EQUIVALENCE_FIT_PLUS_INTEGERIZATION
+    within_equivalence_class: H_GEW_WEIGHTED
+    six_plus_branch: H6_COMPLETION_V1_COMMON
+
+equivalence:
+  basis: household contribution vector to age_zensus_11_v1 x sex x exact household size
+  donor_partition: TRAIN
+  strict_household_sizes: [1, 2, 3, 4, 5]
+  fit_algorithm: IPU_FRACTIONAL_CONTRIBUTION_V1
+  integerization: LARGEST_FRACTIONAL_PLUS_GREEDY_SINGLE_SWAP_L1_V1
+  max_iterations: 300
+  tolerance: 1.0e-10
+
+six_plus_materialization:
+  household_templates: TRAIN_PRIVATE_6_PLUS_ONLY
+  template_weighting: H_GEW
+  person_donors: TRAIN_PRIVATE_PERSONS_VALID_AGE_SEX
+  person_match: EXACT_AGE_ZENSUS_11_X_SEX
+  person_weighting: P_GEW_POSITIVE_ELSE_UNIFORM_FALLBACK
+  target_assignment: SEEDED_PERMUTATION_OF_PROJECTED_6PLUS_AGE_X_SEX_MULTISET
+  same_source_blueprint_for_all_variants: true
+
+precommit_execution:
+  fully_materialized_scale: S
+  additional_plan_only_scale: M
+
+expected_catalog:
+  strict_train_households: 1219
+  train_six_plus_templates: 8
+  train_private_person_donors: 2244
+  equivalence_classes: 249
+  person_donor_support_cells: 22
+
+expected_S:
+  P_TRS_V1_FINAL:
+    households: 5309
+    persons: 10000
+    strict_households: 5229
+    six_plus_households: 80
+    target_fit_l1: 3968
+    target_fit_max_abs: 29
+    test_donor_violations: 0
+    calibration_donor_violations: 0
+    six_plus_target_violations: 0
+  P_CONSTR_RMIN_V2_HD_U:
+    households: 5485
+    persons: 10000
+    strict_households: 5405
+    six_plus_households: 80
+    target_fit_l1: 350
+    target_fit_max_abs: 4
+    test_donor_violations: 0
+    calibration_donor_violations: 0
+    six_plus_target_violations: 0
+  P_CONSTR_RMIN_V2_HD_W:
+    households: 5485
+    persons: 10000
+    strict_households: 5405
+    six_plus_households: 80
+    target_fit_l1: 350
+    target_fit_max_abs: 4
+    test_donor_violations: 0
+    calibration_donor_violations: 0
+    six_plus_target_violations: 0
+  common_six_plus_branch: true
+
+expected_M_plan:
+  groups: 60
+  equivalence_classes: 249
+  target_households: 54026
+  generated_households: 54026
+  target_persons: 93127
+  generated_persons: 93127
+  l1_person_cell_error: 3172
+  max_abs_person_cell_error: 40
+  positive_equivalence_classes: 241
+
+boundaries:
+  calibration_read: false
+  mid_test_read_by_impl03: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  holdout_1000A_1035_read: false
+  donor_partition: TRAIN_ONLY
+  mobility_outcome_matching: false
+  spatial_plr_allocation: false
+  candidate_selection: false
+  g1_threshold_tuning: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
