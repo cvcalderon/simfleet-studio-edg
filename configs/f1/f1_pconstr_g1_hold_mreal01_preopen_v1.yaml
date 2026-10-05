@@ -1,0 +1,79 @@
+schema_version: simfleet-edg-f1-pconstr-g1-hold-mreal01-preopen-v1
+phase_id: F1-P_CONSTR-G1-HOLD-MREAL-001-PREOPEN
+status: PREOPEN_COMMIT_BOUND_M_MATERIALIZATION
+required_parent_commit: faa8a024498f672f1b4e34dbd54219afef020a1a
+
+purpose:
+  blocker_id: HOLD-MREAL-001
+  objective: MATERIALIZE_AND_FREEZE_SELECTED_CANDIDATE_AT_M_BEFORE_HOLDOUT_OPENING
+
+frozen_upstream:
+  holdout_preopen_commit: faa8a024498f672f1b4e34dbd54219afef020a1a
+  selected_candidate: P_CONSTR_RMIN_V2_HD_U
+  selected_candidate_status: FROZEN
+  impl03_candidate_config: configs/f1/f1_pconstr_impl03_candidates_v1.yaml
+  cal01_selection: docs/F1_PCONSTR_CAL01_SELECTION_v1.json
+  g1_thresholds: docs/F1_PCONSTR_G1_THRESHOLDS_v1.csv
+  holdout_preopen_config: configs/f1/f1_pconstr_g1_holdout_1000a_1035_preopen_v1.yaml
+
+execution_realization:
+  scale_id: M
+  nominal_target_persons: 100000
+  candidate_master_seed: 20261005
+  h6_master_seed: 20261004
+  selected_candidate: P_CONSTR_RMIN_V2_HD_U
+  donor_partition: TRAIN_ONLY
+  home_zone_level: BEZIRK
+  spatial_plr_allocation: false
+  metric_randomness: NONE
+
+expected_M_materialization:
+  persons: 100000
+  strict_persons: 93127
+  six_plus_persons: 6873
+  households: 54828
+  strict_households: 54026
+  six_plus_households: 802
+  target_fit_l1: 3172
+  target_fit_max_abs: 40
+  equivalence_classes_used: 241
+  test_donor_violations: 0
+  calibration_donor_violations: 0
+  six_plus_target_violations: 0
+  h6_min_size: 6
+  h6_max_size: 25
+
+execution_authorization:
+  external: true
+  template: docs/F1_PCONSTR_G1_HOLD_MREAL01_EXECUTION_AUTHORIZATION_TEMPLATE_v1.json
+  positive_authorization_issued: false
+  runner_commit_binding: REQUIRED_AFTER_PREOPEN_COMMIT_AND_PUSH
+
+output_contract:
+  run_id: F1_PCONSTR_G1_HOLD_MREAL01_A1_official_run_v1
+  schema_version: simfleet-edg-f1-pconstr-g1-hold-mreal01-runbundle-v1
+  core_hashes_required:
+    - households
+    - persons
+    - resources
+    - projected_cube_M
+    - h6_households_M
+    - equivalence_plan_M
+  freeze_role_after_MAIN_audit: M_REALIZATION_CORE_HASHES_FROZEN
+
+boundaries:
+  holdout_1000A_1035_acquired: false
+  holdout_1000A_1035_values_read: false
+  holdout_1000A_1035_authorized: false
+  holdout_metric_evaluation: false
+  holdout_threshold_tuning: false
+  cal_reopened: false
+  mid_test_reopened: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  donor_partition: TRAIN_ONLY
+  spatial_plr_allocation: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+
+next_step_if_preopen_frozen: COMMIT_PUSH_THEN_EXTERNAL_COMMIT_BOUND_MREAL_A1_EXECUTION

@@ -1,0 +1,19 @@
+{
+  "authorization_status": "TEMPLATE_ONLY_NOT_AUTHORIZED",
+  "authorized": false,
+  "authorized_runner_commit": null,
+  "cal_reopen": false,
+  "candidate_master_seed": 20261005,
+  "f3_modified": false,
+  "h6_master_seed": 20261004,
+  "holdout_metric_evaluation_authorized": false,
+  "holdout_value_io_authorized": false,
+  "mid_test_reopen": false,
+  "mreal_execution_authorized": false,
+  "phase": "F1-P_CONSTR-G1-HOLD-MREAL-001",
+  "plr_allocation": false,
+  "required_preopen_commit": null,
+  "scale_id": "M",
+  "schema_version": "simfleet-edg-f1-pconstr-g1-hold-mreal01-execution-authorization-v1",
+  "selected_candidate": "P_CONSTR_RMIN_V2_HD_U"
+}
