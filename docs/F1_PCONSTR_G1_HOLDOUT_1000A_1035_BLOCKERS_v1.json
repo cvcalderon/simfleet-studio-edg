@@ -1,0 +1,23 @@
+{
+  "phase": "F1-P_CONSTR-G1-HOLDOUT-1000A-1035-PREOPEN",
+  "status": "BLOCKED_BEFORE_HOLDOUT_AUTHORIZATION",
+  "blockers": [
+    {
+      "id": "HOLD-THRESH-001",
+      "blocking": true,
+      "resolved": false,
+      "problem": "No exact numeric decision threshold is frozen for G1-HOLD-SEN-BERLIN-TVD and G1-HOLD-SEN-BEZ-WTVD.",
+      "guardrail": "Must be resolved without reading/acquiring 1000A-1035 values; no implicit mapping from existing tau values."
+    },
+    {
+      "id": "HOLD-MREAL-001",
+      "blocking": true,
+      "resolved": false,
+      "problem": "Selected candidate has not yet been materialized and frozen at M scale for the primary holdout validation realization.",
+      "guardrail": "Use frozen P_CONSTR_RMIN_V2_HD_U algorithm and existing seeds candidate_master_seed=20261005 and h6_master_seed=20261004; no holdout values."
+    }
+  ],
+  "holdout_authorized": false,
+  "holdout_values_read": false,
+  "next": "Resolve both blockers, freeze runner/metric implementation and bind a separate authorization commit before source-value I/O."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "simfleet-edg-f1-pconstr-g1-holdout-1000a-1035-auth-template-v1",
+  "phase": "F1-P_CONSTR-G1-HOLDOUT-1000A-1035",
+  "authorized": false,
+  "authorization_status": "TEMPLATE_ONLY_NOT_AUTHORIZED",
+  "required_preholdout_commit": null,
+  "source_table": "1000A-1035",
+  "holdout_value_io_authorized": false,
+  "candidate_selection": "NONE",
+  "threshold_tuning": "FORBIDDEN",
+  "mid_test_reopen": false,
+  "cal_reopen": false,
+  "plr_allocation": false,
+  "f3_modified": false
+}

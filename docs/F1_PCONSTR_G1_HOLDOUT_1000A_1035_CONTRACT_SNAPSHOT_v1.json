@@ -1,0 +1,39 @@
+{
+  "contract_id": "F1_PCONSTR_G1_HOLDOUT_1000A_1035_CONTRACT_SNAPSHOT_V1",
+  "status": "FROZEN_PREOPEN_SEMANTICS_NO_SOURCE_VALUES",
+  "origin_contract": "F1_G1_FEATURE_HOLDOUT_AMENDMENT_V1",
+  "source_table": "1000A-1035",
+  "title": "Personen: Seniorenstatus eines privaten Haushalts (ausf\u00fchrlich)",
+  "statistical_domain": "PERSON_DOMAIN_PRIVATE_HOUSEHOLD",
+  "reference_date": "2022-05-15",
+  "senior_definition": "age_years >= 65",
+  "leaf_categories": [
+    "SINGLE_SENIOR_HOUSEHOLD",
+    "TWO_PERSON_ALL_SENIOR_HOUSEHOLD",
+    "MULTIPERSON_ALL_SENIOR_HOUSEHOLD",
+    "SENIOR_AND_YOUNGER_HOUSEHOLD",
+    "NO_SENIOR_HOUSEHOLD"
+  ],
+  "metrics": [
+    {
+      "id": "G1-HOLD-SEN-BERLIN-TVD",
+      "role": "DECISION"
+    },
+    {
+      "id": "G1-HOLD-SEN-BEZ-WTVD",
+      "role": "DECISION"
+    },
+    {
+      "id": "G1-HOLD-SEN-BEZ-MAX",
+      "role": "REPORT_ONLY"
+    }
+  ],
+  "guardrails": {
+    "source_values_read": false,
+    "source_values_acquired": false,
+    "candidate_selection_during_holdout": "NONE",
+    "threshold_tuning_after_holdout": "FORBIDDEN",
+    "same_lineage_code_tuning_after_holdout": "FORBIDDEN",
+    "failure_requires_new_experimental_lineage": true
+  }
+}

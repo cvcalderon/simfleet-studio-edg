@@ -1,0 +1,107 @@
+schema_version: simfleet-edg-f1-pconstr-g1-holdout-1000a-1035-preopen-v1
+phase_id: F1-P_CONSTR-G1-HOLDOUT-1000A-1035-PREOPEN
+status: PREOPEN_NO_HOLDOUT_VALUE_IO
+required_parent_commit: e2cd5e4445b3c75af865d4a1d43509a0b7953b48
+
+frozen_upstream:
+  cal01_status: CLOSED_FROZEN
+  cal01_main_freeze_commit: e2cd5e4445b3c75af865d4a1d43509a0b7953b48
+  selected_candidate: P_CONSTR_RMIN_V2_HD_U
+  selected_candidate_status: FROZEN
+  g1_thresholds_artifact: docs/F1_PCONSTR_G1_THRESHOLDS_v1.csv
+  g1_thresholds_status: FROZEN
+  cal_reopen: FORBIDDEN
+  mid_test_reopen: FORBIDDEN
+
+holdout_identity:
+  holdout_id: G1_FEATURE_HOLDOUT_SENIOR_STATUS_V1
+  source_table: 1000A-1035
+  title: 'Personen: Seniorenstatus eines privaten Haushalts (ausführlich)'
+  geography: BERLIN_12_BEZIRKE
+  statistical_domain: PERSON_DOMAIN_PRIVATE_HOUSEHOLD
+  reference_date: '2022-05-15'
+  source_values_status: UNACQUIRED_UNREAD
+  source_value_io_authorized: false
+
+metric_universe:
+  senior_definition: AGE_YEARS_GTE_65
+  unit_scored: PERSON
+  household_atomic: true
+  leaf_categories:
+    - SINGLE_SENIOR_HOUSEHOLD
+    - TWO_PERSON_ALL_SENIOR_HOUSEHOLD
+    - MULTIPERSON_ALL_SENIOR_HOUSEHOLD
+    - SENIOR_AND_YOUNGER_HOUSEHOLD
+    - NO_SENIOR_HOUSEHOLD
+  nonleaf_source_rows_excluded_from_tvd:
+    - TOTAL
+    - ALL_SENIOR_HOUSEHOLDS_AGGREGATE
+
+metric_contract:
+  berlin_tvd:
+    id: G1-HOLD-SEN-BERLIN-TVD
+    role: DECISION
+    statistic: TOTAL_VARIATION_DISTANCE
+    official_berlin_definition: SUM_12_BEZIRKE_LEAF_PERSON_COUNTS
+    formula: 0.5_SUM_ABS_P_SYN_MINUS_P_OFF
+  bezirk_wtvd:
+    id: G1-HOLD-SEN-BEZ-WTVD
+    role: DECISION
+    statistic: OFFICIAL_PERSON_TOTAL_WEIGHTED_MEAN_BEZIRK_TVD
+    weight_definition: OFFICIAL_LEAF_PERSON_TOTAL_PER_BEZIRK
+  bezirk_max:
+    id: G1-HOLD-SEN-BEZ-MAX
+    role: REPORT_ONLY
+    statistic: MAX_BEZIRK_TVD
+  completeness_policy: ALL_5_LEAVES_NUMERIC_FOR_ALL_12_BEZIRKE_ELSE_DECISION_INDETERMINATE
+  imputation: FORBIDDEN
+  published_dash: PUBLISHED_ZERO
+  published_dot: UNPUBLISHED_UNKNOWN_NOT_ZERO
+  published_slash: UNPUBLISHED_QUALITY_UNCERTAIN_NOT_ZERO
+
+validation_realization:
+  scale_id: M
+  role: PRIMARY_VALIDATION_BENCHMARK
+  target_semantics: FROZEN_M_SCALE_FROM_EXISTING_POPULATION_PROTOCOL
+  current_status: NOT_YET_MATERIALIZED_AND_FROZEN_FOR_HOLDOUT
+  candidate_master_seed: 20261005
+  h6_master_seed: 20261004
+  holdout_metric_randomness: NONE
+  seed_schedule_status: FROZEN_NO_NEW_RANDOMNESS_IN_METRIC
+
+decision_threshold_status:
+  status: BLOCKED_PRE_HOLDOUT
+  blocker_id: HOLD-THRESH-001
+  reason: NO_FROZEN_NUMERIC_MAPPING_FROM_G1_THRESHOLDS_V1_TO_THE_TWO_SENIOR_STATUS_DECISION_METRICS
+  implicit_reuse_of_any_existing_tau: FORBIDDEN
+  threshold_tuning_from_1000A_1035: FORBIDDEN
+
+open_blockers:
+  - id: HOLD-THRESH-001
+    blocking: true
+    description: Freeze exact numeric threshold rule for BERLIN_TVD and BEZ_WTVD without holdout values.
+  - id: HOLD-MREAL-001
+    blocking: true
+    description: Materialize and freeze selected candidate at M scale using already-frozen generation seeds before holdout opening.
+
+holdout_authorization:
+  authorized: false
+  authorization_artifact: NONE
+  required_binding_commit: null
+  candidate_selection_during_holdout: NONE
+  threshold_tuning_after_holdout: FORBIDDEN
+  same_lineage_code_tuning_after_holdout: FORBIDDEN
+  failure_requires_new_experimental_lineage: true
+
+boundaries:
+  holdout_1000A_1035_values_read: false
+  holdout_1000A_1035_acquired: false
+  cal_reopened: false
+  mid_test_read: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  spatial_plr_allocation: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+
+next_step_if_preopen_frozen: RESOLVE_HOLD_THRESH_001_AND_HOLD_MREAL_001_BEFORE_HOLDOUT_AUTHORIZATION
