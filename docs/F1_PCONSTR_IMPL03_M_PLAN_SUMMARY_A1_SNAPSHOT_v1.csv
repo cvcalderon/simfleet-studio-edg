@@ -1,0 +1,2 @@
+groups,equivalence_classes,target_households,generated_households,target_persons,generated_persons,l1_person_cell_error,max_abs_person_cell_error,plan_rows,positive_equivalence_classes
+60,249,54026,54026,93127,93127,3172,40,2740,241

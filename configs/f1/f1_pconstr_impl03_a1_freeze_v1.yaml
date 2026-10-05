@@ -1,0 +1,88 @@
+closure_freeze_id: F1_PCONSTR_IMPL03_A1_MAIN_FREEZE_V1
+phase: F1-P_CONSTR-IMPL-03
+component: TRAIN_ONLY_POPULATION_CANDIDATE_MATERIALIZATION
+required_parent_commit: 9feb3471b8c1581b18571cbdc0b9e27001e3f632
+status_after_commit: IMPL03_A1_CLOSED_FROZEN
+source_runbundle:
+  expected_directory: artifacts/runs/F1_PCONSTR_IMPL03_A1_official_run_v1
+  expected_zip: artifacts/runs/F1_PCONSTR_IMPL03_A1_official_run_v1.zip
+  zip_sha256: 78c2a939cd7de08b048aed0cbd2a21abed73c87b68ce71860af1bbe321dd42a6
+  schema_version: simfleet-edg-f1-pconstr-impl03-runbundle-v1
+  implementation_commit: 9feb3471b8c1581b18571cbdc0b9e27001e3f632
+  execution_status: PASS
+  validation_checks: 33
+execution_scope:
+  fully_materialized_scale: S
+  additional_plan_only_scale: M
+  variants:
+    - P_TRS_V1_FINAL
+    - P_CONSTR_RMIN_V2_HD_U
+    - P_CONSTR_RMIN_V2_HD_W
+catalog:
+  strict_train_households: 1219
+  train_six_plus_templates: 8
+  train_private_person_donors: 2244
+  equivalence_classes: 249
+  person_donor_support_cells: 22
+S_anchors:
+  P_TRS_V1_FINAL:
+    households: 5309
+    persons: 10000
+    resources: 62745
+    strict_households: 5229
+    six_plus_households: 80
+    target_fit_l1: 3968
+    target_fit_max_abs: 29
+  P_CONSTR_RMIN_V2_HD_U:
+    households: 5485
+    persons: 10000
+    resources: 64313
+    strict_households: 5405
+    six_plus_households: 80
+    target_fit_l1: 350
+    target_fit_max_abs: 4
+  P_CONSTR_RMIN_V2_HD_W:
+    households: 5485
+    persons: 10000
+    resources: 64173
+    strict_households: 5405
+    six_plus_households: 80
+    target_fit_l1: 350
+    target_fit_max_abs: 4
+six_plus:
+  common_branch: true
+  person_rows_per_variant: 685
+  runbundle_signature_sha256: 3a65324381175ac80984553ff5337e90c9a9efad787014191852b39bf8787c6a
+  semantic_rule: SAME_SOURCE_BLUEPRINT_FOR_ALL_VARIANTS
+M_plan_anchors:
+  groups: 60
+  catalog_equivalence_classes: 249
+  positive_equivalence_classes: 241
+  target_households: 54026
+  generated_households: 54026
+  target_persons: 93127
+  generated_persons: 93127
+  l1_person_cell_error: 3172
+  max_abs_person_cell_error: 40
+  plan_rows: 2740
+source_hashes:
+  mid_households: 0d7a20b5f29839a29ce0b41ffaecaca15da844ff85e15d1acc6fe786c9bde4f5
+  mid_persons: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+  r2_split_manifest: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  activity_recoding: 85e17e7c718133b616cd8c872f905dbd95d2369ff1ba423037087a894623e86a
+boundaries:
+  calibration_read: false
+  mid_test_read_by_impl03: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  holdout_1000A_1035_read: false
+  donor_partition: TRAIN_ONLY
+  mobility_outcome_matching: false
+  spatial_plr_allocation: false
+  candidate_selection: false
+  g1_threshold_tuning: false
+  f3_modified: false
+project_gates:
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+next_step_if_committed: F1-P_CONSTR-CAL-PREOPEN
+next_step_guardrail: CAL_REMAINS_UNREAD_UNTIL_FORMAL_AUTHORIZATION

@@ -1,0 +1,4 @@
+variant_id,scale_id,households,persons,resources,strict_households,six_plus_households,donor_source_households,equivalence_classes_used,target_fit_l1,target_fit_max_abs,test_donor_violations,calibration_donor_violations,six_plus_target_violations
+P_CONSTR_RMIN_V2_HD_U,S,5485,10000,64313,5405,80,1144,195,350,4,0,0,0
+P_CONSTR_RMIN_V2_HD_W,S,5485,10000,64173,5405,80,1106,195,350,4,0,0,0
+P_TRS_V1_FINAL,S,5309,10000,62745,5229,80,1159,232,3968,29,0,0,0

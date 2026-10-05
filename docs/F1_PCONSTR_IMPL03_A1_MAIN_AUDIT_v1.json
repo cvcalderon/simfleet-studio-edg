@@ -1,0 +1,39 @@
+{
+  "audit_id": "F1_PCONSTR_IMPL03_A1_MAIN_AUDIT_V1",
+  "phase": "F1-P_CONSTR-IMPL-03",
+  "status": "PASS",
+  "decision": "ACCEPT_FOR_MAIN_FREEZE",
+  "implementation_commit": "9feb3471b8c1581b18571cbdc0b9e27001e3f632",
+  "runbundle_zip_sha256": "78c2a939cd7de08b048aed0cbd2a21abed73c87b68ce71860af1bbe321dd42a6",
+  "runbundle_validation": {"passed": 33, "total": 33},
+  "independent_rederivation": {
+    "catalog": {
+      "strict_train_households": 1219,
+      "train_six_plus_templates": 8,
+      "train_private_person_donors": 2244,
+      "equivalence_classes": 249,
+      "person_donor_support_cells": 22
+    },
+    "S": {
+      "P_TRS_V1_FINAL": {"households": 5309, "persons": 10000, "resources": 62745, "target_fit_l1": 3968, "target_fit_max_abs": 29},
+      "P_CONSTR_RMIN_V2_HD_U": {"households": 5485, "persons": 10000, "resources": 64313, "target_fit_l1": 350, "target_fit_max_abs": 4},
+      "P_CONSTR_RMIN_V2_HD_W": {"households": 5485, "persons": 10000, "resources": 64173, "target_fit_l1": 350, "target_fit_max_abs": 4}
+    },
+    "common_six_plus_blueprint": {"equal_across_variants": true, "households_per_variant": 80, "persons_per_variant": 685},
+    "M_plan": {"target_households": 54026, "generated_households": 54026, "target_persons": 93127, "generated_persons": 93127, "l1_person_cell_error": 3172, "max_abs_person_cell_error": 40, "positive_equivalence_classes": 241, "plan_rows": 2740},
+    "structural_checks": {"member_counts_exact": true, "household_ids_unique": true, "person_ids_unique": true, "resource_relation_ids_unique": true, "person_fk_valid": true, "resource_household_fk_valid": true, "donor_split_train_only": true, "six_plus_target_exact": true}
+  },
+  "boundaries": {
+    "calibration_read": false,
+    "mid_test_read_by_impl03": false,
+    "mid_test_global_state": "CONSUMED_BY_G2_DO_NOT_REOPEN",
+    "holdout_1000A_1035_read": false,
+    "candidate_selection": false,
+    "g1_threshold_tuning": false,
+    "spatial_plr_allocation": false,
+    "f3_modified": false,
+    "G1": "OPEN",
+    "G2": "PASS_CLOSED_DO_NOT_REOPEN"
+  },
+  "audit_note": "The common 6+ blueprint was independently compared after CSV reload using normalized structural fields. Equality is exact across variants. The RunBundle in-memory signature is not treated as a CSV round-trip serialization contract."
+}
