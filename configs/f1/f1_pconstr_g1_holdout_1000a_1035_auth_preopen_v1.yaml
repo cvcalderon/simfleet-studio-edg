@@ -1,0 +1,81 @@
+schema_version: simfleet-edg-f1-pconstr-g1-holdout-1000a-1035-auth-preopen-v1
+phase_id: F1-P-CONSTR-G1-HOLDOUT-1000A-1035-AUTH-PREOPEN
+status: PREOPEN_FROZEN_PENDING_COMMIT
+required_parent_commit: f6b53d605f4e2ae73a1ad873838eb8cd8d8aca64
+branch: main
+
+holdout:
+  id: G1_FEATURE_HOLDOUT_SENIOR_STATUS_V1
+  source_table: 1000A-1035
+  title: "Personen: Seniorenstatus eines privaten Haushalts (ausführlich)"
+  geography: "Berlin Bezirke"
+  statistical_domain: PERSON_DOMAIN_PRIVATE_HOUSEHOLD
+  reference_date: '2022-05-15'
+  senior_definition: age_years >= 65
+  value_io_before_positive_authorization: FORBIDDEN
+  acquired_now: false
+  values_read_now: false
+  authorized_now: false
+
+frozen_lineage:
+  selected_candidate: P_CONSTR_RMIN_V2_HD_U
+  candidate_status: FROZEN
+  metric_preopen_commit: faa8a024498f672f1b4e34dbd54219afef020a1a
+  metric_module: src/simfleet_edg/population/senior_holdout_metrics.py
+  mreal_freeze_commit: 2b72fce94deae889e85953bdc8c142e91ae6b4a9
+  mreal_status: RESOLVED_FROZEN
+  mreal_runbundle_sha256: 00b440d58b2c4f7f5484e8260a43f1fb9f2ce69c0b5d5c23a6272aa3b2afa505
+  threshold_freeze_commit: f6b53d605f4e2ae73a1ad873838eb8cd8d8aca64
+  threshold_status: RESOLVED_FROZEN
+  threshold_rule: MAX_FROZEN_CAL_TVD_MATERIALITY_TAU_V1
+  threshold_value: '0.0815667541845037'
+  candidate_master_seed: 20261005
+  h6_master_seed: 20261004
+  holdout_metric_randomness: NONE
+
+metrics:
+  G1-HOLD-SEN-BERLIN-TVD:
+    role: DECISION
+    comparison: LESS_THAN_OR_EQUAL
+    threshold: '0.0815667541845037'
+  G1-HOLD-SEN-BEZ-WTVD:
+    role: DECISION
+    comparison: LESS_THAN_OR_EQUAL
+    threshold: '0.0815667541845037'
+  G1-HOLD-SEN-BEZ-MAX:
+    role: REPORT_ONLY
+    comparison: REPORT_ONLY
+    threshold: REPORT_ONLY
+  pass_requires_all_decision_metrics: true
+  no_composite_score: true
+
+positive_authorization_contract:
+  authorization_artifact: EXTERNAL_A1_JSON_AFTER_THIS_PREOPEN_IS_COMMITTED_AND_SYNCHRONIZED
+  must_bind_exact_authoritative_commit: true
+  must_require_branch_main: true
+  must_require_head_origin_equal: true
+  must_require_clean_worktree: true
+  may_authorize_holdout_value_io: true
+  may_authorize_frozen_metric_evaluation: true
+  candidate_selection_during_holdout: NONE
+  threshold_tuning_after_holdout: FORBIDDEN
+  same_lineage_code_tuning_after_holdout: FORBIDDEN
+  failure_requires_new_experimental_lineage: true
+
+boundaries:
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+  HOLD_MREAL_001: RESOLVED_FROZEN
+  HOLD_THRESH_001: RESOLVED_FROZEN
+  CAL: CLOSED_DO_NOT_REOPEN
+  MiD_TEST: CONSUMED_BY_G2_DO_NOT_REOPEN
+  spatial_plr_allocation: false
+  f3_modified: false
+  holdout_1000A_1035_acquired: false
+  holdout_1000A_1035_values_read: false
+  holdout_1000A_1035_authorized: false
+  holdout_metric_evaluation: false
+
+status_after_commit: HOLDOUT_AUTH_PREOPEN_FROZEN_PENDING_EXTERNAL_A1
+next_step_if_committed_and_synchronized: ISSUE_EXTERNAL_COMMIT_BOUND_HOLDOUT_AUTHORIZATION_A1
+next_step_guardrail: NO_1000A_1035_VALUE_IO_UNTIL_EXTERNAL_A1_VALIDATES

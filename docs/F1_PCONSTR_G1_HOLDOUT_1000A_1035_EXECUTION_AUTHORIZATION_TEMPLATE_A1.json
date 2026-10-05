@@ -1,0 +1,34 @@
+{
+  "schema_version": "simfleet-edg-f1-pconstr-g1-holdout-1000a-1035-execution-authorization-a1-v1",
+  "authorization_id": "F1_PCONSTR_G1_HOLDOUT_1000A_1035_EXEC_AUTH_A1",
+  "status": "TEMPLATE_NEGATIVE_NOT_AUTHORIZED",
+  "authorized": false,
+  "required_authoritative_commit": "__AUTH_PREOPEN_COMMIT__",
+  "required_branch": "main",
+  "required_head_origin_equal": true,
+  "required_clean_worktree": true,
+  "holdout_id": "G1_FEATURE_HOLDOUT_SENIOR_STATUS_V1",
+  "source_table": "1000A-1035",
+  "selected_candidate": "P_CONSTR_RMIN_V2_HD_U",
+  "scale_id": "M",
+  "candidate_master_seed": 20261005,
+  "h6_master_seed": 20261004,
+  "threshold_rule": "MAX_FROZEN_CAL_TVD_MATERIALITY_TAU_V1",
+  "threshold_value": "0.0815667541845037",
+  "authorized_actions": {
+    "acquire_1000A_1035": false,
+    "read_1000A_1035_values": false,
+    "evaluate_frozen_senior_metrics": false
+  },
+  "forbidden_actions": {
+    "candidate_selection": true,
+    "threshold_tuning": true,
+    "same_lineage_code_tuning_after_value_read": true,
+    "cal_reopen": true,
+    "mid_test_reopen": true,
+    "spatial_plr_allocation": true,
+    "f3_modification": true
+  },
+  "failure_policy": "NEW_EXPERIMENTAL_LINEAGE_REQUIRED",
+  "note": "This repository artifact is a negative template only. It MUST NOT authorize source value I/O. A positive A1 must be external and bound to the exact synchronized AUTH-PREOPEN commit."
+}
