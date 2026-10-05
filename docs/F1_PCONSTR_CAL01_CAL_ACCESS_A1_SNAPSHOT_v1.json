@@ -1,0 +1,12 @@
+{
+  "holdout_1000A_1035_read": false,
+  "household_reference_sha256": "9af624e4e08c499b137c11ff7e944bbdba4f4cd67b4b8d3428c17873a5b78c69",
+  "non_cal_payload_policy": "ROUTING_IDENTIFIER_ONLY_NONCAL_PAYLOAD_NOT_PARSED_OR_MATERIALIZED",
+  "person_reference_sha256": "117e85538dbc596d0d7df459075b1cbe5ac2b9681395d49cf3ae5929e54a02c8",
+  "private_cal_household_ids_sha256": "8868651a52aa68fc56770b9caf2ba3f49628f7809a5a364a1c546d6c580ac566",
+  "private_cal_households_materialized": 267,
+  "private_cal_person_rows_materialized": 470,
+  "split_cal_households_all": 268,
+  "split_cal_households_strict": 263,
+  "test_rows_materialized": 0
+}

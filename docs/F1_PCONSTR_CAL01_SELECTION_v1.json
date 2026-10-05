@@ -1,0 +1,35 @@
+{
+  "candidate_selection_at_cal_entry": "NONE",
+  "holdout_1000A_1035_read": false,
+  "impl03_runbundle_sha256": "78c2a939cd7de08b048aed0cbd2a21abed73c87b68ce71860af1bbe321dd42a6",
+  "mid_test_reopened": false,
+  "phase_id": "F1-P_CONSTR-CAL-01",
+  "runner_commit": "c8c4e1b3e479bff3ec9351998d2d880c3ec00c50",
+  "schema_version": "simfleet-edg-f1-pconstr-cal01-selection-freeze-v1",
+  "selected_candidate": "P_CONSTR_RMIN_V2_HD_U",
+  "source_cal_runbundle_sha256": "672ef2032ff80080e8b03a59b11f34505556b76a53177bdbe28ed508fe61b839",
+  "stage_1": {
+    "challenger": "P_CONSTR_RMIN_V2_HD_W",
+    "decision": "RETAIN_INCUMBENT_HD_U",
+    "incumbent": "P_CONSTR_RMIN_V2_HD_U",
+    "reason": "HD_W has no preservation-family improvement greater than the frozen family tau; exact/inconclusive ties retain HD_U."
+  },
+  "stage_2": {
+    "baseline": "P_TRS_V1_FINAL",
+    "constrained_candidate": "P_CONSTR_RMIN_V2_HD_U",
+    "decision": "SELECT_CONSTRAINED_HD_U",
+    "engineering_gate": "PRE_CLEARED_BY_IMPL03_A1",
+    "fit_l1": {
+      "baseline": 3968,
+      "candidate": 350,
+      "pass": true
+    },
+    "fit_max_abs": {
+      "baseline": 29,
+      "candidate": 4,
+      "pass": true
+    },
+    "preservation_non_degradation": "PASS_ALL_FAMILIES"
+  },
+  "status": "FROZEN_BY_MAIN"
+}

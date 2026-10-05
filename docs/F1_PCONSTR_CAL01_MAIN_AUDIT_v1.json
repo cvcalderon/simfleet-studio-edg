@@ -1,0 +1,123 @@
+{
+  "audit_id": "F1_PCONSTR_CAL01_A1_MAIN_AUDIT_V1",
+  "boundaries_after_freeze": {
+    "G1": "OPEN",
+    "G2": "PASS_CLOSED_DO_NOT_REOPEN",
+    "cal_role": "CONSUMED_FOR_SELECTION_AND_THRESHOLD_FREEZE_NOT_INDEPENDENT_VALIDATION",
+    "candidate_selection": "P_CONSTR_RMIN_V2_HD_U",
+    "f3_modified": false,
+    "g1_thresholds_v1": "FROZEN",
+    "holdout_1000A_1035_read": false,
+    "mid_test_global_state": "CONSUMED_BY_G2_DO_NOT_REOPEN",
+    "spatial_plr_allocation": false
+  },
+  "cal_reference": {
+    "interpretation": "The 263 strict households are the R_min fit-eligible CAL subset; the frozen runner PREOPEN explicitly selected PRIVATE_HOUSEHOLDS as the preservation reference, yielding 267 private CAL households. This was frozen before CAL execution.",
+    "private_cal_households_materialized": 267,
+    "private_cal_person_rows_materialized": 470,
+    "split_cal_households_all": 268,
+    "split_cal_households_strict": 263,
+    "test_rows_materialized": 0
+  },
+  "cal_runbundle_zip_sha256": "672ef2032ff80080e8b03a59b11f34505556b76a53177bdbe28ed508fe61b839",
+  "decision": "ACCEPT_FOR_MAIN_FREEZE",
+  "impl03_runbundle_sha256": "78c2a939cd7de08b048aed0cbd2a21abed73c87b68ce71860af1bbe321dd42a6",
+  "independent_selection_rederivation": {
+    "family_comparisons": [
+      {
+        "HD_U": "0.1668217357345501",
+        "HD_U_degradation_vs_PTRS": "-0.0052131875838446",
+        "HD_U_material_degradation_vs_PTRS": false,
+        "HD_W": "0.1651191736125055",
+        "HD_W_degradation_vs_HD_U": "-0.0017025621220446",
+        "HD_W_improvement_vs_HD_U": "0.0017025621220446",
+        "HD_W_material_degradation": false,
+        "HD_W_material_improvement": false,
+        "P_TRS": "0.1720349233183947",
+        "family_id": "ACTIVITY_BY_AGE",
+        "tau": "0.07293353416541049"
+      },
+      {
+        "HD_U": "0.07412459278204533",
+        "HD_U_degradation_vs_PTRS": "0.00453100729754986",
+        "HD_U_material_degradation_vs_PTRS": false,
+        "HD_W": "0.058760982352112606",
+        "HD_W_degradation_vs_HD_U": "-0.015363610429932724",
+        "HD_W_improvement_vs_HD_U": "0.015363610429932724",
+        "HD_W_material_degradation": false,
+        "HD_W_material_improvement": false,
+        "P_TRS": "0.06959358548449547",
+        "family_id": "LICENSE_BY_AGE_SEX",
+        "tau": "0.0815667541845037"
+      },
+      {
+        "HD_U": "0.045433691933417376",
+        "HD_U_degradation_vs_PTRS": "-0.029615798633986344",
+        "HD_U_material_degradation_vs_PTRS": false,
+        "HD_W": "0.07393575244128217",
+        "HD_W_degradation_vs_HD_U": "0.028502060507864794",
+        "HD_W_improvement_vs_HD_U": "-0.028502060507864794",
+        "HD_W_material_degradation": false,
+        "HD_W_material_improvement": false,
+        "P_TRS": "0.07504949056740372",
+        "family_id": "HH_CAR_STOCK_BY_SIZE",
+        "tau": "0.0660999637102583"
+      },
+      {
+        "HD_U": "0.06819189070658105",
+        "HD_U_degradation_vs_PTRS": "-0.01461093336555055",
+        "HD_U_material_degradation_vs_PTRS": false,
+        "HD_W": "0.08355452687569487",
+        "HD_W_degradation_vs_HD_U": "0.01536263616911382",
+        "HD_W_improvement_vs_HD_U": "-0.01536263616911382",
+        "HD_W_material_degradation": false,
+        "HD_W_material_improvement": false,
+        "P_TRS": "0.0828028240721316",
+        "family_id": "HH_BIKE_EBIKE_STOCK_BY_SIZE",
+        "tau": "0.07409481595332659"
+      }
+    ],
+    "matches_runbundle_proposal": true,
+    "stage_1": {
+      "hd_w_has_material_degradation": false,
+      "hd_w_has_material_improvement": false,
+      "result": "P_CONSTR_RMIN_V2_HD_U"
+    },
+    "stage_2": {
+      "any_material_preservation_degradation": false,
+      "engineering_gate_pass": true,
+      "fit_l1_pass": true,
+      "fit_max_abs_pass": true,
+      "result": "P_CONSTR_RMIN_V2_HD_U"
+    }
+  },
+  "issues_count": 0,
+  "next_step": "SEPARATE_PREOPEN_FOR_1000A_1035_G1_HOLDOUT",
+  "phase": "F1-P_CONSTR-CAL-01",
+  "protocol_authorization_commit": "2313ef1689037bcb45812e896324585d8988b4bf",
+  "run_manifest_status": "PASS",
+  "runner_commit": "c8c4e1b3e479bff3ec9351998d2d880c3ec00c50",
+  "status": "PASS",
+  "thresholds_v1": [
+    {
+      "baseline_error_cal_ptrs": "0.1720349233183947",
+      "family_id": "ACTIVITY_BY_AGE",
+      "tau": "0.07293353416541049"
+    },
+    {
+      "baseline_error_cal_ptrs": "0.06959358548449547",
+      "family_id": "LICENSE_BY_AGE_SEX",
+      "tau": "0.0815667541845037"
+    },
+    {
+      "baseline_error_cal_ptrs": "0.07504949056740372",
+      "family_id": "HH_CAR_STOCK_BY_SIZE",
+      "tau": "0.0660999637102583"
+    },
+    {
+      "baseline_error_cal_ptrs": "0.0828028240721316",
+      "family_id": "HH_BIKE_EBIKE_STOCK_BY_SIZE",
+      "tau": "0.07409481595332659"
+    }
+  ]
+}

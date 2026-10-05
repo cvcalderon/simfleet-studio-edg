@@ -1,0 +1,47 @@
+closure_freeze_id: F1_PCONSTR_CAL01_A1_MAIN_FREEZE_V1
+phase: F1-P_CONSTR-CAL-01
+required_parent_commit: c8c4e1b3e479bff3ec9351998d2d880c3ec00c50
+status_after_commit: CAL01_A1_CLOSED_FROZEN
+source_cal_runbundle:
+  expected_external_zip: F1_PCONSTR_CAL01_A1_official_run_v1.zip
+  zip_sha256: 672ef2032ff80080e8b03a59b11f34505556b76a53177bdbe28ed508fe61b839
+  schema_version: simfleet-edg-f1-pconstr-cal01-runbundle-v1
+  runner_commit: c8c4e1b3e479bff3ec9351998d2d880c3ec00c50
+  status: PASS
+  issues: 0
+cal_reference:
+  universe: PRIVATE_HOUSEHOLDS
+  split_cal_households_all: 268
+  split_cal_households_strict: 263
+  private_cal_households_materialized: 267
+  private_cal_person_rows_materialized: 470
+  test_rows_materialized: 0
+selection_freeze:
+  selected_candidate: P_CONSTR_RMIN_V2_HD_U
+  selection_rule: FROZEN_TWO_STAGE_NO_COMPOSITE_V1
+  stage_1_result: P_CONSTR_RMIN_V2_HD_U
+  stage_2_result: P_CONSTR_RMIN_V2_HD_U
+g1_thresholds_v1:
+  ACTIVITY_BY_AGE: '0.07293353416541049'
+  LICENSE_BY_AGE_SEX: '0.0815667541845037'
+  HH_CAR_STOCK_BY_SIZE: '0.0660999637102583'
+  HH_BIKE_EBIKE_STOCK_BY_SIZE: '0.07409481595332659'
+threshold_derivation:
+  bootstrap_replicates: 1000
+  quantile: 0.95
+  quantile_method: higher
+  master_seed: 20261005
+  substream: F1_PCONSTR_CAL_MATERIALITY_V1
+boundaries:
+  cal_consumed_for_selection: true
+  cal_reuse_as_independent_validation: false
+  mid_test_read: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  holdout_1000A_1035_read: false
+  holdout_1000A_1035_authorized: false
+  spatial_plr_allocation: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+next_step_if_committed: F1-P_CONSTR-G1-HOLDOUT-1000A-1035-PREOPEN
+next_step_guardrail: 1000A-1035_REMAINS_UNREAD_UNTIL_SEPARATE_AUTHORIZATION
