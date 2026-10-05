@@ -1,0 +1,11 @@
+configs/f1/f1_pconstr_cal01_preopen_v1.yaml
+docs/F1_PCONSTR_CAL01_AUTHORIZATION_TEMPLATE_v1.json
+docs/F1_PCONSTR_CAL01_EVALUATION_CONTRACT_v1.md
+docs/F1_PCONSTR_CAL01_OVERLAY_CHECKSUMS_v1.sha256
+docs/F1_PCONSTR_CAL01_OVERLAY_FILELIST_v1.txt
+docs/F1_PCONSTR_CAL01_PREOPEN_v1.md
+docs/F1_PCONSTR_CAL01_THRESHOLD_RULE_v1.md
+scripts/verify_f1_pconstr_cal01_preopen.py
+src/simfleet_edg/population/calibration_evaluation.py
+tests/test_f1_pconstr_cal01_config.py
+tests/test_f1_pconstr_calibration_evaluation.py

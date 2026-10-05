@@ -1,0 +1,22 @@
+{
+  "schema_version": "simfleet-edg-f1-pconstr-cal01-authorization-v1",
+  "phase_id": "F1-P_CONSTR-CAL-01",
+  "authorized": false,
+  "authorization_status": "TEMPLATE_ONLY_NOT_AUTHORIZED",
+  "required_precal_commit": null,
+  "allowed_partition": "CALIBRATION_ONLY",
+  "allowed_inputs": [
+    "MiD2017_Haushalte.csv rows whose frozen SplitManifest split == CALIBRATION",
+    "MiD2017_Personen.csv rows whose frozen SplitManifest household split == CALIBRATION",
+    "frozen IMPL-03 A1 S candidate tables"
+  ],
+  "forbidden_inputs": [
+    "MiD TEST rows",
+    "1000A-1035",
+    "PLR target allocation inputs",
+    "mobility outcomes",
+    "F3 held-out TEST artifacts"
+  ],
+  "selection_before_authorized_run": "NONE",
+  "g1_thresholds_before_authorized_run": "NOT_FROZEN"
+}

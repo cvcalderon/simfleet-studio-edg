@@ -1,0 +1,115 @@
+schema_version: simfleet-edg-f1-pconstr-cal01-preopen-v1
+phase_id: F1-P_CONSTR-CAL-01
+status: PREOPEN_PROTOCOL_ONLY
+required_parent_commit: 45c6f10f4168e26fd6929b245adf505a3b2f1584
+
+purpose: >-
+  Freeze F1 population CAL evaluation metrics, empirical materiality-threshold
+  derivation, and candidate-selection logic before any CAL raw-row read.
+
+candidate_universe:
+  baseline: P_TRS_V1_FINAL
+  constrained_incumbent: P_CONSTR_RMIN_V2_HD_U
+  constrained_challenger: P_CONSTR_RMIN_V2_HD_W
+  source_runbundle_sha256: 78c2a939cd7de08b048aed0cbd2a21abed73c87b68ce71860af1bbe321dd42a6
+  implementation_commit: 9feb3471b8c1581b18571cbdc0b9e27001e3f632
+  freeze_commit_parent: 45c6f10f4168e26fd6929b245adf505a3b2f1584
+
+cal_boundary:
+  calibration_rows_read: 0
+  calibration_authorized: false
+  candidate_selection: NONE
+  g1_thresholds_v1: NOT_FROZEN
+  mid_test_read: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  holdout_1000A_1035_read: false
+  spatial_plr_allocation: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+
+reference_semantics:
+  empirical_reference_partition: CALIBRATION
+  empirical_person_weight: P_GEW
+  empirical_household_weight: H_GEW
+  synthetic_person_weight: UNIT_COUNT_DO_NOT_REWEIGHT_BY_SOURCE_PERSON_WEIGHT
+  synthetic_household_weight: UNIT_COUNT_DO_NOT_REWEIGHT_BY_SOURCE_HOUSEHOLD_WEIGHT
+  resampling_unit: WHOLE_HOUSEHOLD
+  low_n_unweighted_reference_threshold: 30
+  low_n_role: REPORT_ONLY_EXCLUDED_FROM_FAMILY_DECISION_AGGREGATION
+
+preservation_families:
+  - id: ACTIVITY_BY_AGE
+    conditioning: [age_infr_class]
+    outcome: primary_activity_status
+    empirical_filter: observed activity only
+    synthetic_filter: activity_observation_status == OBSERVED
+    distance: conditional_TVD
+    aggregation: CAL_eligible_weight_share_weighted_mean_over_decision_cells
+  - id: LICENSE_BY_AGE_SEX
+    conditioning: [age_infr_class, sex]
+    outcome: car_driver_license
+    empirical_filter: observed YES/NO licence only
+    synthetic_filter: license_observation_status == OBSERVED
+    distance: conditional_TVD
+    aggregation: CAL_eligible_weight_share_weighted_mean_over_decision_cells
+  - id: HH_CAR_STOCK_BY_SIZE
+    conditioning: [household_size_class]
+    outcome: household_car_stock_category
+    categories: [ZERO, ONE, TWO, THREE_PLUS]
+    empirical_filter: observed household stock only
+    synthetic_filter: household CAR stock observation_status == OBSERVED
+    distance: conditional_TVD
+    aggregation: CAL_eligible_weight_share_weighted_mean_over_decision_cells
+  - id: HH_BIKE_EBIKE_STOCK_BY_SIZE
+    conditioning: [household_size_class]
+    submetrics: [BIKE, EBIKE]
+    outcome: household_stock_category
+    categories: [ZERO, ONE, TWO_TO_NINE, TEN_PLUS]
+    empirical_filter: observed household stock only
+    synthetic_filter: household stock observation_status == OBSERVED
+    distance: conditional_TVD
+    submetric_aggregation: CAL_eligible_weight_share_weighted_mean_over_decision_cells
+    family_aggregation: max(BIKE_error, EBIKE_error)
+
+threshold_derivation:
+  id: PTRS_CAL_HOUSEHOLD_BOOTSTRAP_ABS_DEVIATION_Q95_V1
+  bootstrap_replicates: 1000
+  confidence_quantile: 0.95
+  quantile_method: higher
+  master_seed: 20261005
+  substream_key: F1_PCONSTR_CAL_MATERIALITY_V1
+  algorithm: >-
+    For each preservation family j, compute E0_j = D(P_TRS, CAL). Resample
+    CAL households with replacement atomically 1000 times, preserving all persons
+    belonging to each sampled household and original survey weights. Recompute
+    E0_j^b. Freeze tau_j = Q95(|E0_j^b - E0_j|). tau_j is the numerical
+    materiality tolerance stored later in g1_thresholds_v1.
+  no_post_cal_rule_change: true
+
+selection_rule:
+  no_composite_score: true
+  stage_1_hd_u_vs_hd_w:
+    incumbent: P_CONSTR_RMIN_V2_HD_U
+    challenger: P_CONSTR_RMIN_V2_HD_W
+    challenger_material_improvement: exists family j with E_U_j - E_W_j > tau_j
+    challenger_non_degradation: for every family j, E_W_j - E_U_j <= tau_j
+    decision: promote HD_W only if both conditions hold; otherwise retain HD_U
+    exact_or_inconclusive_tie: retain HD_U
+  stage_2_constrained_vs_ptrs:
+    baseline: P_TRS_V1_FINAL
+    fit_dominance:
+      - constrained target_fit_l1 < P_TRS target_fit_l1
+      - constrained target_fit_max_abs <= P_TRS target_fit_max_abs
+    preservation_non_degradation: for every family j, E_C_j - E_PTRS_j <= tau_j
+    engineering_gate: >-
+      PRE-CLEARED by accepted IMPL-03 A1 operational execution for current lineage;
+      any later runtime, memory, integrity or reproducibility failure is a HARD failure.
+    decision: select constrained winner only if fit_dominance, preservation_non_degradation and engineering_gate all pass; otherwise retain P_TRS
+  selection_state_after_cal_run: PROPOSED_BY_FROZEN_CAL_RULES_AWAITING_MAIN_FREEZE
+
+post_cal_boundary:
+  main_must_freeze_before_holdout: [selected_candidate, g1_thresholds_v1, cal_metrics, exact_git_commit, seed_schedule]
+  holdout_1000A_1035_authorization: separate later task only
+  mid_test: DO_NOT_READ_OR_RERUN
+  f3: DO_NOT_MODIFY
