@@ -1,0 +1,55 @@
+schema_version: simfleet-edg-f1-pconstr-cal01-precal-entry-gate-v1
+phase_id: F1-P_CONSTR-CAL-01
+subphase_id: PRECAL_ENTRY_GATE
+status: PREOPEN_GATE_ONLY
+required_parent_commit: cf4eff1544d2c3fc16d5d0039d6d2f2136a264a4
+
+purpose: >-
+  Verify that the frozen CAL-01 evaluator, threshold rule, candidate universe,
+  repository lineage and data-access boundaries are intact immediately before
+  a separate commit-bound CAL authorization is created.
+
+controlled_lineage_boundary:
+  calibration_authorized: false
+  calibration_rows_read: 0
+  candidate_selection: NONE
+  g1_thresholds_v1: NOT_FROZEN
+  mid_test_read: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  holdout_1000A_1035_read: false
+  spatial_plr_allocation: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+
+candidate_universe:
+  - P_TRS_V1_FINAL
+  - P_CONSTR_RMIN_V2_HD_U
+  - P_CONSTR_RMIN_V2_HD_W
+
+frozen_precal_assets:
+  configs/f1/f1_pconstr_cal01_preopen_v1.yaml: 7783fd713d584d8b51a2d5cfe46492e403eea0d29d50020081eb0e5320f96cb7
+  docs/F1_PCONSTR_CAL01_AUTHORIZATION_TEMPLATE_v1.json: d75c24b18884408fe71c6296a16718872c3f7e8d77c914f0e6cff7be9913ff07
+  docs/F1_PCONSTR_CAL01_EVALUATION_CONTRACT_v1.md: d8c9a32cd1ee5bf0af47a7a9566a45c371ae9b999bf669f90b1e0554510a1f1c
+  docs/F1_PCONSTR_CAL01_THRESHOLD_RULE_v1.md: 06fc136e6adb9880a74aa0fe618264fa2f77cddecdeda8de02ad7ef6168f4378
+  src/simfleet_edg/population/calibration_evaluation.py: 11389f780efaf2755cb2b4da06feb6a57b0c35a03d24e001e0deef59b2e58ef2
+
+threshold_protocol:
+  bootstrap_replicates: 1000
+  confidence_quantile: 0.95
+  quantile_method: higher
+  master_seed: 20261005
+  substream_key: F1_PCONSTR_CAL_MATERIALITY_V1
+
+entry_gate_policy:
+  authorization_binding_state: UNBOUND_PENDING_ENTRY_GATE_COMMIT
+  next_authorization_must_bind_to_entry_gate_commit: true
+  cal_reader_allowed_in_this_subphase: false
+  numeric_thresholds_allowed_in_this_subphase: false
+  candidate_selection_allowed_in_this_subphase: false
+  next_step_if_gate_passes: COMMIT_AND_PUSH_ENTRY_GATE_THEN_BUILD_COMMIT_BOUND_AUTHORIZATION
+
+traceability_caveat: >-
+  This gate provides repository-lineage evidence that CAL access has not been
+  authorized or implemented in the controlled workflow. It cannot prove that
+  no human manually inspected CAL data outside the controlled repository flow.
