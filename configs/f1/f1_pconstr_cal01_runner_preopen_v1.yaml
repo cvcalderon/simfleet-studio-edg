@@ -1,0 +1,156 @@
+schema_version: simfleet-edg-f1-pconstr-cal01-runner-preopen-v1
+phase_id: F1-P_CONSTR-CAL-01
+subphase_id: CAL_RUNNER_PREOPEN
+status: RUNNER_IMPLEMENTED_NOT_EXECUTED
+required_parent_commit: 2313ef1689037bcb45812e896324585d8988b4bf
+
+protocol_authorization:
+  tracked_artifact: docs/F1_PCONSTR_CAL01_AUTHORIZATION_v1.json
+  protocol_authorization_commit: 2313ef1689037bcb45812e896324585d8988b4bf
+  authorized: true
+  allowed_partition: CALIBRATION_ONLY
+  status: AUTHORIZED_PENDING_RUNNER
+
+execution_authorization:
+  positive_file_must_be_external: true
+  positive_file_tracked_in_repo: false
+  authorized_runner_commit: EXACT_CURRENT_HEAD_AFTER_RUNNER_COMMIT
+  must_match_branch_main: true
+  head_must_equal_origin_main: true
+  repository_must_be_clean: true
+  must_precede_cal_payload_parse: true
+  must_precede_output_staging_creation: true
+  template: docs/F1_PCONSTR_CAL01_EXECUTION_AUTHORIZATION_TEMPLATE_v1.json
+
+sources:
+  split_manifest:
+    path: artifacts/runs/R2_eligibility_split_v1/split_manifest_reproduced.csv
+    sha256: 5d0d4f2a41bc93b131de96d85192d8ff7002878e28e87515a0f88cedf1cebde8
+  mid_households:
+    path: data/raw/mid/MiD2017_Haushalte.csv
+    provenance_sha256: 0d7a20b5f29839a29ce0b41ffaecaca15da844ff85e15d1acc6fe786c9bde4f5
+    expected_file_size_bytes: 43082455
+  mid_persons:
+    path: data/raw/mid/MiD2017_Personen.csv
+    provenance_sha256: 71eebaf30d163ca7b406a2501ff4e96c840c53b44f2d731ffc0019e9f06e414e
+    expected_file_size_bytes: 194003870
+  activity_recoding:
+    path: configs/reproduction/reference/f0_2d_activity_recoding_v1.csv
+    sha256: 85e17e7c718133b616cd8c872f905dbd95d2369ff1ba423037087a894623e86a
+
+cal_reference:
+  split: CALIBRATION
+  universe: PRIVATE_HOUSEHOLDS
+  expected_split_households_all: 268
+  expected_strict_households: 263
+  expected_private_households: 267
+  household_atomic: true
+  person_weight: P_GEW
+  household_weight: H_GEW
+  non_cal_payload_policy: ROUTING_IDENTIFIER_ONLY_NONCAL_PAYLOAD_NOT_PARSED_OR_MATERIALIZED
+  note: >-
+    MiD source files physically combine TRAIN/CAL/TEST. The selective reader scans lines to
+    inspect only the routing household identifier and fully parses/materializes a row only
+    when its household is in the authorized private CAL set. No TEST row is materialized.
+
+candidate_runbundle:
+  external_zip_required: true
+  sha256: 78c2a939cd7de08b048aed0cbd2a21abed73c87b68ce71860af1bbe321dd42a6
+  run_id: F1_PCONSTR_IMPL03_A1_official_run_v1
+  candidate_selection_at_entry: NONE
+  variants:
+    P_TRS_V1_FINAL:
+      fit_l1: 3968
+      fit_max_abs: 29
+      households:
+        rows: 5309
+        sha256: 9730a51b2cf253e6a6e669d7d34c3c4c737eeb924d14c96e3b360932fa32bf2d
+      persons:
+        rows: 10000
+        sha256: f79f588ef6125b59a827f670140136d39188720920c224bca358977cd12f7744
+      resources:
+        rows: 62745
+        sha256: db9793500557eb5e15bd3875a985a5e196cd4d1628386a041f1f788a7100031d
+    P_CONSTR_RMIN_V2_HD_U:
+      fit_l1: 350
+      fit_max_abs: 4
+      households:
+        rows: 5485
+        sha256: 5432597820d869006e7c8cb9c991718c65560003e1f38c031b39f92819310893
+      persons:
+        rows: 10000
+        sha256: f84a326b3d626659ba1f5345fdebb7cf10ccba2315478fbe0ab645dcdb15d90e
+      resources:
+        rows: 64313
+        sha256: af5b43e52e37bb4ff3b7ea744aa53803f708585b406d273addef94b61d6ab16c
+    P_CONSTR_RMIN_V2_HD_W:
+      fit_l1: 350
+      fit_max_abs: 4
+      households:
+        rows: 5485
+        sha256: 1792bc51363920af8c23c438c3d66644515062f191e7e4d5adfba0b304394c87
+      persons:
+        rows: 10000
+        sha256: 4517d80f6eb6155d18fd80030a424f1e3e4a7c23e041800e68129d3e958e3e7a
+      resources:
+        rows: 64173
+        sha256: 13dd632a9abced43b4da1ee65fc42d2c1d160cb91000f44dc987e31af9ad782b
+
+evaluation:
+  primitive: src/simfleet_edg/population/calibration_evaluation.py
+  low_n_unweighted_reference_threshold: 30
+  synthetic_weights: UNIT_COUNT
+  families:
+    - ACTIVITY_BY_AGE
+    - LICENSE_BY_AGE_SEX
+    - HH_CAR_STOCK_BY_SIZE
+    - HH_BIKE_EBIKE_STOCK_BY_SIZE
+  bootstrap_replicates: 1000
+  bootstrap_quantile: 0.95
+  bootstrap_quantile_method: higher
+  bootstrap_master_seed: 20261005
+  bootstrap_substream: F1_PCONSTR_CAL_MATERIALITY_V1
+  no_composite_score: true
+
+selection:
+  stage_1: FROZEN_HD_U_VS_HD_W_RULE
+  stage_2: FROZEN_CONSTRAINED_VS_PTRS_RULE
+  engineering_gate_precleared: true
+  result_role: PROPOSAL_AWAITING_MAIN_FREEZE
+  g1_thresholds_role: PROPOSED_AWAITING_MAIN_FREEZE
+
+runbundle:
+  output_must_be_outside_repository: true
+  staging_suffix: .partial
+  preserve_partial_after_authorized_failure: true
+  raw_cal_rows_copied_to_runbundle: false
+  required_files:
+    - run_manifest.json
+    - authorization_snapshot.json
+    - config_snapshot.yaml
+    - cal_access_manifest.json
+    - input_validation.csv
+    - family_metrics.csv
+    - family_submetrics.csv
+    - thresholds_proposed.csv
+    - selection_proposal.json
+    - validation.csv
+    - issues.csv
+    - environment.json
+    - checksums.sha256
+
+preopen_boundaries:
+  calibration_authorized_protocol: true
+  positive_execution_authorization_issued: false
+  cal_rows_materialized_by_runner: 0
+  runner_executed: false
+  candidate_selection: NONE
+  g1_thresholds_v1: NOT_FROZEN
+  mid_test_read: false
+  holdout_1000A_1035_read: false
+  spatial_plr_allocation: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+
+next_step_if_pass: COMMIT_AND_PUSH_RUNNER_THEN_ISSUE_EXTERNAL_COMMIT_BOUND_EXECUTION_AUTHORIZATION_A1

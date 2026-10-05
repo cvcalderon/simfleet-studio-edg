@@ -1,0 +1,18 @@
+{
+  "schema_version": "simfleet-edg-f1-pconstr-cal01-execution-authorization-v1",
+  "phase_id": "F1-P_CONSTR-CAL-01",
+  "authorized": false,
+  "authorization_status": "TEMPLATE_ONLY_NOT_AUTHORIZED",
+  "protocol_authorization_commit": "2313ef1689037bcb45812e896324585d8988b4bf",
+  "authorized_runner_commit": "REQUIRED_EXACT_RUNNER_COMMIT_AFTER_PREOPEN_COMMIT",
+  "allowed_partition": "CALIBRATION_ONLY",
+  "cal_open_authorized": false,
+  "impl03_runbundle_sha256": "78c2a939cd7de08b048aed0cbd2a21abed73c87b68ce71860af1bbe321dd42a6",
+  "candidate_selection_at_entry": "NONE",
+  "g1_thresholds_before_run": "NOT_FROZEN",
+  "mid_test_open_authorized": false,
+  "holdout_1000A_1035_open_authorized": false,
+  "plr_allocation_authorized": false,
+  "f3_modification_authorized": false,
+  "note": "Copy outside the repository only after the runner commit is frozen and synchronized; set the exact runner commit and explicit positive booleans under MAIN control."
+}
