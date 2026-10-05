@@ -1,0 +1,71 @@
+schema_version: simfleet-edg-f1-pconstr-g1-hold-thresh01-preopen-v1
+phase_id: F1-P_CONSTR-G1-HOLD-THRESH-001-PREOPEN
+required_parent_commit: 2b72fce94deae889e85953bdc8c142e91ae6b4a9
+status_after_commit: HOLD_THRESH_001_RESOLVED_FROZEN
+
+scientific_role:
+  purpose: Freeze numeric decision thresholds for the senior-status external feature holdout before any 1000A-1035 value I/O.
+  source_partition_policy: FROZEN_TRAIN_PLUS_CAL_EVIDENCE_ONLY
+  cal_reopen_required: false
+  mid_test_reopen_required: false
+  holdout_value_io_required: false
+
+upstream:
+  selected_candidate: P_CONSTR_RMIN_V2_HD_U
+  selected_candidate_status: FROZEN
+  hold_mreal_001: RESOLVED_FROZEN
+  mreal_freeze_commit: 2b72fce94deae889e85953bdc8c142e91ae6b4a9
+  source_threshold_artifact: docs/F1_PCONSTR_G1_THRESHOLDS_v1.csv
+
+frozen_cal_materiality_taus:
+  ACTIVITY_BY_AGE: '0.07293353416541049'
+  LICENSE_BY_AGE_SEX: '0.0815667541845037'
+  HH_CAR_STOCK_BY_SIZE: '0.0660999637102583'
+  HH_BIKE_EBIKE_STOCK_BY_SIZE: '0.07409481595332659'
+
+threshold_transfer_rule:
+  id: MAX_FROZEN_CAL_TVD_MATERIALITY_TAU_V1
+  formula: max(tau_j for the four frozen CAL preservation families)
+  rationale: Conservative transfer of the already-frozen CAL practical-resolution tolerance; avoids choosing a favourable family and requires no CAL or holdout re-access.
+  statistical_interpretation: PRACTICAL_TOLERANCE_NOT_SENIOR_STATUS_CONFIDENCE_INTERVAL
+  numeric_value: '0.0815667541845037'
+
+holdout_decision_thresholds:
+  G1-HOLD-SEN-BERLIN-TVD:
+    role: DECISION
+    threshold: '0.0815667541845037'
+    comparison: LESS_THAN_OR_EQUAL
+  G1-HOLD-SEN-BEZ-WTVD:
+    role: DECISION
+    threshold: '0.0815667541845037'
+    comparison: LESS_THAN_OR_EQUAL
+  G1-HOLD-SEN-BEZ-MAX:
+    role: REPORT_ONLY
+    threshold: REPORT_ONLY
+
+decision_rule:
+  no_composite_score: true
+  pass_requires_all_decision_metrics: true
+  rule: G1-HOLD-SEN-BERLIN-TVD <= T AND G1-HOLD-SEN-BEZ-WTVD <= T
+  T: '0.0815667541845037'
+  failure_policy: FAILED_HOLDOUT_REQUIRES_NEW_EXPERIMENTAL_LINEAGE
+  post_holdout_threshold_tuning: FORBIDDEN
+  post_holdout_same_lineage_code_tuning: FORBIDDEN
+
+boundaries:
+  HOLD_MREAL_001: RESOLVED_FROZEN
+  HOLD_THRESH_001: RESOLVED_FROZEN_AFTER_COMMIT
+  holdout_1000A_1035_acquired: false
+  holdout_1000A_1035_values_read: false
+  holdout_1000A_1035_authorized: false
+  holdout_metric_evaluation: false
+  cal_reopened: false
+  mid_test_reopened: false
+  mid_test_global_state: CONSUMED_BY_G2_DO_NOT_REOPEN
+  spatial_plr_allocation: false
+  f3_modified: false
+  G1: OPEN
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+
+next_step_if_committed: F1-P-CONSTR-G1-HOLDOUT-1000A-1035-AUTH-PREOPEN
+next_step_guardrail: 1000A-1035_REMAINS_UNACQUIRED_UNREAD_UNAUTHORIZED_UNTIL_SEPARATE_COMMIT_BOUND_AUTHORIZATION

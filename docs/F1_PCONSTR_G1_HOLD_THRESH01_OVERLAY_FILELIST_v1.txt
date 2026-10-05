@@ -1,0 +1,8 @@
+configs/f1/f1_pconstr_g1_hold_thresh01_preopen_v1.yaml
+docs/F1_PCONSTR_G1_HOLDOUT_THRESHOLDS_v1.csv
+docs/F1_PCONSTR_G1_HOLD_THRESH01_OVERLAY_CHECKSUMS_v1.sha256
+docs/F1_PCONSTR_G1_HOLD_THRESH01_OVERLAY_FILELIST_v1.txt
+docs/F1_PCONSTR_G1_HOLD_THRESH01_PREOPEN_v1.md
+docs/F1_PCONSTR_G1_HOLD_THRESH01_RULE_v1.md
+scripts/verify_f1_pconstr_g1_hold_thresh01_preopen.py
+tests/test_f1_pconstr_g1_hold_thresh01_preopen.py
