@@ -1,0 +1,29 @@
+{
+  "decision": {
+    "candidate_selection_authorized": false,
+    "case_a_home_already_fine": "REJECT",
+    "next_phase": "F4.1b_M2_TO_M3_CANONICAL_ADAPTER_AND_LOR_ENVIRONMENT_GATE",
+    "residential_refinement_required": true,
+    "spatial_supply_contract_required": true
+  },
+  "findings": {
+    "accepted_population": "P_CONSTR_RMIN_V2_HD_U",
+    "accepted_scale": "M",
+    "dgen_runtime_class_contracts_found": 0,
+    "existing_operational_m3_engine": false,
+    "home_zone_count": 12,
+    "home_zone_level": "BEZIRK",
+    "lor_bzr_features": 143,
+    "lor_crs": "EPSG:4326",
+    "lor_geometry_type": "MultiPolygon",
+    "lor_pgr_features": 58,
+    "lor_plr_features": 542,
+    "lor_topology_validation": "NOT_EVALUATED_SHAPELY_MISSING",
+    "mid_exact_od_available": false,
+    "operational_poi_supply_frozen": false,
+    "population_households": 54828,
+    "population_persons": 100000
+  },
+  "phase": "F4.1a",
+  "required_parent_commit": "877e718a8c3fe088158eafa6332bdfb466a81213"
+}

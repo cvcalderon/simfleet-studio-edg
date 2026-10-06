@@ -1,0 +1,95 @@
+schema_version: simfleet-edg-f4-1a-m3-design-freeze-v1
+phase_id: F4.1a
+phase_name: M3_CONTRACT_AND_SPATIAL_SUPPLY_DESIGN_FREEZE
+required_parent_commit: 877e718a8c3fe088158eafa6332bdfb466a81213
+status: PREOPEN_DESIGN_FROZEN_NO_IMPLEMENTATION
+
+upstream:
+  g1: PASS_CLOSED
+  g2: PASS_CLOSED_DO_NOT_REOPEN
+  mid_test: CONSUMED_BY_G2_DO_NOT_REOPEN
+  accepted_population:
+    candidate_id: P_CONSTR_RMIN_V2_HD_U
+    scale_id: M
+    realization_zip_sha256: 00b440d58b2c4f7f5484e8260a43f1fb9f2ce69c0b5d5c23a6272aa3b2afa505
+    persons: 100000
+    households: 54828
+    home_zone_level: BEZIRK
+    home_zone_count: 12
+  dgen_selected_pipeline: [PA1, COUNT_REF, CHA2, TIME_B_TB2, DIST_REF_REFERENCE]
+  dgen_policy: FROZEN_CONSUME_ONLY_NO_REFIT_NO_CAL_NO_TEST
+
+m3_scope:
+  responsibility: assign synthetic physical locations to already-generated activities
+  output_contract: SpatializedDayPlan
+  mode_blind: true
+  route_blind: true
+  execution_blind: true
+
+spatial_evidence:
+  lor_2021:
+    plr: {path: data/raw/lor/lor_2021_a_lor_plr_2021_WGS84.geojson, sha256: a19e3d75adb663225150abd833ffb2ca69cea156ff1356d342c92612e2cb3ff5, crs: EPSG:4326, feature_count: 542, geometry_type: MultiPolygon}
+    bzr: {path: data/raw/lor/lor_2021_b_lor_bzr_2021_WGS84.geojson, sha256: 6048918bfb1d74d546a0a145e996645ea6c0906e8a77718f04fcedb436c030d0, crs: EPSG:4326, feature_count: 143, geometry_type: MultiPolygon}
+    pgr: {path: data/raw/lor/lor_2021_c_lor_pgr_2021_WGS84.geojson, sha256: 8e6fcf3be62fe85fc72c71aa5c884c94b72d91d0674a868cf898c33025eaac52, crs: EPSG:4326, feature_count: 58, geometry_type: MultiPolygon}
+    archive: {path: data/raw/lor/LOR2021-native_projection.zip, sha256: 275bcc93c5c2cfd6cc5980ad6df46730e1be703aaf76d21102a44763a93c8de0, note: archive_name_mentions_native_projection_but_current_members_are_WGS84_geojson}
+    topology_validation: DEFERRED_TO_F4_1B_ENVIRONMENT_GATE
+
+contracts:
+  canonical_objects: [PopulationSnapshotAdapter, PersonDayPlan, TripDemand, LocationRef, ActivityIntent, SpatialTripIntent, SpatializedDayPlan, ResidentialAnchor, LocationSupplyRecord]
+  home:
+    source_resolution: BEZIRK_ONLY
+    interpretation: spatial_context_not_point_location
+    household_stability_required: true
+    finer_realization_required: true
+    exact_mid_home_coordinate_available: false
+  destination:
+    exact_mid_destination_coordinate_available: false
+    actual_realization_source: EXTERNAL_SPATIAL_SUPPLY
+  distance:
+    upstream_artifact: DIST_REF_REFERENCE
+    semantic_role: M2_DISTANCE_PRIOR
+    not_exact_od: true
+    not_route_length: true
+    not_mode_specific: true
+    m3_must_define_prior_to_spatial_separation_relation: true
+
+spatial_supply_semantics:
+  eligibility: HARD_PURPOSE_COMPATIBILITY_FILTER
+  attractiveness: SOFT_POSITIVE_WEIGHT_SEPARATE_FROM_ELIGIBILITY
+  capacity: STRUCTURAL_SUPPLY_CONSTRAINT_SEPARATE_FROM_ATTRACTIVENESS
+  external_supply_is_not_ground_truth: true
+
+candidate_families:
+  S_NEAR: {role: DIAGNOSTIC_BASELINE, selection: NOT_YET_AUTHORIZED, definition: nearest_eligible_location_from_current_origin}
+  S_DIST: {role: CORE_CANDIDATE, selection: NOT_YET_AUTHORIZED, definition: eligible_location_conditioned_on_M2_distance_prior}
+  S_ATTR: {role: CORE_CANDIDATE, selection: NOT_YET_AUTHORIZED, definition: eligible_location_conditioned_on_distance_compatibility_and_declared_attractiveness_capacity}
+  winner: NONE
+
+hard_invariants:
+  - NO_MID_TEST_READ
+  - NO_G1_REOPEN
+  - NO_G2_REOPEN
+  - M3_MODE_BLIND
+  - M3_ROUTE_BLIND
+  - M3_EXECUTION_BLIND
+  - HOUSEHOLD_HOME_ANCHOR_STABLE
+  - ACTIVITY_CHAIN_SPATIAL_CONTINUITY
+  - ALL_LOCATION_IDS_TRACEABLE_TO_DECLARED_SUPPLY
+  - FINITE_COORDINATES
+  - CRS_DECLARED
+  - PURPOSE_ELIGIBILITY_RESPECTED
+  - MISSING_SUPPLY_NOT_SILENTLY_ZERO
+  - NO_EXACT_MID_OD_CLAIM
+
+open_bindings_for_next_phase:
+  residential_mass_source: REQUIRED_F4_1B
+  point_sampling_rule_within_residential_polygon: REQUIRED_F4_1B
+  purpose_to_supply_taxonomy: REQUIRED_F4_1C
+  operational_location_supply: REQUIRED_F4_1C
+  attractiveness_features: REQUIRED_F4_1C
+  structural_capacity_fields: REQUIRED_F4_1C
+  outside_berlin_policy: REQUIRED_BEFORE_F4_2
+  candidate_seed_policy: REQUIRED_BEFORE_F4_2
+  g3_metric_thresholds: REQUIRED_BEFORE_ANY_CAL_OR_SELECTION
+
+next_phase: F4.1b_M2_TO_M3_CANONICAL_ADAPTER_AND_LOR_ENVIRONMENT_GATE

@@ -1,0 +1,10 @@
+binding_id,state,required_before,description
+F4-BIND-001,OPEN,F4.1b,residential mass source for Bezirk to finer-zone allocation
+F4-BIND-002,OPEN,F4.1b,point sampling rule within residential polygon
+F4-BIND-003,OPEN,F4.1c,purpose-to-supply taxonomy
+F4-BIND-004,OPEN,F4.1c,operational activity location supply
+F4-BIND-005,OPEN,F4.1c,attractiveness fields
+F4-BIND-006,OPEN,F4.1c,structural capacity fields
+F4-BIND-007,OPEN,F4.2,outside-Berlin policy
+F4-BIND-008,OPEN,F4.2,candidate seed policy
+F4-BIND-009,OPEN,PRE-CAL/G3,g3 metric registry and thresholds

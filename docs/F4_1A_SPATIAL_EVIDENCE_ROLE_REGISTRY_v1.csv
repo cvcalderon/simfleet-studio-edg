@@ -1,0 +1,13 @@
+evidence_id,source,role,allowed_runtime,allowed_fit_or_design,allowed_independent_validation,notes
+M1-BEZIRK-HOME,P_CONSTR_RMIN_V2_HD_U,SPATIAL_PARENT_CONTEXT,YES,YES,YES,Not a point home location
+LOR2021-PLR,LOR 2021 PLR polygons,SPATIAL_FRAMEWORK,YES,YES,YES,542 MultiPolygon EPSG:4326
+LOR2021-BZR,LOR 2021 BZR polygons,SPATIAL_FRAMEWORK,YES,YES,YES,143 MultiPolygon EPSG:4326
+LOR2021-PGR,LOR 2021 PGR polygons,SPATIAL_FRAMEWORK,YES,YES,YES,58 MultiPolygon EPSG:4326
+M2-DIST-PRIOR,DIST_REF_REFERENCE,RUNTIME_PRIOR,YES,YES,NO,Generated upstream target; not independent validation evidence
+MID-WEGKM,MiD 2017 wegkm,FIT_VALIDATION_EVIDENCE,NO,YES,YES_IF_ROLE_SEPARATED,No exact OD
+MID-DEST-CONTEXT,MiD destination context attributes,FIT_VALIDATION_EVIDENCE,NO,YES,YES_IF_ROLE_SEPARATED,No destination identity
+MID-EXACT-OD,MiD B1 exact coordinates,UNAVAILABLE,NO,NO,NO,Not exposed in B1 standard
+MID-TEST,MiD held-out TEST,FORBIDDEN_CONSUMED,NO,NO,NO,Consumed by G2; do not reopen
+M5-MODE,Future selected mode,FORBIDDEN_FUTURE_INFORMATION,NO,NO,NO,M3 is mode-blind
+M4-ROUTE,Future route or service feasibility,FORBIDDEN_FUTURE_INFORMATION,NO,NO,NO,Downstream of M3
+M6-EXECUTION,Realized execution outcome,FORBIDDEN_FUTURE_INFORMATION,NO,NO,NO,Downstream of M3

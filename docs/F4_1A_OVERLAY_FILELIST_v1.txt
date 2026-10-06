@@ -1,0 +1,10 @@
+configs/f4/f4_1a_m3_design_freeze_v1.yaml
+docs/F4_1A_ENTRY_AUDIT_DECISION_v1.json
+docs/F4_1A_M3_CONTRACT_AND_SPATIAL_SUPPLY_DESIGN_FREEZE_v1.md
+docs/F4_1A_OPEN_BINDINGS_v1.csv
+docs/F4_1A_OVERLAY_CHECKSUMS_v1.sha256
+docs/F4_1A_OVERLAY_FILELIST_v1.txt
+docs/F4_1A_SPATIAL_CANDIDATE_MATRIX_v1.csv
+docs/F4_1A_SPATIAL_EVIDENCE_ROLE_REGISTRY_v1.csv
+scripts/verify_f4_1a_design_freeze.py
+tests/test_f4_1a_design_freeze.py
