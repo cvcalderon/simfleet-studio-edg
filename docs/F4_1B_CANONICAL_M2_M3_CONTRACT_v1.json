@@ -1,0 +1,40 @@
+{
+  "candidate_selection": "NONE",
+  "canonical_output": "PersonDayPlan",
+  "day_required": [
+    "pipeline",
+    "replicate_index",
+    "row_id",
+    "source_household_id",
+    "source_person_id",
+    "trip_day",
+    "trip_count",
+    "final_activity",
+    "return_home",
+    "temporal_chain_valid",
+    "distance_chain_valid"
+  ],
+  "distance_prior_semantics": "M2 prior; not exact OD, route distance, or mode-specific path length",
+  "identity_semantics": {
+    "day_id": "row_id",
+    "household_id": "source_household_id from frozen joint output until production D_GEN runtime is bound to P_CONSTR IDs",
+    "person_id": "source_person_id from frozen joint output until production D_GEN runtime is bound to P_CONSTR IDs"
+  },
+  "schema_id": "F4_1B_CANONICAL_M2_M3_CONTRACT_V1",
+  "source": "frozen F3.4g joint-generator row schema",
+  "trip_required": [
+    "pipeline",
+    "replicate_index",
+    "row_id",
+    "source_household_id",
+    "source_person_id",
+    "trip_index",
+    "trip_count",
+    "origin_activity",
+    "destination_activity",
+    "departure_clock_minute",
+    "arrival_absolute_minute",
+    "duration_from_clock_min",
+    "distance_prior_km"
+  ]
+}

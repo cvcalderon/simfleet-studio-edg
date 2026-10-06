@@ -1,0 +1,13 @@
+pyproject.toml
+configs/f4/f4_1b_m2_m3_adapter_lor_gate_v1.yaml
+docs/F4_1B_CANONICAL_M2_M3_CONTRACT_v1.json
+docs/F4_1B_M2_M3_ADAPTER_LOR_GATE_v1.md
+docs/F4_1B_OVERLAY_CHECKSUMS_v1.sha256
+docs/F4_1B_OVERLAY_FILELIST_v1.txt
+src/simfleet_edg/canonical/mobility.py
+src/simfleet_edg/demand/m2_m3_adapter.py
+src/simfleet_edg/spatial/__init__.py
+src/simfleet_edg/spatial/lor.py
+scripts/verify_f4_1b_preopen.py
+tests/test_f4_1b_contracts.py
+tests/test_f4_1b_lor.py

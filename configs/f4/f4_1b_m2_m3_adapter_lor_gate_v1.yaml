@@ -1,0 +1,144 @@
+schema_version: simfleet-edg-f4-1b-v1
+phase_id: F4.1b
+phase_name: M2_TO_M3_CANONICAL_ADAPTER_AND_LOR_ENVIRONMENT_GATE
+required_parent_commit: 8ccbb4d54601a7fdf65fe6cb549e688d2ba1558e
+status: PREOPEN_IMPLEMENTATION_NOT_COMMITTED
+
+upstream:
+  f4_1a: FROZEN_SYNCHRONIZED_CLOSED
+  g1: PASS_CLOSED
+  g2: PASS_CLOSED_DO_NOT_REOPEN
+  mid_test: CONSUMED_BY_G2_DO_NOT_REOPEN
+  accepted_population:
+    candidate_id: P_CONSTR_RMIN_V2_HD_U
+    scale_id: M
+  dgen_selected_pipeline:
+    participation: DG_PARTICIPATION::PART_A::PA1
+    trip_count: DG_TRIP_COUNT::COUNT_REF::REFERENCE
+    activity_chain: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+    time_schedule: TIME_B_TB2
+    distance_prior: DIST_REF_REFERENCE
+  dgen_policy: CONSUME_FROZEN_OUTPUT_SCHEMA_ONLY_NO_CAL_NO_TEST
+
+runtime_boundary:
+  f3_repro_generator_is_not_runtime_api: true
+  adapter_input:
+    day_rows:
+      - pipeline
+      - replicate_index
+      - row_id
+      - source_household_id
+      - source_person_id
+      - trip_day
+      - trip_count
+      - final_activity
+      - return_home
+      - temporal_chain_valid
+      - distance_chain_valid
+    trip_rows:
+      - pipeline
+      - replicate_index
+      - row_id
+      - source_household_id
+      - source_person_id
+      - trip_index
+      - trip_count
+      - origin_activity
+      - destination_activity
+      - departure_clock_minute
+      - arrival_absolute_minute
+      - duration_from_clock_min
+      - distance_prior_km
+  canonical_output: PersonDayPlan
+  forbidden_columns:
+    - canonical_trip_purpose
+    - target_destination_activity
+    - source_trip_id
+    - fit_weight_W_GEW
+    - target_trip_day
+    - target_trip_count
+    - target_departure_clock_minute
+    - target_duration_from_clock_min
+    - target_distance_prior_km
+    - wegkm
+    - wegkm_imp
+    - chosen_mode
+    - selected_mode
+    - realized_route
+    - realised_route
+    - realized_travel_time
+    - realised_travel_time
+    - execution_outcome
+
+canonical_contracts:
+  implemented:
+    - ActivityIntent
+    - TripDemand
+    - PersonDayPlan
+    - LocationRef
+    - ResidentialAnchor
+    - LocationSupplyRecord
+    - SpatialTripIntent
+    - SpatializedDayPlan
+    - PopulationSnapshotAdapter
+
+spatial_environment:
+  minimal_extra: spatial
+  dependencies:
+    shapely: ">=2,<3"
+    pyproj: ">=3.7,<4"
+  intentionally_not_required:
+    - geopandas
+    - fiona
+  source_crs: EPSG:4326
+  metric_working_crs: EPSG:25833
+  metric_working_crs_rationale: Berlin lies in UTM zone 33N; ETRS89/UTM33N provides metric coordinates
+  lor:
+    PLR:
+      path: data/raw/lor/lor_2021_a_lor_plr_2021_WGS84.geojson
+      sha256: a19e3d75adb663225150abd833ffb2ca69cea156ff1356d342c92612e2cb3ff5
+      id_field: plr_id
+      feature_count: 542
+    BZR:
+      path: data/raw/lor/lor_2021_b_lor_bzr_2021_WGS84.geojson
+      sha256: 6048918bfb1d74d546a0a145e996645ea6c0906e8a77718f04fcedb436c030d0
+      id_field: bzr_id
+      feature_count: 143
+    PGR:
+      path: data/raw/lor/lor_2021_c_lor_pgr_2021_WGS84.geojson
+      sha256: 8e6fcf3be62fe85fc72c71aa5c884c94b72d91d0674a868cf898c33025eaac52
+      id_field: pgr_id
+      feature_count: 58
+    archive:
+      path: data/raw/lor/LOR2021-native_projection.zip
+      sha256: 275bcc93c5c2cfd6cc5980ad6df46730e1be703aaf76d21102a44763a93c8de0
+
+environment_gate:
+  checks:
+    - SHAPELY_IMPORTABLE
+    - PYPROJ_IMPORTABLE
+    - SOURCE_HASHES_EXACT
+    - FEATURE_COUNTS_EXACT
+    - IDS_UNIQUE
+    - GEOMETRIES_PRESENT
+    - GEOMETRIES_NONEMPTY
+    - GEOMETRIES_VALID
+    - SOURCE_BOUNDS_FINITE
+    - PROJECTED_BOUNDS_FINITE
+    - PROJECTED_AREA_POSITIVE
+    - PLR_BZR_PARENT_COMPLETE
+    - BZR_PGR_PARENT_COMPLETE
+    - PARENT_ASSIGNMENTS_CONSISTENT
+  candidate_spatialization_authorized: false
+
+scientific_boundary:
+  residential_assignment: FORBIDDEN_IN_F4_1B
+  activity_location_assignment: FORBIDDEN_IN_F4_1B
+  s_near_execution: FORBIDDEN_IN_F4_1B
+  s_dist_execution: FORBIDDEN_IN_F4_1B
+  s_attr_execution: FORBIDDEN_IN_F4_1B
+  candidate_selection: NONE
+  g3_calibration: NOT_AUTHORIZED
+  g3_test: NOT_AUTHORIZED
+
+next_phase_if_pass: F4.1c_LOCATION_SUPPLY_DESIGN_AND_EVIDENCE_BINDING
