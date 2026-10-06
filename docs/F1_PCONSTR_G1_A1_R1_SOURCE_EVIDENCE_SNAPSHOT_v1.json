@@ -1,0 +1,32 @@
+{
+  "authorization_json": {
+    "name": "F1_PCONSTR_G1_HOLDOUT_1000A_1035_EXECUTION_AUTHORIZATION_A1.json",
+    "sha256": "fabb997fe36b422e924a947d92db26e65cb9483d14df8aed6bc8663c8348e0d0"
+  },
+  "holdout_csv": {
+    "name": "1000A-1035_de.csv",
+    "sha256": "46b046f2963a7c26d7eb6c3811d66b4dce31ca594c70688f0331d0117c747dc2"
+  },
+  "holdout_inner_zip": {
+    "name": "1000A-1035_de.zip",
+    "sha256": "d8ccf5fee4244375de98e4805cbab28af38531ec13501a0468ce3e36bc667a81"
+  },
+  "holdout_outer_zip": {
+    "name": "1000A-1035.zip",
+    "sha256": "8db0c1a37159363918f6e6b59edb75fc637397ac9e5abc793560f7d98fedbe49"
+  },
+  "holdout_state_before_A1_R1": {
+    "A1_metric_evaluation": "ABORTED_BEFORE_METRIC_EVALUATION",
+    "G1_decision_before_A1_R1": "NOT_COMPUTED",
+    "acquisition": "PERFORMED",
+    "values_read": "PERFORMED_AUDIT_ONLY"
+  },
+  "mreal_zip": {
+    "name": "F1_PCONSTR_G1_HOLD_MREAL01_A1_official_run_v1.zip",
+    "sha256": "00b440d58b2c4f7f5484e8260a43f1fb9f2ce69c0b5d5c23a6272aa3b2afa505"
+  },
+  "runner": {
+    "name": "F1_PCONSTR_G1_HOLDOUT_1000A_1035_A1_R1_runner.py",
+    "sha256": "38fae45001fbd7adc73217915d20d3d06dbd8487d1201a4addc057a3e5cb3ecc"
+  }
+}

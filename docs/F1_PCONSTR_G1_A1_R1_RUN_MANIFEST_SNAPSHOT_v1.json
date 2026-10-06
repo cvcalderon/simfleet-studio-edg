@@ -1,0 +1,17 @@
+{
+  "branch": "main",
+  "candidate": "P_CONSTR_RMIN_V2_HD_U",
+  "candidate_master_seed": 20261005,
+  "code_commit": "1aafadd95120c7875aac26f6504a6feb2aa5717a",
+  "geography_key_contract": "OFFICIAL_FULL_BEZIRK_CODE_14_DIGIT",
+  "h6_master_seed": 20261004,
+  "holdout_metric_randomness": "NONE",
+  "reference_date": "2022-05-15",
+  "result": "PASS",
+  "run_id": "F1_PCONSTR_G1_HOLDOUT_1000A_1035_A1_R1",
+  "runner_sha256": "38fae45001fbd7adc73217915d20d3d06dbd8487d1201a4addc057a3e5cb3ecc",
+  "scale": "M",
+  "senior_definition": "age_years >= 65",
+  "source_table": "1000A-1035",
+  "threshold": 0.0815667541845037
+}

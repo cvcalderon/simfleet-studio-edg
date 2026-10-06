@@ -1,0 +1,87 @@
+schema_version: simfleet-edg-f1-pconstr-g1-main-closure-v1
+phase_id: F1-P-CONSTR-G1-MAIN-CLOSURE
+required_parent_commit: 1aafadd95120c7875aac26f6504a6feb2aa5717a
+status_precommit: G1_PASS_AUDITED_PENDING_MAIN_FREEZE
+status_after_commit: G1_PASS_CLOSED
+
+selected_population:
+  candidate_id: P_CONSTR_RMIN_V2_HD_U
+  scale_id: M
+  disposition_after_commit: ACCEPTED_F1_POPULATION_CANDIDATE
+  candidate_master_seed: 20261005
+  h6_master_seed: 20261004
+
+holdout:
+  id: G1_FEATURE_HOLDOUT_SENIOR_STATUS_V1
+  source_table: 1000A-1035
+  acquisition: PERFORMED
+  values_read: PERFORMED
+  official_evaluation: A1_R1_COMPLETE_PASS
+  reference_date: '2022-05-15'
+  senior_definition: age_years >= 65
+  geography_key_contract: OFFICIAL_FULL_BEZIRK_CODE_14_DIGIT
+  runbundle_zip_sha256: 8f37fb95d964ebd7c60d2ddf3befff10297b9e163438ac75d2caad9417877ea3
+  runner_sha256: 38fae45001fbd7adc73217915d20d3d06dbd8487d1201a4addc057a3e5cb3ecc
+  outer_source_zip_sha256: 8db0c1a37159363918f6e6b59edb75fc637397ac9e5abc793560f7d98fedbe49
+  inner_source_zip_sha256: d8ccf5fee4244375de98e4805cbab28af38531ec13501a0468ce3e36bc667a81
+  official_csv_sha256: 46b046f2963a7c26d7eb6c3811d66b4dce31ca594c70688f0331d0117c747dc2
+  authorization_json_sha256: fabb997fe36b422e924a947d92db26e65cb9483d14df8aed6bc8663c8348e0d0
+  source_audit_handoff_sha256: 03adced8c082796ddcecb87f13979402f47363594207f30670f29ac05a040c32
+
+attempt_lineage:
+  A1: ABORTED_BEFORE_METRIC_EVALUATION
+  A1_R1: MECHANICAL_GEOGRAPHY_KEY_REMEDIATION
+  A1_R1_scientific_change: false
+  A1_R1_metric_change: false
+  A1_R1_threshold_change: false
+  A1_R1_candidate_change: false
+  A1_R1_source_value_change: false
+
+threshold:
+  rule: MAX_FROZEN_CAL_TVD_MATERIALITY_TAU_V1
+  value: 0.0815667541845037
+  semantic_note: practical_pre_holdout_tolerance_not_confidence_interval
+
+metrics:
+  G1-HOLD-SEN-BERLIN-TVD:
+    role: DECISION
+    value: 0.016653027760625543
+    threshold: 0.0815667541845037
+    comparison: LESS_THAN_OR_EQUAL
+    decision: PASS
+  G1-HOLD-SEN-BEZ-WTVD:
+    role: DECISION
+    value: 0.0166531932467901
+    threshold: 0.0815667541845037
+    comparison: LESS_THAN_OR_EQUAL
+    decision: PASS
+  G1-HOLD-SEN-BEZ-MAX:
+    role: REPORT_ONLY
+    value: 0.023564294609585007
+    threshold: null
+    comparison: REPORT_ONLY
+    decision: REPORT_ONLY
+
+official_result:
+  G1: PASS
+  independent_audit: PASS
+  runbundle_integrity: PASS
+  validation_rows_failed: 0
+
+controlled_state_after_commit:
+  G1: PASS_CLOSED
+  G2: PASS_CLOSED_DO_NOT_REOPEN
+  HOLD_MREAL_001: RESOLVED_FROZEN
+  HOLD_THRESH_001: RESOLVED_FROZEN
+  CAL: CLOSED_DO_NOT_REOPEN
+  MiD_TEST: CONSUMED_BY_G2_DO_NOT_REOPEN
+  holdout_1000A_1035_acquired: true
+  holdout_1000A_1035_values_read: true
+  holdout_1000A_1035_evaluated: true
+  candidate_selection_after_holdout: FORBIDDEN
+  threshold_tuning_after_holdout: FORBIDDEN
+  same_lineage_code_tuning_after_holdout: FORBIDDEN
+  spatial_plr_allocation: false
+  f3_modified: false
+
+next_step_if_committed_and_synchronized: F1_G1_CLOSED_CONTINUE_DOWNSTREAM_WITH_ACCEPTED_POPULATION

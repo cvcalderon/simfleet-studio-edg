@@ -1,0 +1,48 @@
+{
+  "attempt_lineage": {
+    "A1": "ABORTED_BEFORE_METRIC_EVALUATION",
+    "A1_R1": "OFFICIAL_COMPLETE_PASS",
+    "A1_R1_change_class": "MECHANICAL_GEOGRAPHY_KEY_REMEDIATION_ONLY"
+  },
+  "audit_status": "ACCEPT_FOR_MAIN_G1_CLOSURE",
+  "decision": "G1_PASS_CLOSE",
+  "execution_integrity": {
+    "failed_validation_rows": 0,
+    "independent_scientific_audit": "PASS",
+    "internal_checksums": "PASS",
+    "repo_state": "PASS",
+    "runbundle_identity": "PASS",
+    "runner_identity": "PASS",
+    "validation_table": "PASS"
+  },
+  "frozen_module_results": {
+    "G1-HOLD-SEN-BERLIN-TVD": "0.016653027760625543",
+    "G1-HOLD-SEN-BEZ-MAX": "0.023564294609585007",
+    "G1-HOLD-SEN-BEZ-WTVD": "0.0166531932467901",
+    "G1_decision": "PASS",
+    "threshold": "0.0815667541845037"
+  },
+  "independent_recomputation": {
+    "agreement_tolerance": "1e-15",
+    "berlin_tvd_decimal": "0.01665302776062551085207649073",
+    "bezirk_max_decimal": "0.02356429460958504522177634548",
+    "bezirk_wtvd_decimal": "0.01665319324679009384317431699",
+    "official_person_total": 3532089,
+    "status": "PASS"
+  },
+  "official_runbundle_zip_sha256": "8f37fb95d964ebd7c60d2ddf3befff10297b9e163438ac75d2caad9417877ea3",
+  "phase": "F1-P_CONSTR-G1 MAIN CLOSURE",
+  "required_parent_commit": "1aafadd95120c7875aac26f6504a6feb2aa5717a",
+  "runner_sha256": "38fae45001fbd7adc73217915d20d3d06dbd8487d1201a4addc057a3e5cb3ecc",
+  "schema_version": "simfleet-edg-f1-pconstr-g1-main-audit-v1",
+  "scientific_guardrails": {
+    "CAL_reopen": "FORBIDDEN",
+    "F3_modification": "FORBIDDEN",
+    "MiD_TEST_reopen": "FORBIDDEN",
+    "PLR_modification": "FORBIDDEN",
+    "candidate_selection_during_holdout": "NONE",
+    "same_lineage_code_tuning_after_holdout": "FORBIDDEN",
+    "threshold_tuning_after_holdout": "FORBIDDEN"
+  },
+  "selected_candidate": "P_CONSTR_RMIN_V2_HD_U"
+}

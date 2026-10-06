@@ -1,0 +1,38 @@
+{
+  "G1_decision": "PASS",
+  "attempt_lineage": {
+    "A1": "ABORTED_BEFORE_METRIC_EVALUATION",
+    "A1_R1": "MECHANICAL_GEOGRAPHY_KEY_REMEDIATION"
+  },
+  "candidate_selection_during_holdout": "NONE",
+  "decision_metrics": {
+    "G1-HOLD-SEN-BERLIN-TVD": "PASS",
+    "G1-HOLD-SEN-BEZ-WTVD": "PASS"
+  },
+  "failure_policy": "NEW_EXPERIMENTAL_LINEAGE_REQUIRED",
+  "metrics": {
+    "berlin_tvd": 0.016653027760625543,
+    "bezirk_max": 0.023564294609585007,
+    "bezirk_wtvd": 0.0166531932467901,
+    "n_bezirke": 12,
+    "official_person_total": 3532089.0
+  },
+  "phase": "F1-P_CONSTR-G1-HOLDOUT-1000A-1035-A1-R1",
+  "post_holdout_same_lineage_code_tuning": "FORBIDDEN",
+  "post_holdout_threshold_tuning": "FORBIDDEN",
+  "remediation": {
+    "candidate_change": false,
+    "metric_change": false,
+    "only_change": "Use full official Bezirk codes 11000000000001..11000000000012 instead of synthetic wrapper keys 1..12.",
+    "scientific_change": false,
+    "source_value_change": false,
+    "threshold_change": false
+  },
+  "report_only": {
+    "G1-HOLD-SEN-BEZ-MAX": 0.023564294609585007
+  },
+  "scale_id": "M",
+  "selected_candidate": "P_CONSTR_RMIN_V2_HD_U",
+  "threshold": 0.0815667541845037,
+  "threshold_rule": "MAX_FROZEN_CAL_TVD_MATERIALITY_TAU_V1"
+}
