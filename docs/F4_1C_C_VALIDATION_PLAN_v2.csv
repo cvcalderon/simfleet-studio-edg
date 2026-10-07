@@ -1,0 +1,22 @@
+check_id,area,check,required_result,notes
+C-V001,INPUT,OSM SHA256 exact,HARD_PASS,056a47...
+C-V002,INPUT,LOR hashes exact,HARD_PASS,PLR/BZR/PGR
+C-V003,INPUT,M1 household/person file hashes exact,HARD_PASS,99e63... / e75d...
+C-V004,GEOGRAPHY,M1 home_zone_level all BEZIRK and 12 full14 codes only,HARD_PASS,No LOR BZR substitution
+C-V005,GEOGRAPHY,143 LOR_BZR and 542 PLR partition into 12 two-digit prefixes,HARD_PASS,01..12
+C-V006,GEOGRAPHY,Each M1 full14 suffix maps one-to-one to LOR district prefix,HARD_PASS,12 groups
+C-V007,NONHOME,One unique LocationSupply per OSM element,HARD_PASS,No cross-ID merge
+C-V008,NONHOME,Purpose label totals equal B MAIN inside-Berlin anchors,HARD_PASS,21936/7227/36463/8602/22436/59344
+C-V009,NONHOME,Every operational location maps to frozen PLR/LOR_BZR/PGR,HARD_PASS,OUTSIDE excluded
+C-V010,NONHOME,attractiveness/capacity all NULL,HARD_PASS,A4 preserved
+C-V011,DEDUP,Potential groups retained as array-valued evidence; no merge,HARD_PASS,Diagnostic only
+C-V012,RESIDENTIAL,All candidate fragments positive finite area and exact M1 parent,HARD_PASS,Clip to 12-borough union
+C-V013,RESIDENTIAL,All 12 M1 boroughs have non-empty building pools,HARD_PASS,Expected from frozen B evidence
+C-V014,RESIDENTIAL,Households using landuse fallback = 0 for frozen source,HARD_PASS,Deviation indicates inconsistency
+C-V015,HOME,Exactly 54828 anchors and unique household IDs,HARD_PASS,One per household
+C-V016,HOME,Every anchor parent_bezirk_id equals exact M1 full14 home_zone_id,HARD_PASS,Hard parent
+C-V017,HOME,100000 persons inherit same household anchor,HARD_PASS,FK/consistency
+C-V018,HOME,Every final point maps to PLR/LOR_BZR/PGR with matching 2d borough prefix,HARD_PASS,No OUTSIDE home
+C-V019,DETERMINISM,Second full materialization run yields identical six canonical output hashes,HARD_PASS,Order-independent
+C-V020,BOUNDARY,No non-home activity destination assignment,HARD_PASS,Supply + HOME only
+C-V021,BOUNDARY,S_NEAR/S_DIST/S_ATTR not executed; G3 unopened,HARD_PASS,Candidate phase closed

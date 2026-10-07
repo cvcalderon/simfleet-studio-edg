@@ -1,0 +1,6 @@
+binding_id,state,resolution,effect
+F4-BIND-A4-SIDECAR-001,RESOLVED_V2,Exact evidence sidecars frozen; duplicate groups are array-valued,No longer blocks C
+F4-BIND-001,RESOLVED_V2,M1 12-BEZIRK parent preserved; candidate mass is OSM polygon clipped to derived borough union; buildings absolute priority,No PLR target invented
+F4-BIND-002-R,RESOLVED_V2,Building point_on_surface; landuse deterministic keyed rejection sampling,No order-dependent RNG
+F4-BIND-007,OPEN,OUTSIDE stays audit-only; operational C excludes it,Does not block Berlin-only C
+F4-BIND-ESCORT-001,OPEN,No ESCORT resolver in C,Blocks later F4.2 ESCORT cases

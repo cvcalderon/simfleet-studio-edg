@@ -1,0 +1,16 @@
+phase_id,module,scope,state,gate_state,authoritative_commit,evidence,notes
+F0,M0,Data readiness,CLOSED_PASS,PASS_CLOSED,,Historical traceability frozen,
+F1,M1,Population,CLOSED_PASS,PASS_CLOSED,877e718a8c3fe088158eafa6332bdfb466a81213,P_CONSTR_RMIN_V2_HD_U / M accepted,Do not reopen G1
+F2,M2-DIAG,Replay/match diagnostics,CLOSED_PASS,,,D_REPLAY/D_MATCH historical diagnostics,Not D_GEN runtime
+F3,M2,D_GEN pipeline,CLOSED_PASS,PASS_CLOSED,,PA1→COUNT_REF→CHA2→TIME_B_TB2→DIST_REF_REFERENCE,G2 consumed MiD TEST
+F4.1a,M3,M3 contract + spatial supply design,CLOSED_PASS,,8ccbb4d54601a7fdf65fe6cb549e688d2ba1558e,Design freeze,
+F4.1b,M3,M2→M3 adapter + LOR gate,CLOSED_PASS,,7e28e80c32dc16c478ea6916b636bafa58e917f5,12/12 focused; 727/727 regression,
+F4.1c-discovery,M3,Location supply discovery,DISCOVERY_COMPLETE,,7e28e80c32dc16c478ea6916b636bafa58e917f5,External spatial evidence required,Read only
+F4.1c-A1,M3,Purpose taxonomy,DESIGN_FROZEN,,0958a673f0527b5bc87c16cb041e620f085ead87,Frozen in MAIN control plane,Frozen A-design synchronized in 0958a67 lineage
+F4.1c-A2,M3,External source contract,DESIGN_FROZEN,,0958a673f0527b5bc87c16cb041e620f085ead87,Frozen in MAIN control plane,Frozen A-design synchronized in 0958a67 lineage
+F4.1c-A3,M3,OSM eligibility registry,DESIGN_FROZEN,,0958a673f0527b5bc87c16cb041e620f085ead87,Frozen in MAIN control plane,Frozen A-design synchronized in 0958a67 lineage
+F4.1c-A4,M3,Attractiveness/capacity evidence policy,DESIGN_FROZEN,,0958a673f0527b5bc87c16cb041e620f085ead87,Frozen in MAIN control plane,Frozen A-design synchronized in 0958a67 lineage
+F4.1c-A5,M3,Joint freeze + acquisition authorization,CLOSED_PASS,,0958a673f0527b5bc87c16cb041e620f085ead87,PASS_WITH_NONBLOCKING_BINDINGS,Frozen A-design synchronized in 0958a67 lineage
+F4.1c-B,M3,Acquire + audit OSM evidence,CLOSED_PASS,,0958a673f0527b5bc87c16cb041e620f085ead87,B MAIN closure + verified OSM RunBundle,PASS_WITH_MAIN_LOR_REPORTING_RECONCILIATION
+F4.1c-C,M3,Materialize operational supply,IMPLEMENTATION_PREOPEN,,,Design Freeze v2 + Worker Packet v1,PRE-COMMIT stop; official run only after commit+push
+F4.2,M3,S_NEAR/S_DIST/S_ATTR,NOT_STARTED,NOT_OPEN,,,NOT AUTHORIZED; S_NEAR/S_DIST/S_ATTR closed

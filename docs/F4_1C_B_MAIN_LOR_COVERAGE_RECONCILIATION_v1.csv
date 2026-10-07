@@ -1,0 +1,15 @@
+metric,worker_handoff_value,main_authoritative_value,interpretation
+BZR universe represented,144,143,144 included sentinel OUTSIDE; frozen LOR has 143 real BZR
+BZR residential support,144,143/143,OUTSIDE is diagnostic and is not a BZR
+BZR all six non-home purposes,144,143/143,All real BZR have positive evidence for all six purposes
+PLR with some non-home evidence,543,542/542,543 included sentinel OUTSIDE; all 542 real PLR have some non-home evidence
+PLR with residential support,541,540/542,541 included sentinel OUTSIDE; real missing PLR are 03400831 and 06200418
+PLR lacking >=1 non-home purpose,27,27/542,Correct after excluding OUTSIDE
+Inside Berlin purpose labels: BUSINESS,22531,21936,Outside diagnostic labels excluded: 595
+Inside Berlin purpose labels: EDUCATION,7350,7227,Outside diagnostic labels excluded: 123
+Inside Berlin purpose labels: LEISURE,37512,36463,Outside diagnostic labels excluded: 1049
+Inside Berlin purpose labels: OTHER,8784,8602,Outside diagnostic labels excluded: 182
+Inside Berlin purpose labels: SHOPPING,22860,22436,Outside diagnostic labels excluded: 424
+Inside Berlin purpose labels: WORK_COMMUTE,60567,59344,Outside diagnostic labels excluded: 1223
+OUTSIDE residential diagnostic: RESIDENTIAL_BUILDING,,11406,Diagnostic only; not operational Berlin supply
+OUTSIDE residential diagnostic: RESIDENTIAL_AREA_FALLBACK,,476,Diagnostic only; not operational Berlin supply

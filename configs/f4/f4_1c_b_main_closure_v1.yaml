@@ -1,0 +1,110 @@
+closure_package_id: F4_1C_B_MAIN_CLOSURE_V1
+workflow: SIMFLEET_EDG_WORKFLOW_V2
+work_package_id: F4.1c-B
+main_decision: PASS
+scientific_closure_state: CLOSED_PASS
+closure_qualifier: PASS_WITH_MAIN_LOR_REPORTING_RECONCILIATION
+implementation_commit: 0958a673f0527b5bc87c16cb041e620f085ead87
+parent_commit: 7e28e80c32dc16c478ea6916b636bafa58e917f5
+runbundle_transfer_archive_sha256: 483dee04c9a6e6e83fa50799a23b670c1c2ee94508d2e6c18ca8c1f6c8e742e4
+runbundle_internal_checksums:
+  expected_entries: 20
+  verified: 20
+  failed: 0
+source_integrity:
+  snapshot_id: OSM_GEOFABRIK_BERLIN_2026-10-04_V1
+  provider_filename: berlin-261004.osm.pbf
+  file_size_bytes: 99643774
+  provider_md5_expected: e343658854412938f98a6bf4b54834f5
+  provider_md5_observed: e343658854412938f98a6bf4b54834f5
+  local_sha256: 056a47f9e4cd6e510acf62ac1c1da4c4740a6ff7be97946b7596ae1ea5090ae2
+  pbf_timestamp: '2026-10-04T20:20:21Z'
+  pbf_bbox:
+  - 13.08283
+  - 52.33446
+  - 13.762245
+  - 52.6783
+  pbf_open_read_check: true
+  reused_existing_raw: true
+  retrieved_at_interpretation: official-run verification/reuse timestamp; bytes remain
+    fixed by MD5/SHA256
+audit_reconciliation:
+  objects_seen: 2542054
+  relevant_objects: 859703
+  eligible_valid_records: 297642
+  excluded_objects: 377089
+  default_denied_objects: 184970
+  invalid_eligible_geometry: 2
+  reconciliation_ok: true
+lor_main_reconciliation:
+  frozen_bzr: 143
+  real_bzr_with_residential_support: 143
+  real_bzr_with_all_six_nonhome_purposes: 143
+  frozen_plr: 542
+  real_plr_with_some_nonhome_evidence: 542
+  real_plr_with_residential_support: 540
+  plr_missing_residential:
+  - 03400831
+  - 06200418
+  plr_missing_one_or_more_nonhome_purposes: 27
+  missing_by_purpose:
+    BUSINESS: 5
+    EDUCATION: 15
+    LEISURE: 1
+    OTHER: 13
+    SHOPPING: 3
+    WORK_COMMUTE: 1
+  outside_is_lor_zone: false
+  outside_policy: AUDIT_DIAGNOSTIC_ONLY_UNTIL_F4_BIND_007_IS_RESOLVED
+inside_berlin_purpose_label_counts:
+  BUSINESS: 21936
+  EDUCATION: 7227
+  LEISURE: 36463
+  OTHER: 8602
+  SHOPPING: 22436
+  WORK_COMMUTE: 59344
+outside_diagnostic_purpose_label_counts:
+  BUSINESS: 595
+  EDUCATION: 123
+  LEISURE: 1049
+  OTHER: 182
+  SHOPPING: 424
+  WORK_COMMUTE: 1223
+a4:
+  area_evidence_groups: 30
+  capacity_like_occurrences: 150148
+  parseable: 150136
+  nonparseable: 12
+  canonical_capacity_written: false
+  canonical_attractiveness_written: false
+duplicates:
+  potential_groups: 11853
+  destructive_merge: false
+boundary:
+  runtime_location_supply_materialized: false
+  residential_anchor_materialized: false
+  home_assignments: 0
+  destination_assignments: 0
+  candidate_selection: NONE
+  g1_reopened: false
+  g2_reopened: false
+  g3_opened: false
+  mid_test_read: false
+main_scientific_decisions:
+- No A3 registry amendment is opened from B alone.
+- No A4 capacity/attractiveness promotion is authorized.
+- OUTSIDE is not a BZR or PLR and must not enter operational F4.1c-C Berlin supply.
+- The 27 PLR purpose gaps and two residential PLR gaps are evidence for C/F4.2 design,
+  not B failure.
+- Potential duplicate groups remain diagnostic; no destructive merge is authorized.
+next_authorized_task:
+  id: F4.1c-C-DESIGN
+  name: Operational LocationSupply Materialization Contract / PREOPEN
+  authorization: DESIGN_ONLY
+  implementation_authorized: false
+  must_resolve_before_implementation:
+  - F4-BIND-A4-SIDECAR-001 exact evidence-sidecar schema
+  - F4-BIND-002-R residential point realization
+  - F4-BIND-001 residential mass/allocation rule as needed
+  - explicit inside-LOR materialization filter and OUTSIDE diagnostic handling
+  - canonical physical-entity materialization/dedup semantics

@@ -1,0 +1,160 @@
+contract_id: F4_1C_C_OPERATIONAL_SUPPLY_AND_RESIDENTIAL_ANCHOR_DESIGN_FREEZE_V2
+workflow: SIMFLEET_EDG_WORKFLOW_V2
+status: DESIGN_FROZEN
+supersedes: F4_1C_C_OPERATIONAL_SUPPLY_AND_RESIDENTIAL_ANCHOR_DESIGN_FREEZE_V1
+supersession_reason: Correct distinction between M1 BEZIRK (12 administrative boroughs)
+  and LOR BZR (143 Bezirksregionen); refine duplicate sidecar cardinality.
+implementation_authorized: false
+future_worker_parent_commit: 0958a673f0527b5bc87c16cb041e620f085ead87
+terminology:
+  M1_BEZIRK: 12 administrative Berlin boroughs; full 14-digit Zensus GEOBZ1/home_zone_id
+  M1_BEZIRK_CODES: &id001
+  - '11000000000001'
+  - '11000000000002'
+  - '11000000000003'
+  - '11000000000004'
+  - '11000000000005'
+  - '11000000000006'
+  - '11000000000007'
+  - '11000000000008'
+  - '11000000000009'
+  - '11000000000010'
+  - '11000000000011'
+  - '11000000000012'
+  LOR_BZR: 143 LOR Bezirksregionen; 6-digit IDs
+  LOR_PLR: 542 LOR Planungsräume; 8-digit IDs
+  LOR_PGR: 58 LOR Prognoseräume
+  rule: Never use LOR_BZR as the M1 household parent geography.
+bezirk_lor_bridge:
+  m1_full14_to_code2d: last two characters of validated full14 M1 BEZIRK code
+  lor_bzr_membership: LOR_BZR id starts with code2d
+  lor_plr_membership: LOR_PLR id starts with code2d
+  m1_bezirk_geometry: unary union of all frozen LOR_BZR geometries whose id starts
+    with code2d
+  required_group_count: 12
+  required_bzr_total: 143
+  required_plr_total: 542
+  validation: Every frozen LOR_BZR/PLR prefix belongs to 01..12 and maps to exactly
+    one M1 BEZIRK.
+inputs:
+  osm:
+    snapshot_id: OSM_GEOFABRIK_BERLIN_2026-10-04_V1
+    filename: berlin-261004.osm.pbf
+    size_bytes: 99643774
+    provider_md5: e343658854412938f98a6bf4b54834f5
+    sha256: 056a47f9e4cd6e510acf62ac1c1da4c4740a6ff7be97946b7596ae1ea5090ae2
+    network_access_in_C: FORBIDDEN
+  lor:
+    PLR_count: 542
+    BZR_count: 143
+    PGR_count: 58
+    source_crs: EPSG:4326
+    metric_crs: EPSG:25833
+    PLR_sha256: a19e3d75adb663225150abd833ffb2ca69cea156ff1356d342c92612e2cb3ff5
+    BZR_sha256: 6048918bfb1d74d546a0a145e996645ea6c0906e8a77718f04fcedb436c030d0
+    PGR_sha256: 8e6fcf3be62fe85fc72c71aa5c884c94b72d91d0674a868cf898c33025eaac52
+  population:
+    candidate: P_CONSTR_RMIN_V2_HD_U
+    scale: M
+    households: 54828
+    persons: 100000
+    home_zone_level: BEZIRK
+    allowed_home_zone_ids: *id001
+    accepted_realization_zip_sha256: 00b440d58b2c4f7f5484e8260a43f1fb9f2ce69c0b5d5c23a6272aa3b2afa505
+    households_filename: M_P_CONSTR_RMIN_V2_HD_U_households.csv
+    persons_filename: M_P_CONSTR_RMIN_V2_HD_U_persons.csv
+    households_sha256: 99e63cd1f203f36a0a1e7096abf0cd89555615b64a421a58cbc5c5f1af2d1c1b
+    persons_sha256: e75d768637ae97c19bf34c678a99aeec4fe0e5594805ced01ac4da4e95164d49
+nonhome_supply:
+  purpose_order:
+  - WORK_COMMUTE
+  - BUSINESS
+  - EDUCATION
+  - SHOPPING
+  - LEISURE
+  - OTHER
+  location_id: osm:{element_type}:{element_id}
+  location_level: OSM_SUPPLY
+  crs: EPSG:4326
+  one_record_per_osm_element: true
+  union_multi_purpose_tags: true
+  cross_osm_id_destructive_merge: false
+  potential_duplicate_groups: KEEP_SEPARATE; store zero-or-more deterministic diagnostic
+    group IDs in evidence sidecar
+  outside_lor: EXCLUDE_FROM_OPERATIONAL_OUTPUT_AND_LOG
+  attractiveness: null
+  capacity: null
+representative_point:
+  node: SOURCE_NODE_COORDINATE
+  polygon: POINT_ON_SURFACE_IN_EPSG_25833_THEN_TRANSFORM_TO_EPSG_4326
+  invalid_geometry: EXCLUDE_AND_AUDIT
+  plr_assignment: covers(point); if multiple, lexicographically smallest PLR id; none
+    => OUTSIDE
+  parents: derive LOR_BZR/PGR from chosen PLR hierarchy
+residential_candidate_pool:
+  source_classes:
+  - RESIDENTIAL_BUILDING
+  - RESIDENTIAL_AREA_FALLBACK
+  parent_geography: M1_BEZIRK_12
+  fragment_rule: INTERSECT_SOURCE_POLYGON_WITH_M1_BEZIRK_UNION_IN_EPSG_25833
+  candidate_id: rescand:{element_type}:{element_id}:bezirk:{code2d}
+  mass: positive finite clipped area m2
+  priority:
+  - IF_ANY_RESIDENTIAL_BUILDING_IN_M1_BEZIRK_USE_BUILDINGS_ONLY
+  - ELSE_USE_RESIDENTIAL_AREA_FALLBACK
+  - ELSE_HARD_BLOCKER
+  expected_with_frozen_B_evidence: all 12 boroughs have building support; fallback
+    household count expected 0
+  plr_target: NONE
+  capacity: NONE
+  sampling_replacement: WITH_REPLACEMENT
+residential_anchor_realization:
+  output_cardinality: 54828
+  one_per_accepted_household: true
+  location_id: home:{household_id}
+  level: SYNTHETIC_HOME
+  crs: EPSG:4326
+  canonical_parent_bezirk_id: exact M1 full14 home_zone_id
+  household_members_share_anchor: true
+  stable_across_days: true
+  selection_namespace: F4_1C_C_RESIDENTIAL_ANCHOR_V1
+  selection_hash: SHA256(namespace|household_id|full14_parent_bezirk_id|SELECT)
+  unit_variate: first 8 digest bytes as unsigned big-endian integer divided by 2^64
+  cdf_order: candidate_id ascending
+  building_point: point_on_surface of M1-BEZIRK-clipped building fragment in EPSG:25833
+  fallback_point_hash: SHA256(namespace|household_id|candidate_id|POINT|attempt);
+    bytes[0:8]=>ux bytes[8:16]=>uy
+  fallback_point_method: uniform bounding-box rejection into clipped polygon; covers(point)
+    acceptance
+  fallback_max_attempts: 10000
+  fallback_failure: point_on_surface + audit flag
+  realized_lor: derive PLR, LOR_BZR, PGR from final point
+  hard_parent_invariant: final point maps to the same 2-digit district as exact M1
+    full14 parent
+serialization:
+  format: DETERMINISTIC_CSV_GZ_V1
+  encoding: UTF-8
+  newline: LF
+  header: true
+  json_subfields: minified + sort_keys=True
+  gzip_mtime: 0
+  canonical_row_sort: true
+outputs:
+- location_supply_v1.csv.gz
+- location_supply_evidence_v1.csv.gz
+- residential_supply_candidates_v1.csv.gz
+- residential_anchors_v1.csv.gz
+- residential_anchor_evidence_v1.csv.gz
+- materialization_exclusions_v1.csv.gz
+guardrails:
+- OUTSIDE is audit-only
+- No PLR imputation
+- No forced fill of PLR 03400831/06200418
+- No destructive cross-OSM-ID dedup
+- No capacity inference
+- No canonical attractiveness computation
+- No non-home destination assignment
+- No S_NEAR/S_DIST/S_ATTR
+- No G3
+- No MiD TEST
+- No G1/G2 reopen

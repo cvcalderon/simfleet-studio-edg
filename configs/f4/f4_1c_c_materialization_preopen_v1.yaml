@@ -1,0 +1,110 @@
+schema_version: simfleet-edg-f4-1c-c-v1
+phase_id: F4.1c-C
+phase_name: OPERATIONAL_LOCATION_SUPPLY_AND_RESIDENTIAL_ANCHOR_MATERIALIZATION
+status: IMPLEMENTATION_PREOPEN
+required_parent_commit: 0958a673f0527b5bc87c16cb041e620f085ead87
+
+design_contract: F4_1C_C_OPERATIONAL_SUPPLY_AND_RESIDENTIAL_ANCHOR_DESIGN_FREEZE_V2
+
+source:
+  source_snapshot_id: OSM_GEOFABRIK_BERLIN_2026-10-04_V1
+  raw_path: data/raw/osm/berlin/2026-10-04/berlin-261004.osm.pbf
+  provider_filename: berlin-261004.osm.pbf
+  size_bytes: 99643774
+  provider_md5: e343658854412938f98a6bf4b54834f5
+  sha256: 056a47f9e4cd6e510acf62ac1c1da4c4740a6ff7be97946b7596ae1ea5090ae2
+
+frozen_contracts:
+  a3_policy: configs/f4/f4_1c_a3_eligibility_policy_v1.yaml
+  a3_registry: docs/F4_1C_A3_OSM_TAG_TO_PURPOSE_ELIGIBILITY_REGISTRY_v1.csv
+  b_main_closure: configs/f4/f4_1c_b_main_closure_v1.yaml
+  c_design_freeze: configs/f4/f4_1c_c_design_freeze_v2.yaml
+
+frozen_contract_sha256:
+  a3_policy: 7713d8a7e12032c69483726bf25091d8048e30f4a58798b4fdeb7c1b36242ffb
+  a3_registry: 3a1c7ed8ad4dfaff2de54332ec6a029682790426f2ec7a843f143c57da2056a0
+  b_main_closure: 879867c04f71a1a71a1796beb2e5e499bd014cf89ce9e3cffef933a6ba2ee372
+  c_design_freeze: 8cd7564dd000241c423a43f85e8cf97356dbe434b55d6720938af01eb5b090bd
+
+frozen_lor:
+  source_crs: EPSG:4326
+  metric_crs: EPSG:25833
+  plr:
+    path: data/raw/lor/lor_2021_a_lor_plr_2021_WGS84.geojson
+    count: 542
+    sha256: a19e3d75adb663225150abd833ffb2ca69cea156ff1356d342c92612e2cb3ff5
+  bzr:
+    path: data/raw/lor/lor_2021_b_lor_bzr_2021_WGS84.geojson
+    count: 143
+    sha256: 6048918bfb1d74d546a0a145e996645ea6c0906e8a77718f04fcedb436c030d0
+  pgr:
+    path: data/raw/lor/lor_2021_c_lor_pgr_2021_WGS84.geojson
+    count: 58
+    sha256: 8e6fcf3be62fe85fc72c71aa5c884c94b72d91d0674a868cf898c33025eaac52
+
+population:
+  candidate: P_CONSTR_RMIN_V2_HD_U
+  scale: M
+  households: 54828
+  persons: 100000
+  home_zone_level: BEZIRK
+  allowed_home_zone_ids:
+    - '11000000000001'
+    - '11000000000002'
+    - '11000000000003'
+    - '11000000000004'
+    - '11000000000005'
+    - '11000000000006'
+    - '11000000000007'
+    - '11000000000008'
+    - '11000000000009'
+    - '11000000000010'
+    - '11000000000011'
+    - '11000000000012'
+  households_filename: M_P_CONSTR_RMIN_V2_HD_U_households.csv
+  persons_filename: M_P_CONSTR_RMIN_V2_HD_U_persons.csv
+  households_sha256: 99e63cd1f203f36a0a1e7096abf0cd89555615b64a421a58cbc5c5f1af2d1c1b
+  persons_sha256: e75d768637ae97c19bf34c678a99aeec4fe0e5594805ced01ac4da4e95164d49
+
+inside_berlin_purpose_label_counts:
+  BUSINESS: 21936
+  EDUCATION: 7227
+  LEISURE: 36463
+  OTHER: 8602
+  SHOPPING: 22436
+  WORK_COMMUTE: 59344
+
+serialization:
+  format: DETERMINISTIC_CSV_GZ_V1
+  encoding: UTF-8
+  newline: LF
+  header: true
+  json_subfields: MINIFIED_SORT_KEYS
+  gzip_mtime: 0
+  canonical_row_sort: true
+
+canonical_outputs:
+  - location_supply_v1.csv.gz
+  - location_supply_evidence_v1.csv.gz
+  - residential_supply_candidates_v1.csv.gz
+  - residential_anchors_v1.csv.gz
+  - residential_anchor_evidence_v1.csv.gz
+  - materialization_exclusions_v1.csv.gz
+
+execution_boundary:
+  network_access: FORBIDDEN
+  overwrite_existing_output: FORBIDDEN
+  partial_staging_required: true
+  official_execution_only_after_exact_commit_and_push: true
+  nonhome_destination_assignment: FORBIDDEN
+  s_near: FORBIDDEN
+  s_dist: FORBIDDEN
+  s_attr: FORBIDDEN
+  f4_2: NOT_AUTHORIZED
+  g3: NOT_OPEN
+  mid_test: FORBIDDEN
+  g1_reopen: FORBIDDEN
+  g2_reopen: FORBIDDEN
+  capacity_inference: FORBIDDEN
+  attractiveness_computation: FORBIDDEN
+  destructive_duplicate_merge: FORBIDDEN

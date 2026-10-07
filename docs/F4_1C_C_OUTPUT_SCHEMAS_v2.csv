@@ -1,0 +1,67 @@
+dataset,field,type,semantics
+location_supply_v1,location_id,str,PK osm:{type}:{id}
+location_supply_v1,level,str,OSM_SUPPLY
+location_supply_v1,lon,float64,EPSG:4326
+location_supply_v1,lat,float64,EPSG:4326
+location_supply_v1,crs,str,EPSG:4326
+location_supply_v1,eligible_purposes_json,json-array,Fixed purpose-order subset
+location_supply_v1,attractiveness,null,Must be NULL
+location_supply_v1,capacity,null,Must be NULL
+location_supply_v1,provenance,str,Deterministic
+location_supply_evidence_v1,location_id,str,FK one-to-one
+location_supply_evidence_v1,source_snapshot_id,str,Frozen OSM snapshot
+location_supply_evidence_v1,osm_element_type,str,node|way|relation
+location_supply_evidence_v1,osm_element_id,int64,OSM ID
+location_supply_evidence_v1,supply_classes_json,json-array,All admitted A3 supply classes
+location_supply_evidence_v1,supply_tier,str,EXPLICIT|AREA_FALLBACK
+location_supply_evidence_v1,a3_rule_ids_json,json-array,Matched include rule IDs
+location_supply_evidence_v1,matched_tags_json,json-object,A3/A4/identity relevant tags only
+location_supply_evidence_v1,geometry_kind,str,POINT|POLYGON
+location_supply_evidence_v1,representative_point_method,str,NODE_COORDINATE|POINT_ON_SURFACE
+location_supply_evidence_v1,projected_area_m2,float64|null,Raw A4 evidence
+location_supply_evidence_v1,osm_capacity_raw,str|null,Raw only
+location_supply_evidence_v1,building_levels_raw,str|null,Raw only
+location_supply_evidence_v1,plr_id,str,Frozen PLR
+location_supply_evidence_v1,lor_bzr_id,str,Frozen LOR BZR
+location_supply_evidence_v1,pgr_id,str,Frozen PGR
+location_supply_evidence_v1,potential_duplicate_group_ids_json,json-array,Zero or more diagnostic groups
+location_supply_evidence_v1,duplicate_policy,str,KEEP_SEPARATE
+location_supply_evidence_v1,provenance,str,Deterministic
+residential_supply_candidates_v1,candidate_id,str,rescand:{type}:{id}:bezirk:{code2d}
+residential_supply_candidates_v1,source_snapshot_id,str,Frozen OSM
+residential_supply_candidates_v1,osm_element_type,str,way|relation
+residential_supply_candidates_v1,osm_element_id,int64,OSM ID
+residential_supply_candidates_v1,supply_class,str,RESIDENTIAL_BUILDING|RESIDENTIAL_AREA_FALLBACK
+residential_supply_candidates_v1,parent_m1_bezirk_id,str,Full14 M1 code
+residential_supply_candidates_v1,parent_bezirk_code_2d,str,01..12
+residential_supply_candidates_v1,source_area_m2,float64,Full source polygon area
+residential_supply_candidates_v1,allocation_area_m2,float64,Area clipped to M1 BEZIRK union
+residential_supply_candidates_v1,pool_priority,int,1 building / 2 fallback
+residential_supply_candidates_v1,provenance,str,Deterministic
+residential_anchors_v1,household_id,str,PK accepted M1 household
+residential_anchors_v1,location_id,str,home:{household_id}
+residential_anchors_v1,level,str,SYNTHETIC_HOME
+residential_anchors_v1,lon,float64,EPSG:4326
+residential_anchors_v1,lat,float64,EPSG:4326
+residential_anchors_v1,crs,str,EPSG:4326
+residential_anchors_v1,parent_bezirk_id,str,Exact M1 full14 code
+residential_anchors_v1,provenance,str,Deterministic
+residential_anchor_evidence_v1,household_id,str,FK one-to-one
+residential_anchor_evidence_v1,source_candidate_id,str,Selected candidate
+residential_anchor_evidence_v1,source_snapshot_id,str,Frozen OSM
+residential_anchor_evidence_v1,osm_element_type,str,way|relation
+residential_anchor_evidence_v1,osm_element_id,int64,OSM ID
+residential_anchor_evidence_v1,supply_class,str,Residential source class
+residential_anchor_evidence_v1,pool_class_used,str,BUILDING|AREA_FALLBACK
+residential_anchor_evidence_v1,candidate_count_in_pool,int64,M1 BEZIRK pool size
+residential_anchor_evidence_v1,pool_total_mass_m2,float64,Chosen-class total
+residential_anchor_evidence_v1,candidate_allocation_mass_m2,float64,Selected mass
+residential_anchor_evidence_v1,selection_namespace,str,Frozen namespace
+residential_anchor_evidence_v1,selection_hash_sha256,str,Full selection digest
+residential_anchor_evidence_v1,point_method,str,POINT_ON_SURFACE|HASH_REJECTION_UNIFORM_AREA|FALLBACK_POINT_ON_SURFACE
+residential_anchor_evidence_v1,point_attempt_index,int|null,Fallback only
+residential_anchor_evidence_v1,parent_bezirk_code_2d,str,01..12
+residential_anchor_evidence_v1,realized_plr_id,str,Frozen PLR
+residential_anchor_evidence_v1,realized_lor_bzr_id,str,Frozen LOR BZR
+residential_anchor_evidence_v1,realized_pgr_id,str,Frozen PGR
+residential_anchor_evidence_v1,provenance,str,Deterministic

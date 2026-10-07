@@ -1,0 +1,220 @@
+{
+  "accepted_population": {
+    "accepted_realization_zip_sha256": "00b440d58b2c4f7f5484e8260a43f1fb9f2ce69c0b5d5c23a6272aa3b2afa505",
+    "candidate_id": "P_CONSTR_RMIN_V2_HD_U",
+    "home_zone_level": "BEZIRK",
+    "households": 54828,
+    "persons": 100000,
+    "scale_id": "M",
+    "six_plus_households": 802,
+    "six_plus_persons": 6873,
+    "strict_households": 54026,
+    "strict_persons": 93127
+  },
+  "architecture": {
+    "M0": {
+      "description": "data/evidence",
+      "state": "CLOSED_ACCEPTED"
+    },
+    "M1": {
+      "description": "population",
+      "state": "CLOSED_ACCEPTED"
+    },
+    "M2": {
+      "description": "daily activity / trip intent",
+      "state": "CLOSED_ACCEPTED"
+    },
+    "M3": {
+      "description": "spatial realization",
+      "state": "IN_PROGRESS"
+    },
+    "M4": {
+      "description": "feasible alternatives",
+      "state": "NOT_STARTED"
+    },
+    "M5": {
+      "description": "mode choice",
+      "state": "NOT_STARTED"
+    },
+    "M6": {
+      "description": "SimFleet execution",
+      "state": "NOT_STARTED"
+    },
+    "M7": {
+      "description": "validation",
+      "state": "NOT_STARTED"
+    }
+  },
+  "as_of": "2026-10-07",
+  "authoritative_repository": {
+    "branch_expected": "main",
+    "f4_1b_overlay_integrity": "11/11_PASS",
+    "head_expected": "0958a673f0527b5bc87c16cb041e620f085ead87",
+    "origin_main_expected": "0958a673f0527b5bc87c16cb041e620f085ead87",
+    "uploaded_repo_archive_sha256": "aae1ee4e4036cd2c5d339122738ef1b3dc4940b768f3cd0bdfd899fe417ab8db",
+    "uploaded_repo_contains_git_metadata": false,
+    "verification": "REQUIRED_ON_REAL_CLONE",
+    "worktree_expected": "clean"
+  },
+  "control_plane_hashes": {
+    "F4_1C_A1_ACTIVITY_RESOLUTION_REGISTRY_DRAFT_v1.csv": "2320e4238e02e69467595317320b8d5d411c45237a8fb7702ba12b5229d6fc0b",
+    "F4_1C_A1_PURPOSE_TAXONOMY_AND_RESOLUTION_FREEZE_DRAFT_v1.md": "21e6d366c02676173b2aaa82cde2e1b80557846fe38d738306dc81564815b255",
+    "F4_1C_A2_EXTERNAL_SOURCE_CONTRACT_DRAFT_v1.yaml": "05f13a01307fd1076df777f8d9fdc2e875313aec2904c9b7bf8909999c3f3096",
+    "F4_1C_A2_EXTERNAL_SPATIAL_SOURCE_AND_ACQUISITION_CONTRACT_DRAFT_v1.md": "4dd8a6220beafb1b4600858a192027b2d9fa8968d388689ee309b3b06de2eb61",
+    "F4_1C_A3_ELIGIBILITY_POLICY_DRAFT_v1.yaml": "7713d8a7e12032c69483726bf25091d8048e30f4a58798b4fdeb7c1b36242ffb",
+    "F4_1C_A3_OSM_TAG_TO_PURPOSE_ELIGIBILITY_FREEZE_DRAFT_v1.md": "4d422fa956c0c7641d5490c7f2a415759e7574d86d7b1bdd14ecca0e74bce668",
+    "F4_1C_A3_OSM_TAG_TO_PURPOSE_ELIGIBILITY_REGISTRY_DRAFT_v1.csv": "3a1c7ed8ad4dfaff2de54332ec6a029682790426f2ec7a843f143c57da2056a0",
+    "F4_1C_A4_ATTRACTIVENESS_CAPACITY_EVIDENCE_POLICY_FREEZE_DRAFT_v1.md": "aec66ad2a58843bb443430987131ce4e41348b150224063335918b3fe5655a4c",
+    "F4_1C_A4_ATTRACTIVENESS_CAPACITY_EVIDENCE_REGISTRY_DRAFT_v1.csv": "939bf6d83ee3c3b45262c8423b8ddd53778ebeef472a466f33276148901616c0",
+    "F4_1C_A4_ATTRACTIVENESS_CAPACITY_POLICY_DRAFT_v1.yaml": "535d2a7f38c5ee982671ce02ab97ec9e1c0174c20f0d2339f07bff50766af432",
+    "F4_1C_A5_ACQUISITION_PREOPEN_v1.yaml": "8a03c15eba43f38ddb5bbc9149a899fc0b6a0b6eec50be82d737b4c8b41d9c15",
+    "F4_1C_A5_JOINT_FREEZE_REVIEW_AND_ACQUISITION_AUTHORIZATION_v1.md": "cc8682d12a066302f15dd0c848e72a9c01879d7753f79bf7aadbc7e62ff435bd",
+    "F4_1C_A5_JOINT_FREEZE_REVIEW_CHECKLIST_v1.csv": "d051eddabf29c7f906fd7aeeb2096895a18125c770f6af601934dcfab4e2e4ad",
+    "F4_1C_A5_NORMATIVE_RECONCILIATION_AND_OPEN_BINDINGS_v1.csv": "caba1d9bab90821ee4b63e45fa62baac845123b58f3b031d5c561ac355291cf3",
+    "SimFleet_EDG_F4_1C_B_WORKER_PACKET_v1.zip": "9bef17dc755bf48dbb4cc15aeec8b855f7d140c226e5f788f6d3f04a74f61e36"
+  },
+  "current_f4": {
+    "F4.1a": {
+      "commit": "8ccbb4d54601a7fdf65fe6cb549e688d2ba1558e",
+      "state": "CLOSED_PASS"
+    },
+    "F4.1b": {
+      "commit": "7e28e80c32dc16c478ea6916b636bafa58e917f5",
+      "focused_tests": "12/12_PASS",
+      "full_regression": "727/727_PASS",
+      "ruff": "PASS",
+      "state": "CLOSED_PASS"
+    },
+    "F4.1c_A": {
+      "main_control_plane": "CLOSED_PASS",
+      "repository_sync": "IMPLEMENTATION_COMMIT_0958a67_REPORTED",
+      "state": "DESIGN_FROZEN",
+      "subphases": {
+        "A1": "FROZEN_BY_A5_OVERLAY",
+        "A2": "FROZEN_BY_A5_OVERLAY",
+        "A3": "FROZEN_BY_A5_OVERLAY",
+        "A4": "FROZEN_BY_A5_OVERLAY",
+        "A5": "PASS_WITH_NONBLOCKING_BINDINGS"
+      }
+    },
+    "F4.1c_B": {
+      "closure_qualifier": "PASS_WITH_MAIN_LOR_REPORTING_RECONCILIATION",
+      "implementation_commit": "0958a673f0527b5bc87c16cb041e620f085ead87",
+      "main_decision": "PASS",
+      "source_snapshot_id": "OSM_GEOFABRIK_BERLIN_2026-10-04_V1",
+      "state": "CLOSED_PASS"
+    },
+    "F4.1c_C": {
+      "design": "F4_1C_C_OPERATIONAL_SUPPLY_AND_RESIDENTIAL_ANCHOR_DESIGN_FREEZE_V2",
+      "official_execution": "ONLY_AFTER_EXACT_IMPLEMENTATION_COMMIT_AND_PUSH",
+      "required_parent_commit": "0958a673f0527b5bc87c16cb041e620f085ead87",
+      "state": "IMPLEMENTATION_PREOPEN"
+    },
+    "F4.1c_discovery": {
+      "conclusion": "EXTERNAL_SPATIAL_EVIDENCE_REQUIRED",
+      "repository_mutation": "NO",
+      "state": "DISCOVERY_COMPLETE"
+    },
+    "F4.2": {
+      "state": "NOT_AUTHORIZED"
+    }
+  },
+  "current_forbidden_actions": [
+    "reopen_G1",
+    "reopen_G2",
+    "read_consumed_MiD_TEST",
+    "retune_F1",
+    "retune_M2",
+    "assign_nonhome_destinations",
+    "execute_S_NEAR",
+    "execute_S_DIST",
+    "execute_S_ATTR",
+    "open_F4_2",
+    "run_G3_CAL",
+    "run_G3_TEST",
+    "infer_people_capacity",
+    "compute_canonical_attractiveness",
+    "destructive_OSM_duplicate_merge",
+    "network_access_in_C",
+    "official_C_materialization_before_exact_commit_push",
+    "git_push_from_terminal"
+  ],
+  "f4_1c_b_source": {
+    "authoritative_input_type": "DATED_RAW_OSM_PBF",
+    "latest_alias": "FORBIDDEN",
+    "provider_filename": "berlin-261004.osm.pbf",
+    "source_snapshot_id": "OSM_GEOFABRIK_BERLIN_2026-10-04_V1"
+  },
+  "frozen_m2_pipeline": {
+    "activity_chain": "DG_ACTIVITY_CHAIN::CHAIN_A::CHA2",
+    "distance_prior": "DIST_REF_REFERENCE",
+    "participation": "DG_PARTICIPATION::PART_A::PA1",
+    "refit": "FORBIDDEN",
+    "time_schedule": "TIME_B_TB2",
+    "trip_count": "DG_TRIP_COUNT::COUNT_REF::REFERENCE"
+  },
+  "gates": {
+    "G0": {
+      "reopen": "FORBIDDEN_UNLESS_NEW_LINEAGE",
+      "state": "PASS_CLOSED"
+    },
+    "G1": {
+      "freeze": "FROZEN",
+      "reopen": "DO_NOT_REOPEN",
+      "state": "PASS_CLOSED"
+    },
+    "G2": {
+      "freeze": "FROZEN",
+      "reopen": "DO_NOT_REOPEN",
+      "state": "PASS_CLOSED"
+    },
+    "G3": {
+      "state": "NOT_OPEN"
+    }
+  },
+  "next_authorized_task": {
+    "entry_artifact": "SimFleet_EDG_F4_1C_C_WORKER_PACKET_v1.zip",
+    "name": "OPERATIONAL_LOCATION_SUPPLY_AND_RESIDENTIAL_ANCHOR_MATERIALIZATION",
+    "pre_commit_stop": true,
+    "requires_real_clone_git_gate": true,
+    "return_to_main": "implementation commit + verified reproducible RunBundle + ClosurePackage",
+    "thread": "SimFleet-EDG \u2014 F4.1c-C \u2014 Implementation & Execution",
+    "work_package_id": "F4.1c-C"
+  },
+  "open_bindings": [
+    {
+      "effect": "OUTSIDE remains audit-only for Berlin C",
+      "id": "F4-BIND-007",
+      "state": "OPEN"
+    },
+    {
+      "effect": "Blocks later F4.2 ESCORT cases",
+      "id": "F4-BIND-ESCORT-001",
+      "state": "OPEN"
+    }
+  ],
+  "sealed_evidence": {
+    "F1_CAL": "CLOSED_DO_NOT_REOPEN",
+    "MiD_TEST": "CONSUMED_BY_G2_DO_NOT_REOPEN",
+    "post_holdout_rules": [
+      "candidate_tuning_FORBIDDEN",
+      "threshold_tuning_FORBIDDEN",
+      "same_lineage_scientific_tuning_FORBIDDEN"
+    ]
+  },
+  "state_id": "SIMFLEET_EDG_MASTER_PROJECT_STATE_V1",
+  "traceability_source": {
+    "archive": "F0-F4_1c.zip",
+    "archive_sha256": "e4f8930040f8b14fd205f930d1dc0bc79958af5980ce87aa09525638ab607bf2",
+    "closure_zip_count": 40,
+    "development_zip_count": 157,
+    "file_count": 281,
+    "note": "Counts are exact for non-directory entries in the supplied archive.",
+    "zip_count": 205
+  },
+  "workflow": {
+    "id": "SIMFLEET_EDG_WORKFLOW_V2",
+    "repository_sync": "F4.1c-C_IMPLEMENTATION_PREOPEN",
+    "status": "MAIN_ADOPTED"
+  }
+}
