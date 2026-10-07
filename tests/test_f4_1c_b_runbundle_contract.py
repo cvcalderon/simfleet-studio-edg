@@ -2,9 +2,12 @@ import hashlib
 import json
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 
 import yaml
+
+from simfleet_edg.repro import f4_1c_b_osm_audit as runner
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs/f4/f4_1c_b_acquisition_preopen_v1.yaml"
@@ -64,6 +67,14 @@ def _make_runbundle(path: Path) -> None:
         digest = hashlib.sha256(target.read_bytes()).hexdigest()
         rows.append(f"{digest}  {target.name}")
     (path / "checksums.sha256").write_text("\n".join(rows) + "\n", encoding="utf-8")
+
+
+
+def test_runner_json_serializes_yaml_date_as_iso8601(tmp_path: Path) -> None:
+    target = tmp_path / "acquisition_manifest.json"
+    runner._write_json(target, {"provider_date_label": date(2026, 10, 4)})
+    payload = json.loads(target.read_text(encoding="utf-8"))
+    assert payload["provider_date_label"] == "2026-10-04"
 
 
 def test_runbundle_verifier_accepts_complete_audit_only_bundle(tmp_path: Path) -> None:
