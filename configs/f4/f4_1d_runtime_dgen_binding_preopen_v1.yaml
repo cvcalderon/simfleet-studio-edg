@@ -1,0 +1,71 @@
+schema_version: simfleet-edg-f4-1d-v1
+phase_id: F4.1d
+phase_name: PRODUCTION_DGEN_RUNTIME_BINDING
+status: IMPLEMENTATION_PREOPEN
+required_parent_commit: eebccc7a43eb7c1ef2661da3f357c0e5b01e72ef
+master_seed: 20261007
+population:
+  candidate: P_CONSTR_RMIN_V2_HD_U
+  scale: M
+  run_dir_name: F1_PCONSTR_G1_HOLD_MREAL01_A1_official_run_v1
+  realization_zip_sha256: 00b440d58b2c4f7f5484e8260a43f1fb9f2ce69c0b5d5c23a6272aa3b2afa505
+  households_filename: M_P_CONSTR_RMIN_V2_HD_U_households.csv
+  persons_filename: M_P_CONSTR_RMIN_V2_HD_U_persons.csv
+  resources_filename: M_P_CONSTR_RMIN_V2_HD_U_resources.csv
+  households: 54828
+  persons: 100000
+  resources: 642364
+  households_sha256: 99e63cd1f203f36a0a1e7096abf0cd89555615b64a421a58cbc5c5f1af2d1c1b
+  persons_sha256: e75d768637ae97c19bf34c678a99aeec4fe0e5594805ced01ac4da4e95164d49
+  resources_sha256: 0d101d2a544227a13b7c7bfa108fd977c0256de3822c49f5cec61d81c557bcce
+selected_pipeline:
+  - artifact_id: DG_PARTICIPATION::PART_A::PA1
+    model_sha256: 18f59f65dc2fe6afa2934b36d8d3989d6ff278fd7d940af08f8954075305782e
+    manifest_sha256: 00b12204a690070eed5eca9c399c821cf5b6a5912e6fcd2423dab41e22395989
+  - artifact_id: DG_TRIP_COUNT::COUNT_REF::REFERENCE
+    model_sha256: 647e38736a9e67b81064c5ef52d1644d58c7954984336bc74eeb06e9bfb905e8
+    manifest_sha256: 5cafa1ff9193f8e3e4343d1ba995ea5e09bb3712988896b53a0c0ae1b22b8669
+  - artifact_id: DG_ACTIVITY_CHAIN::CHAIN_A::CHA2
+    model_sha256: 242085ebab9eb5ec8a53ea3b8ffe65c1d1e1fdb660bcacff0ab172d1b5ef1ecf
+    manifest_sha256: 337140dd45522a47659603998838a3c869646cbd70961ba874d6f34be555ea73
+  - artifact_id: TIME_B_TB2
+    model_sha256: 74aa012647291854c4fa087f1dd798e9d909e3c681046f1447307a23a6d5f900
+    manifest_sha256: ff3caa54e7ee11c2bde79e49da5604277d506c826b891fb7a1e4edd04b157c5a
+  - artifact_id: DIST_REF_REFERENCE
+    model_sha256: 21554c37d44aad7144c8daac1ddfd9e9a63402d59e105f9e790e83c1ea6e4cab
+    manifest_sha256: 4a30ae1f586418c31a55028e2902d28c43e234a1fddaadccba9103c1a09bd409
+smoke:
+  population: 512
+  selection: FIRST_CANONICAL_PERSON_ID_LEXICAL
+  scenario_id: F4_1D_BINDING_SMOKE_V1
+  scenario_weekday: 3
+  scenario_season: 2
+  replicate_index: 0
+  downstream_authorized: false
+serialization:
+  format: DETERMINISTIC_CSV_GZ_V1
+  encoding: UTF-8
+  newline: LF
+  header: true
+  gzip_mtime: 0
+  canonical_row_sort: true
+outputs:
+  runtime_context: runtime_context_v1.csv.gz
+  day_rows: dgen_day_rows_v1.csv.gz
+  trip_rows: dgen_trip_rows_v1.csv.gz
+  support_audit: support_unseen_audit_v1.json
+  artifact_validation: selected_artifact_validation_v1.csv
+  adapter_check: person_day_plan_adapter_check_v1.json
+  run_manifest: run_manifest.json
+execution_boundary:
+  precommit_smoke_execution: FORBIDDEN
+  postpush_smoke_only: true
+  full_100k_dgen_realization: FORBIDDEN
+  cal_read: FORBIDDEN
+  mid_test_read: FORBIDDEN
+  destination_assignment: FORBIDDEN
+  s_near: FORBIDDEN
+  s_dist: FORBIDDEN
+  s_attr: FORBIDDEN
+  g3: NOT_OPEN
+  terminal_git_push: FORBIDDEN

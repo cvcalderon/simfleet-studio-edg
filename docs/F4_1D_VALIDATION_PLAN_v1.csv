@@ -1,0 +1,27 @@
+test_id,category,test,required
+D-T001,ENTRY,real clone main/eebccc/origin/clean exact,HARD_PASS
+D-T002,ENTRY,F4.1c-C overlay checksum 27/27 exact,HARD_PASS
+D-T003,INPUT,M1 households/persons/resources hashes and counts exact,HARD_PASS
+D-T004,INPUT,all five selected model+manifest hashes exact,HARD_PASS
+D-T005,CONTEXT,scenario weekday 1..7 and season 1..4 only,HARD_PASS
+D-T006,NFI,no donor/source mobility outcome in runtime feature frame,HARD_PASS
+D-T007,IDENTITY,generated M1 person/household IDs populate production rows,HARD_PASS
+D-T008,IDENTITY,MiD source ids absent from behavioral features,HARD_PASS
+D-T009,RESOURCES,one deterministic runtime value per required resource feature,HARD_PASS
+D-T010,6PLUS,6+ canonicalized to 6_PLUS; no coercion to 5/exact6,HARD_PASS
+D-T011,SUPPORT,unseen/backoff counts reported per selected model,HARD_PASS
+D-T012,SUPPORT,no adapter crashes/unhandled runtime category,HARD_PASS
+D-T013,RNG,production scenario namespace; CAL_SCENARIO_ID unused,HARD_PASS
+D-T014,RNG,row order permutation leaves outputs byte-identical after canonical sort,HARD_PASS
+D-T015,OUTPUT,day/trip rows satisfy frozen F4.1b schema,HARD_PASS
+D-T016,OUTPUT,adapt_joint_generated_frames accepts smoke output,HARD_PASS
+D-T017,OUTPUT,PersonDayPlan identities equal accepted M1 IDs,HARD_PASS
+D-T018,BOUNDARY,no destination assignment / spatial candidate code executed,HARD_PASS
+D-T019,BOUNDARY,S_NEAR/S_DIST/S_ATTR/G3 all closed,HARD_PASS
+D-T020,BOUNDARY,MiD TEST read count = 0; CAL read count = 0,HARD_PASS
+D-T021,REPRO,second 512-person smoke exact output SHA-256 match,HARD_PASS
+D-T022,QUALITY,F4.1d scoped tests PASS,HARD_PASS
+D-T023,QUALITY,F4.1d scoped Ruff PASS; repo differential unchanged,HARD_PASS
+D-T024,QUALITY,F4.1d scoped mypy PASS; repo differential unchanged,HARD_PASS
+D-T025,QUALITY,full regression PASS,HARD_PASS
+D-T026,VERIFY,pre/post-push verifiers PASS,HARD_PASS

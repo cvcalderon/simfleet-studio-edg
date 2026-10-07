@@ -1,0 +1,21 @@
+field,role,dtype,source,rule
+scenario_id,SCENARIO_ID,str,caller,non-empty; not MiD source identity
+scenario_weekday,SCENARIO_FEATURE,int8,caller,1..7; bound to model source_weekday
+scenario_season,SCENARIO_FEATURE,int8,caller,1..4; bound to model source_season
+person_id,IDENTITY,str,M1 persons,generated accepted M1 ID
+household_id,IDENTITY,str,M1 persons,generated accepted M1 household ID
+age_infr_class,FEATURE,category,M1 persons,direct
+sex,FEATURE,category,M1 persons,direct
+primary_activity_status,FEATURE,category,M1 persons,direct
+household_size_class,FEATURE,category,M1 households,1..5; >=6 -> 6_PLUS
+source_weekday,FEATURE_ALIAS,int8,scenario_weekday,legacy frozen model field name only
+source_season,FEATURE_ALIAS,int8,scenario_season,legacy frozen model field name only
+hh_car_stock_class,FEATURE,category,M1 resources,frozen stock class topcode=3
+hh_motorcycle_moped_stock_class,FEATURE,category,M1 resources,frozen stock class topcode=3
+hh_ebike_stock_class,FEATURE,category,M1 resources,frozen stock class topcode=10
+hh_bike_stock_class,FEATURE,category,M1 resources,frozen stock class topcode=10
+hh_carsharing_membership,FEATURE,category,M1 resources,household membership
+person_car_access,FEATURE,category,M1 resources,person access
+person_bike_access,FEATURE,category,M1 resources,person access
+person_ebike_access,FEATURE,category,M1 resources,person access
+person_carsharing_membership,FEATURE,category,M1 resources,person membership

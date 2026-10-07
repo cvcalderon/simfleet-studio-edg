@@ -1,0 +1,17 @@
+configs/f4/f4_1d_runtime_dgen_binding_preopen_v1.yaml
+docs/F4_1D_RUNTIME_DGEN_BINDING_DESIGN_FREEZE_v1.md
+docs/F4_1D_RUNTIME_CONTEXT_SCHEMA_v1.csv
+docs/F4_1D_MODEL_BINDINGS_v1.csv
+docs/F4_1D_VALIDATION_PLAN_v1.csv
+docs/F4_1D_IMPLEMENTATION_PREOPEN_v1.md
+docs/F4_1D_OVERLAY_FILELIST_v1.txt
+docs/F4_1D_OVERLAY_CHECKSUMS_v1.sha256
+src/simfleet_edg/demand/runtime_context.py
+src/simfleet_edg/demand/runtime_generator.py
+src/simfleet_edg/repro/f4_1d_runtime_dgen_binding.py
+scripts/verify_f4_1d_preopen.py
+scripts/verify_f4_1d_runbundle.py
+tests/test_f4_1d_design_freeze.py
+tests/test_f4_1d_runtime_context.py
+tests/test_f4_1d_runtime_generator.py
+tests/test_f4_1d_runner_contract.py
