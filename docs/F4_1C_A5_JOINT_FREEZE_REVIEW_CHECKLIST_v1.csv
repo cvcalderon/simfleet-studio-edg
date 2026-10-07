@@ -1,0 +1,31 @@
+check_id,scope,criterion,result,notes
+A5-001,A1,Runtime CHA2 vocabulary is frozen to 8 states,PASS,"HOME, WORK, BUSINESS, EDUCATION, ESCORT, LEISURE, OTHER, SHOPPING."
+A5-002,A1/A3,HOME is resolved only through ResidentialAnchor,PASS,RETURN_HOME is excluded from generic LocationSupply.
+A5-003,A1/A3,"ESCORT remains relational, not generic OSM supply",PASS_WITH_RECONCILIATION,A1 generic eligible-purpose wording is narrowed by A5 overlay; A3 already excludes ESCORT.
+A5-004,A1,WORK and EDUCATION are person-stable primary locations,PASS,No multi-workplace/institution extension is silently introduced.
+A5-005,A1,BUSINESS/SHOPPING/LEISURE/OTHER are occurrence-resolved,PASS,Activity-node continuity remains mandatory.
+A5-006,A2,Authoritative source is raw public Geofabrik Berlin OSM PBF,PASS,Provider/source family consistent with A3 raw-tag needs.
+A5-007,A2,Snapshot is dated/immutable by identity,PASS,OSM_GEOFABRIK_BERLIN_2026-10-04_V1; latest alias forbidden.
+A5-008,A2,Dated provider artifact is currently discoverable,PASS,Geofabrik index exposes berlin-261004.osm.pbf and MD5 sidecar; exact bytes/hashes captured only during B acquisition.
+A5-009,A2,Operational study boundary remains frozen Berlin LOR,PASS,Raw extract envelope is evidence only; outside-Berlin generation remains unauthorized.
+A5-010,A2,Licensing/privacy policy is compatible with public extract,PASS,ODbL attribution required; public Geofabrik extract excludes contributor personal metadata fields cited by provider.
+A5-011,A3,Eligibility registry is closed-world/default-deny,PASS,Unmapped tags are excluded and counted; no opportunistic post-acquisition admission.
+A5-012,A3,Lifecycle/inactive exclusions override include rules,PASS,Disused/abandoned/demolished/proposed/construction etc. excluded.
+A5-013,A3,One physical object may support multiple purposes,PASS,Canonical object with union of eligible purposes; no fake per-purpose duplicate.
+A5-014,A3,Geometry policy is deterministic and auditable,PASS,Nodes use coordinates; polygons use point_on_surface; invalid geometry excluded/audited.
+A5-015,A3,Mode/service infrastructure is not used as generic destination evidence,PASS,Protects M3 mode-blind boundary.
+A5-016,A4,"Eligibility, attractiveness and capacity remain distinct",PASS,A3 eligibility does not imply A4 weight or capacity.
+A5-017,A4,Base operational attractiveness/capacity are not fabricated,PASS,Canonical fields remain None until an explicit downstream scoring/capacity freeze.
+A5-018,A4,Residential footprint area is only a sampling-mass proxy,PASS,No occupancy/person-capacity claim.
+A5-019,A4,Generic OSM capacity-like evidence is raw audit evidence only,PASS,No automatic promotion to structural capacity.
+A5-020,A4,Unknown attractiveness/capacity do not mean zero,PASS,Missing evidence does not make an A3-eligible location ineligible.
+A5-021,A4/F4.2,Exact S_ATTR transformation is intentionally deferred,PASS_FOR_ACQUISITION,Raw evidence may be audited in B; scoring must be frozen before any candidate execution.
+A5-022,A4/C,Evidence sidecar requires an exact repository schema before C,OPEN_NONBLOCKING_FOR_B,"Blocks C materialization, not raw acquisition/audit."
+A5-023,A1/F4.2,ESCORT linked-person mechanism remains unresolved,OPEN_NONBLOCKING_FOR_B,Must be resolved before F4.2 execution containing ESCORT.
+A5-024,A1/C,Residential point-realization rule remains unresolved,OPEN_NONBLOCKING_FOR_B,Must be frozen before residential-anchor materialization in C.
+A5-025,F4.2,Outside-Berlin generation policy remains unresolved,OPEN_NONBLOCKING_FOR_B,B is Berlin-only. Resolve before F4.2 if candidate semantics require external destinations.
+A5-026,Boundary,No destination/home assignment is authorized by A5,PASS,Only acquisition + integrity/provenance + audit operations are permitted.
+A5-027,Boundary,No S_NEAR/S_DIST/S_ATTR execution is authorized,PASS,Candidate implementations remain unopened.
+A5-028,Boundary,No G3 CAL/TEST or candidate selection is authorized,PASS,A5 does not open evaluation.
+A5-029,Boundary,G1/G2 and consumed MiD TEST remain untouched,PASS,No upstream gate reopening.
+A5-030,B audit,A3+A4 support/audit requirements are jointly sufficient for first B pass,PASS,"Counts, unmapped tags, purposes, geometry, fallback, duplicates, areas, capacity-like fields, LOR coverage and outliers are required."

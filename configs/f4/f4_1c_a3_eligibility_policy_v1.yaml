@@ -1,0 +1,73 @@
+contract_id: F4_1C_A3_OSM_TAG_TO_PURPOSE_ELIGIBILITY_REGISTRY_DRAFT_V1
+status: DESIGN_DRAFT_READY_FOR_FREEZE
+authoritative_parent: 7e28e80c32dc16c478ea6916b636bafa58e917f5
+source_contract: F4_1C_A2_EXTERNAL_SOURCE_CONTRACT_DRAFT_V1
+runtime_activity_vocabulary:
+- HOME
+- WORK
+- BUSINESS
+- EDUCATION
+- ESCORT
+- LEISURE
+- OTHER
+- SHOPPING
+location_supply_purposes:
+- WORK_COMMUTE
+- BUSINESS
+- EDUCATION
+- SHOPPING
+- LEISURE
+- OTHER
+non_generic_resolution:
+  HOME: HOUSEHOLD_ANCHOR
+  ESCORT: RELATIONAL
+extraction_key_universe_v1:
+- amenity
+- building
+- craft
+- healthcare
+- landuse
+- leisure
+- office
+- shop
+- historic
+- tourism
+rule_semantics:
+  default: DENY_UNMAPPED
+  multi_purpose: UNION_ALL_MATCHING_INCLUDE_RULES_AFTER_EXCLUSIONS
+  priority: HIGHER_PRIORITY_EXCLUSION_OVERRIDES_LOWER_INCLUDE
+  building_genericity: building=yes_is_not_semantic_supply
+  area_fallback: LOWER_PRIORITY_THAN_EXPLICIT_FACILITY_OR_BUILDING
+  capacity: NOT_DEFINED_IN_A3
+  attractiveness: NOT_DEFINED_IN_A3
+geometry_policy:
+  node: USE_NODE_COORDINATE
+  closed_way_or_relation_polygon: USE_POINT_ON_SURFACE_FOR_RUNTIME_LOCATION
+  centroid_only: FORBIDDEN_AS_GENERAL_RULE_FOR_CONCAVE_POLYGONS
+  invalid_geometry: EXCLUDE_AND_AUDIT
+canonicalization_policy:
+  same_osm_object_multiple_tags: ONE_CANONICAL_OBJECT_UNION_ELIGIBILITY
+  poi_node_inside_building: MERGE_ONLY_WITH_STRONG_IDENTITY_EVIDENCE
+  strong_identity_evidence:
+  - same_normalized_name_and_compatible_semantics
+  - or_same_normalized_address_and_compatible_semantics
+  geometry_only_merge: FORBIDDEN
+  unresolved_possible_duplicates: PRESERVE_AND_FLAG
+audit_requirements_after_acquisition:
+- count_raw_objects_by_osm_key_value
+- count_matched_include_rules
+- count_excluded_lifecycle
+- count_unmapped_default_deny
+- count_by_eligible_purpose
+- count_by_geometry_type
+- count_area_fallback_vs_explicit_facility
+- count_potential_duplicates
+- coverage_by_LOR_BZR_and_PLR
+forbidden:
+- ANY_POI fallback for OTHER
+- generic OSM POI lookup for ESCORT
+- generic OSM POI lookup for HOME
+- mode/routing/service tags as destination-purpose evidence
+- capacity inference in A3
+- attractiveness inference in A3
+- silent admission of unseen tags after acquisition

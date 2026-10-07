@@ -1,0 +1,9 @@
+activity,destination_purpose,resolution_class,stability_scope,generic_location_supply_lookup,multi_purpose_location_allowed,core_semantics_status,notes
+HOME,RETURN_HOME,HOUSEHOLD_ANCHOR,HOUSEHOLD_SIMULATION_REALIZATION,NO,NA,FROZEN_DRAFT,"ResidentialAnchor; all HOME nodes share same household LocationRef"
+WORK,WORK_COMMUTE,PERSON_STABLE_SUPPLY,PERSON_SIMULATION_REALIZATION,YES,YES,FROZEN_DRAFT,"same primary work location for repeated WORK occurrences; multi-workplace future extension only"
+BUSINESS,BUSINESS,OCCURRENCE_SUPPLY,ACTIVITY_NODE,YES,YES,FROZEN_DRAFT,"resolve each BUSINESS activity node once; preserve incoming/outgoing continuity"
+EDUCATION,EDUCATION,PERSON_STABLE_SUPPLY,PERSON_SIMULATION_REALIZATION,YES,YES,FROZEN_DRAFT,"same primary education location for repeated EDUCATION occurrences; multi-institution future extension only"
+ESCORT,ESCORT,RELATIONAL,LINKED_ACTIVITY_OR_PERSON,NO,NA,OPEN_BINDING,"preferred linked-person destination; arbitrary generic POI fallback forbidden"
+LEISURE,LEISURE,OCCURRENCE_SUPPLY,ACTIVITY_NODE,YES,YES,FROZEN_DRAFT,"resolve each activity node once"
+OTHER,OTHER,OCCURRENCE_SUPPLY,ACTIVITY_NODE,YES,YES,FROZEN_DRAFT,"curated registry only; universal POI fallback forbidden"
+SHOPPING,SHOPPING,OCCURRENCE_SUPPLY,ACTIVITY_NODE,YES,YES,FROZEN_DRAFT,"resolve each activity node once"

@@ -1,0 +1,109 @@
+schema_version: simfleet-edg-f4-1c-b-v1
+phase_id: F4.1c-B
+phase_name: ACQUIRE_AND_AUDIT_EXTERNAL_OSM_LOCATION_SUPPLY_EVIDENCE
+status: PREOPEN_IMPLEMENTATION_AUTHORIZED_NO_RUNTIME_SPATIALIZATION
+required_parent_commit: 7e28e80c32dc16c478ea6916b636bafa58e917f5
+baseline_hash_correction:
+  authority: MAIN
+  correction_type: TECHNICAL_CONTRACT_ERRATUM
+  file: src/simfleet_edg/canonical/mobility.py
+  authoritative_sha256: 881fd12eb59d89ebe48a30a1e5f267f55051720dc265471ca796f154afcb9d2e
+
+source:
+  source_snapshot_id: OSM_GEOFABRIK_BERLIN_2026-10-04_V1
+  upstream_dataset: OpenStreetMap
+  extract_provider: Geofabrik GmbH
+  provider_region: Berlin
+  provider_filename: berlin-261004.osm.pbf
+  provider_date_label: 2026-10-04
+  pbf_url: https://download.geofabrik.de/europe/germany/berlin-261004.osm.pbf
+  md5_url: https://download.geofabrik.de/europe/germany/berlin-261004.osm.pbf.md5
+  raw_target: data/raw/osm/berlin/2026-10-04/berlin-261004.osm.pbf
+  mutable_latest_alias_allowed: false
+  overwrite_existing_raw: false
+  license_id: ODbL-1.0
+  attribution_text: "© OpenStreetMap contributors"
+
+frozen_contracts:
+  a2_policy: configs/f4/f4_1c_a2_external_source_contract_v1.yaml
+  a3_policy: configs/f4/f4_1c_a3_eligibility_policy_v1.yaml
+  a3_registry: docs/F4_1C_A3_OSM_TAG_TO_PURPOSE_ELIGIBILITY_REGISTRY_v1.csv
+  a4_policy: configs/f4/f4_1c_a4_attractiveness_capacity_policy_v1.yaml
+  a4_registry: docs/F4_1C_A4_ATTRACTIVENESS_CAPACITY_EVIDENCE_REGISTRY_v1.csv
+  a5_authorization: docs/F4_1C_A5_JOINT_FREEZE_REVIEW_AND_ACQUISITION_AUTHORIZATION_v1.md
+
+frozen_contract_sha256:
+  a2_policy: 05f13a01307fd1076df777f8d9fdc2e875313aec2904c9b7bf8909999c3f3096
+  a3_policy: 7713d8a7e12032c69483726bf25091d8048e30f4a58798b4fdeb7c1b36242ffb
+  a3_registry: 3a1c7ed8ad4dfaff2de54332ec6a029682790426f2ec7a843f143c57da2056a0
+  a4_policy: 535d2a7f38c5ee982671ce02ab97ec9e1c0174c20f0d2339f07bff50766af432
+  a4_registry: 939bf6d83ee3c3b45262c8423b8ddd53778ebeef472a466f33276148901616c0
+  a5_authorization: cc8682d12a066302f15dd0c848e72a9c01879d7753f79bf7aadbc7e62ff435bd
+
+frozen_lor:
+  contract: configs/f4/f4_1b_m2_m3_adapter_lor_gate_v1.yaml
+  metric_crs: EPSG:25833
+  source_crs: EPSG:4326
+  plr:
+    path: data/raw/lor/lor_2021_a_lor_plr_2021_WGS84.geojson
+    sha256: a19e3d75adb663225150abd833ffb2ca69cea156ff1356d342c92612e2cb3ff5
+  bzr:
+    path: data/raw/lor/lor_2021_b_lor_bzr_2021_WGS84.geojson
+    sha256: 6048918bfb1d74d546a0a145e996645ea6c0906e8a77718f04fcedb436c030d0
+  pgr:
+    path: data/raw/lor/lor_2021_c_lor_pgr_2021_WGS84.geojson
+    sha256: 8e6fcf3be62fe85fc72c71aa5c884c94b72d91d0674a868cf898c33025eaac52
+
+execution_boundary:
+  mode: AUDIT_ONLY
+  operational_location_supply_materialization: FORBIDDEN
+  home_assignment: FORBIDDEN
+  destination_assignment: FORBIDDEN
+  escort_generic_poi_fallback: FORBIDDEN
+  s_near_execution: FORBIDDEN
+  s_dist_execution: FORBIDDEN
+  s_attr_execution: FORBIDDEN
+  attractiveness_tuning: FORBIDDEN
+  people_capacity_inference: FORBIDDEN
+  g3_cal: NOT_AUTHORIZED
+  g3_test: NOT_AUTHORIZED
+  mid_test_read: FORBIDDEN
+  g1_reopen: FORBIDDEN
+  g2_reopen: FORBIDDEN
+
+required_runbundle:
+  - acquisition_manifest.json
+  - provider_md5.txt
+  - local_sha256.txt
+  - environment.json
+  - pbf_metadata.json
+  - osm_key_value_inventory.csv
+  - a3_rule_application_counts.csv
+  - unmapped_default_deny_inventory.csv
+  - purpose_supply_counts.csv
+  - geometry_quality_audit.csv
+  - facility_vs_fallback_audit.csv
+  - potential_duplicate_audit.csv
+  - a4_area_evidence_audit.csv
+  - a4_capacity_like_raw_audit.csv
+  - residential_support_by_bzr_plr.csv
+  - nonhome_support_by_bzr_plr.csv
+  - performance.csv
+  - F4_1C_B_AUDIT_SUMMARY.md
+  - run_manifest.json
+  - run.log
+  - checksums.sha256
+
+precheck:
+  network_access: FORBIDDEN
+  require_python: ">=3.12,<3.13"
+  require_osmium: true
+  require_shapely: true
+  require_pyproj: true
+
+acquire_and_audit:
+  network_access: EXACT_DATED_SOURCE_ONLY
+  require_clean_frozen_implementation_commit: true
+  implementation_commit_must_differ_from_parent: true
+  raw_download_partial_suffix: .part
+  atomic_rename_after_md5_pass: true

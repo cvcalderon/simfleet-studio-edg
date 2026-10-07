@@ -1,0 +1,92 @@
+contract_id: F4_1C_A4_ATTRACTIVENESS_CAPACITY_POLICY_DRAFT_V1
+status: DESIGN_DRAFT_READY_FOR_FREEZE
+authoritative_parent: 7e28e80c32dc16c478ea6916b636bafa58e917f5
+depends_on:
+- F4_1C_A1_PURPOSE_TAXONOMY_AND_RESOLUTION_FREEZE_DRAFT_V1
+- F4_1C_A2_EXTERNAL_SOURCE_CONTRACT_DRAFT_V1
+- F4_1C_A3_OSM_TAG_TO_PURPOSE_ELIGIBILITY_REGISTRY_DRAFT_V1
+core_separation:
+  eligibility: HARD_COMPATIBILITY_FROM_A3
+  attractiveness: SOFT_RELATIVE_OPPORTUNITY_EVIDENCE
+  capacity: STRUCTURAL_PERSON_SLOT_CONSTRAINT_ONLY_IF_SEMANTICALLY_DEFENSIBLE
+base_materialization_v1:
+  LocationSupplyRecord.attractiveness: null
+  LocationSupplyRecord.capacity: null
+  reason: A4 freezes raw evidence; F4.2 freezes transformations/scoring. Capacity
+    semantics are not yet defensible from generic OSM.
+evidence_sidecar:
+  name: LocationSupplyEvidenceRecord
+  key:
+  - location_id
+  fields:
+  - source_snapshot_id
+  - osm_element_type
+  - osm_element_id
+  - geometry_evidence_class
+  - projected_area_m2
+  - osm_capacity_raw
+  - building_levels_raw
+  - attractiveness_evidence_class
+  - capacity_evidence_class
+  - provenance_notes
+  purpose_specific_extension: DEFERRED_UNTIL_F4_2_IF_REQUIRED
+residential_anchor_policy:
+  explicit_residential_building:
+    mass_proxy: projected_polygon_area_m2
+    role: sampling_weight_evidence
+    capacity_claim: false
+  residential_landuse_fallback:
+    mass_proxy: projected_polygon_area_m2
+    role: fallback_area_sampling_weight_evidence
+    capacity_claim: false
+    priority: LOWER_THAN_EXPLICIT_RESIDENTIAL_BUILDINGS
+  point_residential_evidence:
+    mass_proxy: 1.0
+    role: unit_fallback_if_no_polygon_mass
+non_home_attractiveness_policy:
+  explicit_polygon_facility: retain projected area as RAW evidence only
+  point_facility: retain unit_presence=1 as RAW evidence
+  area_fallback: retain area for audit only; no direct V1 attractiveness weight
+  canonical_attractiveness_in_C: null
+  transformation_to_weight: MUST_BE_FROZEN_IN_F4_2_BEFORE_S_ATTR_EXECUTION
+capacity_policy:
+  default: null
+  unknown_means: UNKNOWN_NOT_ZERO
+  generic_osm_capacity: RETAIN_RAW_ONLY_NOT_STRUCTURAL
+  area_to_capacity: FORBIDDEN
+  poi_count_to_capacity: FORBIDDEN
+  tag_category_to_default_capacity: FORBIDDEN
+  building_levels_to_capacity: FORBIDDEN
+  future_requirement:
+  - purpose-specific semantic unit
+  - population/visit scope
+  - time basis
+  - source provenance
+  - validation rule
+missing_evidence_semantics:
+  missing_attractiveness: UNKNOWN_NEUTRAL_CANDIDATE_NOT_INELIGIBLE
+  missing_capacity: UNKNOWN_NOT_ZERO_NOT_AUTOMATICALLY_FULL
+multi_purpose_guardrail:
+  issue: A scalar attractiveness/capacity cannot safely encode purpose-specific opportunity
+    for a multi-purpose physical location.
+  v1_resolution: Keep canonical fields NULL in base C; preserve raw evidence in sidecar;
+    freeze effective purpose-conditioned scoring in F4.2.
+  duplicate_location_per_purpose: FORBIDDEN_AS_A4_WORKAROUND
+forbidden:
+- raw projected area written directly as people capacity
+- raw projected area written directly as canonical S_ATTR weight before F4.2
+- generic capacity=* treated automatically as person slots
+- unknown capacity coerced to zero
+- unknown attractiveness coerced to zero
+- POI count used as record capacity
+- building:levels multiplied into operational weight without a separate freeze
+- purpose-specific evidence collapsed into one scalar without an explicit rule
+required_B_audit:
+- share of eligible records with polygon area
+- area distributions by A3 supply class and purpose
+- share of point-only facilities
+- frequency and raw values of capacity-like tags
+- frequency and parseability of building-level fields
+- comparison explicit facilities vs area fallbacks
+- residential building coverage by BZR/PLR
+- outlier diagnostics for polygon area

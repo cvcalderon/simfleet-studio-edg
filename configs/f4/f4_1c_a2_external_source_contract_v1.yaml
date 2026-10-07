@@ -1,0 +1,138 @@
+contract_id: F4_1C_A2_EXTERNAL_SOURCE_CONTRACT_DRAFT_v1
+status: DESIGN_DRAFT_READY_FOR_FREEZE
+date: 2026-10-06
+
+phase_boundary:
+  repository_mutation: FORBIDDEN
+  external_acquisition: FORBIDDEN_UNTIL_A5
+  spatialization: FORBIDDEN
+  candidate_execution: FORBIDDEN
+
+source:
+  upstream_dataset: OpenStreetMap
+  upstream_attribution: "© OpenStreetMap contributors"
+  extract_provider: Geofabrik GmbH
+  source_role: RAW_EXTERNAL_SPATIAL_EVIDENCE
+  public_extract_only: true
+
+snapshot:
+  source_snapshot_id: OSM_GEOFABRIK_BERLIN_2026-10-04_V1
+  provider_region: Berlin
+  provider_filename: berlin-261004.osm.pbf
+  format: osm.pbf
+  provider_date_label: 2026-10-04
+  provider_last_modified_observed: "2026-10-05 17:11"
+  approximate_size: "95 MB"
+  mutable_latest_alias_allowed: false
+  local_sha256: TO_BE_CAPTURED_AT_ACQUISITION
+  provider_md5: TO_BE_CAPTURED_AND_VERIFIED_AT_ACQUISITION
+  pbf_header_timestamp: TO_BE_AUDITED_AT_ACQUISITION
+
+geography:
+  raw_evidence_envelope: GEOFABRIK_BERLIN_EXTRACT
+  operational_study_boundary: FROZEN_LOR_BERLIN_FRAMEWORK
+  operational_metric_crs: EPSG:25833
+  source_crs_semantics: OSM_WGS84_GEOGRAPHIC
+  outside_berlin_generation: NOT_AUTHORIZED
+  future_brandenburg_extension: REQUIRES_NEW_SOURCE_VERSION_OR_EXTENSION_CONTRACT
+
+temporal_semantics:
+  reference_descriptor: BERLIN_HYBRID_REFERENCE_V1_WITH_OSM_2026_SUPPLY
+  components:
+    MiD_behaviour: 2017
+    LOR_geography: 2021
+    Zensus_controls: 2022
+    OSM_spatial_supply: 2026-10-04
+  single_year_observed_berlin_claim: FORBIDDEN
+
+format_policy:
+  authoritative:
+    - osm.pbf
+  non_authoritative_diagnostic_only:
+    - live_overpass_response
+    - free_shapefile_derivative
+    - free_geopackage_derivative
+    - rendered_tiles
+    - nominatim_response
+
+integrity:
+  required_at_acquisition:
+    - provider_md5_expected
+    - provider_md5_observed
+    - local_sha256
+    - file_size_bytes
+    - pbf_open_read_check
+    - pbf_header_timestamp
+    - pbf_bbox
+  project_content_hash: SHA256
+  provider_transfer_check: MD5
+
+storage:
+  raw_file_immutable: true
+  overwrite_allowed: false
+  auto_refresh_allowed: false
+  recommended_directory: data/raw/osm/berlin/2026-10-04
+  git_track_raw_pbf: false
+  git_track_manifest_and_hashes: true
+  large_derived_format_preference: GeoParquet_or_Parquet
+
+license:
+  id: ODbL-1.0
+  attribution_required: true
+  attribution_text: "© OpenStreetMap contributors"
+  public_distribution_requires_license_review: true
+
+privacy:
+  public_geofabrik_extract: ALLOWED
+  full_contributor_metadata_extract: FORBIDDEN_NOT_REQUIRED
+
+provenance_fields_required:
+  - source_snapshot_id
+  - upstream_dataset
+  - extract_provider
+  - provider_filename
+  - provider_download_url
+  - provider_region
+  - provider_date_label
+  - retrieved_at_utc
+  - http_last_modified
+  - content_length_bytes
+  - provider_md5_expected
+  - provider_md5_observed
+  - local_sha256
+  - pbf_header_timestamp
+  - pbf_bbox
+  - file_size_bytes
+  - acquisition_tool
+  - acquisition_tool_version
+  - license_id
+  - attribution_text
+
+derived_record_provenance:
+  required:
+    - source_snapshot_id
+    - osm_element_type
+    - osm_element_id
+    - extractor_version
+    - eligibility_registry_version
+    - geometry_transform_version
+
+separation_of_concerns:
+  A2: SOURCE_IDENTITY_AND_ACQUISITION_ONLY
+  A3: TAG_TO_PURPOSE_ELIGIBILITY
+  A4: ATTRACTIVENESS_AND_CAPACITY_POLICY
+  A5: ACQUISITION_AUTHORIZATION
+
+forbidden_in_A2:
+  - tag_to_purpose_freeze
+  - invented_capacity
+  - attractiveness_scoring
+  - home_assignment
+  - destination_assignment
+  - S_NEAR
+  - S_DIST
+  - S_ATTR
+  - G3_CAL
+  - G3_TEST
+
+next: F4_1C_A3_OSM_TAG_TO_PURPOSE_ELIGIBILITY_REGISTRY_FREEZE
