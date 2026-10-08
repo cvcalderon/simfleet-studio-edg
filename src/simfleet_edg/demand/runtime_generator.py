@@ -77,6 +77,7 @@ class GenerationResult:
     trip_rows: pd.DataFrame
     support_audit: dict[str, Any]
     artifact_validation: tuple[dict[str, Any], ...]
+    projection_audit: pd.DataFrame
 
 
 def _adapter(repo_root: Path, record: ArtifactRecord) -> Any:
@@ -274,6 +275,116 @@ def _time_b_full_chain_sample(
         raise RuntimeError("TIME_B full-chain sampler produced invalid temporal row")
     return result, {str(key): int(value) for key, value in unseen.items()}
 
+
+
+# The M2 labels below are never changed inside CHA2/TIME/DIST calls. Projection
+# takes place only after the entire selected five-component draw has completed.
+M3_ACTIVITY_VOCABULARY: Final[frozenset[str]] = frozenset(
+    {"HOME", "WORK", "BUSINESS", "EDUCATION", "ESCORT", "LEISURE", "OTHER", "SHOPPING"}
+)
+M2_M3_EXPLICIT_PROJECTION: Final[dict[str, str]] = {"PRIVATE_ERRAND": "OTHER"}
+PROJECTION_AUDIT_COLUMNS: Final[tuple[str, ...]] = (
+    "record_type", "row_id", "trip_index",
+    "raw_origin_activity", "projected_origin_activity",
+    "raw_destination_activity", "projected_destination_activity",
+    "raw_final_activity", "projected_final_activity",
+)
+
+
+def _project_m2_label(raw: Any) -> str:
+    if not isinstance(raw, str):
+        raise ValueError(f"Invalid M2 activity type at M3 boundary: {type(raw).__name__}")
+    if raw in M3_ACTIVITY_VOCABULARY:
+        return raw
+    if raw in M2_M3_EXPLICIT_PROJECTION:
+        return M2_M3_EXPLICIT_PROJECTION[raw]
+    raise ValueError(f"Unmapped M2 activity at M3 boundary: {raw!r}")
+
+
+def project_m2_activity_frames(
+    day_rows: pd.DataFrame, trip_rows: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict[str, int]]:
+    """Explicitly lossy M2->M3 projection, with complete deterministic raw provenance."""
+    days = day_rows.copy(deep=True)
+    trips = trip_rows.copy(deep=True)
+    if days["row_id"].duplicated().any() or trips.duplicated(["row_id", "trip_index"]).any():
+        raise ValueError("Duplicate M1 row/trip identity at taxonomy boundary")
+    if not days["row_id"].is_unique or not set(trips["row_id"]).issubset(set(days["row_id"])):
+        raise ValueError("Trip/day row_id relation is invalid")
+    raw_trips = trips.sort_values(["row_id", "trip_index"], kind="mergesort")
+    raw_days = days.sort_values("row_id", kind="mergesort")
+    audit_rows: list[dict[str, Any]] = []
+    origin_changes = 0
+    destination_changes = 0
+    final_changes = 0
+    affected: set[str] = set()
+    affected_trips: set[tuple[str, int]] = set()
+    for idx, trip in raw_trips.iterrows():
+        row_id = str(trip["row_id"])
+        ti = int(trip["trip_index"])
+        raw_o = trip["origin_activity"]
+        raw_d = trip["destination_activity"]
+        projected_o = _project_m2_label(raw_o)
+        projected_d = _project_m2_label(raw_d)
+        origin_changes += int(raw_o != projected_o)
+        destination_changes += int(raw_d != projected_d)
+        if raw_o != projected_o or raw_d != projected_d:
+            affected.add(row_id)
+            affected_trips.add((row_id, ti))
+        trips.at[idx, "origin_activity"] = projected_o
+        trips.at[idx, "destination_activity"] = projected_d
+        audit_rows.append({
+            "record_type": "TRIP", "row_id": row_id, "trip_index": ti,
+            "raw_origin_activity": raw_o, "projected_origin_activity": projected_o,
+            "raw_destination_activity": raw_d, "projected_destination_activity": projected_d,
+            "raw_final_activity": "", "projected_final_activity": "",
+        })
+    for idx, day in raw_days.iterrows():
+        row_id = str(day["row_id"])
+        trip_count = int(day["trip_count"])
+        day_trips = raw_trips.loc[raw_trips["row_id"].astype(str).eq(row_id)]
+        if len(day_trips) != trip_count or sorted(day_trips["trip_index"].astype(int)) != list(range(1, trip_count + 1)):
+            raise ValueError(f"Trip continuity/cardinality mismatch: {row_id}")
+        raw_final = day["final_activity"]
+        if trip_count == 0:
+            if raw_final != "":
+                raise ValueError(f"Nonempty final activity with zero trips: {row_id}")
+            projected_final = ""
+        else:
+            raw_origin_chain = day_trips["origin_activity"].tolist()
+            raw_destination_chain = day_trips["destination_activity"].tolist()
+            if raw_origin_chain[1:] != raw_destination_chain[:-1]:
+                raise ValueError(f"M2 chain discontinuity: {row_id}")
+            if raw_final != raw_destination_chain[-1]:
+                raise ValueError(f"M2 final activity mismatch: {row_id}")
+            projected_final = _project_m2_label(raw_final)
+            projected_trips = trips.loc[trips["row_id"].astype(str).eq(row_id)].sort_values("trip_index", kind="mergesort")
+            projected_origins = projected_trips["origin_activity"].tolist()
+            projected_destinations = projected_trips["destination_activity"].tolist()
+            if projected_origins[1:] != projected_destinations[:-1] or projected_final != projected_destinations[-1]:
+                raise ValueError(f"M3 chain discontinuity: {row_id}")
+        final_changes += int(raw_final != projected_final)
+        if raw_final != projected_final:
+            affected.add(row_id)
+        days.at[idx, "final_activity"] = projected_final
+        audit_rows.append({
+            "record_type": "DAY", "row_id": row_id, "trip_index": "",
+            "raw_origin_activity": "", "projected_origin_activity": "",
+            "raw_destination_activity": "", "projected_destination_activity": "",
+            "raw_final_activity": raw_final, "projected_final_activity": projected_final,
+        })
+    audit = pd.DataFrame(audit_rows, columns=PROJECTION_AUDIT_COLUMNS)
+    audit = audit.sort_values(["row_id", "record_type", "trip_index"], kind="mergesort").reset_index(drop=True)
+    metrics = {
+        "raw_private_errand_origin_rows": origin_changes,
+        "raw_private_errand_destination_rows": destination_changes,
+        "raw_private_errand_final_activity_days": final_changes,
+        "affected_person_days": len(affected),
+        "affected_trip_rows": len(affected_trips),
+        "audit_day_rows": len(days),
+        "audit_trip_rows": len(trips),
+    }
+    return days, trips, audit, metrics
 
 class ProductionDGenGenerator:
     def __init__(
@@ -532,9 +643,13 @@ class ProductionDGenGenerator:
             ),
             "unhandled_runtime_categories": 0,
         }
+        # No M2 draw, seed, state or sample changes occur after this boundary.
+        days, trips, projection_audit, projection_metrics = project_m2_activity_frames(days, trips)
+        support_audit["runtime_taxonomy_projection"] = projection_metrics
         return GenerationResult(
             day_rows=days,
             trip_rows=trips,
             support_audit=support_audit,
             artifact_validation=self.artifact_validation,
+            projection_audit=projection_audit,
         )

@@ -1,0 +1,21 @@
+schema_version: simfleet-edg-f4-1d-runtime-taxonomy-bridge-v1
+phase: F4.1d
+status: MAIN_AUTHORIZED_LOSSY_INTERFACE_PROJECTION
+stage: AFTER_FIVE_FROZEN_M2_DGEN_COMPONENTS_BEFORE_UNMODIFIED_F4_1B_ADAPTER
+runtime_vocabulary:
+  - HOME
+  - WORK
+  - BUSINESS
+  - EDUCATION
+  - ESCORT
+  - LEISURE
+  - OTHER
+  - SHOPPING
+projection:
+  PRIVATE_ERRAND: OTHER
+audit_output: activity_taxonomy_projection_audit_v1.csv
+unknown_label_policy: HARD_FAIL
+raw_m2_labels_preserved_in_sidecar: true
+M2_models_and_seeds_unchanged: true
+no_cal_test_or_spatial_access: true
+downstream_authorized: false

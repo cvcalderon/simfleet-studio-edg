@@ -116,3 +116,26 @@ def test_generator_is_order_independent_and_keeps_m1_identity(monkeypatch: Any) 
     assert set(first.day_rows["source_person_id"]) == {"P_1", "P_2"}
     assert first.support_audit["unhandled_runtime_categories"] == 0
     assert first.support_audit["chain_a_selected_level_counts"] == {"level_0": 2}
+
+
+def test_m2_sampling_precedes_taxonomy_projection(monkeypatch: Any) -> None:
+    observed: list[str] = []
+    class ErrandChain(Chain):
+        def sample_transition(self, frame: pd.DataFrame, *, seed: int) -> dict[str, Any]:
+            return {"next_activity": "PRIVATE_ERRAND"}
+    class TraceDistance(Distance):
+        def sample_one(self, frame: pd.DataFrame, *, seed: int) -> dict[str, Any]:
+            observed.append(str(frame.iloc[0]["destination_activity_analogue"]))
+            return {"distance_prior_km": 1.5}
+    def fake_time(*args: Any, **kwargs: Any) -> tuple[dict[str, Any], dict[str, int]]:
+        observed.append(str(args[1]["destination_activity_analogue"]))
+        return ({"departure_clock_minute": 500,
+                 "arrival_absolute_minute": 530,
+                 "duration_from_clock_min": 30}, {})
+    monkeypatch.setattr(module, "_time_b_full_chain_sample", fake_time)
+    adapters = SelectedAdapters(Participation(), TripCount(), ErrandChain(), Time(), TraceDistance())  # type: ignore[arg-type]
+    result = ProductionDGenGenerator(Path("."), adapters=adapters).generate(_runtime(["P_ERRAND"]))
+    assert observed == ["PRIVATE_ERRAND", "PRIVATE_ERRAND"]
+    assert result.trip_rows.iloc[0]["destination_activity"] == "OTHER"
+    assert result.day_rows.iloc[0]["final_activity"] == "OTHER"
+    assert result.support_audit["runtime_taxonomy_projection"]["raw_private_errand_destination_rows"] == 1

@@ -45,3 +45,10 @@ def test_runner_marks_smoke_as_not_downstream_authorized() -> None:
     )
     assert '"downstream_authorized": False' in text
     assert '"full_100k_dgen_realization": False' in text
+
+
+def test_runtime_runner_writes_taxonomy_sidecar_before_m3_consumption() -> None:
+    source = (ROOT / "src/simfleet_edg/repro/f4_1d_runtime_dgen_binding.py").read_text()
+    assert source.index("generated = generator.generate(smoke_runtime)") < source.index("adapt_joint_generated_frames(")
+    assert 'activity_taxonomy_projection_audit_v1.csv' in source
+    assert '"activity_taxonomy_projection_audit_sha256"' in source

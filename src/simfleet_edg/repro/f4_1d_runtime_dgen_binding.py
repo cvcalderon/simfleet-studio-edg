@@ -15,7 +15,7 @@ import yaml  # type: ignore[import-untyped]
 
 from simfleet_edg.demand.m2_m3_adapter import adapt_joint_generated_frames
 from simfleet_edg.demand.runtime_context import ScenarioDayContext, build_runtime_context
-from simfleet_edg.demand.runtime_generator import ProductionDGenGenerator
+from simfleet_edg.demand.runtime_generator import M3_ACTIVITY_VOCABULARY, ProductionDGenGenerator
 
 EXPECTED_PARENT = "eebccc7a43eb7c1ef2661da3f357c0e5b01e72ef"
 EXPECTED_PHASE = "F4.1d"
@@ -160,9 +160,21 @@ def run_binding_smoke(
     runtime = build_runtime_context(households, persons, resources, scenario)
     smoke_runtime = runtime.select_first_persons(int(smoke["population"]))
 
+    # Contract is a frozen interface coarsening, not a scientific model edit.
+    bridge = _load_yaml(repo_root / "configs/f4/f4_1d_runtime_taxonomy_bridge_v1.yaml")
+    if bridge.get("projection") != {"PRIVATE_ERRAND": "OTHER"} or set(bridge.get("runtime_vocabulary", [])) != M3_ACTIVITY_VOCABULARY:
+        raise ValueError("Unapproved M2->M3 taxonomy bridge configuration")
     generator = ProductionDGenGenerator(repo_root)
     generated = generator.generate(smoke_runtime)
     plans = adapt_joint_generated_frames(generated.day_rows, generated.trip_rows)
+    if any(
+        not set(generated.trip_rows[column].astype(str)).issubset(M3_ACTIVITY_VOCABULARY)
+        for column in ("origin_activity", "destination_activity")
+    ) or any(
+        value and value not in M3_ACTIVITY_VOCABULARY
+        for value in generated.day_rows["final_activity"].astype(str)
+    ):
+        raise RuntimeError("Post-projection M3 activity invariant violated")
 
     expected_people = set(smoke_runtime.frame["source_person_id"].astype(str))
     plan_people = {plan.person_id for plan in plans}
@@ -184,6 +196,9 @@ def run_binding_smoke(
         generated.trip_rows,
         partial / str(outputs["trip_rows"]),
     )
+    # Sidecar preserves raw M2 evidence; it is never passed to the M3 adapter.
+    projection_file = partial / "activity_taxonomy_projection_audit_v1.csv"
+    generated.projection_audit.to_csv(projection_file, index=False, lineterminator="\n")
     _write_json(partial / str(outputs["support_audit"]), generated.support_audit)
     pd.DataFrame(generated.artifact_validation).to_csv(
         partial / str(outputs["artifact_validation"]), index=False, lineterminator="\n"
@@ -217,6 +232,8 @@ def run_binding_smoke(
         "generated_trip_rows": len(generated.trip_rows),
         "person_day_plans": len(plans),
         "canonical_output_sha256": canonical_hashes,
+        "activity_taxonomy_projection_audit_sha256": sha256_file(projection_file),
+        "activity_taxonomy_projection": generated.support_audit["runtime_taxonomy_projection"],
         "support_audit": generated.support_audit,
         "cal_read_count": 0,
         "mid_test_read_count": 0,
