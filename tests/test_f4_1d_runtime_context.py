@@ -25,6 +25,7 @@ def _tables() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
                 "age_infr_class": "ADULT",
                 "sex": "MALE" if index % 2 else "FEMALE",
                 "primary_activity_status": "EMPLOYED",
+                "person_enrichment_status": "LINKED_PERSONEN",
             }
             for index in range(1, 7)
         ]
@@ -35,6 +36,7 @@ def _tables() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
                 "age_infr_class": "ADULT",
                 "sex": "FEMALE",
                 "primary_activity_status": "STUDENT",
+                "person_enrichment_status": "LINKED_PERSONEN",
             }
         ]
     )
@@ -134,6 +136,24 @@ def test_runtime_context_rejects_missing_person_resource() -> None:
         build_runtime_context(
             households, persons, resources, ScenarioDayContext("SCENARIO_X", 1, 1)
         )
+
+
+def test_runtime_context_maps_roster_only_person_resources_to_unknown() -> None:
+    households, persons, resources = _tables()
+    persons.loc[persons["person_id"].eq("P_B_1"), "person_enrichment_status"] = (
+        "ROSTER_ONLY_NO_PERSONEN"
+    )
+    resources = resources.loc[~resources["person_id"].eq("P_B_1")].copy()
+
+    runtime = build_runtime_context(
+        households, persons, resources, ScenarioDayContext("SCENARIO_X", 1, 1)
+    )
+    row = runtime.frame.set_index("source_person_id").loc["P_B_1"]
+
+    assert row["person_car_access"] == "UNKNOWN"
+    assert row["person_bike_access"] == "UNKNOWN"
+    assert row["person_ebike_access"] == "UNKNOWN"
+    assert row["person_carsharing_membership"] == "UNKNOWN"
 
 
 def test_scenario_context_bounds() -> None:

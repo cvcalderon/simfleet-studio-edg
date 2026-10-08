@@ -39,6 +39,7 @@ PERSON_REQUIRED: Final[set[str]] = {
     "age_infr_class",
     "sex",
     "primary_activity_status",
+    "person_enrichment_status",
 }
 HOUSEHOLD_REQUIRED: Final[set[str]] = {"household_id", "materialized_member_count"}
 RESOURCE_REQUIRED: Final[set[str]] = {
@@ -164,6 +165,40 @@ def _map_required(series: pd.Series, mapping: dict[str, Any], label: str) -> pd.
     return keys.map(mapping)
 
 
+def _map_person_resource(
+    person_ids: pd.Series,
+    enrichment_status: pd.Series,
+    mapping: dict[str, Any],
+    label: str,
+) -> pd.Series:
+    keys = person_ids.astype(str)
+    statuses = enrichment_status.astype(str)
+    allowed_statuses = {"LINKED_PERSONEN", "ROSTER_ONLY_NO_PERSONEN"}
+    unexpected_statuses = sorted(set(statuses) - allowed_statuses)
+    if unexpected_statuses:
+        raise ValueError(f"Unexpected person_enrichment_status values: {unexpected_statuses}")
+
+    linked = statuses.eq("LINKED_PERSONEN")
+    roster_only = statuses.eq("ROSTER_ONLY_NO_PERSONEN")
+    missing_linked = sorted(set(keys[linked]) - set(mapping))
+    if missing_linked:
+        raise ValueError(
+            f"Missing {label} resource rows for {len(missing_linked)} linked identities: "
+            f"{missing_linked[:5]}"
+        )
+
+    fabricated_roster_rows = sorted(set(keys[roster_only]) & set(mapping))
+    if fabricated_roster_rows:
+        raise ValueError(
+            f"Roster-only identities unexpectedly have {label} resource rows: "
+            f"{fabricated_roster_rows[:5]}"
+        )
+
+    values = keys.map(mapping)
+    values.loc[roster_only] = "UNKNOWN"
+    return values
+
+
 def build_runtime_context(
     households: pd.DataFrame,
     persons: pd.DataFrame,
@@ -239,6 +274,7 @@ def build_runtime_context(
         "age_infr_class",
         "sex",
         "primary_activity_status",
+        "person_enrichment_status",
     ]].copy()
     frame["person_id"] = frame["person_id"].astype(str)
     frame["household_id"] = frame["household_id"].astype(str)
@@ -269,17 +305,29 @@ def build_runtime_context(
     frame["hh_carsharing_membership"] = _map_required(
         frame["source_household_id"], hh_cs, "household CARSHARING"
     ).map(_clean_category)
-    frame["person_car_access"] = _map_required(
-        frame["source_person_id"], p_car, "person CAR"
+    frame["person_car_access"] = _map_person_resource(
+        frame["source_person_id"],
+        frame["person_enrichment_status"],
+        p_car,
+        "person CAR",
     ).map(_clean_category)
-    frame["person_bike_access"] = _map_required(
-        frame["source_person_id"], p_bike, "person BIKE"
+    frame["person_bike_access"] = _map_person_resource(
+        frame["source_person_id"],
+        frame["person_enrichment_status"],
+        p_bike,
+        "person BIKE",
     ).map(_clean_category)
-    frame["person_ebike_access"] = _map_required(
-        frame["source_person_id"], p_ebike, "person EBIKE"
+    frame["person_ebike_access"] = _map_person_resource(
+        frame["source_person_id"],
+        frame["person_enrichment_status"],
+        p_ebike,
+        "person EBIKE",
     ).map(_clean_category)
-    frame["person_carsharing_membership"] = _map_required(
-        frame["source_person_id"], p_cs, "person CARSHARING"
+    frame["person_carsharing_membership"] = _map_person_resource(
+        frame["source_person_id"],
+        frame["person_enrichment_status"],
+        p_cs,
+        "person CARSHARING",
     ).map(_clean_category)
 
     # Normalize direct categorical person fields without consulting donor provenance.
