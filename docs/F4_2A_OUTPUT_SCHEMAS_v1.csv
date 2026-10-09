@@ -1,0 +1,57 @@
+output,field,dtype,contract
+dgen_context_v1.csv.gz,row_id,str,stable runtime_id; 100000 rows
+dgen_context_v1.csv.gz,source_person_id,str,"accepted M1 person, not MiD donor"
+dgen_context_v1.csv.gz,source_household_id,str,accepted M1 household
+dgen_day_rows_v1.csv.gz,row_id,str,F4.1d selected generator
+dgen_day_rows_v1.csv.gz,trip_count,int,0+
+dgen_day_rows_v1.csv.gz,trip_day,bool,NoTrip as home only
+dgen_trip_rows_v1.csv.gz,row_id,str,FK to day
+dgen_trip_rows_v1.csv.gz,trip_index,int,1..K contiguous
+dgen_trip_rows_v1.csv.gz,origin_activity,enum,8 runtime states
+dgen_trip_rows_v1.csv.gz,destination_activity,enum,8 runtime states
+dgen_trip_rows_v1.csv.gz,distance_prior_km,float64,finite >0
+activity_taxonomy_projection_audit_v1.csv,row_id,str,FK
+activity_taxonomy_projection_audit_v1.csv,trip_index,int|null,M2 provenance
+activity_taxonomy_projection_audit_v1.csv,raw_origin_activity,str,unaltered frozen F3
+activity_taxonomy_projection_audit_v1.csv,projected_origin_activity,str,M3 admissible
+activity_taxonomy_projection_audit_v1.csv,raw_destination_activity,str,unaltered frozen F3
+activity_taxonomy_projection_audit_v1.csv,projected_destination_activity,str,M3 admissible
+core_exclusions_v1.csv.gz,row_id,str,day id
+core_exclusions_v1.csv.gz,person_id,str,M1 accepted
+core_exclusions_v1.csv.gz,reason,enum,ESCORT_DAY
+core_exclusions_v1.csv.gz,trip_count,int,preserved
+core_exclusions_v1.csv.gz,escort_activity_count,int,preserved
+core_person_days_v1.csv.gz,row_id,str,day id
+core_person_days_v1.csv.gz,person_id,str,M1 id
+core_person_days_v1.csv.gz,household_id,str,M1 id
+core_person_days_v1.csv.gz,core_status,enum,INCLUDED|EXCLUDED_ESCORT
+core_person_days_v1.csv.gz,trip_count,int,NoTrip included zero
+core_person_days_v1.csv.gz,scenario_day_id,str,frozen
+core_stable_locations_{policy}_v1.csv.gz,policy,enum,S_NEAR|S_DIST|S_ATTR
+core_stable_locations_{policy}_v1.csv.gz,person_id,str,M1 person id
+core_stable_locations_{policy}_v1.csv.gz,purpose,enum,WORK_COMMUTE|EDUCATION
+core_stable_locations_{policy}_v1.csv.gz,location_id,str,C eligible location
+core_stable_locations_{policy}_v1.csv.gz,prior_aggregate_km,float64,median HOME-origin or all incoming
+core_spatialized_trips_{policy}_v1.csv.gz,policy,enum,policy ID
+core_spatialized_trips_{policy}_v1.csv.gz,row_id,str,DGEN day ID
+core_spatialized_trips_{policy}_v1.csv.gz,person_id,str,M1 identity
+core_spatialized_trips_{policy}_v1.csv.gz,trip_index,int,original unchanged
+core_spatialized_trips_{policy}_v1.csv.gz,origin_activity,str,M3 frozen activity
+core_spatialized_trips_{policy}_v1.csv.gz,destination_activity,str,M3 frozen activity
+core_spatialized_trips_{policy}_v1.csv.gz,origin_location_id,str,C home or prior activity
+core_spatialized_trips_{policy}_v1.csv.gz,destination_location_id,str,C home or purpose-eligible
+core_spatialized_trips_{policy}_v1.csv.gz,euclidean_distance_km,float64,EPSG:25833
+core_spatialized_trips_{policy}_v1.csv.gz,distance_prior_km,float64,M2 unchanged
+core_spatialized_trips_{policy}_v1.csv.gz,abs_log_ratio,finite-number|string INF,no epsilon
+core_spatialized_days_{policy}_v1.csv.gz,policy,enum,policy ID
+core_spatialized_days_{policy}_v1.csv.gz,row_id,str,DGEN day id
+core_spatialized_days_{policy}_v1.csv.gz,person_id,str,M1 person ID
+core_spatialized_days_{policy}_v1.csv.gz,household_id,str,M1 household ID
+core_spatialized_days_{policy}_v1.csv.gz,home_location_id,str,frozen home ID
+core_spatialized_days_{policy}_v1.csv.gz,trip_count,int,0 allowed
+core_spatialized_days_{policy}_v1.csv.gz,core_status,enum,INCLUDED_ONLY
+core_metrics_{policy}_v1.json,hard_invariants,json,must all PASS
+core_metrics_{policy}_v1.json,distance_error,json,median/mean/p90 extended real
+core_metrics_{policy}_v1.json,concentration,json,report only
+core_metrics_{policy}_v1.json,coverage,json,explicit denominators
+core_metrics_{policy}_v1.json,runtime_performance,json,"seconds,RSS etc"

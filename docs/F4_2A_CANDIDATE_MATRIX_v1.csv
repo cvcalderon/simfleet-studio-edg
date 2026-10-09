@@ -1,0 +1,4 @@
+candidate,role,rule,v1_selectable
+S_NEAR,DIAGNOSTIC_BASELINE_NOT_SELECTABLE,nearest eligible Euclidean,No
+S_DIST,PRIMARY_V1_CANDIDATE,maximum C_dist,Yes if promotion rule passes
+S_ATTR,EXPERIMENTAL_ABLATION_NOT_SELECTABLE_V1,maximum C_dist*A_evidence,No

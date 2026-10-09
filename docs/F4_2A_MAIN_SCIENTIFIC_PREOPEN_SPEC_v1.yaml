@@ -1,0 +1,144 @@
+id: F4_2A_MAIN_PREOPEN_PREPARATION_V1
+authority: MAIN
+workflow: SIMFLEET_EDG_WORKFLOW_V2
+state: SCIENTIFIC_PREOPEN_SPEC_FROZEN_REPO_ENTRY_PENDING
+not_an_execution_authorization: true
+upstream:
+  f4_1d_final_commit: 61f29671a1e2a562d000bd6a1be45366a6630568
+  f4_1d_status: CLOSED_PASS
+  f4_1d_main_closure_sha256: 4cf71cc822d4411f2db723f633db3e4d23b9ee4e7782d82029c2dbad3609de29
+  f4_2a_design_freeze_v1_sha256: a76a80406ffe1426419541aedbb492db77e95773987cb5d2daad09c23a5d9b7a
+  m1:
+    population_id: P_CONSTR_RMIN_V2_HD_U / M
+    households: 54828
+    persons: 100000
+    accepted_zip_sha256: 00b440d58b2c4f7f5484e8260a43f1fb9f2ce69c0b5d5c23a6272aa3b2afa505
+    households_sha256: 99e63cd1f203f36a0a1e7096abf0cd89555615b64a421a58cbc5c5f1af2d1c1b
+    persons_sha256: e75d768637ae97c19bf34c678a99aeec4fe0e5594805ced01ac4da4e95164d49
+    resources_sha256: 0d101d2a544227a13b7c7bfa108fd977c0256de3822c49f5cec61d81c557bcce
+  f4_1c_c:
+    commit: eebccc7a43eb7c1ef2661da3f357c0e5b01e72ef
+    operational_supply_count: 88879
+    residential_anchor_count: 54828
+    canonical_data_sha256:
+      location_supply_v1.csv.gz: 6ffba6fd100b4add61da84b270da34dacadbbda3dbffd0c91fb065bed67b054e
+      location_supply_evidence_v1.csv.gz: 4ae37068bfd65d777ee697a2fda5ad5107f80790f98d7ecec255003979e9e9a3
+      residential_anchors_v1.csv.gz: a19f58eaa17905b66f9a02152c432667cf4f2ca04580025238137bfa3f00abf0
+      residential_anchor_evidence_v1.csv.gz: 63310a328f9aff82652b67b2a7c0efdcf16dd2d7ccd61c66c5bfefe55f361d50
+  f4_1d_taxonomy:
+    bridge: PRIVATE_ERRAND -> OTHER
+    bridge_stage: POST_FROZEN_M2_PRE_F4_1B_ADAPTER
+    other_out_of_vocabulary: HARD_BLOCKER
+    raw_audit_required: true
+  dgen_pipeline:
+  - PA1
+  - COUNT_REF
+  - CHA2
+  - TIME_B_TB2
+  - DIST_REF_REFERENCE
+reference_scenario:
+  status: FROZEN_FOR_F4_2A_CORE_CONSTRUCT_COMPARISON
+  scenario_id: F4_2A_CORE_REFERENCE_V1
+  scenario_day_id: F4_2A_CORE_REFERENCE_DAY_01
+  scenario_weekday: 3
+  scenario_season: 2
+  master_seed: 20261007
+  replicate_index: 0
+  one_person_day_per_accepted_person: true
+  expected_person_day_rows: 100000
+  calendar_date: NOT_SPECIFIED
+  timezone_metadata: Europe/Berlin
+  timezone_transforms: NONE; F3 uses clock/absolute-minute offsets
+  holiday_context: NOT_INTRODUCED
+  representativeness_claim: 'NONE: controlled reference stratum, not observed typical
+    Berlin day'
+  smoke_reuse: FORBIDDEN; new scenario_id and complete accepted M1 population
+  sensitivity_to_other_calendar_strata: REPORT_AS_FUTURE_DESIGN_NOT_IMPLICITLY_AUTHORIZED
+runtime_order:
+- real_clone_entry_precheck
+- baseline_ruff_mypy_fingerprint
+- implementation_in_exact_overlay
+- focused_tests_scoped_quality_full_regression_verifier_scope
+- STOP_PRE_COMMIT
+- manual_commit_push_PyCharm
+- postpush_git_and_input_exact_hash_gate
+- full_M1_feature_support_audit_without_fitting
+- full_100k_DGEN_materialize_A_and_B_exact_reproducibility
+- freeze_generated_demand_hashes
+- core_exclusion_escort_and_descriptive_denominators
+- spatial_candidate_runs_three_families_against_same_demands
+- spatial_candidate_second_run_exact_reproducibility
+- pre_g3_integrity_metrics_and_candidate_core_internal_promotion
+- runbundle_return_to_MAIN
+full_population_preflight:
+  M1_and_C_identifiers: MUST_MATCH_EXACT
+  resources: UNKNOWN_NOT_NO_FOR_ROSTER_ONLY; no implicit imputation
+  6_PLUS: preserve 6_PLUS; quantify model unseen/backoff under frozen policy
+  support: unhandled categories = 0; missing required identity/resource = 0
+  selected_artifact_hashes: EXACT_FROZEN_5_COMPONENTS
+  CAL_and_MiD_TEST_reads: 0
+  if_support_failure: STOP_RETURN_MAIN_BEFORE_SPATIAL_CANDIDATES
+spatial_scope:
+  core_day_inclusion: all generated days WITHOUT_ESCORT; include nonmobile NoTrip
+    as home-only
+  escort_day_exclusion: EXCLUDE_WHOLE_DAY_PLAN; retain raw exclusion reason + denominators
+  run_policies:
+  - S_NEAR
+  - S_DIST
+  - S_ATTR
+  pairing: same exact DGEN person-day rows; same F4.1c-C supply/anchors for every
+    policy
+  stable_person_purposes:
+  - WORK
+  - EDUCATION
+  per_occurrence_purposes:
+  - BUSINESS
+  - SHOPPING
+  - LEISURE
+  - OTHER
+  S_NEAR_role: DIAGNOSTIC_BASELINE_NOT_SELECTABLE
+  S_DIST_role: ONLY_SELECTABLE_CORE_CANDIDATE_IF_V1_RULE_PASSES
+  S_ATTR_role: NON_SELECTABLE_ABLATION
+  mode_route_execution_inputs: FORBIDDEN
+  exact_identity: must preserve generated trip_id/person_id/node identity across policies
+distance_edge_policy:
+  p_km_nonfinite_or_nonpositive: HARD_BLOCKER_IN_UPSTREAM_CANONICAL_TRIPDEMAND
+  p_km_minimum_epsilon: NONE
+  d_km_nonfinite_or_negative: HARD_BLOCKER
+  d_km_eq_0_compatibility: 0.0
+  d_km_eq_0_abs_log_ratio: POSITIVE_INFINITY_EXTENDED_REAL
+  p_km_positive_and_d_km_positive_abs_log_ratio: abs(log(d_km/p_km))
+  metric_output_serialization: literal string 'INF' for extended infinity; no nonstandard
+    JSON NaN/Infinity
+  zero_separation_rate: REQUIRED_REPORT
+  no_posthoc_zero_epsilon: true
+candidate_search:
+  exact_ranking: NO_APPROXIMATE_NEAREST_ANNNULAR_PRUNING_WITHOUT_EXACTNESS_PROOF
+  performance_requirement: MEASURE_RESOURCES; avoid materializing full N_trips x N_supply
+    matrix
+  index_allowed: existing dependencies; use exact search or exact branch-and-bound
+  parity_test: exhaustive brute force oracle for small, adversarial and stratified
+    fixtures
+  ties: implement frozen F4_2A design v1 exact deterministic comparison
+  optional_pyproject_dependency_changes: NOT_PREAPPROVED; request MAIN if needed
+evaluation:
+  G3: NOT_OPEN
+  independent_exact_destination_validation: NOT_AVAILABLE
+  candidate_promotion_is: INTERNAL_DISTANCE_CONSTRUCT_CONSISTENCY_NOT_INDEPENDENT_VALIDATION
+  preregistered_S_DIST_test:
+  - median_abs_log_ratio(S_DIST)<=median_abs_log_ratio(S_NEAR)
+  - mean_abs_log_ratio(S_DIST)<=mean_abs_log_ratio(S_NEAR)
+  - p90_abs_log_ratio(S_DIST)<=p90_abs_log_ratio(S_NEAR)
+  hard_invariants: 100_percent_non_ESCORT_coverage_zero_label_violations_zero_home_changes_zero_NFI_zero_OUTSIDE_exact_hashes
+  concentration_metrics: REPORT_ONLY_NO_POSTHOC_THRESHOLDS
+  missing_purpose_in_local_PLR: NO_LOCAL_IMPUTATION; citywide eligible
+  S_ATTR: ABLATION_ONLY; attractiveness/capacity remain canonical NULL
+authorization:
+  repository_entry_audit: AUTHORIZED_READ_ONLY
+  worker_packet_preparation: AUTHORIZED_AFTER_ENTRY_AUDIT
+  implementation: false
+  full_100k_generation: false
+  candidate_execution: false
+  G3: false
+  S_NEAR_or_S_DIST_or_S_ATTR_execution: false
+  f4_2b_or_c: false

@@ -1,0 +1,18 @@
+metric_id,class,name,threshold
+G3A-INV-01,HARD,spatialized_core_days,1.0
+G3A-INV-02,HARD,purpose_eligibility_violations,0
+G3A-INV-03,HARD,chain_continuity_violations,0
+G3A-INV-04,HARD,home_anchor_mutations,0
+G3A-INV-05,HARD,stable_work_inconsistencies,0
+G3A-INV-06,HARD,stable_education_inconsistencies,0
+G3A-INV-07,HARD,outside_berlin_assignments,0
+G3A-INV-08,HARD,future_information_reads,0
+G3A-INV-09,HARD,exact_reproducibility,true
+G3A-DIST-01,SELECTION,median_abs_log_ratio,S_DIST <= S_NEAR
+G3A-DIST-02,SELECTION,mean_abs_log_ratio,S_DIST <= S_NEAR
+G3A-DIST-03,SELECTION,p90_abs_log_ratio,S_DIST <= S_NEAR
+G3A-COV-01,REPORT,escort_day_share,report
+G3A-COV-02,REPORT,escort_person_share,report
+G3A-USE-01,REPORT,unique_locations_used_by_purpose,report
+G3A-USE-02,REPORT,normalized_hhi_by_purpose,report
+G3A-USE-03,REPORT,top_1pct_locations_share_by_purpose,report

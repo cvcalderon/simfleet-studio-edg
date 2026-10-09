@@ -1,0 +1,36 @@
+contract_id: F4_2A_CORE_SPATIAL_IMPLEMENTATION_PREOPEN_V1
+authority: MAIN
+phase: PRE_COMMIT_IMPLEMENTATION
+frozen_parent: 61f29671a1e2a562d000bd6a1be45366a6630568
+scenario:
+  id: F4_2A_CORE_REFERENCE_V1
+  day_id: F4_2A_CORE_REFERENCE_DAY_01
+  weekday: 3
+  season: 2
+  master_seed: 20261007
+  replicate_index: 0
+  persons: 100000
+  households: 54828
+  description: controlled reference stratum, not typical observed Berlin day
+inputs:
+  m1: exact frozen SHA-256 of 3 files; no re-synthesis
+  c: exact frozen SHA-256 of 4 canonical CSV.gz files; no OSM rematerialization
+  dgen: frozen 5 selected model and manifest identities; no fit
+  cal: FORBIDDEN
+  mid_test: FORBIDDEN
+geo:
+  metric_crs: EPSG:25833
+  operational_supply: 88879
+  home_anchors: 54828
+  no_neighborhood_imputation: true
+  search: EXACT_BBOX_BRANCH_AND_BOUND
+policies:
+  S_NEAR: DIAGNOSTIC_BASELINE_ONLY
+  S_DIST: CONDITIONAL_INTERNAL_CANDIDATE
+  S_ATTR: NON_SELECTABLE_ABLATION
+outcomes:
+  two_full_dgen_runs: REQUIRED_POST_PUSH
+  two_full_spatial_runs: REQUIRED_POST_PUSH
+  no_output_overwrite: true
+  g3_opened: false
+  final_authority: RETURN_TO_MAIN
