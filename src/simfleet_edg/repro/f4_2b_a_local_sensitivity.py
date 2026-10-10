@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import csv
 import gzip
+import hashlib
 import io
 import json
 import os
@@ -57,28 +58,135 @@ def safe_path(path: Path) -> Path:
     return result
 
 
-def git_gate(repo: Path) -> dict[str, str]:
+def _verify_overlay_bytes(rel: str, data: bytes, wanted: str) -> str:
+    direct = hashlib.sha256(data).hexdigest()
+    if direct == wanted:
+        return "RAW_EXACT"
+    eol_only = {
+        "docs/F4_2B_A_LOCAL_VARIANT_MATRIX_v1.csv",
+        "docs/F4_2B_A_LOCAL_VALIDATION_GATES_v1.csv",
+    }
+    if (rel not in eol_only or b"\r" in data or b"\n" not in data
+        or hashlib.sha256(data.replace(b"\n", b"\r\n")).hexdigest() != wanted):
+        raise RuntimeError("F4_2B_A_POSTPUSH_OVERLAY_HASH_MISMATCH: " + rel)
+    return "GIT_LF_CANONICAL_CRLF_EXACT"
+
+def _verified_git_lineage(
+    repo: Path, *, f4_parent: str, original_commit: str, parser_commit: str
+) -> dict[str, Any]:
+    """Validate real Git ancestry, exact historical diffs, and overlay bytes.
+
+    The test helper accepts fixture commit IDs; the official ``git_gate`` below
+    always supplies the MAIN-frozen IDs. No environment-based opt-out exists.
+    """
     def git(*args: str) -> str:
-        return subprocess.check_output(["git", *args], cwd=repo, text=True).strip()
-    head, origin = git("rev-parse", "HEAD"), git("rev-parse", "refs/remotes/origin/main")
-    parent = git("rev-parse", "HEAD^")
-    changes = [x.split("\t", 1) for x in git("diff-tree", "--no-commit-id", "--name-status", "-r", "HEAD").splitlines()]
-    expected = set((repo / "docs/F4_2B_A_LOCAL_OVERLAY_FILELIST_v1.txt").read_text().splitlines())
-    if (git("branch", "--show-current") != "main" or head != origin
-        or parent != PARENT or git("status", "--porcelain", "--untracked-files=all")
-        or len(expected) != 20 or len(changes) != 20 or
-        any(status != "A" for status, _ in changes) or {p for _, p in changes} != expected):
-        raise RuntimeError("F4_2B_A_POSTPUSH_GIT_EXACT_SCOPE_BLOCKED")
-    lines = (repo / "docs/F4_2B_A_LOCAL_OVERLAY_CHECKSUMS_v1.sha256").read_text().splitlines()
-    validated: set[str] = set()
-    for line in lines:
-        sha256, rel = line.split("  ", 1)
-        if rel not in expected or rel in validated or digest(repo / rel) != sha256:
-            raise RuntimeError("F4_2B_A_POSTPUSH_OVERLAY_HASH_MISMATCH: " + rel)
-        validated.add(rel)
-    if validated != expected - {"docs/F4_2B_A_LOCAL_OVERLAY_CHECKSUMS_v1.sha256"}:
-        raise RuntimeError("F4_2B_A_POSTPUSH_OVERLAY_MANIFEST_INCOMPLETE")
-    return {"head": head, "origin_main": origin, "parent": parent}
+        return subprocess.check_output(
+            ["git", *args], cwd=repo, text=True, encoding="utf-8"
+        ).strip()
+
+    def committed_diff(commit: str) -> list[list[str]]:
+        lines = git("diff-tree", "--no-commit-id", "--name-status",
+                    "--no-renames", "-r", commit).splitlines()
+        pairs = [line.split("\t", 1) for line in lines]
+        if any(len(pair) != 2 for pair in pairs):
+            raise RuntimeError("F4_2B_A_GIT_DIFF_FORMAT_BLOCKED")
+        return pairs
+
+    def expect_diff(commit: str, status: str, expected: set[str]) -> list[list[str]]:
+        changed = committed_diff(commit)
+        if len(changed) != len(expected) or set(map(tuple, changed)) != {
+            (status, path) for path in expected
+        }:
+            raise RuntimeError("F4_2B_A_GIT_COMMIT_SCOPE_BLOCKED: " + commit)
+        return changed
+
+    def contents(revision: str, rel: str) -> bytes:
+        return subprocess.check_output(
+            ["git", "show", f"{revision}:{rel}"], cwd=repo
+        )
+
+    def read_manifest(data: bytes) -> dict[str, str]:
+        values: dict[str, str] = {}
+        for line in data.decode("utf-8").splitlines():
+            pieces = line.split("  ", 1)
+            if len(pieces) != 2:
+                raise RuntimeError("F4_2B_A_MANIFEST_PARSE_BLOCKED")
+            checksum, rel = pieces
+            if (len(checksum) != 64 or any(c not in "0123456789abcdef" for c in checksum)
+                or rel in values or rel.startswith("/") or ".." in Path(rel).parts):
+                raise RuntimeError("F4_2B_A_MANIFEST_ENTRY_BLOCKED")
+            values[rel] = checksum
+        return values
+
+
+    if git("symbolic-ref", "--quiet", "--short", "HEAD") != "main":
+        raise RuntimeError("F4_2B_A_POSTPUSH_BRANCH_BLOCKED")
+    head = git("rev-parse", "HEAD")
+    origin = git("rev-parse", "refs/remotes/origin/main")
+    if head != origin or head == parser_commit or git(
+        "status", "--porcelain=v1", "--untracked-files=all"
+    ) or git("diff", "--cached", "--name-only"):
+        raise RuntimeError("F4_2B_A_POSTPUSH_GIT_CLEAN_SYNC_BLOCKED")
+    if (git("rev-parse", "HEAD^") != parser_commit
+        or git("rev-parse", parser_commit + "^") != original_commit
+        or git("rev-parse", original_commit + "^") != f4_parent):
+        raise RuntimeError("F4_2B_A_POSTPUSH_GIT_ANCESTRY_BLOCKED")
+
+    filelist = "docs/F4_2B_A_LOCAL_OVERLAY_FILELIST_v1.txt"
+    manifest = "docs/F4_2B_A_LOCAL_OVERLAY_CHECKSUMS_v1.sha256"
+    original_list = contents(original_commit, filelist)
+    expected_list = original_list.decode("utf-8").splitlines()
+    expected = set(expected_list)
+    if (len(expected_list) != len(expected) or len(expected) != 20
+        or manifest not in expected
+        or (repo / filelist).read_bytes() != original_list):
+        raise RuntimeError("F4_2B_A_ORIGINAL_20_PATHS_BLOCKED")
+    parser_paths = {
+        "src/simfleet_edg/spatial/escort_event_index.py",
+        "tests/test_f4_2b_a_event_index.py", manifest,
+    }
+    gate_paths = {
+        "src/simfleet_edg/repro/f4_2b_a_local_sensitivity.py",
+        "tests/test_f4_2b_a_runner_contract.py", manifest,
+    }
+    for changed_set in (parser_paths, gate_paths):
+        if not changed_set.issubset(expected):
+            raise RuntimeError("F4_2B_A_GIT_PATHS_NOT_IN_ORIGINAL_20")
+    first = expect_diff(original_commit, "A", expected)
+    second = expect_diff(parser_commit, "M", parser_paths)
+    third = expect_diff(head, "M", gate_paths)
+
+    eol_proofs: dict[str, dict[str, str]] = {}
+    for revision in (original_commit, parser_commit, head):
+        hashes = read_manifest(contents(revision, manifest))
+        if set(hashes) != expected - {manifest} or len(hashes) != 19:
+            raise RuntimeError("F4_2B_A_POSTPUSH_OVERLAY_MANIFEST_INCOMPLETE")
+        for rel, sha256 in sorted(hashes.items()):
+            status = _verify_overlay_bytes(rel, contents(revision, rel), sha256)
+            if revision == head:
+                # The working-tree bytes, not just Git's stored blob, are frozen.
+                # A CRLF worktree copy and its LF Git blob are equally valid
+                # only when each independently reconstructs the frozen digest.
+                _verify_overlay_bytes(rel, (repo / rel).read_bytes(), sha256)
+                if status != "RAW_EXACT":
+                    eol_proofs[rel] = {"sha256": sha256, "proof": status}
+    if (repo / manifest).read_bytes() != contents(head, manifest):
+        raise RuntimeError("F4_2B_A_CURRENT_MANIFEST_MISMATCH")
+    return {"head": head, "origin_main": origin, "parent": parser_commit,
+            "lineage": {"f4_2a": f4_parent, "original_20_add": original_commit,
+                        "parser_3_mod": parser_commit, "gate_3_mod": head},
+            "diffs": {"original_20_add": first, "parser_3_mod": second,
+                      "gate_3_mod": third},
+            "overlay_hash_entries": 19, "csv_eol_proofs": eol_proofs}
+
+
+def git_gate(repo: Path) -> dict[str, Any]:
+    return _verified_git_lineage(
+        repo,
+        f4_parent="7ec2c7aa884191ec77cf1fe6783756b78471f9c3",
+        original_commit="e500802fdfcac6f8d340f2d4b2138272b62e4835",
+        parser_commit="08b4998a2628c6c72bffd49d0113a656c55e1928",
+    )
 
 
 def config(repo: Path) -> dict[str, Any]:
