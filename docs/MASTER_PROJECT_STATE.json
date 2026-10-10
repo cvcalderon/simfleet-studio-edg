@@ -45,16 +45,19 @@
       "state": "NOT_STARTED"
     }
   },
-  "as_of": "2026-10-07",
+  "as_of": "2026-10-10",
   "authoritative_repository": {
+    "administrative_sync_parent_expected": "4c6481bc8bab4aca724020e29cc3ebbd69929771",
     "branch_expected": "main",
-    "f4_1b_overlay_integrity": "11/11_PASS",
-    "head_expected": "0958a673f0527b5bc87c16cb041e620f085ead87",
-    "origin_main_expected": "0958a673f0527b5bc87c16cb041e620f085ead87",
-    "uploaded_repo_archive_sha256": "aae1ee4e4036cd2c5d339122738ef1b3dc4940b768f3cd0bdfd899fe417ab8db",
-    "uploaded_repo_contains_git_metadata": false,
-    "verification": "REQUIRED_ON_REAL_CLONE",
-    "worktree_expected": "clean"
+    "note": "Do not confuse frozen scientific baseline with a post-sync git HEAD; HEAD after user commit must be reported separately.",
+    "origin_main_expected_before_doc_sync": "4c6481bc8bab4aca724020e29cc3ebbd69929771",
+    "repo_sync_status": "PENDING_WORKER_PRECOMMIT_AND_USER_PYCHARM_PUSH",
+    "scientific_baseline_commit_reported": "4c6481bc8bab4aca724020e29cc3ebbd69929771",
+    "snapshot_archive": "F0-F4_2B_B-repo.zip",
+    "snapshot_archive_sha256": "8233bd33887b43a84a908057b0e489e50083d0e998c7a8befb1589297b8088d8",
+    "snapshot_contains_git_metadata": false,
+    "verification": "REQUIRED_ON_REAL_CLONE_BY_WORKER",
+    "worktree_expected_before_doc_sync": "clean"
   },
   "control_plane_hashes": {
     "F4_1C_A1_ACTIVITY_RESOLUTION_REGISTRY_DRAFT_v1.csv": "2320e4238e02e69467595317320b8d5d411c45237a8fb7702ba12b5229d6fc0b",
@@ -106,38 +109,77 @@
     },
     "F4.1c_C": {
       "design": "F4_1C_C_OPERATIONAL_SUPPLY_AND_RESIDENTIAL_ANCHOR_DESIGN_FREEZE_V2",
-      "official_execution": "ONLY_AFTER_EXACT_IMPLEMENTATION_COMMIT_AND_PUSH",
-      "required_parent_commit": "0958a673f0527b5bc87c16cb041e620f085ead87",
-      "state": "IMPLEMENTATION_PREOPEN"
+      "frozen_supply": "BERLIN_OSM_SNAPSHOT_AND_M1_RESIDENTIAL_ANCHORS",
+      "implementation_commit": "eebccc7a43eb7c1ef2661da3f357c0e5b01e72ef",
+      "runner_changes_permitted": "NO",
+      "state": "CLOSED_PASS"
     },
     "F4.1c_discovery": {
       "conclusion": "EXTERNAL_SPATIAL_EVIDENCE_REQUIRED",
       "repository_mutation": "NO",
       "state": "DISCOVERY_COMPLETE"
     },
+    "F4.1d": {
+      "latest_scientific_lineage_commit": "61f29671a1e2a562d000bd6a1be45366a6630568",
+      "original_implementation_commit": "28ca5f81cd949206e9d27592860da2376863ba7f",
+      "resources_hotfix_commit": "5b4338e41f731c20d1245f72def2fd769978c8da",
+      "selected_components": "FROZEN_FIVE_DGEN_COMPONENTS",
+      "state": "CLOSED_PASS",
+      "taxonomy_bridge": "PRIVATE_ERRAND_TO_OTHER_EXPLICIT_LOSSY_PROJECTION"
+    },
     "F4.2": {
-      "state": "NOT_AUTHORIZED"
+      "F4.2a": {
+        "S_ATTR": "NON_SELECTABLE_ABLATION",
+        "S_NEAR": "DIAGNOSTIC_BASELINE",
+        "commit": "7ec2c7aa884191ec77cf1fe6783756b78471f9c3",
+        "qualifier": "PRE_G3_CORE_SELECTED",
+        "selected_policy": "S_DIST",
+        "state": "CLOSED_PASS"
+      },
+      "F4.2b_A": {
+        "B2_policy_selection": "NONE",
+        "commit": "1fdfd815fb5085cbc674b66baecd932a9bcabff9",
+        "qualifier": "EXPLORATORY_NO_SELECTION",
+        "state": "CLOSED_PASS",
+        "variants": 11
+      },
+      "F4.2b_B": {
+        "B2_policy_selection": "NONE",
+        "audit_scope": "READ_ONLY_COMPACT_EVIDENCE_AUDIT_PLUS_WORKER_DELEGATED_RAW_RUNBUNDLE_CHECKS",
+        "closure_id": "F4_2B_B_MAIN_SCIENTIFIC_CLOSURE_V1",
+        "closure_md_sha256": "fa05842214c2a12dbfd75b19d62deff8ed7006f1a00c13d2e242016f5cf416de",
+        "commit": "4c6481bc8bab4aca724020e29cc3ebbd69929771",
+        "delegated_runbundle_sha256": "50397987086bd08655a7b692912970bbed1c3fee5439e069cece5e6bab37d99a",
+        "qualifier": "EXPLORATORY_NO_SELECTION",
+        "scientific_closure_state": "CLOSED_PASS_EXPLORATORY_NO_SELECTION",
+        "scientific_validation_scope": "PARTIAL_SYNTHETIC_ESCORT_INTEGRATION_NOT_OBSERVED_BEHAVIOR",
+        "state": "CLOSED_PASS"
+      },
+      "F4.2c": {
+        "state": "NOT_OPEN"
+      },
+      "G3": "NOT_OPEN",
+      "note": "F4.2b-B closure does not open G3, complete M3, select a B2, nor authorize additional simulations.",
+      "state": "IN_PROGRESS_PRE_G3"
     }
   },
   "current_forbidden_actions": [
-    "reopen_G1",
-    "reopen_G2",
     "read_consumed_MiD_TEST",
-    "retune_F1",
-    "retune_M2",
-    "assign_nonhome_destinations",
-    "execute_S_NEAR",
-    "execute_S_DIST",
-    "execute_S_ATTR",
-    "open_F4_2",
-    "run_G3_CAL",
-    "run_G3_TEST",
-    "infer_people_capacity",
-    "compute_canonical_attractiveness",
-    "destructive_OSM_duplicate_merge",
-    "network_access_in_C",
-    "official_C_materialization_before_exact_commit_push",
-    "git_push_from_terminal"
+    "reopen_F1_CAL",
+    "reopen_G0_G1_G2",
+    "regenerate_M1_M2",
+    "refit_DGEN_five_frozen_components",
+    "modify_F4_2A_CORE",
+    "modify_F4_2B_A_FROZEN_PROPOSALS",
+    "rerun_F4_2A_or_F4_2B_A_or_F4_2B_B",
+    "modify_frozen_RunBundles",
+    "choose_or_merge_B2_variants",
+    "open_F4_2C",
+    "open_G3",
+    "open_G3_TEST",
+    "adjust_frozen_metrics_thresholds_without_MAIN_scientific_amendment",
+    "mutate_src_tests_configs_or_scientific_design_in_admin_sync",
+    "commit_or_push_from_Worker_terminal"
   ],
   "f4_1c_b_source": {
     "authoritative_input_type": "DATED_RAW_OSM_PBF",
@@ -169,28 +211,51 @@
       "state": "PASS_CLOSED"
     },
     "G3": {
+      "reopen": "REQUIRES_SEPARATE_MAIN_PREOPEN",
       "state": "NOT_OPEN"
     }
   },
+  "last_main_closure": {
+    "closure_id": "F4_2B_B_MAIN_SCIENTIFIC_CLOSURE_V1",
+    "closure_md_sha256": "fa05842214c2a12dbfd75b19d62deff8ed7006f1a00c13d2e242016f5cf416de",
+    "closure_package_sha256": "ef36b939e2fddf670699717797f0f7361bdd778cb021e199b4e8a7b6007bedc3",
+    "date": "2026-10-10",
+    "decision": "CLOSED_PASS_EXPLORATORY_NO_SELECTION",
+    "no_G3_open": true,
+    "no_b2_selection": true,
+    "runbundle_hash_worker_verified_not_MAIN_directly": "50397987086bd08655a7b692912970bbed1c3fee5439e069cece5e6bab37d99a",
+    "scientific_commit_reported": "4c6481bc8bab4aca724020e29cc3ebbd69929771",
+    "work_package": "F4.2b-B"
+  },
   "next_authorized_task": {
-    "entry_artifact": "SimFleet_EDG_F4_1C_C_WORKER_PACKET_v1.zip",
-    "name": "OPERATIONAL_LOCATION_SUPPLY_AND_RESIDENTIAL_ANCHOR_MATERIALIZATION",
+    "allowed_paths": [
+      "docs/MASTER_PROJECT_STATE.md",
+      "docs/MASTER_PROJECT_STATE.json",
+      "docs/MASTER_TRACEABILITY.csv"
+    ],
+    "branch_expected": "main",
+    "commit_push_actor": "USER_VIA_PYCHARM_ONLY",
+    "name": "DOC_ONLY_MASTER_STATE_AND_TRACEABILITY_SYNC",
+    "next_gate": "G3_NOT_OPEN",
+    "next_scientific_phase": "F4.2c_NOT_OPEN",
+    "postpush": "VERIFY_AUTHORITATIVE_GIT_AND_DOC_HASHES_RETURN_TO_MAIN",
     "pre_commit_stop": true,
-    "requires_real_clone_git_gate": true,
-    "return_to_main": "implementation commit + verified reproducible RunBundle + ClosurePackage",
-    "thread": "SimFleet-EDG \u2014 F4.1c-C \u2014 Implementation & Execution",
-    "work_package_id": "F4.1c-C"
+    "require_clean_worktree": true,
+    "required_parent_commit": "4c6481bc8bab4aca724020e29cc3ebbd69929771",
+    "science_simulation": "FORBIDDEN",
+    "state": "IMPLEMENTATION_PREOPEN",
+    "work_package_id": "MAIN_MASTER_STATE_SYNC_F4_2B_B_V1"
   },
   "open_bindings": [
     {
-      "effect": "OUTSIDE remains audit-only for Berlin C",
+      "effect": "OUTSIDE remains audit-only; not promoted",
       "id": "F4-BIND-007",
       "state": "OPEN"
     },
     {
-      "effect": "Blocks later F4.2 ESCORT cases",
+      "effect": "Synthetic ESCORT sensitivity integrated partially, but no empirical relationship identified; blocks unqualified full integration",
       "id": "F4-BIND-ESCORT-001",
-      "state": "OPEN"
+      "state": "UNRESOLVED_AS_OBSERVED_RELATION"
     }
   ],
   "sealed_evidence": {
@@ -202,7 +267,7 @@
       "same_lineage_scientific_tuning_FORBIDDEN"
     ]
   },
-  "state_id": "SIMFLEET_EDG_MASTER_PROJECT_STATE_V1",
+  "state_id": "SIMFLEET_EDG_MASTER_PROJECT_STATE_V2_SYNC_20261010",
   "traceability_source": {
     "archive": "F0-F4_1c.zip",
     "archive_sha256": "e4f8930040f8b14fd205f930d1dc0bc79958af5980ce87aa09525638ab607bf2",
@@ -214,7 +279,7 @@
   },
   "workflow": {
     "id": "SIMFLEET_EDG_WORKFLOW_V2",
-    "repository_sync": "F4.1c-C_IMPLEMENTATION_PREOPEN",
+    "repository_sync": "DOC_ONLY_SYNC_AUTHORIZED_PENDING_USER_PUSH",
     "status": "MAIN_ADOPTED"
   }
 }
