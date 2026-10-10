@@ -1,0 +1,144 @@
+workflow: SIMFLEET_EDG_WORKFLOW_V2
+authority: MAIN
+work_package: F4.2b-B
+preopen_id: F4_2B_B_MAIN_IMPLEMENTATION_PREOPEN_V1
+status: IMPLEMENTATION_PREOPEN_AUTHORIZED_CONDITIONAL_REAL_CLONE
+scientific_execution: POSTPUSH_CONDITIONAL_ONLY
+no_scientific_candidate_selection: true
+expected_real_clone:
+  branch: main
+  head: 1fdfd815fb5085cbc674b66baecd932a9bcabff9
+  origin_main: 1fdfd815fb5085cbc674b66baecd932a9bcabff9
+  worktree: clean
+exact_scope:
+  new_paths:
+  - configs/f4/f4_2b_b_partial_integration_preopen_v1.yaml
+  - docs/F4_2B_B_PARTIAL_INTEGRATION_DESIGN_FREEZE_v1.md
+  - docs/F4_2B_B_REPOSITORY_ENTRY_AUDIT_v1.md
+  - docs/F4_2B_B_ACTIVITY_NODE_AND_FAILURE_RULES_v1.csv
+  - docs/F4_2B_B_OUTPUT_SCHEMAS_v1.csv
+  - docs/F4_2B_B_VALIDATION_GATES_v1.csv
+  - docs/F4_2B_B_COMPONENT_BINDINGS_v1.csv
+  - docs/F4_2B_B_EXACT_PREOPEN_GATE_v1.md
+  - docs/F4_2B_B_OVERLAY_FILELIST_v1.txt
+  - docs/F4_2B_B_OVERLAY_CHECKSUMS_v1.sha256
+  - src/simfleet_edg/spatial/escort_partial_day_index.py
+  - src/simfleet_edg/spatial/escort_day_binding.py
+  - src/simfleet_edg/spatial/escort_partial_integration.py
+  - src/simfleet_edg/spatial/escort_partial_ledger.py
+  - src/simfleet_edg/repro/f4_2b_b_partial_integration.py
+  - scripts/verify_f4_2b_b_preopen.py
+  - scripts/verify_f4_2b_b_runbundle.py
+  - tests/test_f4_2b_b_entry_preopen.py
+  - tests/test_f4_2b_b_day_index.py
+  - tests/test_f4_2b_b_location_binding.py
+  - tests/test_f4_2b_b_partial_integration.py
+  - tests/test_f4_2b_b_partial_ledger.py
+  - tests/test_f4_2b_b_runner_contract.py
+  - tests/test_f4_2b_b_runbundle.py
+  - tests/test_f4_2b_b_scientific_boundaries.py
+  new_paths_only: true
+  old_paths_protected: true
+frozen_input_tars:
+  f4_2a: 9d97b2294e24d97709bc8ba4f103f94b5b21d2c4d64d7ed72efe35d24f816247
+  f4_2b_a: 7aa0c4756f2bfca3e58988c4053083f52d4b1166621ba29ae6629cf7edc6bb3b
+accepted_controlled_scenario: F4_2A_CORE_REFERENCE_V1
+variant_set: B0 + all 10 fixed B2 scenarios, no selection
+counters:
+  person_days: 100000
+  trips: 325613
+  escort_days: 15381
+  escort_day_trips: 84862
+  escort_events_per_variant: 18871
+  core_days: 84619
+  core_trips: 240751
+input_sidecar_coverage:
+  required_stable_keys_escort_days: 7621
+  covered_by_existing_sidecar: 7621
+  missing: 0
+postpush_git_gate:
+  must_verify_expected_parent: 1fdfd815fb5085cbc674b66baecd932a9bcabff9
+  expected_commit_changes: 25 added paths exactly
+  new_HEAD_not_known_at_design_time: true
+  origin_main_equal: true
+  clean_tree: true
+forbidden:
+- Modify frozen previous path
+- D_GEN regeneration
+- F4.2a rerun
+- F4.2b-A draws rerun
+- CAL
+- MiD TEST
+- G3
+- F4.2c
+- Any B2 variant selection
+- Synthetic relationship interpreted as observed
+control_point: STOP_PRECOMMIT_THEN_MANUAL_PYCHARM_COMMIT_PUSH
+baseline_protected_sha256:
+  src/simfleet_edg/canonical/mobility.py: 881fd12eb59d89ebe48a30a1e5f267f55051720dc265471ca796f154afcb9d2e
+  src/simfleet_edg/spatial/candidate_index.py: b1f79adceb35039bf97937a24089d461384672609e6cb1ca3cd5381b83322586
+  src/simfleet_edg/spatial/candidate_policies.py: 12b5b84841479150c6af5082eebfc960dc51d33820cdc0248bc253eb8ce75f2b
+  src/simfleet_edg/spatial/spatial_core_io.py: b7f9d762f7fe5b0b55ea349a4d9c8fb7d655fc67240ac0e0e363f130e9f495ea
+  src/simfleet_edg/spatial/spatialize_core.py: 2740b5b6f29e79dfe4f4cb9ce12ca4454bc6e2952cfe5f24b0b149af01c2a71e
+  src/simfleet_edg/spatial/escort_event_index.py: 9bdac186a34558ca5d8c1fae6eebaac778ea8f82e420e39783a2e92f0ecda842
+  src/simfleet_edg/spatial/escort_location_binding.py: 7d882a1bb60cef54860e519443dd5cac1f539244b78443bbc5667c5dd6c56b97
+  src/simfleet_edg/spatial/escort_synthetic_relations.py: 644e81bce71b3ef3cf36b16dd4ca5ae0ebcc6fabad52d0d3e9dcd83550b139ca
+  src/simfleet_edg/spatial/escort_target_anchor_extension.py: d33726a08924c61565146f35a08c8f30c49d92f7aa3c34cfc302557e03535353
+  src/simfleet_edg/repro/f4_2a_core_spatial.py: 2ccad7e760ff21dcf6729769a1466e00e006914e1898de26c13c586debe78cdc
+  src/simfleet_edg/repro/f4_2b_a_local_sensitivity.py: b3427e1c3f5c09581652382587ba898ef61532648c54dd2eb0f7ccc28f278bb7
+  src/simfleet_edg/demand/m2_m3_adapter.py: b3f383be6aaa73cc0393e44ce32408c98b5383e8198ed08373d1e46bf366ab8e
+  src/simfleet_edg/demand/runtime_context.py: c2fc3fe9c5cd6afeb0621a2506354f6bd4c24dcee8f4c667de989e56a65edaa9
+  src/simfleet_edg/demand/runtime_generator.py: 439b96e2724ff6ab1ebea8fb8e1dfca92b74fc668874e5121cdaa8795ccb8c0c
+  scripts/verify_f4_2b_a_preopen.py: b12fe52c1b752e71b980e65ad832373635b1bda4a331b09a2ab90a53c9dc225a
+  scripts/verify_f4_2b_a_runbundle.py: f9ea3f751cd4ac3a7dc10c8db0ddf69e210828ec2e518ffb4cddf3a36d824f32
+  scripts/verify_f4_2a_preopen.py: c22b83e7f4a55921a2bf8b8d09113273dc004a77130828079e5bbafedc583377
+  scripts/verify_f4_2a_runbundle.py: 8258eb6c0b6cf308329264e6c6a8e33acc67bcdc6dfd5649c5bcd30e7a26e7eb
+  pyproject.toml: 312fd2d395ad44ae06303307982373e58773539aeb1654b7d31a5a12bd2aa882
+current_workflow_phase: F4_2B_B_IMPLEMENTATION_ONLY_STOP_PRECOMMIT
+postpush_command: python -m simfleet_edg.repro.f4_2b_b_partial_integration --stage
+  full (see docs/F4_2B_B_EXACT_PREOPEN_GATE_v1.md)
+frozen_upper_bounds:
+  B0_NO_LINK:
+    link_complete_days: 0
+    resolved_escort_events: 0
+    link_complete_trips: 0
+  B2_SRV2018_HH000:
+    link_complete_days: 11150
+    resolved_escort_events: 14426
+    link_complete_trips: 59420
+  B2_SRV2018_HH025:
+    link_complete_days: 8756
+    resolved_escort_events: 11632
+    link_complete_trips: 45739
+  B2_SRV2018_HH050:
+    link_complete_days: 6505
+    resolved_escort_events: 8872
+    link_complete_trips: 33746
+  B2_SRV2018_HH075:
+    link_complete_days: 4379
+    resolved_escort_events: 5984
+    link_complete_trips: 22658
+  B2_SRV2018_HH100:
+    link_complete_days: 2443
+    resolved_escort_events: 3176
+    link_complete_trips: 12574
+  B2_SRV2023_HH000:
+    link_complete_days: 11665
+    resolved_escort_events: 14983
+    link_complete_trips: 62751
+  B2_SRV2023_HH025:
+    link_complete_days: 9110
+    resolved_escort_events: 12053
+    link_complete_trips: 48034
+  B2_SRV2023_HH050:
+    link_complete_days: 6660
+    resolved_escort_events: 9000
+    link_complete_trips: 34301
+  B2_SRV2023_HH075:
+    link_complete_days: 4590
+    resolved_escort_events: 6170
+    link_complete_trips: 23755
+  B2_SRV2023_HH100:
+    link_complete_days: 2549
+    resolved_escort_events: 3304
+    link_complete_trips: 13249

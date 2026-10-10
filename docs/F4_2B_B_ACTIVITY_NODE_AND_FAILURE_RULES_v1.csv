@@ -1,0 +1,10 @@
+stage,trigger,identity,location_policy,on_failure,notes
+first_origin,trip_index=1,HOME,frozen M1 ResidentialAnchor,BLOCK_NO_HOME,No new locations
+escort_destination,destination_activity=ESCORT,"EVENT(row_id,trip_index)",EXACT B2 location_id from matched M1 target CORE/sidecar,UNRESOLVED_EVENT_OR_ANCHOR,One incoming ESCORT = one B2 proposal
+escort_next_origin,origin_activity=ESCORT and trip_index>1,PREVIOUS DESTINATION,same exact LocationRef,BLOCK_CHAIN_MISMATCH,No second ESCORT lookup for outgoing trip
+home_destination,destination_activity=HOME,PERSON HOUSEHOLD HOME,home:household_id,BLOCK_HOME_MISMATCH,M1 home only
+stable_destination,destination_activity=WORK|EDUCATION,PERSON PURPOSE,S_DIST CORE or immutable sidecar,BLOCK_STABLE_ANCHOR_ABSENT,WORK = WORK_COMMUTE registry key
+occurrence_destination,destination_activity=BUSINESS|SHOPPING|LEISURE|OTHER,PREVIOUS RESOLVED ORIGIN,S_DIST frozen eligible supply and ties,UNRESOLVED_NO_ELIGIBLE_SPATIAL,Never S_NEAR or S_ATTR
+unresolved_day,any ESCORT event not resolved,FULL DAY,no partial spatial trip output,ESCORT_LINK_INCOMPLETE,retain trip originals in accounting ledger
+unresolvable_spatial,all links resolved but other node fails,FULL DAY,no partial spatial trip output,ESCORT_SPATIAL_UNRESOLVED,preserve reason and input originals
+global_input_error,bad source hashes or broken M2 chain,WHOLE RUN,stop,ESCORT_FATAL_INPUT_GATE,fail rather than hide corruption

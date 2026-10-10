@@ -1,0 +1,58 @@
+gate_id,group,check,pass_criterion,blocking
+B2B-G001,INPUT,f4_2a_tar_sha256,Byte exact frozen F4.2a source tar,YES
+B2B-G002,INPUT,f4_2b_a_tar_sha256,Byte exact B2 A/B source,YES
+B2B-G003,INPUT,origin_main_clean,Exact real-clone git and worktree,YES
+B2B-G004,INPUT,source_m1_c_hashes,M1 and F4.1c-C canonical bytes,YES
+B2B-G005,INPUT,m2_100k_325613,Exact 100k/325613 immutable DGEN,YES
+B2B-G006,INPUT,core_84619_240751,Exact F4.2a CORE immutable output,YES
+B2B-G007,INPUT,escort_15381_84862,Exact excluded domain,YES
+B2B-G008,INPUT,event_18871_each,Every variant exactly 18871 escort event IDs,YES
+B2B-G009,INPUT,variant_11_unique,B0 + ten B2 without duplication,YES
+B2B-G010,INPUT,original_chain,"Original first HOME, contiguous trip IDs and purpose links",YES
+B2B-G011,INPUT,m2_taxonomy,No unmapped PRIVATE_ERRAND etc,YES
+B2B-G012,INPUT,positive_finite_prior,Every distance prior positive and finite,YES
+B2B-G013,INPUT,CORE_30055_anchors,Frozen core person-purpose locations unchanged,YES
+B2B-G014,INPUT,sidecar_7621_anchors,Frozen sidecar exact person-purpose keys unchanged,YES
+B2B-G015,INPUT,stable_needed_keys,All needed stable person-purpose keys covered or explicit blocker,YES
+B2B-G016,LINK,unique_escort_event_ids,No missing/duplicate event per variant,YES
+B2B-G017,LINK,no_self_links,All linked target person IDs distinct from escorter,YES
+B2B-G018,LINK,scope_household_consistency,M1 HH identity matches HOUSEHOLD/NONHOUSEHOLD class,YES
+B2B-G019,LINK,target_purpose_eligible,WORK/EDUCATION target has frozen corresponding M2 activity,YES
+B2B-G020,LINK,anchored_target_exact,Inherited location equals immutable CORE or sidecar target,YES
+B2B-G021,LINK,unsupported_purpose_unresolved,UNSUPPORTED remains typed unresolved,YES
+B2B-G022,LINK,b0_zero_links,B0 remains 0 linked,YES
+B2B-G023,LINK,no_variant_promotion,No promotion/selection of any hypothetical pHH,YES
+B2B-G024,DAY,all_events_or_whole_day_excluded,No event-level partial inclusion,YES
+B2B-G025,DAY,variant_complete_days_match_input,Input upper bound recomputation matches 11 variant counts,YES
+B2B-G026,DAY,first_origin_home,Initial physical node is frozen household HOME,YES
+B2B-G027,DAY,consecutive_activity_nodes,Destination i equals origin i+1 for all trips,YES
+B2B-G028,DAY,escort_next_origin_same_ref,Origin following ESCORT inherits exact event-specific LocationRef,YES
+B2B-G029,DAY,consecutive_escort_distinct_events,ESCORT→ESCORT uses separate incoming event IDs,YES
+B2B-G030,DAY,stable_work_edu_reused,WORK/EDUCATION stable anchors correct in whole day,YES
+B2B-G031,DAY,other_activity_sdist_frozen,Occurrence POIs selected only by frozen S_DIST,YES
+B2B-G032,DAY,return_home_consistency,Original return_home/final activity preserved,YES
+B2B-G033,DAY,no_extra_anchor_autocreation,"Missing stable anchor causes blocker, not fallback",YES
+B2B-G034,DAY,unresolved_day_no_spatial_rows,No partial day output mislabeled complete,YES
+B2B-G035,DAY,failure_types_preserved,Typed unresolved event codes retained,YES
+B2B-G036,GEOM,Berlin_closed_world,No outside/imaginary POI,YES
+B2B-G037,GEOM,EPSG25833_distance,Euclidean distance computed from frozen coords,YES
+B2B-G038,GEOM,zero_distance_infinite_error,"d=0 keeps +INF, no epsilon",YES
+B2B-G039,GEOM,original_M2_metrics_readonly,No regeneration or change to trip times/prior,YES
+B2B-G040,LEDGER,all_day_fk_exact,One row per 100000 days per variant,YES
+B2B-G041,LEDGER,all_trip_fk_exact,One row per 325613 trips per variant,YES
+B2B-G042,LEDGER,status_partitions,CORE+all ESCORT statuses exactly sum full population,YES
+B2B-G043,LEDGER,trips_partitions,CORE 240751 + ESCORT 84862 exact,YES
+B2B-G044,LEDGER,append_only_core,No copied/modified CORE file or row,YES
+B2B-G045,LEDGER,variants_strict_isolation,No links/POIs from a different B2 variant,YES
+B2B-G046,METRIC,coverage_denominator,Report event/day/trip separately,YES
+B2B-G047,METRIC,purpose_draw_confounding,Do not claim isolated pHH causal effect,YES
+B2B-G048,METRIC,no_distance_prior_validation,Internal compatibility is not independent truth,YES
+B2B-G049,QUALITY,focused_tests,All focused tests PASS,YES
+B2B-G050,QUALITY,ruff_scoped_and_diff,No new Ruff diagnostics,YES
+B2B-G051,QUALITY,mypy_scoped_and_diff,No new mypy diagnostics,YES
+B2B-G052,QUALITY,full_regression,Full regression PASS,YES
+B2B-G053,REPRO,repeat_exact_sha256,All canonical deterministic A/B output bytes exact,YES
+B2B-G054,PROVENANCE,no_forbidden_inputs,No CAL / MiD TEST reads,YES
+B2B-G055,PROVENANCE,downstream_not_authorized,F4.2c G3 remains closed,YES
+B2B-G056,GIT,precommit_stop,User commits pushes manually in PyCharm,YES
+B2B-G057,GIT,exact_scope,All changes within MAIN-authorized new paths,YES

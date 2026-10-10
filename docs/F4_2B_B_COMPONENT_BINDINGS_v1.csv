@@ -1,0 +1,11 @@
+component,concrete_source,required_runtime_semantics,join_key
+DAY_M2,F4.2a dgen_A/dgen_day_rows_v1.csv.gz,read-only full days,row_id + person_id
+TRIP_M2,F4.2a dgen_A/dgen_trip_rows_v1.csv.gz,read-only full trips + pandas numeric semantics,row_id + trip_index
+CORE_S_DIST,F4.2a spatial_1/S_DIST/,CORE bytes never overwritten; reference existing days/trips/stable,row_id or person-purpose
+PROPOSALS_B0_B2,F4.2b-A A/escort_location_proposals_{variant}_v1.csv.gz,one row per event; strict typed unresolved,row_id + trip_index
+ANCHOR_SIDECAR,F4.2b-A A/target_stable_anchor_extension_v1.csv.gz,"7,621 frozen stable keys; reference only",person_id + purpose
+HOME,Frozen C residential_anchors_v1.csv.gz,accepted M1 household residential anchor,household_id
+SUPPLY,Frozen C location_supply_v1.csv.gz & evidence,canonical eligible destinations; no outside,purpose + location_id
+S_DIST_OCCURRENCE,"spatialize_core.Spatializer._resolve(origin,p,purpose,""S_DIST"")",existing frozen CandidateIndex/tie rules; no new policy,origin + occurrence
+S_DIST_METRIC,spatialize_core.Spatializer.metric(ref),"EPSG:25833 Euclidean, zero=INF",LocationRef
+POSTPUSH,f4_2b_b_partial_integration.py --stage precheck|run,runner own new lineage gate; never prior official runner git_gate,git HEAD/parent/diff

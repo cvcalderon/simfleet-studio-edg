@@ -1,0 +1,41 @@
+file,field,type,contract
+day_ledger_v1.csv.gz,variant_id,string,11 fixed scenario variants; no selection
+day_ledger_v1.csv.gz,row_id,string,one row per original M2 day per variant
+day_ledger_v1.csv.gz,person_id,string,exact M1 person
+day_ledger_v1.csv.gz,household_id,string,exact M1 household
+day_ledger_v1.csv.gz,trip_count,integer,exact M2 original
+day_ledger_v1.csv.gz,escort_event_count,integer,0 for core; exact for excluded days
+day_ledger_v1.csv.gz,day_status,enum,CORE_FROZEN_SPATIALIZED|ESCORT_LINK_INCOMPLETE|ESCORT_SPATIALIZED_SYNTHETIC_LOCATION_ONLY|ESCORT_SPATIAL_UNRESOLVED; FATAL stops run
+day_ledger_v1.csv.gz,reason_codes,array encoded json str,sorted list from original events or spatial gate
+day_ledger_v1.csv.gz,all_escort_links_resolved,boolean,true only if every ESCORT event fully supported
+day_ledger_v1.csv.gz,every_trip_spatialized,boolean,true only for final included CORE or fully spatialized day
+trip_ledger_v1.csv.gz,variant_id,string,reference to specific hypothesis variant
+trip_ledger_v1.csv.gz,row_id,string,M2 day key
+trip_ledger_v1.csv.gz,trip_index,integer,original one-based contiguous index
+trip_ledger_v1.csv.gz,original_origin_activity,string,frozen M2 activity
+trip_ledger_v1.csv.gz,original_destination_activity,string,frozen M2 activity
+trip_ledger_v1.csv.gz,original_departure_clock_minute,integer,frozen M2
+trip_ledger_v1.csv.gz,original_arrival_absolute_minute,integer,frozen M2
+trip_ledger_v1.csv.gz,original_distance_prior_km,float64,frozen M2; strict positive finite
+trip_ledger_v1.csv.gz,spatial_status,enum,CORE_BY_REFERENCE|ESCORT_SPATIALIZED|ESCORT_UNSPATIALIZED
+trip_ledger_v1.csv.gz,origin_location_id,string or blank,blank only when day unspatialized
+trip_ledger_v1.csv.gz,destination_location_id,string or blank,blank only when day unspatialized
+trip_ledger_v1.csv.gz,source_core_or_delta,enum,F4_2A_CORE_REFERENCE|F4_2B_B_DELTA|NONE
+escort_spatialized_trip_delta_v1.csv.gz,variant_id,string,no CORE duplicates
+escort_spatialized_trip_delta_v1.csv.gz,row_id,string,original ESCORT-day row key
+escort_spatialized_trip_delta_v1.csv.gz,person_id,string,exact M1 person ID
+escort_spatialized_trip_delta_v1.csv.gz,trip_index,integer,original M2 index; must match event when destination ESCORT
+escort_spatialized_trip_delta_v1.csv.gz,origin_activity,string,frozen M2 origin activity
+escort_spatialized_trip_delta_v1.csv.gz,destination_activity,string,frozen M2 destination activity
+escort_spatialized_trip_delta_v1.csv.gz,origin_location_id,string,resolved previous activity LocationRef
+escort_spatialized_trip_delta_v1.csv.gz,destination_location_id,string,inherited ESCORT LocationRef or S_DIST non-ESCORT
+escort_spatialized_trip_delta_v1.csv.gz,distance_prior_km,float64,unchanged frozen M2 distance prior
+escort_spatialized_trip_delta_v1.csv.gz,event_id,string or blank,row_id:trip_index for ESCORT destination
+escort_spatialized_trip_delta_v1.csv.gz,target_person_id,string or blank,M1 person ID when destination ESCORT
+escort_spatialized_trip_delta_v1.csv.gz,target_anchor_origin,enum or blank,CORE|SIDECAR when ESCORT; validate against actual anchor
+escort_spatialized_trip_delta_v1.csv.gz,euclidean_distance_km,float64,EPSG:25833 from frozen source coords
+escort_spatialized_trip_delta_v1.csv.gz,abs_log_ratio,float64 or INF,d=0 implies +INF; no epsilon
+variant_scientific_summary_v1.json,denominators,object,"100000/325613, 15381/84862, 18871"
+variant_scientific_summary_v1.json,coverage_and_failures,object,"typed by event, day, trip and variant"
+run_manifest_v1.json,git_and_input_hashes,object,frozen commits and all authoritative upstream SHA-256
+run_manifest_v1.json,science_class,string,SYNTHETIC_HYPOTHETICAL_NOT_OBSERVED
