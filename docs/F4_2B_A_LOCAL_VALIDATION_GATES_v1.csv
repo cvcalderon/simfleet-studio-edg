@@ -1,0 +1,41 @@
+gate_id,test,acceptance_rule
+P01,real-clone gate,"main HEAD == origin/main expected, worktree clean"
+P02,exact scope,"20 paths all new, 0 existing edits"
+P03,F4.2a RunBundle integrity,39/39 exact hash read-only
+P04,frozen demand,100000 days / 325613 trips unchanged
+P05,escort universe,18871 events unique; 15381 days; 84862 trips
+P06,frozen CORE protected,S_DIST core hashes and stable anchors unchanged
+P07,source prior integrity,3 source files SHA-256 match frozen; no new source
+P08,PMF 2018,"739/1000 EDU, 25/1000 WORK, 236/1000 UNSUPPORTED"
+P09,PMF 2023,"765/1000 EDU, 23/1000 WORK, 212/1000 UNSUPPORTED"
+P10,purpose three-way,"UNSUPPORTED preserved, never renormalized"
+P11,HOME interpretation,"HOME = NOT_IDENTIFIED, no empirical zero claim"
+P12,scope grid,"2018/2023 x HH {0,.25,.50,.75,1}, exact 10 variants"
+P13,B0 baseline,"18871 unresolved all, no links"
+P14,eligibility person,different accepted M1 ID only; no fabricated person
+P15,eligibility household,exact HH / nonHH identity including singletons
+P16,eligibility activity,only frozen M2 WORK/EDUCATION target occurrence
+P17,anchor extension,only missing target person-purpose; source D_GEN unchanged
+P18,CORE overlap,recomputed overlap equals frozen CORE; no mutated stable anchors
+P19,index efficiency,no O(100000 x 18871) pairwise exhaustive search
+P20,scope no fallback,no resample/switch on missing chosen scope or purpose
+P21,typed unresolved,no source/unsupported/no partner/no anchor individually counted
+P22,determinism,keyed SHA stream order invariant; serial/parallel equal
+P23,seed isolation,F4.2b namespace not D_GEN or S_DIST stream
+P24,location inheritance,exact target LocationRef; no arbitrary POI
+P25,temporal boundary,"original times unchanged, co-travel not claimed"
+P26,resources UNKNOWN,no UNKNOWN -> NO coercion
+P27,household 6_PLUS,preserve 6_PLUS semantic category
+P28,audit completeness,18871 proposal rows per each variant
+P29,source share trace,per-variant assumptions/provenance and priors SHA recorded
+P30,sensitivity selection,NO optimise/choose variant using S_DIST metrics
+P31,focused tests,PASS
+P32,scoped Ruff and diff,PASS and no new baseline diagnostics
+P33,scoped mypy and diff,PASS and no new baseline diagnostics
+P34,full regression,PASS
+P35,exact scope and verifier,PASS before PRE-COMMIT STOP
+P36,manual commit push,"PyCharm only, user action"
+P37,postpush git gate,"HEAD=origin/main, clean, expected parent"
+P38,two run exact hashes,"same frozen inputs, A/B byte-exact per variant"
+P39,no forbidden gates,"MiD TEST/CAL 0, G3 not open, F4.2c not open"
+P40,ReturnBundle,"manifest, checksums, all outputs, caps, gaps to MAIN"

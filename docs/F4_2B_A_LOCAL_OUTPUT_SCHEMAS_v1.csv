@@ -1,0 +1,15 @@
+artifact,field,semantics
+escort_location_proposals_*.csv.gz,variant_id,B0 or frozen B2 variant
+escort_location_proposals_*.csv.gz,event_id,row_id plus trip_index exact occurrence key
+escort_location_proposals_*.csv.gz,target_person_id,accepted existing M1 ID or empty
+escort_location_proposals_*.csv.gz,target_location_id,frozen C LocationRef ID or empty
+escort_location_proposals_*.csv.gz,status,typed unresolved or LOCATION_ONLY resolved
+escort_location_proposals_*.csv.gz,evidence_class,SYNTHETIC_HYPOTHETICAL_NOT_OBSERVED
+escort_location_proposals_*.csv.gz,household_size_class,frozen 6_PLUS and singleton preserved
+escort_location_proposals_*.csv.gz,resource_state,frozen categorical incl UNKNOWN
+escort_audit_*.json,statuses,count of all 18871 events by outcome
+escort_audit_*.json,statuses_by_household_and_resource,strata from frozen M2 context
+escort_audit_*.json,external_descriptive_transfer,source-purpose scenario assumptions
+all_variant_summary_v1.csv.gz,variant_id,11 registered variants
+scientific_return_to_main_v1.json,status,exploratory only no claim of empirical link
+runbundle_manifest_v1.json,pair_exact,two separate processes exact byte identities
