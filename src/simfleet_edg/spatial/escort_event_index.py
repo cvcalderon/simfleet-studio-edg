@@ -8,6 +8,8 @@ from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
+import pandas as pd  # type: ignore[import-untyped]
+
 
 @dataclass(frozen=True)
 class EscortEvent:
@@ -47,6 +49,13 @@ def index_frozen_m2(day_path: Path, trip_path: Path, *, enforce_100k: bool = Tru
     """One trip scan; activity occurrences count once per destination ESCORT."""
     days = _rows(day_path)
     trips = _rows(trip_path)
+    # F4.2a used the full pandas parser (low_memory=False) before adapting M2.
+    # Keep stdlib CSV for EVERY original identity/event field and ordering;
+    # use pandas only for the same IEEE-754 float conversion as frozen CORE.
+    reference_trips = pd.read_csv(trip_path, low_memory=False)
+    if len(reference_trips) != len(trips) or "distance_prior_km" not in reference_trips:
+        raise ValueError("Frozen M2 pandas/CSV trip source misalignment")
+    distance_priors = reference_trips["distance_prior_km"].to_numpy()
     if not days or len({d["row_id"] for d in days}) != len(days):
         raise ValueError("Frozen M2 day identity duplicate/empty")
     if len({(t["row_id"], int(t["trip_index"])) for t in trips}) != len(trips):
@@ -63,7 +72,7 @@ def index_frozen_m2(day_path: Path, trip_path: Path, *, enforce_100k: bool = Tru
     incoming: dict[tuple[str, str], list[tuple[bool, float]]] = defaultdict(list)
     activity: dict[str, set[str]] = defaultdict(set)
     events: list[EscortEvent] = []
-    for trip in trips:
+    for trip, numeric_prior in zip(trips, distance_priors, strict=True):
         row_id = trip["row_id"]
         day = days_by_row.get(row_id)
         if day is None or (day["source_person_id"] != trip["source_person_id"]
@@ -74,7 +83,7 @@ def index_frozen_m2(day_path: Path, trip_path: Path, *, enforce_100k: bool = Tru
         dest = trip["destination_activity"]
         orig = trip["origin_activity"]
         if dest in ("EDUCATION", "WORK"):
-            value = float(trip["distance_prior_km"])
+            value = float(numeric_prior)
             if value <= 0:
                 raise ValueError("Non-positive distance prior")
             incoming[(pid, dest)].append((orig == "HOME", value))
